@@ -16,6 +16,11 @@
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
+          <name>APPLICATION</name>
+          <description>The application type.</description>
+          <defaultValue>firefox</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>BUILD_ID</name>
           <description>The build id of Firefox.</description>
           <defaultValue></defaultValue>
@@ -102,7 +107,7 @@
       <timeAllocated></timeAllocated>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_l10n --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_l10n --app=$APPLICATION --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>
       <timeAllocated></timeAllocated>

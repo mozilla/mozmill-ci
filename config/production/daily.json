@@ -34,6 +34,9 @@
     "testrun": {
         "jenkins_parameter_map": {
             "default": {
+                "APPLICATION": {
+                    "key": "product"
+                },
                 "BRANCH": {
                     "key": "branch"
                 },
