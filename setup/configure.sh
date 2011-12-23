@@ -3,7 +3,7 @@
 # URL_MOZILLA_PULSE='http://hg.mozilla.org/users/clegnitto_mozilla.com/mozillapulse/archive/tip.zip'
 URL_VIRTUALENV=https://bitbucket.org/ianb/virtualenv/raw/1.5.2/virtualenv.py
 
-ENV_DIR=../jenkins
+ENV_DIR=../jenkins-env
 PYTHON_VERSION=$(python -c "import sys;print sys.version[:3]")
 
 if [ -e $ENV_DIR ]; then
