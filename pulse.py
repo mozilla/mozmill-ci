@@ -27,10 +27,6 @@ PLATFORM_MAP = {'linux': 'linux',
 
 j = jenkins.Jenkins('http://localhost:8080') #, 'qa-auto', 'mozqa')
 
-NOTIFICATIONS_DIR = os.path.join(os.path.dirname(__file__), "notifications")
-if not os.path.isdir(NOTIFICATIONS_DIR):
-    os.makedirs(NOTIFICATIONS_DIR)
-
 
 def handle_notification(data, message):
     routing_key = data['_meta']['routing_key']
