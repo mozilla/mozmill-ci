@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname $BASH_SOURCE)/server
+BASE=$(dirname $BASH_SOURCE)/jenkins-master
 WAR=jenkins.war
 
 URL_JENKINS="http://mirrors.jenkins-ci.org/war/latest/jenkins.war"
