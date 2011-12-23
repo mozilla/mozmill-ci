@@ -9,7 +9,7 @@ from mozillapulse import consumers
 PRODUCT = "firefox"
 BRANCHES = ['mozilla-central', 'mozilla-aurora']
 PLATFORMS = ['linux', 'linux64', 'macosx64', 'win32', 'win64']
-LOCALES = ['en-US']
+LOCALES = ['en-US', 'de']
 
 PLATFORM_MAP = {'linux': 'linux',
                 'linux64': 'linux64',
@@ -79,13 +79,14 @@ def handle_notification(data, message):
     print "Download: %s" % url
     print "Props: %s\n\n" % json.dumps(props)
 
-    if not 'mac' in props['platform']:
+    if not 'mac' in props['platform'] or not props['locale'] in LOCALES:
         return
 
-    j.build_job('functional', {'BRANCH': props['branch'],
-                               'PLATFORM': PLATFORM_MAP[props['platform']],
-                               'LOCALE': props.get('locale', 'en-US'),
-                               'BUILD_ID': props['buildid'],})
+    j.build_job('update-test', {'BRANCH': props['branch'],
+                                'PLATFORM': PLATFORM_MAP[props['platform']],
+                                'LOCALE': props['locale'],
+                                'BUILD_ID': props['buildid'],
+                                'TARGET_BUILD_ID': props['previous_buildid'] })
 
 pulse = consumers.BuildConsumer(applabel='qa-auto@mozilla.com|daily_testrun')
 pulse.configure(topic='#', callback=handle_notification)
