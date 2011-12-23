@@ -28,6 +28,7 @@ pip install -r requirements.txt
 echo "Deactivating the environment"
 deactivate
 
-echo "Successfully created the environment: '$ENV_DIR'"
+echo "Successfully created the Jenkins environment: '$ENV_DIR'"
+echo "Please see 'mozmill-env/README' for the setup of the Mozmill Environment"
 
 rm -r tmp
