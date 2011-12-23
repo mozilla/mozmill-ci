@@ -85,8 +85,8 @@ def handle_notification(data, message):
     j.build_job('update-test', {'BRANCH': props['branch'],
                                 'PLATFORM': PLATFORM_MAP[props['platform']],
                                 'LOCALE': props['locale'],
-                                'BUILD_ID': props['buildid'],
-                                'TARGET_BUILD_ID': props['previous_buildid'] })
+                                'BUILD_ID': props['previous_buildid'],
+                                'TARGET_BUILD_ID': props['buildid'] })
 
 pulse = consumers.BuildConsumer(applabel='qa-auto@mozilla.com|daily_testrun')
 pulse.configure(topic='#', callback=handle_notification)
