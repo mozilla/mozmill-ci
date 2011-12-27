@@ -14,7 +14,7 @@ PASS = 'test1234'
 PRODUCTS  = ['firefox', 'thunderbird']
 BRANCHES  = ['mozilla-central', 'mozilla-aurora']
 LOCALES   = ['de', 'en-US', 'fr', 'it', 'ja', 'es-ES', 'pl', 'pt-BR', 'ru', 'tr']
-PLATFORMS = ['linux', 'linux64', 'mac', 'win32', 'win64']
+PLATFORMS = ['linux', 'linux64', 'macosx', 'macosx64', 'win32', 'win64']
 
 
 # Map to translate platform ids from Pulse to Mozmill / Firefox
@@ -51,10 +51,7 @@ def handle_notification(data, message):
     branch = props.get('branch')
     buildid = props.get('buildid')
     locale = props.get('locale', 'en-US')
-    if props.has_key('platform') and props.get('platform') in PLATFORM_MAP.keys():
-        platform = PLATFORM_MAP[props.get('platform')]
-    else:
-        platform = None
+    platform = props.get('platform')
     version = props.get('appVersion')
 
     # If it's not a notificaton for a finished build process we are not interested in
@@ -115,7 +112,7 @@ def handle_notification(data, message):
               }
 
     j.build_job('update-test', {'BRANCH': branch,
-                                'PLATFORM': platform,
+                                'PLATFORM': PLATFORM_MAP[platform],
                                 'LOCALE': locale,
                                 'BUILD_ID': props['previous_buildid'],
                                 'TARGET_BUILD_ID': buildid })
