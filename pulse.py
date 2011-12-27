@@ -61,6 +61,10 @@ def handle_notification(data, message):
     if not routing_key.endswith(".finished") or "test" in routing_key:
         return
 
+    # If the product doesn't match the expected one we are not interested
+    if not product in PRODUCTS:
+        return
+
     # Output debug information if requested
     if debug:
         print "Routing Key: %s - Branch: %s" % (routing_key, branch)
@@ -76,10 +80,6 @@ def handle_notification(data, message):
     # Only the builders for l10n repacks offer the build id of the previous build
     # which we want to use for our update tests
     if not 'l10n' in routing_key:
-        return
-
-    # If the product doesn't match the expected one we are not interested
-    if not product in PRODUCTS:
         return
 
     # If the branch is not allowed we are not interested
