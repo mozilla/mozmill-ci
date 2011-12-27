@@ -70,9 +70,10 @@ def handle_notification(data, message):
         print "Routing Key: %s - Branch: %s" % (routing_key, branch)
 
         try:
-            if not os.path.exists(log_folder):
-                os.makedirs(log_folder)
-            f = open(os.path.join(log_folder, routing_key), 'w')
+            folder = os.path.join(log_folder, branch)
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+            f = open(os.path.join(folder, routing_key), 'w')
             f.write(json.dumps(data))
         finally:
             f.close()
