@@ -1,4 +1,5 @@
 import json
+import optparse
 import os
 import sys
 
@@ -31,17 +32,13 @@ PLATFORM_MAP = {'linux': 'linux',
                 'win64-debug': 'win64'}
 
 
+# Globally shared variables
+debug = False
+log_folder = None
+
+
 def handle_notification(data, message):
     routing_key = data['_meta']['routing_key']
-
-    # If it's not a notificaton for finished build processes we are not interested in
-    if not routing_key.endswith(".finished") or "test" in routing_key:
-        return
-
-    # Only the builders for l10n repacks offer the build id of the previous build
-    # which we want to use for our update tests
-    if not 'l10n' in routing_key:
-        return
 
     # Create dictionary with properties of the build
     if data.get('payload') and data['payload'].get('build'):
@@ -53,10 +50,33 @@ def handle_notification(data, message):
     product = props.get('product')
     branch = props.get('branch')
     buildid = props.get('buildid')
-    props.get('locale', 'en-US')
-    platform = PLATFORM_MAP[props.get('platform')]
+    locale = props.get('locale', 'en-US')
+    if props.has_key('platform') and props.get('platform') in PLATFORM_MAP.keys():
+        platform = PLATFORM_MAP[props.get('platform')]
+    else:
+        platform = None
     version = props.get('appVersion')
 
+    # If it's not a notificaton for a finished build process we are not interested in
+    if not routing_key.endswith(".finished") or "test" in routing_key:
+        return
+
+    # Output debug information if requested
+    if debug:
+        print "Routing Key: %s - Branch: %s" % (routing_key, branch)
+
+        try:
+            if not os.path.exists(log_folder):
+                os.makedirs(log_folder)
+            f = open(os.path.join(log_folder, routing_key), 'w')
+            f.write(json.dumps(data))
+        finally:
+            f.close()
+
+    # Only the builders for l10n repacks offer the build id of the previous build
+    # which we want to use for our update tests
+    if not 'l10n' in routing_key:
+        return
 
     # If the product doesn't match the expected one we are not interested
     if not product in PRODUCTS:
@@ -92,19 +112,37 @@ def handle_notification(data, message):
               'BUILDID': buildid,
               'PREV_BUILDID': props.get('previous_buildid'),
               }
-    print "Download: %s" % url
-    print "Props: %s\n\n" % json.dumps(props)
 
     j.build_job('update-test', {'BRANCH': branch,
                                 'PLATFORM': platform,
                                 'LOCALE': locale,
                                 'BUILD_ID': props['previous_buildid'],
                                 'TARGET_BUILD_ID': buildid })
+    
 
 
 def main():
+    global debug
+    global log_folder
+
+    parser = optparse.OptionParser()
+    parser.add_option("--debug",
+                      dest='debug',
+                      action="store_true",
+                      default=False)
+    parser.add_option("--log-folder",
+                      dest="log_folder",
+                      default="log",
+                      help="Folder to write notification log files into")
+    options, args = parser.parse_args()
+
+    debug = options.debug
+    log_folder = options.log_folder
+
+    # Initialize Jenkins connection
     j = jenkins.Jenkins('http://localhost:8080', USER, PASS)
 
+    # Initialize Pulse connection
     pulse = consumers.BuildConsumer(applabel='qa-auto@mozilla.com|daily_testrun')
     pulse.configure(topic='#', callback=handle_notification)
 
