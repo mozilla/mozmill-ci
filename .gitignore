@@ -1,2 +1,11 @@
 .DS_Store
+*.log
 *.pyc
+jenkins.war
+jenkins-master/jobs/*/builds/
+jenkins-master/jobs/*/lastStable
+jenkins-master/jobs/*/lastSuccessful
+jenkins-master/jobs/*/nextBuildNumber
+jenkins-master/plugins/*/
+jenkins-master/war
+
