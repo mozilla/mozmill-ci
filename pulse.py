@@ -1,5 +1,5 @@
 import json
-import osm
+import os
 import sys
 
 import jenkins
