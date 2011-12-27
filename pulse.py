@@ -8,8 +8,9 @@ from mozillapulse import consumers
 
 
 # Configuration settings which have to be moved out of the script
-USER = 'mozilla'
-PASS = 'test1234'
+JENKINS_URL = 'http://localhost:8080'
+JENKINS_USER = 'mozilla'
+JENKINS_PASS = 'test1234'
 
 PRODUCTS  = ['firefox', 'thunderbird']
 BRANCHES  = ['mozilla-central', 'mozilla-aurora']
@@ -138,7 +139,7 @@ def main():
     log_folder = options.log_folder
 
     # Initialize Jenkins connection
-    j = jenkins.Jenkins('http://localhost:8080', USER, PASS)
+    j = jenkins.Jenkins(JENKINS_URL, JENKINS_USER, JENKINS_PASS)
 
     # Initialize Pulse connection
     pulse = consumers.BuildConsumer(applabel='qa-auto@mozilla.com|daily_testrun')
