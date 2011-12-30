@@ -94,19 +94,18 @@ def handle_notification(data, message):
         return
 
     # Only regular daily builds will provide a previous build id
-    if not props.get('previous_buildid'):
-        return
+    #if not props.get('previous_buildid'):
+    #    return
 
     # Test for installer
     url = props.get('packageUrl')
     if props.has_key('installerFilename'):
         url = '/'.join([os.path.dirname(url), props.get('installerFilename')])
 
-    print "Routing Key: %s - Branch: %s" % (routing_key, branch)
-    print "%(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
+    print "Trigger update test: %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
               'PRODUCT': product,
               'VERSION': version,
-              'PLATFORM': platform,
+              'PLATFORM': PLATFORM_MAP[platform],
               'LOCALE': locale,
               'BUILDID': buildid,
               'PREV_BUILDID': props.get('previous_buildid'),
@@ -115,7 +114,7 @@ def handle_notification(data, message):
     j.build_job('update-test', {'BRANCH': branch,
                                 'PLATFORM': PLATFORM_MAP[platform],
                                 'LOCALE': locale,
-                                'BUILD_ID': props['previous_buildid'],
+                                'BUILD_ID': props.get('previous_buildid'),
                                 'TARGET_BUILD_ID': buildid })
     
 
