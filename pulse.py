@@ -15,7 +15,7 @@ JENKINS_PASS = 'test1234'
 PRODUCTS  = ['firefox', 'thunderbird']
 BRANCHES  = ['mozilla-central', 'mozilla-aurora']
 LOCALES   = ['de', 'en-US', 'fr', 'it', 'ja', 'es-ES', 'pl', 'pt-BR', 'ru', 'tr']
-PLATFORMS = ['linux', 'linux64', 'macosx', 'macosx64', 'win32', 'win64']
+PLATFORMS = ['macosx', 'macosx64']
 
 
 # Map to translate platform ids from Pulse to Mozmill / Firefox
