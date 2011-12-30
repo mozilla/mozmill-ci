@@ -111,6 +111,8 @@ def handle_notification(data, message):
               'PREV_BUILDID': props.get('previous_buildid'),
               }
 
+    # Trigger an update test
+    j = jenkins.Jenkins(JENKINS_URL, JENKINS_USER, JENKINS_PASS)
     j.build_job('update-test', {'BRANCH': branch,
                                 'PLATFORM': PLATFORM_MAP[platform],
                                 'LOCALE': locale,
@@ -136,9 +138,6 @@ def main():
 
     debug = options.debug
     log_folder = options.log_folder
-
-    # Initialize Jenkins connection
-    j = jenkins.Jenkins(JENKINS_URL, JENKINS_USER, JENKINS_PASS)
 
     # Initialize Pulse connection
     pulse = consumers.BuildConsumer(applabel='qa-auto@mozilla.com|daily_testrun')
