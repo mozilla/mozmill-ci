@@ -93,10 +93,6 @@ def handle_notification(data, message):
     if not locale in LOCALES:
         return
 
-    # Only regular daily builds will provide a previous build id
-    #if not props.get('previous_buildid'):
-    #    return
-
     # Test for installer
     url = props.get('packageUrl')
     if props.has_key('installerFilename'):
@@ -113,11 +109,14 @@ def handle_notification(data, message):
 
     # Trigger an update test
     j = jenkins.Jenkins(JENKINS_URL, JENKINS_USER, JENKINS_PASS)
-    j.build_job('update-test', {'BRANCH': branch,
-                                'PLATFORM': PLATFORM_MAP[platform],
-                                'LOCALE': locale,
-                                'BUILD_ID': props.get('previous_buildid'),
-                                'TARGET_BUILD_ID': buildid })
+
+    # Only run update test if a previous build id is available
+    if props.get('previous_buildid'):
+        j.build_job('update-test', {'BRANCH': branch,
+                                    'PLATFORM': PLATFORM_MAP[platform],
+                                    'LOCALE': locale,
+                                    'BUILD_ID': props.get('previous_buildid'),
+                                    'TARGET_BUILD_ID': buildid })
     
 
 
