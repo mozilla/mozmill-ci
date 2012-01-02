@@ -98,7 +98,7 @@ def handle_notification(data, message):
     if props.has_key('installerFilename'):
         url = '/'.join([os.path.dirname(url), props.get('installerFilename')])
 
-    print "Trigger update test: %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
+    print "Trigger tests for %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
               'PRODUCT': product,
               'VERSION': version,
               'PLATFORM': PLATFORM_MAP[platform],
@@ -107,17 +107,21 @@ def handle_notification(data, message):
               'PREV_BUILDID': props.get('previous_buildid'),
               }
 
-    # Trigger an update test
     j = jenkins.Jenkins(JENKINS_URL, JENKINS_USER, JENKINS_PASS)
 
-    # Only run update test if a previous build id is available
+    # Update Test: Only execute if a previous build id has been specified
     if props.get('previous_buildid'):
         j.build_job('update-test', {'BRANCH': branch,
                                     'PLATFORM': PLATFORM_MAP[platform],
                                     'LOCALE': locale,
                                     'BUILD_ID': props.get('previous_buildid'),
                                     'TARGET_BUILD_ID': buildid })
-    
+
+    # Functional Test
+    j.build_job('functional-test', {'BRANCH': branch,
+                                    'PLATFORM': PLATFORM_MAP[platform],
+                                    'LOCALE': locale,
+                                    'BUILD_ID': props.get('buildid')})
 
 
 def main():
