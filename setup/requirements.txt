@@ -1,2 +1,2 @@
 python-jenkins
-packages/MozillaPulse-.4.tar.gz
+MozillaPulse
