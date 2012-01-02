@@ -125,14 +125,17 @@ def main():
     global log_folder
 
     parser = optparse.OptionParser()
-    parser.add_option("--debug",
+    parser.add_option('--debug',
                       dest='debug',
-                      action="store_true",
+                      action='store_true',
                       default=False)
-    parser.add_option("--log-folder",
-                      dest="log_folder",
-                      default="log",
-                      help="Folder to write notification log files into")
+    parser.add_option('--log-folder',
+                      dest='log_folder',
+                      default='log',
+                      help='Folder to write notification log files into')
+    parser.add_option('--push-message',
+                      dest='message',
+                      help='Log file of a Pulse message to process for Jenkins')
     options, args = parser.parse_args()
 
     debug = options.debug
@@ -142,13 +145,21 @@ def main():
     pulse = consumers.BuildConsumer(applabel='qa-auto@mozilla.com|daily_testrun')
     pulse.configure(topic='#', callback=handle_notification)
 
-    while True:
+    if options.message:
         try:
-            pulse.listen()
-        except (KeyboardInterrupt, SystemExit):
-            raise
-        except Exception, e:
-            print str(e)
+            f = open(options.message, 'r')
+            data = json.loads(f.read())
+            handle_notification(data, None)
+        finally:
+            f.close()
+    else:
+        while True:
+            try:
+                pulse.listen()
+            except (KeyboardInterrupt, SystemExit):
+                raise
+            except Exception, e:
+                print str(e)
 
 
 if __name__ == "__main__":
