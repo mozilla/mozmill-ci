@@ -74,9 +74,8 @@ def handle_notification(data, message):
 
     # Output debug information if requested
     if debug:
-        print "%s - Routing Key: %s - Branch: %s" % (str(datetime.now()),
-                                                     routing_key,
-                                                     branch)
+        print "%s - Routing Key: %s - Branch: %s - Locale: %s" % \
+            (str(datetime.now()), routing_key, branch, locale)
 
         try:
             folder = os.path.join(log_folder, branch)
