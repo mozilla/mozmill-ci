@@ -10,16 +10,20 @@ from mozillapulse import consumers
 
 
 # Configuration settings which have to be moved out of the script
-JENKINS_URL = 'http://localhost:8080'
-JENKINS_USER = 'mozilla'
-JENKINS_PASS = 'test1234'
-
-ROUTING_KEY_REGEX = r'build\..+-l10n-nightly\.\d+\.finished'
-
-PRODUCTS  = ['firefox', 'thunderbird']
-BRANCHES  = ['mozilla-central', 'mozilla-aurora']
-LOCALES   = ['de', 'en-US', 'fr', 'it', 'ja', 'es-ES', 'pl', 'pt-BR', 'ru', 'tr']
-PLATFORMS = ['macosx', 'macosx64']
+config = {
+    'jenkins': {
+        'url': 'http://localhost:8080',
+        'username': 'mozilla',
+        'password': 'test1234',
+    },
+    'pulse': {
+        'routing_key_regex': r'build\..+-l10n-nightly\.\d+\.finished',
+        'branches': ['mozilla-central', 'mozilla-aurora'],
+        'locales': ['de', 'en-US', 'fr', 'it', 'ja', 'es-ES', 'pl', 'pt-BR', 'ru', 'tr'],
+        'platforms': ['macosx', 'macosx64'],
+        'products': ['firefox'],
+    }
+}
 
 
 # Map to translate platform ids from Pulse to Mozmill / Firefox
@@ -46,7 +50,7 @@ def handle_notification(data, message):
     routing_key = data['_meta']['routing_key']
 
     # Check if the routing key matches the expected regex
-    pattern = re.compile(ROUTING_KEY_REGEX, re.IGNORECASE)
+    pattern = re.compile(config['pulse']['routing_key_regex'], re.IGNORECASE)
     if not pattern.match(routing_key):
         return
 
@@ -65,7 +69,7 @@ def handle_notification(data, message):
     version = props.get('appVersion')
 
     # If the product doesn't match the expected one we are not interested
-    if not product in PRODUCTS:
+    if not product in config['pulse']['products']:
         return
 
     # Output debug information if requested
@@ -84,15 +88,9 @@ def handle_notification(data, message):
             f.close()
 
     # If the branch is not allowed we are not interested
-    if not branch in BRANCHES:
-        return
-
-    # If the platform is not allowed we are not interested
-    if not platform in PLATFORMS:
-        return
-
-    # If the locale is not allowed we are not interested
-    if not locale in LOCALES:
+    if not branch in config['pulse']['branches'] or \
+       not platform in config['pulse']['platforms'] or \
+       not locale in config['pulse']['locales']:
         return
 
     # Test for installer
@@ -109,7 +107,9 @@ def handle_notification(data, message):
               'PREV_BUILDID': props.get('previous_buildid'),
               }
 
-    j = jenkins.Jenkins(JENKINS_URL, JENKINS_USER, JENKINS_PASS)
+    j = jenkins.Jenkins(config['jenkins']['url'],
+                        config['jenkins']['username'],
+                        config['jenkins']['password'])
 
     # Update Test: Only execute if a previous build id has been specified
     if props.get('previous_buildid'):
