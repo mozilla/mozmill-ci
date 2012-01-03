@@ -106,10 +106,6 @@ def handle_notification(data, message):
     platform = props.get('platform')
     version = props.get('appVersion')
 
-    # If the product doesn't match the expected one we are not interested
-    if not product in config['pulse']['products']:
-        return
-
     # Output logging information for received notification
     print "%s - Routing Key: %s - Branch: %s - Locale: %s" % \
         (str(datetime.now()), routing_key, branch, locale)
@@ -125,8 +121,9 @@ def handle_notification(data, message):
         finally:
             f.close()
 
-    # If the branch is not allowed we are not interested
-    if not branch in config['pulse']['branches'] or \
+    # If one of the expected values do not match we are not interested in the build
+    if not product in config['pulse']['products'] or \
+       not branch in config['pulse']['branches'] or \
        not platform in config['pulse']['platforms'] or \
        not locale in config['pulse']['locales']:
         return
