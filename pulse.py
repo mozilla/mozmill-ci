@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 import optparse
 import os
+import re
 import sys
 
 import jenkins
@@ -12,6 +13,8 @@ from mozillapulse import consumers
 JENKINS_URL = 'http://localhost:8080'
 JENKINS_USER = 'mozilla'
 JENKINS_PASS = 'test1234'
+
+ROUTING_KEY_REGEX = r'build\..+-l10n-nightly\.\d+\.finished'
 
 PRODUCTS  = ['firefox', 'thunderbird']
 BRANCHES  = ['mozilla-central', 'mozilla-aurora']
@@ -42,6 +45,11 @@ log_folder = None
 def handle_notification(data, message):
     routing_key = data['_meta']['routing_key']
 
+    # Check if the routing key matches the expected regex
+    pattern = re.compile(ROUTING_KEY_REGEX, re.IGNORECASE)
+    if not pattern.match(routing_key):
+        return
+
     # Create dictionary with properties of the build
     if data.get('payload') and data['payload'].get('build'):
         props = dict((k, v) for (k, v, source) in data['payload']['build'].get('properties'))
@@ -55,10 +63,6 @@ def handle_notification(data, message):
     locale = props.get('locale', 'en-US')
     platform = props.get('platform')
     version = props.get('appVersion')
-
-    # If it's not a notificaton for a finished build process we are not interested in
-    if not routing_key.endswith(".finished") or "test" in routing_key:
-        return
 
     # If the product doesn't match the expected one we are not interested
     if not product in PRODUCTS:
@@ -78,11 +82,6 @@ def handle_notification(data, message):
             f.write(json.dumps(data))
         finally:
             f.close()
-
-    # Only the builders for l10n repacks offer the build id of the previous build
-    # which we want to use for our update tests
-    if not 'l10n' in routing_key:
-        return
 
     # If the branch is not allowed we are not interested
     if not branch in BRANCHES:
