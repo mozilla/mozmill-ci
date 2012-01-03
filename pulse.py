@@ -110,11 +110,12 @@ def handle_notification(data, message):
     if not product in config['pulse']['products']:
         return
 
-    # Output debug information if requested
-    if debug:
-        print "%s - Routing Key: %s - Branch: %s - Locale: %s" % \
-            (str(datetime.now()), routing_key, branch, locale)
+    # Output logging information for received notification
+    print "%s - Routing Key: %s - Branch: %s - Locale: %s" % \
+        (str(datetime.now()), routing_key, branch, locale)
 
+    # Save off the notification message if requested
+    if debug:
         try:
             folder = os.path.join(log_folder, branch)
             if not os.path.exists(folder):
