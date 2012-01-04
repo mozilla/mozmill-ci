@@ -47,23 +47,6 @@ import jenkins
 from mozillapulse import consumers
 
 
-# Configuration settings which have to be moved out of the script
-config = {
-    'jenkins': {
-        'url': 'http://localhost:8080',
-        'username': 'mozilla',
-        'password': 'test1234',
-    },
-    'pulse': {
-        'routing_key_regex': r'build\..+(-l10n)?-nightly\.\d+\.finished',
-        'branches': ['mozilla-central', 'mozilla-aurora', 'mozilla-1.9.2'],
-        'locales': ['de', 'en-US', 'ja'],
-        'platforms': ['macosx', 'macosx64'],
-        'products': ['firefox'],
-    }
-}
-
-
 # Map to translate platform ids from Pulse to Mozmill / Firefox
 PLATFORM_MAP = {'linux': 'linux',
                 'linux-debug': 'linux',
@@ -80,8 +63,16 @@ PLATFORM_MAP = {'linux': 'linux',
 
 
 # Globally shared variables
+config = None
 debug = False
 log_folder = None
+
+
+class NotFoundException(Exception):
+    """Exception for a resource not being found (e.g. no logs)"""
+    def __init__(self, message, location):
+        self.location = location
+        Exception.__init__(self, ': '.join([message, location]))
 
 
 def handle_notification(data, message):
@@ -161,7 +152,19 @@ def handle_notification(data, message):
                                     'BUILD_ID': props.get('buildid')})
 
 
+def read_json_file(filename):
+    if not os.path.isfile(filename):
+        raise NotFoundException('Specified file cannot be found.', filename)
+
+    try:
+        f = open(filename, 'r')
+        return json.loads(f.read())
+    finally:
+        f.close()
+
+
 def main():
+    global config
     global debug
     global log_folder
 
@@ -179,20 +182,21 @@ def main():
                       help='Log file of a Pulse message to process for Jenkins')
     options, args = parser.parse_args()
 
+    if not len(args):
+        parser.error('A configuration file has to be passed in as first argument.')
+
+    config = read_json_file(args[0])
     debug = options.debug
     log_folder = options.log_folder
 
     # Initialize Pulse connection
-    pulse = consumers.BuildConsumer(applabel='qa-auto@mozilla.com|daily_testrun')
+    pulse = consumers.BuildConsumer(applabel=config['pulse']['applabel'])
     pulse.configure(topic='#', callback=handle_notification)
+    print "Connected to Mozilla Pulse. Listening for notifications..."
 
     if options.message:
-        try:
-            f = open(options.message, 'r')
-            data = json.loads(f.read())
-            handle_notification(data, None)
-        finally:
-            f.close()
+        data = read_json_file(options.message)
+        handle_notification(data, None)
     else:
         while True:
             try:
