@@ -113,10 +113,12 @@ def handle_notification(data, message):
             f.close()
 
     # If one of the expected values do not match we are not interested in the build
-    if not product in config['pulse']['products'] or \
-       not branch in config['pulse']['branches'] or \
-       not platform in config['pulse']['platforms'] or \
-       not locale in config['pulse']['locales']:
+    valid_branch = not config['pulse']['branches'] or branch in config['pulse']['branches']
+    valid_locale = not config['pulse']['locales'] or locale in config['pulse']['locales']
+    valid_platform = not config['pulse']['platforms'] or platform in config['pulse']['platforms']
+    valid_product = not config['pulse']['products'] or product in config['pulse']['products']
+    
+    if not (valid_product and valid_branch and valid_platform and valid_locale):
         return
 
     # Test for installer
