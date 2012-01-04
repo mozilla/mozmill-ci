@@ -57,7 +57,7 @@ config = {
     'pulse': {
         'routing_key_regex': r'build\..+(-l10n)?-nightly\.\d+\.finished',
         'branches': ['mozilla-central', 'mozilla-aurora', 'mozilla-1.9.2'],
-        'locales': ['de', 'en-US', 'fr', 'it', 'ja', 'es-ES', 'pl', 'pt-BR', 'ru', 'tr'],
+        'locales': ['de', 'en-US', 'ja'],
         'platforms': ['macosx', 'macosx64'],
         'products': ['firefox'],
     }
