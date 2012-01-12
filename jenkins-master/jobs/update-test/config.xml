@@ -31,6 +31,11 @@
           <description>The expected build id of Firefox after the update</description>
           <defaultValue></defaultValue>
         </hudson.model.TextParameterDefinition>
+        <hudson.model.TextParameterDefinition>
+          <name>REPORT_URL</name>
+          <description>URL of the Mozmill Dashboard to send reports to</description>
+          <defaultValue></defaultValue>
+        </hudson.model.TextParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -50,7 +55,7 @@
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>../../../../mozmill-env/run.sh mozmill-automation/testrun_update.py --target-buildid=$TARGET_BUILD_ID --no-fallback --junit=report.xml --report=http://mozmill-archive.brasstacks.mozilla.com/db/ builds/</command>
+      <command>../../../../mozmill-env/run.sh mozmill-automation/testrun_update.py --target-buildid=$TARGET_BUILD_ID --no-fallback --junit=report.xml --report=$REPORT_URL builds/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

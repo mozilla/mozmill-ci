@@ -145,13 +145,15 @@ def handle_notification(data, message):
                                     'PLATFORM': PLATFORM_MAP[platform],
                                     'LOCALE': locale,
                                     'BUILD_ID': props.get('previous_buildid'),
-                                    'TARGET_BUILD_ID': buildid })
+                                    'TARGET_BUILD_ID': buildid,
+                                    'REPORT_URL': config['mozmill']['report_url']})
 
     # Functional Test
     j.build_job('functional-test', {'BRANCH': branch,
                                     'PLATFORM': PLATFORM_MAP[platform],
                                     'LOCALE': locale,
-                                    'BUILD_ID': props.get('buildid')})
+                                    'BUILD_ID': props.get('buildid'),
+                                    'REPORT_URL': config['mozmill']['report_url']})
 
 
 def read_json_file(filename):
