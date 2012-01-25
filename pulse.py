@@ -41,6 +41,7 @@ import json
 import optparse
 import os
 import re
+import socket
 import sys
 
 import jenkins
@@ -196,11 +197,15 @@ def main():
     debug = options.debug
     log_folder = options.log_folder
 
+    # Make the consumer dependent to the host to prevent queue corruption by
+    # other machines we are using the same queue name
+    applabel = '%s|%s' % (config['pulse']['applabel'], socket.getfqdn())
+
     # Initialize Pulse connection
-    pulse = consumers.BuildConsumer(applabel=config['pulse']['applabel'],
+    pulse = consumers.BuildConsumer(applabel=applabel,
                                     durable=config['pulse']['durable'])
     pulse.configure(topic='#', callback=handle_notification)
-    print "Connected to Mozilla Pulse. Listening for notifications..."
+    print 'Connected to Mozilla Pulse as "%s"...' % applabel
 
     if options.message:
         data = read_json_file(options.message)
