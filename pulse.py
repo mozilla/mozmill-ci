@@ -197,7 +197,8 @@ def main():
     log_folder = options.log_folder
 
     # Initialize Pulse connection
-    pulse = consumers.BuildConsumer(applabel=config['pulse']['applabel'])
+    pulse = consumers.BuildConsumer(applabel=config['pulse']['applabel'],
+                                    durable=config['pulse']['durable'])
     pulse.configure(topic='#', callback=handle_notification)
     print "Connected to Mozilla Pulse. Listening for notifications..."
 
