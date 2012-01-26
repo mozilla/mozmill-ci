@@ -204,7 +204,7 @@ def main():
     # Initialize Pulse connection
     pulse = consumers.BuildConsumer(applabel=applabel,
                                     durable=config['pulse']['durable'])
-    pulse.configure(topic='#', callback=handle_notification)
+    pulse.configure(topic='build.*.*.finished', callback=handle_notification)
     print 'Connected to Mozilla Pulse as "%s"...' % applabel
 
     if options.message:
