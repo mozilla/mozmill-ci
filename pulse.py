@@ -77,8 +77,9 @@ class NotFoundException(Exception):
 
 
 def handle_notification(data, message):
-    # Ensure to acknoledge the message so it gets removed on the server
-    message.ack()
+    # Ensure that the message gets removed from the queue
+    if message is not None:
+        message.ack()
 
     routing_key = data['_meta']['routing_key']
 
