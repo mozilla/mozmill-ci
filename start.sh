@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname $BASH_SOURCE)/jenkins-master
-WAR=jenkins.war
+JENKINS_VERSION=1.451
+JENKINS_URL="http://mirrors.jenkins-ci.org/war/$JENKINS_VERSION/jenkins.war"
+JENKINS_WAR=jenkins.war
 
-URL_JENKINS="http://mirrors.jenkins-ci.org/war/latest/jenkins.war"
-
-export JENKINS_HOME=$BASE
+export JENKINS_HOME=$(dirname $BASH_SOURCE)/jenkins-master
 
 
-if [ ! -e $WAR ]; then
-  curl --location $URL_JENKINS -o $WAR
+if [ ! -e $JENKINS_WAR ]; then
+  echo "Downloading Jenkins $JENKINS_VERSION from $JENKINS_URL"
+  curl --location $JENKINS_URL -o $JENKINS_WAR
 fi
 
 # TODO: Start Jenkins as daemon
-java -jar $WAR
+java -jar $JENKINS_WAR
 
