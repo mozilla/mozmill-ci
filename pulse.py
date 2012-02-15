@@ -201,9 +201,9 @@ def main():
     # other machines we are using the same queue name
     applabel = '%s|%s' % (config['pulse']['applabel'], socket.getfqdn())
 
-    # Initialize Pulse connection
-    pulse = consumers.BuildConsumer(applabel=applabel,
-                                    durable=config['pulse']['durable'])
+    # Initialize Pulse consumer with a non-durable view because we do not want
+    # to queue up notifications if the consumer is not connected.
+    pulse = consumers.BuildConsumer(applabel=applabel, durable=false)
     pulse.configure(topic='build.*.*.finished', callback=handle_notification)
     print 'Connected to Mozilla Pulse as "%s"...' % applabel
 
