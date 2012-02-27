@@ -204,7 +204,7 @@ def main():
 
     # Initialize Pulse consumer with a non-durable view because we do not want
     # to queue up notifications if the consumer is not connected.
-    pulse = consumers.BuildConsumer(applabel=applabel, durable=false)
+    pulse = consumers.BuildConsumer(applabel=applabel, durable=False)
     pulse.configure(topic='build.*.*.finished', callback=handle_notification)
     print 'Connected to Mozilla Pulse as "%s"...' % applabel
 
