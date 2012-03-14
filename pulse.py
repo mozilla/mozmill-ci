@@ -61,12 +61,13 @@ class NotFoundException(Exception):
 class JSONFile:
 
     def __init__(self, filename):
-        if not os.path.isfile(filename):
-            raise NotFoundException('Specified file cannot be found.', filename)
-        self.filename = filename
+        self.filename = os.path.abspath(filename)
 
 
     def read(self):
+        if not os.path.isfile(self.filename):
+            raise NotFoundException('Specified file cannot be found.', self.filename)
+
         try:
             f = open(self.filename, 'r')
             return json.loads(f.read())
