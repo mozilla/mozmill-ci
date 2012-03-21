@@ -47,15 +47,23 @@
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <hudson.plugins.copyartifact.CopyArtifact>
+      <projectName>get_mozmill-environments/PLATFORM=mac</projectName>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>../../../../mozmill-env/run.sh hg clone https://hg.mozilla.org/qa/mozmill-automation</command>
+      <command>unzip $MOZMILL_VERSION-mac.zip</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>../../../../mozmill-env/run.sh mozmill-automation/download.py --type=daily --branch=$BRANCH --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds
-</command>
+      <command>mozmill-env/run.sh hg clone https://hg.mozilla.org/qa/mozmill-automation</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>../../../../mozmill-env/run.sh mozmill-automation/testrun_update.py --target-buildid=$TARGET_BUILD_ID --no-fallback --junit=report.xml --report=$REPORT_URL builds/</command>
+      <command>mozmill-env/run.sh mozmill-automation/download.py --type=daily --branch=$BRANCH --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>mozmill-env/run.sh mozmill-automation/testrun_update.py --target-buildid=$TARGET_BUILD_ID --no-fallback --junit=report.xml --report=$REPORT_URL builds/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
