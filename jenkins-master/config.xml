@@ -25,7 +25,7 @@
     </hudson.model.AllView>
     <listView>
       <owner class="hudson" reference="../../.."/>
-      <name>admin</name>
+      <name>+admin</name>
       <description>Administrative Tasks</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
