@@ -36,6 +36,11 @@
           <description>URL of the Mozmill Dashboard to send reports to</description>
           <defaultValue></defaultValue>
         </hudson.model.TextParameterDefinition>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+          <name>NODES</name>
+          <description>Labels of the nodes to execute the test on.</description>
+          <defaultValue></defaultValue>
+        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>

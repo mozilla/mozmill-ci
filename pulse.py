@@ -113,6 +113,10 @@ class Automation:
 
             parameters[entry] = value
 
+        # Set the label for nodes to execute the test on
+        # hardcoded for now until we can distribute tests across platforms
+        parameters['NODES'] = 'mac'
+
         return parameters
 
 
@@ -191,7 +195,7 @@ class Automation:
                   'PLATFORM': self.getPlatformIdentifier(platform),
                   'LOCALE': locale,
                   'BUILDID': props.get('buildid'),
-                  'PREV_BUILDID': props.get('previous_buildid'),
+                  'PREV_BUILDID': props.get('previous_buildid')
                   })
 
         # Queue up testruns for the branch as given by config settings

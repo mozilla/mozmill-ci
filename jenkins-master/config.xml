@@ -12,7 +12,19 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds/>
-  <slaves/>
+  <slaves>
+    <slave>
+      <name>windows_xp_32_01</name>
+      <description>Windows XP 32bit (TEST_HOST)</description>
+      <remoteFS>c:\jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>win32 win_xp</label>
+      <nodeProperties/>
+    </slave>
+  </slaves>
   <quietPeriod>5</quietPeriod>
   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>
@@ -48,7 +60,7 @@
   </views>
   <primaryView>All</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
-  <label>master</label>
+  <label>master mac</label>
   <nodeProperties/>
   <globalNodeProperties>
     <hudson.slaves.EnvironmentVariablesNodeProperty>
