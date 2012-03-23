@@ -58,7 +58,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact>
-      <projectName>get_mozmill-environments/PLATFORM=mac</projectName>
+      <projectName>get_mozmill-environments/NODE=master,PLATFORM=mac</projectName>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>

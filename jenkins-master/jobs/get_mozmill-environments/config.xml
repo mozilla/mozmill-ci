@@ -21,7 +21,7 @@
       </values>
     </hudson.matrix.TextAxis>
     <hudson.matrix.LabelAxis>
-      <name>label</name>
+      <name>NODE</name>
       <values>
         <string>master</string>
       </values>
