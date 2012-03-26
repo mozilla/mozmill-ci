@@ -1,6 +1,8 @@
 .DS_Store
 *.log
+*.log.*
 *.pyc
+*.bak
 jenkins.war
 jenkins-master/jobs/*/builds/
 jenkins-master/jobs/*/lastStable
