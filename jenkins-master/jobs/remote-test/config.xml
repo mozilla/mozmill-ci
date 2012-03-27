@@ -70,18 +70,22 @@
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.tasks.Shell>
-      <command>mozmill-env/run.sh hg clone https://hg.mozilla.org/qa/mozmill-automation</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>unzip *.zip</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>mozmill-env/run.sh mozmill-automation/download.py --type=daily --branch=$BRANCH --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>mozmill-env/run.sh mozmill-automation/testrun_remote.py --junit=report.xml --report=$REPORT_URL builds/</command>
-    </hudson.tasks.Shell>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>unzip *.zip</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>mozmill-env/run hg clone https://hg.mozilla.org/qa/mozmill-automation</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>mozmill-env/run mozmill-automation/download.py --type=daily --branch=$BRANCH --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>mozmill-env/run mozmill-automation/testrun_remote.py --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>
