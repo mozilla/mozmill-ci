@@ -75,10 +75,9 @@
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>unzip *.zip</commandLine>
-      <executeFromWorkingDir>false</executeFromWorkingDir>
-    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.tasks.Shell>
+      <command>unzip *.zip</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>mozmill-env/run.sh hg clone https://hg.mozilla.org/qa/mozmill-automation</command>
     </hudson.tasks.Shell>
