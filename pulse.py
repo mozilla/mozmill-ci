@@ -116,6 +116,7 @@ class Automation:
         # Set the label for nodes to execute the test on
         # hardcoded for now until we can distribute tests across platforms
         parameters['NODES'] = 'mac'
+        parameters['ENV_PLATFORM'] = 'mac'
 
         return parameters
 
