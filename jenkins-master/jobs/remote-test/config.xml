@@ -23,7 +23,7 @@
         </hudson.model.StringParameterDefinition>
         <hudson.model.TextParameterDefinition>
           <name>BUILD_ID</name>
-          <description>The build id of Firefox before the update</description>
+          <description>The build id of Firefox.</description>
           <defaultValue></defaultValue>
         </hudson.model.TextParameterDefinition>
         <hudson.model.TextParameterDefinition>
@@ -36,6 +36,17 @@
           <description>Labels of the nodes to execute the test on.</description>
           <defaultValue></defaultValue>
         </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>ENV_PLATFORM</name>
+          <description>Platform of the Mozmill environment (linux, mac, windows)</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>linux</string>
+              <string>mac</string>
+              <string>windows</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -48,14 +59,11 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact>
-      <projectName>get_mozmill-environments/NODE=master,PLATFORM=mac</projectName>
+      <projectName>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.tasks.Shell>
-      <command>unzip $MOZMILL_VERSION-mac.zip</command>
-    </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>mozmill-env/run.sh hg clone https://hg.mozilla.org/qa/mozmill-automation</command>
     </hudson.tasks.Shell>
