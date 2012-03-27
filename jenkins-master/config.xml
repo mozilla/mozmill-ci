@@ -45,6 +45,7 @@
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
         <string>get_mozmill-environments</string>
+        <string>tools</string>
       </jobNames>
       <jobFilters/>
       <columns>

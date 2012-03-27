@@ -64,6 +64,15 @@
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact>
+      <projectName>tools/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>unzip *.zip</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>mozmill-env/run.sh hg clone https://hg.mozilla.org/qa/mozmill-automation</command>
     </hudson.tasks.Shell>

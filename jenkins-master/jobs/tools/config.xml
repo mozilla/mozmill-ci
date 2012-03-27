@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <matrix-project>
   <actions/>
-  <description>Download the version of the Mozmill Environment as specified with the global $MOZMILL_VERSION variable.</description>
+  <description>Offer platform related tools.</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -27,22 +27,14 @@
       </values>
     </hudson.matrix.LabelAxis>
   </axes>
-  <builders>
-    <hudson.tasks.Shell>
-      <command>curl -O http://people.mozilla.com/~hskupin/downloads/mozmill-env/$MOZMILL_VERSION-$ENV_PLATFORM.zip</command>
-    </hudson.tasks.Shell>
-  </builders>
+  <builders/>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>$MOZMILL_VERSION-*.zip</artifacts>
+      <artifacts>*</artifacts>
       <latestOnly>false</latestOnly>
     </hudson.tasks.ArtifactArchiver>
   </publishers>
-  <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup>
-      <deleteDirs>false</deleteDirs>
-    </hudson.plugins.ws__cleanup.PreBuildCleanup>
-  </buildWrappers>
+  <buildWrappers/>
   <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
     <runSequentially>false</runSequentially>
   </executionStrategy>
