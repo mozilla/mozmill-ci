@@ -83,7 +83,7 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run ../mozmill-automation/testrun_functional.py --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env/run ../mozmill-automation/testrun_functional.py --junit=../report.xml --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
