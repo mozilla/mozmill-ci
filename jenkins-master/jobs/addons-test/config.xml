@@ -56,7 +56,7 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
-  <concurrentBuild>false</concurrentBuild>
+  <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact>
       <projectName>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
