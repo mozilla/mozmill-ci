@@ -6,6 +6,7 @@
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
   <jdks/>
@@ -16,7 +17,7 @@
     <slave>
       <name>ubuntu_32_01</name>
       <description>Ubuntu 32bit (TEST_HOST)</description>
-      <remoteFS>/var/jenkins</remoteFS>
+      <remoteFS>~/jenkins</remoteFS>
       <numExecutors>1</numExecutors>
       <mode>NORMAL</mode>
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>

@@ -17,7 +17,7 @@ The two components (Pulse consumer and Jenkins master) have to be started separa
 
     ./start.sh
 
-Once Jenkins has been fully started, open `http://localhost:8080/` via your web browser. Open the `+admin` view and execute all of the listed jobs once.
+Once Jenkins has been fully started, open `http://localhost:8080/` via your web browser. Open the `+admin` view and execute all of the listed jobs once. Also update the `Jenkins URL` of the master to a public accessible IP or DNS name, so that slave nodes can successfully connect.
 
 Now you can start the Pulse consumer which pushes requests for jobs through the Jenkins API to the master:
 
@@ -28,8 +28,24 @@ Please keep in mind that you should create your own configuration file before yo
 
 Adding new Nodes
 ----------------
-To add Jenkins slaves to your master you have to create new nodes. You can use the `windows_xp_32_01` node settings as a template. Once done the nodes have to be connected to the master. Therefore [install Java](www.java.com/download/) on the node and open the appropriate node page from the nodes web browser like:
+To add Jenkins slaves to your master you have to create new nodes. You can use one of the example nodes (Windows XP and Ubuntu) as a template. Once done the nodes have to be connected to the master. Therefore Java has to be installed on the node first.
+
+Windows:
+
+Go to [www.java.com/download/](http://www.java.com/download/) and install the latest Java JRE
+
+Linux (Ubuntu):
+
+    sudo add-apt-repository ppa:ferramroberto/java
+    sudo apt-get update
+    sudo apt-get install sun-java6-jre sun-java6-plugin
+
+After Java has been installed open the appropriate node within Jenkins from the nodes web browser like:
 
     http://IP:8080/computer/windows_xp_32_01/
 
 Now click the `Launch` button and the node should automatically connect to the master. It will be used once a job for this type of platform has been requested by the Pulse consumer.
+
+Using the Jenkins master as executor
+------------------------------------
+If you want that the master node also executes jobs you will have to update its set of label and add the appropriate platform label, e.g. 'mac' for MacOS X.
