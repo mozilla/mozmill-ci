@@ -15,25 +15,113 @@
   <clouds/>
   <slaves>
     <slave>
-      <name>ubuntu_32_01</name>
-      <description>Ubuntu 32bit (TEST_HOST)</description>
+      <name>macosx_10.5_01</name>
+      <description>MacOS X 10.5</description>
       <remoteFS>~/jenkins</remoteFS>
       <numExecutors>1</numExecutors>
       <mode>NORMAL</mode>
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
-      <label>linux linux_32 ubuntu ubuntu_32</label>
+      <label>mac 10.5 32bit</label>
       <nodeProperties/>
     </slave>
     <slave>
-      <name>windows_xp_32_01</name>
-      <description>Windows XP 32bit (TEST_HOST)</description>
+      <name>macosx_10.6_01</name>
+      <description>MacOS X 10.6</description>
+      <remoteFS>~/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>mac 10.6 64bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>macosx_10.7_01</name>
+      <description>MacOS X 10.7</description>
+      <remoteFS>~/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>mac 10.7 64bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>ubuntu_32_01</name>
+      <description>Ubuntu 32bit</description>
+      <remoteFS>~/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>linux ubuntu 32bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>ubuntu_64_01</name>
+      <description>Ubuntu 64bit</description>
+      <remoteFS>~/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>linux ubuntu 64bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>windows-2000_32_01</name>
+      <description>Windows 2000 32bit</description>
       <remoteFS>c:\jenkins</remoteFS>
       <numExecutors>1</numExecutors>
       <mode>NORMAL</mode>
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
-      <label>win32 win_xp</label>
+      <label>windows 2000 32bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>windows-xp_32_01</name>
+      <description>Windows XP 32bit</description>
+      <remoteFS>c:\jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>windows xp 32bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>windows-vista_32_01</name>
+      <description>Windows Vista 32bit</description>
+      <remoteFS>c:\jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>windows vista 32bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>windows-7_32_01</name>
+      <description>Windows 7 32bit</description>
+      <remoteFS>c:\jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>windows 7 32bit</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>windows-7_64_01</name>
+      <description>Windows 7 64bit</description>
+      <remoteFS>c:\jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>windows 7 64bit</label>
       <nodeProperties/>
     </slave>
   </slaves>
