@@ -85,10 +85,10 @@ class Automation:
             pulse.listen()
 
 
-    def generate_testrun_parameters(self, testrun, build_properties):
+    def generate_job_parameters(self, testrun, node, platform, build_properties):
         # Create parameter map from Pulse to Jenkins properties
         map = self.config['testrun']['jenkins_parameter_map']
-        parameter_map = copy.copy(map['default']);
+        parameter_map = copy.deepcopy(map['default']);
         if testrun in map:
             for key in map[testrun]:
                 parameter_map[key] = map[testrun][key]
@@ -113,15 +113,27 @@ class Automation:
 
             parameters[entry] = value
 
-        # Set the label for nodes to execute the test on
-        # hardcoded for now until we can distribute tests across platforms
-        parameters['NODES'] = 'mac'
-        parameters['ENV_PLATFORM'] = 'mac'
+        # Add node and mozmill environment information
+        parameters['NODES'] = node
+        parameters['ENV_PLATFORM'] = self.get_mozmill_environment_platform(platform)
 
         return parameters
 
 
-    def getPlatformIdentifier(self, platform):
+    def get_mozmill_environment_platform(self, platform):
+        # Map to translate the platform to the mozmill environment platform
+
+        ENVIRONMENT_PLATFORM_MAP = {
+            'linux': 'linux',
+            'linux64': 'linux',
+            'mac': 'mac',
+            'win32': 'windows',
+            'win64': 'windows'
+        }
+        return ENVIRONMENT_PLATFORM_MAP[platform];
+
+
+    def get_platform_identifier(self, platform):
         # Map to translate platform ids from Pulse to Mozmill / Firefox
         PLATFORM_MAP = {'linux': 'linux',
                         'linux-debug': 'linux',
@@ -193,16 +205,22 @@ class Automation:
         self.logger.info("Trigger tests for %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
                   'PRODUCT': product,
                   'VERSION': props.get('appVersion'),
-                  'PLATFORM': self.getPlatformIdentifier(platform),
+                  'PLATFORM': self.get_platform_identifier(platform),
                   'LOCALE': locale,
                   'BUILDID': props.get('buildid'),
                   'PREV_BUILDID': props.get('previous_buildid')
                   })
 
         # Queue up testruns for the branch as given by config settings
-        for testrun in self.config['testrun']['by_branch'][branch]:
-            parameters = self.generate_testrun_parameters(testrun, props)
-            self.jenkins.build_job('%s-test' % (testrun), parameters)
+        target_branch = self.config['testrun']['by_branch'][branch]
+        target_platform = self.get_platform_identifier(platform)
+
+        for testrun in target_branch['testruns']:
+            # Fire off a build for each supported platform
+            for node in target_branch['platforms'][target_platform]:
+                parameters = self.generate_job_parameters(testrun, node,
+                                                          target_platform, props)
+                self.jenkins.build_job('%s-test' % (testrun), parameters)
 
 
 class DailyAutomation(Automation):
