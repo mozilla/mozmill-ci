@@ -1,16 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Execute functional tests for Nighly and Aurora builds.</description>
+  <description>Execute endurance tests for Nighly and Aurora builds.</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>BRANCH</name>
-          <description>The branch of daily builds of Firefox to use.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>PLATFORM</name>
           <description>The platform to run the test on.</description>
@@ -29,6 +24,16 @@
         <hudson.model.TextParameterDefinition>
           <name>REPORT_URL</name>
           <description>URL of the Mozmill Dashboard to send reports to</description>
+          <defaultValue></defaultValue>
+        </hudson.model.TextParameterDefinition>
+        <hudson.model.TextParameterDefinition>
+          <name>ITERATIONS</name>
+          <description>Number of iterations</description>
+          <defaultValue></defaultValue>
+        </hudson.model.TextParameterDefinition>
+        <hudson.model.TextParameterDefinition>
+          <name>ENTITIES</name>
+          <description>Number of entities to execute</description>
           <defaultValue></defaultValue>
         </hudson.model.TextParameterDefinition>
         <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
@@ -79,11 +84,11 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run mozmill-automation/download.py --type=daily --branch=$BRANCH --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</commandLine>
+      <commandLine>mozmill-env/run mozmill-automation/download.py --type=daily --branch=mozilla-central --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run mozmill-automation/testrun_functional.py --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env/run mozmill-automation/testrun_endurance.py --iterations=10 --entities=10 --junit=report.xml --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

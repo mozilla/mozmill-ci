@@ -225,7 +225,7 @@ class Automation:
             for node in target_branch['platforms'][target_platform]:
                 parameters = self.generate_job_parameters(testrun, node,
                                                           target_platform, props)
-                self.jenkins.build_job('%s-test' % (testrun), parameters)
+                self.jenkins.build_job('%s_%s' % (branch, testrun), parameters)
 
 
 class DailyAutomation(Automation):
