@@ -7,30 +7,15 @@
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
-          <name>PLATFORM</name>
-          <description>The platform to run the test on.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>LOCALE</name>
-          <description>The locale of Firefox.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.TextParameterDefinition>
           <name>BUILD_ID</name>
           <description>The build id of Firefox.</description>
           <defaultValue></defaultValue>
-        </hudson.model.TextParameterDefinition>
-        <hudson.model.TextParameterDefinition>
-          <name>REPORT_URL</name>
-          <description>URL of the Mozmill Dashboard to send reports to</description>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_TYPE</name>
+          <description>The build type of Firefox.</description>
           <defaultValue></defaultValue>
-        </hudson.model.TextParameterDefinition>
-        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
-          <name>NODES</name>
-          <description>Labels of the nodes to execute the test on.</description>
-          <defaultValue></defaultValue>
-        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>ENV_PLATFORM</name>
           <description>Platform of the Mozmill environment (linux, mac, windows)</description>
@@ -42,6 +27,26 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LOCALE</name>
+          <description>The locale of Firefox.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+          <name>NODES</name>
+          <description>Labels of the nodes to execute the test on.</description>
+          <defaultValue></defaultValue>
+        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>PLATFORM</name>
+          <description>The platform to run the test on.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>REPORT_URL</name>
+          <description>URL of the Mozmill Dashboard to send reports to</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -74,7 +79,7 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run mozmill-automation/download.py --type=daily --branch=mozilla-1.9.2 --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</commandLine>
+      <commandLine>mozmill-env/run mozmill-automation/download.py --type=$BUILD_TYPE --branch=mozilla-1.9.2 --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
