@@ -184,11 +184,11 @@ class Automation:
 
         # Save off the notification message if requested
         if self.debug:
-            basename = '%(TIMESTAMP)s_%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s.log' % {
-                           'TIMESTAMP': data['_meta']['sent'],
+            basename = '%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s_%(TIMESTAMP)s.log' % {
                            'PRODUCT': product,
                            'PLATFORM': platform,
-                           'LOCALE': locale
+                           'LOCALE': locale,
+                           'TIMESTAMP': data['_meta']['sent']
                        }
             filename = os.path.join(self.log_folder, branch, basename)
             JSONFile(filename).write(data)
