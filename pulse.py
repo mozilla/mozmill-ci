@@ -179,8 +179,8 @@ class Automation:
         product = props.get('product')
 
         # Output logging information for received notification
-        self.logger.info("%s - Routing Key: %s - Branch: %s - Locale: %s" %
-                         (data['_meta']['sent'], routing_key, branch, locale))
+        self.logger.info("%s - Product: %s, Branch: %s, Platform: %s, Locale: %s" %
+                         (data['_meta']['sent'], product, branch, platform, locale))
 
         # Save off the notification message if requested
         if self.debug:
