@@ -5,7 +5,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import copy
-from datetime import datetime
 import json
 import logging
 import optparse
@@ -181,11 +180,17 @@ class Automation:
 
         # Output logging information for received notification
         self.logger.info("%s - Routing Key: %s - Branch: %s - Locale: %s" %
-                         (str(datetime.now()), routing_key, branch, locale))
+                         (data['_meta']['sent'], routing_key, branch, locale))
 
         # Save off the notification message if requested
         if self.debug:
-            filename = os.path.join(self.log_folder, props.get('branch'), routing_key)
+            basename = '%(TIMESTAMP)s_%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s.log' % {
+                           'TIMESTAMP': data['_meta']['sent'],
+                           'PRODUCT': product,
+                           'PLATFORM': platform,
+                           'LOCALE': locale
+                       }
+            filename = os.path.join(self.log_folder, branch, filename)
             JSONFile(filename).write(data)
 
         # If one of the expected values do not match we are not interested in the build
