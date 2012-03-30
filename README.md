@@ -48,4 +48,4 @@ Now click the `Launch` button and the node should automatically connect to the m
 
 Using the Jenkins master as executor
 ------------------------------------
-If you want that the master node also executes jobs you will have to update its set of label and add the appropriate platform label, e.g. 'mac' for MacOS X.
+If you want that the master node also executes jobs you will have to update its labels and add/modify the appropriate platforms, e.g. 'master mac 10.7 64bit' for MacOS X 10.7.
