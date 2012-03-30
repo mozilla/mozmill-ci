@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Execute add-ons tests for release and candidate builds.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_NUMBER</name>
+          <description>The build number of Firefox.</description>
+          <defaultValue>1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_TYPE</name>
+          <description>The build type of Firefox.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>ENV_PLATFORM</name>
+          <description>Platform of the Mozmill environment (linux, mac, windows)</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>linux</string>
+              <string>mac</string>
+              <string>windows</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LOCALE</name>
+          <description>The locale of Firefox.</description>
+          <defaultValue>en-US</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+          <name>NODES</name>
+          <description>Labels of the nodes to execute the test on.</description>
+          <defaultValue></defaultValue>
+        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>PLATFORM</name>
+          <description>The platform to run the test on.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>REPORT_URL</name>
+          <description>URL of the Mozmill Dashboard to send reports to</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>VERSION</name>
+          <description>The version of Firefox.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact>
+      <projectName>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact>
+      <projectName>tools/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>unzip *.zip</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>mozmill-env/run hg clone https://hg.mozilla.org/qa/mozmill-automation</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>mozmill-env/run mozmill-automation/download.py --type=$BUILD_TYPE --platform=$PLATFORM --locale=$LOCALE --build-number=$BUILD_NUMBER --version=$VERSION --directory=builds</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>mozmill-env/run mozmill-automation/testrun_addons.py --with-untrusted --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+  </builders>
+  <publishers>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>report_*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup>
+      <deleteDirs>false</deleteDirs>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>
