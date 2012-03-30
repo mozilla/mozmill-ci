@@ -190,7 +190,7 @@ class Automation:
                            'PLATFORM': platform,
                            'LOCALE': locale
                        }
-            filename = os.path.join(self.log_folder, branch, filename)
+            filename = os.path.join(self.log_folder, branch, basename)
             JSONFile(filename).write(data)
 
         # If one of the expected values do not match we are not interested in the build
