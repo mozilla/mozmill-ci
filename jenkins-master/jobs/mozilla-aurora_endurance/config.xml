@@ -99,7 +99,7 @@
   </builders>
   <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>**/report_*.xml</testResults>
+      <testResults>report_*.xml</testResults>
       <keepLongStdio>false</keepLongStdio>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
