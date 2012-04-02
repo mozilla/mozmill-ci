@@ -244,7 +244,7 @@
       <includeRegex>^mozilla-1\.9\.2.*</includeRegex>
     </listView>
   </views>
-  <primaryView>+admin</primaryView>
+  <primaryView>All</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label>master mac 10.7 64bit</label>
   <nodeProperties/>
