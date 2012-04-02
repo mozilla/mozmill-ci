@@ -4,6 +4,9 @@
   <description>Execute add-ons tests for Nighly and Aurora builds.</description>
   <keepDependencies>false</keepDependencies>
   <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>220</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
