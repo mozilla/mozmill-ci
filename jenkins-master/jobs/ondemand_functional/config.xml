@@ -103,5 +103,9 @@
     <hudson.plugins.ws__cleanup.PreBuildCleanup>
       <deleteDirs>false</deleteDirs>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <timeoutMinutes>60</timeoutMinutes>
+      <failBuild>false</failBuild>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
   </buildWrappers>
 </project>
