@@ -9,6 +9,7 @@
             "win32"
         ],
         "branches": [
+            "mozilla-central",
             "mozilla-aurora"
         ],
         "products": [
