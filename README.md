@@ -32,13 +32,17 @@ To add Jenkins slaves to your master you have to create new nodes. You can use o
 
 Windows:
 
-Go to [www.java.com/download/](http://www.java.com/download/) and install the latest Java JRE
+Go to [www.java.com/download/](http://www.java.com/download/) and install the latest version of Java JRE. Also make sure that the UAC is completely disabled, and the screensaver and any energy settings have been turned off.
 
 Linux (Ubuntu):
+
+Open the terminal or any other package manager and install the following packages:
 
     sudo add-apt-repository ppa:ferramroberto/java
     sudo apt-get update
     sudo apt-get install sun-java6-jre sun-java6-plugin
+
+Also make sure that the screensaver and any energy settings have been turned off.
 
 After Java has been installed open the appropriate node within Jenkins from the nodes web browser like:
 
