@@ -167,6 +167,11 @@ class Automation:
     def on_build(self, data, message):
         (routing_key, props) = self.preprocess_message(data, message)
 
+        # Check if the routing key matches the expected regex
+        pattern = re.compile(self.config['pulse']['routing_key_regex'], re.IGNORECASE)
+        if not pattern.match(routing_key):
+            return
+
         # Cache often used properties
         branch = props.get('branch')
         locale = props.get('locale', 'en-US')
@@ -187,11 +192,6 @@ class Automation:
                        }
             filename = os.path.join(self.log_folder, branch, basename)
             JSONFile(filename).write(data)
-
-        # Check if the routing key matches the expected regex
-        pattern = re.compile(self.config['pulse']['routing_key_regex'], re.IGNORECASE)
-        if not pattern.match(routing_key):
-            return
 
         # If one of the expected values do not match we are not interested in the build
         valid_branch = not self.config['pulse']['branches'] or branch in self.config['pulse']['branches']
