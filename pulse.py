@@ -167,23 +167,14 @@ class Automation:
     def on_build(self, data, message):
         (routing_key, props) = self.preprocess_message(data, message)
 
-        # Check if the routing key matches the expected regex
-        pattern = re.compile(self.config['pulse']['routing_key_regex'], re.IGNORECASE)
-        if not pattern.match(routing_key):
-            return
-
         # Cache often used properties
         branch = props.get('branch')
         locale = props.get('locale', 'en-US')
         platform = props.get('platform')
         product = props.get('product')
 
-        # Output logging information for received notification
-        self.logger.info("%s - Product: %s, Branch: %s, Platform: %s, Locale: %s" %
-                         (data['_meta']['sent'], product, branch, platform, locale))
-
         # Save off the notification message if requested
-        if self.debug:
+        if self.debug and not routing_key == 'heartbeat':
             basename = '%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s_%(TIMESTAMP)s.log' % {
                            'PRODUCT': product,
                            'PLATFORM': platform,
@@ -192,6 +183,15 @@ class Automation:
                        }
             filename = os.path.join(self.log_folder, branch, basename)
             JSONFile(filename).write(data)
+
+        # Check if the routing key matches the expected regex
+        pattern = re.compile(self.config['pulse']['routing_key_regex'], re.IGNORECASE)
+        if not pattern.match(routing_key):
+            return
+
+        # Output logging information for received notification
+        self.logger.info("%s - Product: %s, Branch: %s, Platform: %s, Locale: %s" %
+                         (data['_meta']['sent'], product, branch, platform, locale))
 
         # If one of the expected values do not match we are not interested in the build
         valid_branch = not self.config['pulse']['branches'] or branch in self.config['pulse']['branches']
