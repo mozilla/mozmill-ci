@@ -1,0 +1,101 @@
+{
+    "pulse": {
+        "applabel": "qa-auto@mozilla.com|mozmill_release",
+        "routing_key_regex": "build\\..+_build\\.\\d+\\.finished",
+        "platforms": [
+            "linux",
+            "linux64",
+            "macosx",
+            "macosx64",
+            "win32"
+        ],
+        "branches": [
+            "release-mozilla-beta"
+        ],
+        "products": [
+            "firefox"
+        ],
+        "locales": [
+            "de",
+            "en-US",
+            "ja"
+        ]
+    },
+    "jenkins": {
+        "url": "http://localhost:8080",
+        "username": "mozilla",
+        "password": "test1234"
+    },
+    "testrun": {
+        "jenkins_parameter_map": {
+            "default": {
+                "BUILD_NUMBER": {
+                    "key": "build_number"
+                },
+                "BUILD_TYPE": {
+                    "value": "candidate"
+                },
+                "LOCALE": {
+                    "key": "locale",
+                    "default": "en-US"
+                },
+                "PLATFORM": {
+                    "key": "platform",
+                    "transform": "get_platform_identifier"
+                },
+                "REPORT_URL": {
+                    "value": "http://mozmill-ci.blargon7.com/db/"
+                },
+                "VERSION": {
+                    "key": "version"
+                }
+            },
+            "endurance": {
+                "ENTITIES": {
+                    "value": 10
+                },
+                "ITERATIONS": {
+                    "value": 10
+                }
+            },
+            "update": {
+                "BUILD_ID": {
+                    "key": "previous_buildid"
+                },
+                "TARGET_BUILD_ID": {
+                    "key": "buildid"
+                }
+            }
+        },
+        "by_branch": {
+            "release-mozilla-beta": {
+                "testruns": [
+                    "functional",
+                    "endurance",
+                    "remote",
+                    "addons"
+                ],
+                "platforms": {
+                    "mac": [
+                        "mac && 10.5 && 32bit",
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.7 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 2000 && 32bit",
+                        "windows && xp && 32bit",
+                        "windows && vista && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit"
+                    ],
+                    "linux": [
+                        "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 64bit"
+                    ]
+                }
+            }
+        }
+    }
+}
