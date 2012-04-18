@@ -4,6 +4,9 @@
   <description>Execute functional tests for release and candidate builds.</description>
   <keepDependencies>false</keepDependencies>
   <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>1050</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
