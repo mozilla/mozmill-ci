@@ -1,18 +1,14 @@
-Mozmill CI
-==========
-
+# Mozmill CI
 With the Mozmill CI project we aim to get a fully automated testing cycle implemented for testing Firefox in the Mozilla QA compartment. Therefore the [Mozilla Pulse](http://pulse.mozilla.org/) message broker and [Jenkins](http://jenkins-ci.org/) are used.
 
-Setup
------
+## Setup
 Before you can start the system the following commands have to be performed:
 
     git clone git://github.com/whimboo/mozmill-ci.git
     cd mozmill-ci
     ./setup/configure.sh
 
-Startup
--------
+## Startup
 The two components (Pulse consumer and Jenkins master) have to be started separately in two different terminals. As first step we have to setup the Jenkins master:
 
     ./start.sh
@@ -26,16 +22,13 @@ Now you can start the Pulse consumer which pushes requests for jobs through the 
 
 Please keep in mind that you should create your own configuration file before you start the consumer and setup the wanted builds appropriately.
 
-Adding new Nodes
-----------------
+## Adding new Nodes
 To add Jenkins slaves to your master you have to create new nodes. You can use one of the example nodes (Windows XP and Ubuntu) as a template. Once done the nodes have to be connected to the master. Therefore Java has to be installed on the node first.
 
-Windows:
-
+### Windows:
 Go to [www.java.com/download/](http://www.java.com/download/) and install the latest version of Java JRE. Also make sure that the UAC is completely disabled, and the screensaver and any energy settings have been turned off.
 
-Linux (Ubuntu):
-
+### Linux (Ubuntu):
 Open the terminal or any other package manager and install the following packages:
 
     sudo add-apt-repository ppa:ferramroberto/java
@@ -50,12 +43,32 @@ After Java has been installed open the appropriate node within Jenkins from the 
 
 Now click the `Launch` button and the node should automatically connect to the master. It will be used once a job for this type of platform has been requested by the Pulse consumer.
 
-Using the Jenkins master as executor
-------------------------------------
+## Using the Jenkins master as executor
 If you want that the master node also executes jobs you will have to update its labels and add/modify the appropriate platforms, e.g. 'master mac 10.7 64bit' for MacOS X 10.7.
 
-Running on-demand tests
--------------------------------
+## Job priorities
+To allow Mozmill tests to be executed immediately for release and beta builds priorities are necessary. The same applies to the type of testrun, where some have higher priority.
+
+    trigger_ondemand        = 1099
+
+    ondemand                = 1000
+    release-mozilla-release =  600
+    release-mozilla-beta    =  500
+    mozilla-esr             =  400
+    mozilla-central         =  300
+    mozilla-aurora          =  200
+    mozilla-1.9.2           =  100
+
+    update                  =   60
+    functional              =   50
+    endurance               =   40
+    remote                  =   30
+    addon                   =   20
+    l10n                    =   10
+
+The higher the priority value, the higher the priority the job will have in the queue. For example, mozilla-central_endurance will have a value of 340 (300 + 40) and will therefore be executed before mozilla-aurora_endurance, which will have a value of 240 (200 + 40).
+
+## Running on-demand tests
 1. Navigate to your Jenkins instance: http://IP:8080
 2. Open the +admin tab and look for the 'trigger-ondemand' row
 3. Click the green arrow button, 'Schedule a Build'
