@@ -5,7 +5,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.queueSorter.PrioritySorterJobProperty>
-      <priority>540</priority>
+      <priority>640</priority>
     </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
