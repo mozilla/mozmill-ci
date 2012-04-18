@@ -53,3 +53,13 @@ Now click the `Launch` button and the node should automatically connect to the m
 Using the Jenkins master as executor
 ------------------------------------
 If you want that the master node also executes jobs you will have to update its labels and add/modify the appropriate platforms, e.g. 'master mac 10.7 64bit' for MacOS X 10.7.
+
+Running on-demand tests
+-------------------------------
+1. Navigate to your Jenkins instance: http://IP:8080
+2. Open the +admin tab and look for the 'trigger-ondemand' row
+3. Click the green arrow button, 'Schedule a Build'
+4. Upload your ondemand.cfg file (see examples in [./config/ondemand/](https://github.com/whimboo/mozmill-ci/tree/master/config/ondemand))
+5. Click 'Back to Dashboard' link and open the @ondemand tab
+
+If you see an ondemand_* testrun in the middle is blinking and the nodes on the left are not 'idle', your testrun is executing. The results should appear in your dashboard when complete.
