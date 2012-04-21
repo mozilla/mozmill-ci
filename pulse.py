@@ -168,10 +168,10 @@ class Automation:
         (routing_key, props) = self.preprocess_message(data, message)
 
         # Cache often used properties
-        branch = props.get('branch')
+        branch = props.get('branch', 'None')
         locale = props.get('locale', 'en-US')
-        platform = props.get('platform')
-        product = props.get('product')
+        platform = props.get('platform', 'None')
+        product = props.get('product', 'None')
 
         # Save off the notification message if requested
         if self.debug and not routing_key == 'heartbeat':
