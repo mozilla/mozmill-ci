@@ -202,11 +202,6 @@ class Automation:
         if not (valid_product and valid_branch and valid_platform and valid_locale):
             return
 
-        # For Windows builds the packageURL references the zip file but we want the installer
-        url = props.get('packageUrl')
-        if props.has_key('installerFilename'):
-            url = '/'.join([os.path.dirname(url), props.get('installerFilename')])
-
         self.logger.info("Trigger tests for %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
                   'PRODUCT': product,
                   'VERSION': props.get('appVersion'),
