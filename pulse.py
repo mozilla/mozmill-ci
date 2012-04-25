@@ -43,10 +43,11 @@ class JSONFile:
 
 
     def write(self, data):
+        folder = os.path.dirname(self.filename)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
         try:
-            folder = os.path.dirname(self.filename)
-            if not os.path.exists(folder):
-                os.makedirs(folder)
             f = open(self.filename, 'w')
             f.write(json.dumps(data))
         finally:
@@ -182,7 +183,10 @@ class Automation:
                            'TIMESTAMP': data['_meta']['sent']
                        }
             filename = os.path.join(self.log_folder, branch, basename)
-            JSONFile(filename).write(data)
+            try:
+                JSONFile(filename).write(data)
+            except:
+                self.logger.alert("JSON file %s could not be written." % filename)
 
         # Check if the routing key matches the expected regex
         pattern = re.compile(self.config['pulse']['routing_key_regex'], re.IGNORECASE)
