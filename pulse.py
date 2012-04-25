@@ -176,14 +176,14 @@ class Automation:
 
         # Save off the notification message if requested
         if self.debug and not routing_key == 'heartbeat':
-            basename = '%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s_%(TIMESTAMP)s.log' % {
-                           'PRODUCT': product,
-                           'PLATFORM': platform,
-                           'LOCALE': locale,
-                           'TIMESTAMP': data['_meta']['sent']
-                       }
-            filename = os.path.join(self.log_folder, branch, basename)
             try:
+                basename = '%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s_%(TIMESTAMP)s.log' % {
+                               'PRODUCT': product,
+                               'PLATFORM': platform,
+                               'LOCALE': locale,
+                               'TIMESTAMP': data['_meta']['sent']
+                           }
+                filename = os.path.join(self.log_folder, branch, basename)
                 JSONFile(filename).write(data)
             except:
                 self.logger.alert("JSON file %s could not be written." % filename)
