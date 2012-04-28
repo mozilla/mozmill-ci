@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.mercurial.MercurialInstallation_-DescriptorImpl>
+  <helpRedirect/>
+  <installations>
+    <hudson.plugins.mercurial.MercurialInstallation>
+      <name></name>
+      <home>${JENKINS_HOME}/../jenkins-env</home>
+      <properties/>
+      <executable>INSTALLATION/bin/hg</executable>
+      <debug>false</debug>
+      <useCaches>false</useCaches>
+      <useSharing>false</useSharing>
+    </hudson.plugins.mercurial.MercurialInstallation>
+  </installations>
+</hudson.plugins.mercurial.MercurialInstallation_-DescriptorImpl>

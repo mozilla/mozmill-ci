@@ -70,28 +70,26 @@
       <projectName>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
       <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.copyartifact.CopyArtifact>
-      <projectName>tools/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
+      <projectName>get_mozmill-tests</projectName>
       <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>unzip *.zip</commandLine>
-      <executeFromWorkingDir>false</executeFromWorkingDir>
-    </hudson.plugins.xshell.XShellBuilder>
-    <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run hg clone https://hg.mozilla.org/qa/mozmill-automation</commandLine>
-      <executeFromWorkingDir>false</executeFromWorkingDir>
-    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.copyartifact.CopyArtifact>
+      <projectName>get_mozmill-automation</projectName>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder>
       <commandLine>mozmill-env/run mozmill-automation/download.py --type=$BUILD_TYPE --branch=mozilla-central --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run mozmill-automation/testrun_update.py --target-buildid=$TARGET_BUILD_ID --no-fallback --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env/run mozmill-automation/testrun_update.py --target-buildid=$TARGET_BUILD_ID --no-fallback --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

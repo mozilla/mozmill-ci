@@ -1,2 +1,3 @@
+mercurial
 python-jenkins
 MozillaPulse

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>1099</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+  </properties>
+  <scm class="hudson.plugins.mercurial.MercurialSCM">
+    <installation>(Default)</installation>
+    <source>http://hg.mozilla.org/qa/mozmill-automation</source>
+    <modules></modules>
+    <subdir>mozmill-automation</subdir>
+    <clean>false</clean>
+    <browser class="hudson.plugins.mercurial.browser.HgWeb">
+      <url>http://hg.mozilla.org/qa/mozmill-automation/</url>
+    </browser>
+  </scm>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>*/15 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg pull</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
+      <workspaceGlob></workspaceGlob>
+      <criteria>Any</criteria>
+      <archiveMethod>TAR</archiveMethod>
+    </hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

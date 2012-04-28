@@ -1,26 +1,43 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Offer platform related tools.</description>
+  <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.queueSorter.PrioritySorterJobProperty>
       <priority>1099</priority>
     </hudson.queueSorter.PrioritySorterJobProperty>
   </properties>
-  <scm class="hudson.scm.NullSCM"/>
+  <scm class="hudson.plugins.mercurial.MercurialSCM">
+    <installation>(Default)</installation>
+    <source>http://hg.mozilla.org/qa/mozmill-tests</source>
+    <modules></modules>
+    <subdir>mozmill-tests</subdir>
+    <clean>false</clean>
+    <browser class="hudson.plugins.mercurial.browser.HgWeb">
+      <url>http://hg.mozilla.org/qa/mozmill-tests/</url>
+    </browser>
+  </scm>
   <assignedNode>master</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector"/>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>*/15 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
-  <builders/>
+  <builders>
+    <hudson.plugins.xshell.XShellBuilder>
+      <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg pull</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+  </builders>
   <publishers>
     <hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
       <workspaceGlob></workspaceGlob>
-      <workspaceExcludeGlob>README</workspaceExcludeGlob>
       <criteria>Successful</criteria>
       <archiveMethod>TAR</archiveMethod>
     </hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
