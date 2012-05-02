@@ -186,7 +186,7 @@ class Automation:
                 filename = os.path.join(self.log_folder, branch, basename)
                 JSONFile(filename).write(data)
             except:
-                self.logger.warning("JSON file %s could not be written." % filename)
+                self.logger.warning("JSON log file could not be written for %s." % routing_key)
 
         # Check if the routing key matches the expected regex
         pattern = re.compile(self.config['pulse']['routing_key_regex'], re.IGNORECASE)
