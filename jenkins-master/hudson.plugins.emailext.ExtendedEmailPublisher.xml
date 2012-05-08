@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.emailext.ExtendedEmailPublisherDescriptor>
+  <helpRedirect/>
+  <hudsonUrl>http://qa-masterblaster.mv.mozilla.com:8080/</hudsonUrl>
+  <adminAddress>mozmill-ci@mozilla.com</adminAddress>
+  <useSsl>false</useSsl>
+  <defaultContentType>text/plain</defaultContentType>
+  <defaultSubject>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!</defaultSubject>
+  <defaultBody>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:&#xd;
+&#xd;
+Check console output at $BUILD_URL to view the results.</defaultBody>
+  <maxAttachmentSize>-1</maxAttachmentSize>
+  <recipientList>mozmill-ci@mozilla.org</recipientList>
+  <overrideGlobalSettings>false</overrideGlobalSettings>
+  <precedenceBulk>false</precedenceBulk>
+</hudson.plugins.emailext.ExtendedEmailPublisherDescriptor>
