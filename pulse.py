@@ -12,6 +12,8 @@ import os
 import re
 import socket
 import sys
+from time import sleep
+import traceback
 
 import jenkins
 from mozillapulse import consumers
@@ -57,6 +59,8 @@ class JSONFile:
 class Automation:
 
     def __init__(self, config, debug, log_folder, logger, message=None):
+        self.timeout = 10
+
         self.config = config
         self.debug = debug
         self.log_folder = log_folder
@@ -70,19 +74,30 @@ class Automation:
         # other machines we are using the same queue name
         applabel = '%s|%s' % (self.config['pulse']['applabel'], socket.getfqdn())
 
-        # Initialize Pulse consumer with a non-durable view because we do not want
-        # to queue up notifications if the consumer is not connected.
-        pulse = consumers.BuildConsumer(applabel=applabel, durable=False)
-        pulse.configure(callback=self.on_build,
-                        topic=['build.*.*.finished', 'heartbeat'])
-        self.logger.info('Connected to Mozilla Pulse as "%s".', applabel)
-
+        # Whenever only a single message has to be sent we can return immediately
         if message:
             data = JSONFile(message).read()
             self.on_build(data, None)
-        else:
-            self.logger.info('Waiting for messages...')
-            pulse.listen()
+            return
+
+        while True:
+            try:
+                # Initialize Pulse consumer with a non-durable view because we do not want
+                # to queue up notifications if the consumer is not connected.
+                pulse = consumers.BuildConsumer(applabel=applabel, durable=False)
+                pulse.configure(callback=self.on_build,
+                                topic=['build.*.*.finished', 'heartbeat'])
+
+                self.logger.info('Connecting to Mozilla Pulse as "%s"...', applabel)
+                pulse.listen()
+            except (KeyboardInterrupt, SystemExit):
+                raise
+            except Exception, e:
+                # For now only log traceback. Later we will send it via email
+                self.logger.exception('Pulse listener disconnected. ' \
+                                      'Trying to reconnect in %s seconds...',
+                                      self.timeout)
+                sleep(self.timeout)
 
 
     def generate_job_parameters(self, testrun, node, platform, build_properties):
