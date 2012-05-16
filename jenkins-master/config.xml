@@ -344,7 +344,7 @@
           </default>
           <int>1</int>
           <string>MOZMILL_VERSION</string>
-          <string>1.5.9</string>
+          <string>1.5.12</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
