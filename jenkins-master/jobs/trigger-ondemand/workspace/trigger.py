@@ -78,6 +78,7 @@ def main():
 
                 if script == 'update' and 'target-build-id' in testrun:
                     parameters['TARGET_BUILD_ID'] = testrun['target-build-id']
+                    parameters['CHANNEL'] = testrun['channel']
                 elif script == 'endurance':
                     if 'delay' in testrun:
                         parameters['DELAY'] = testrun['delay']
