@@ -65,25 +65,19 @@
       <projectName>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
       <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact>
-      <projectName>tools</projectName>
-      <filter></filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.copyartifact.CopyArtifact>
       <projectName>get_mozmill-tests</projectName>
       <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.copyartifact.CopyArtifact>
       <projectName>get_mozmill-automation</projectName>
       <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder>
       <commandLine>mozmill-env/run mozmill-automation/download.py --type=$BUILD_TYPE --branch=mozilla-aurora --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --directory=builds</commandLine>
