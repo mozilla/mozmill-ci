@@ -46,7 +46,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>mac 10.7 64bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>ubuntu_32_01</name>
@@ -57,7 +66,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>linux ubuntu 32bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>ubuntu_64_01</name>
@@ -68,7 +86,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>linux ubuntu 64bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>windows-2000_32_01</name>
@@ -79,7 +106,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>windows 2000 32bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>windows-xp_32_01</name>
@@ -90,7 +126,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>windows xp 32bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>windows-vista_32_01</name>
@@ -101,7 +146,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>windows vista 32bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>windows-7_32_01</name>
@@ -112,7 +166,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>windows 7 32bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>windows-7_64_01</name>
@@ -123,7 +186,16 @@
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
       <launcher class="hudson.slaves.JNLPLauncher"/>
       <label>windows 7 64bit</label>
-      <nodeProperties/>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
     </slave>
     <slave>
       <name>windows-8_32_01</name>
@@ -335,7 +407,16 @@
   <primaryView>All</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label>master mac 10.7 64bit</label>
-  <nodeProperties/>
+  <nodeProperties>
+    <ruby-proxy-object>
+      <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+        <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+          <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+        </object>
+        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+      </ruby-object>
+    </ruby-proxy-object>
+  </nodeProperties>
   <globalNodeProperties>
     <hudson.slaves.EnvironmentVariablesNodeProperty>
       <envVars serialization="custom">
@@ -350,5 +431,13 @@
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
+    <ruby-proxy-object>
+      <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+        <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+          <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+        </object>
+        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+      </ruby-object>
+    </ruby-proxy-object>
   </globalNodeProperties>
 </hudson>
