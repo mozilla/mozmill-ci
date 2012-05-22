@@ -192,6 +192,25 @@ class Automation:
         platform = props.get('platform', 'None')
         product = props.get('product', 'None')
 
+        # Displaying the properties will only work in manual mode and return immediately
+        if self.test_message and self.show_properties:
+            self.logger.info("Build properties:")
+            for property in props:
+                self.logger.info("%18s:\t%s" % (property, props[property]))
+            return
+
+        # If the build process was broken we don't have to test this build
+        if data.get('payload') and (data['payload'].get('results') > 0):
+            self.logger.info("Invalid build: %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
+                  'PRODUCT': product,
+                  'VERSION': props.get('appVersion'),
+                  'PLATFORM': self.get_platform_identifier(platform),
+                  'LOCALE': locale,
+                  'BUILDID': props.get('buildid'),
+                  'PREV_BUILDID': props.get('previous_buildid')
+                  })
+            return
+
         # Save off the notification message if requested
         if self.debug and not routing_key == 'heartbeat':
             try:
@@ -222,13 +241,6 @@ class Automation:
         valid_product = not self.config['pulse']['products'] or product in self.config['pulse']['products']
 
         if not (valid_product and valid_branch and valid_platform and valid_locale):
-            return
-
-        # Displaying the properties will only work in manual mode and return immediately
-        if self.test_message and self.show_properties:
-            self.logger.info("Build properties:")
-            for property in props:
-                self.logger.info("%18s:\t%s" % (property, props[property]))
             return
 
         self.logger.info("Trigger tests for %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
