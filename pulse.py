@@ -187,6 +187,9 @@ class Automation:
     def on_build(self, data, message):
         (routing_key, props) = self.preprocess_message(data, message)
 
+        if routing_key == 'heartbeat':
+            return
+
         # Cache often used properties
         branch = props.get('branch', 'None')
         locale = props.get('locale', 'en-US')
@@ -213,7 +216,7 @@ class Automation:
             return
 
         # Save off the notification message if requested
-        if self.debug and not routing_key == 'heartbeat':
+        if self.debug:
             try:
                 basename = '%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s_%(TIMESTAMP)s.log' % {
                                'PRODUCT': product,
