@@ -217,17 +217,17 @@ class Automation:
             except:
                 self.logger.warning("JSON log file could not be written for %s." % routing_key)
 
-        # If the build process was broken we don't have to test this build
-        if props['build_failed']:
-            self.logger.info("Invalid build: %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
-                  'PRODUCT': product,
-                  'VERSION': props.get('appVersion'),
-                  'PLATFORM': self.get_platform_identifier(platform),
-                  'LOCALE': locale,
-                  'BUILDID': props.get('buildid'),
-                  'PREV_BUILDID': props.get('previous_buildid')
-                  })
-            return
+        ## If the build process was broken we don't have to test this build
+        #if props['build_failed']:
+        #    self.logger.info("Invalid build: %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
+        #          'PRODUCT': product,
+        #          'VERSION': props.get('appVersion'),
+        #          'PLATFORM': self.get_platform_identifier(platform),
+        #          'LOCALE': locale,
+        #          'BUILDID': props.get('buildid'),
+        #          'PREV_BUILDID': props.get('previous_buildid')
+        #          })
+        #    return
 
         # Check if the routing key matches the expected regex
         pattern = re.compile(self.config['pulse']['routing_key_regex'], re.IGNORECASE)
