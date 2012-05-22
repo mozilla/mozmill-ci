@@ -12,8 +12,7 @@
         "branches": [
             "mozilla-central",
             "mozilla-aurora",
-            "mozilla-esr10",
-            "mozilla-1.9.2"
+            "mozilla-esr10"
         ],
         "products": [
             "firefox"
@@ -129,33 +128,6 @@
                     "functional",
                     "endurance",
                     "remote",
-                    "addons"
-                ],
-                "platforms": {
-                    "mac": [
-                        "mac && 10.5 && 32bit",
-                        "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit"
-                    ],
-                    "win32": [
-                        "windows && 2000 && 32bit",
-                        "windows && xp && 32bit",
-                        "windows && vista && 32bit",
-                        "windows && 7 && 32bit",
-                        "windows && 7 && 64bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 64bit"
-                    ]
-                }
-            },
-            "mozilla-1.9.2": {
-                "testruns": [
-                    "update",
-                    "functional",
                     "addons"
                 ],
                 "platforms": {
