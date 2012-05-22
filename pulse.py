@@ -175,8 +175,9 @@ class Automation:
 
         # Create dictionary with properties of the build
         if data.get('payload') and data['payload'].get('build'):
-            build_properties= data['payload']['build'].get('properties')
+            build_properties = data['payload']['build'].get('properties')
             properties = dict((k, v) for (k, v, source) in build_properties)
+            properties['build_failed'] = (data['payload']['build']['results'] != 0)
         else:
             properties = dict()
 
@@ -196,11 +197,11 @@ class Automation:
         if self.test_message and self.show_properties:
             self.logger.info("Build properties:")
             for property in props:
-                self.logger.info("%18s:\t%s" % (property, props[property]))
+                self.logger.info("%20s:\t%s" % (property, props[property]))
             return
 
         # If the build process was broken we don't have to test this build
-        if data.get('payload') and (data['payload'].get('results') > 0):
+        if props['build_failed']:
             self.logger.info("Invalid build: %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
                   'PRODUCT': product,
                   'VERSION': props.get('appVersion'),
