@@ -58,13 +58,16 @@ class JSONFile:
 
 class Automation:
 
-    def __init__(self, config, debug, log_folder, logger, message=None):
+    def __init__(self, config, debug, log_folder, logger,
+                 message=None, show_properties=False):
         self.timeout = 10
 
         self.config = config
         self.debug = debug
         self.log_folder = log_folder
         self.logger = logger
+        self.show_properties = show_properties
+        self.test_message = message
 
         self.jenkins = jenkins.Jenkins(self.config['jenkins']['url'],
                                        self.config['jenkins']['username'],
@@ -75,8 +78,8 @@ class Automation:
         applabel = '%s|%s' % (self.config['pulse']['applabel'], socket.getfqdn())
 
         # Whenever only a single message has to be sent we can return immediately
-        if message:
-            data = JSONFile(message).read()
+        if self.test_message:
+            data = JSONFile(self.test_message).read()
             self.on_build(data, None)
             return
 
@@ -221,6 +224,13 @@ class Automation:
         if not (valid_product and valid_branch and valid_platform and valid_locale):
             return
 
+        # Displaying the properties will only work in manual mode and return immediately
+        if self.test_message and self.show_properties:
+            self.logger.info("Build properties:")
+            for property in props:
+                self.logger.info("%18s:\t%s" % (property, props[property]))
+            return
+
         self.logger.info("Trigger tests for %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
                   'PRODUCT': product,
                   'VERSION': props.get('appVersion'),
@@ -261,6 +271,11 @@ def main():
     parser.add_option('--push-message',
                       dest='message',
                       help='Log file of a Pulse message to process for Jenkins')
+    parser.add_option('--show-properties',
+                      dest='show_properties',
+                      action='store_true',
+                      default=False,
+                      help='Show the properties of a build in the console.')
     options, args = parser.parse_args()
 
     if not len(args):
@@ -273,7 +288,8 @@ def main():
                     debug=options.debug,
                     log_folder=options.log_folder,
                     logger=logger,
-                    message=options.message)
+                    message=options.message,
+                    show_properties=options.show_properties)
 
 
 if __name__ == "__main__":
