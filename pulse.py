@@ -184,6 +184,26 @@ class Automation:
         return (data['_meta']['routing_key'], properties)
 
 
+    def log_notification(self, data, props):
+        """Store the Pulse notification as log file on disk."""
+        try:
+            branch = props.get('branch', 'None')
+            platform = props.get('platform')
+            routing_key = data['_meta']['routing_key']
+
+            basename = '%(BUILD_ID)s_%(PRODUCT)s_%(LOCALE)s_%(PLATFORM)s_%(KEY)s.log' % {
+                           'BUILD_ID': props.get('buildid'),
+                           'PRODUCT': props.get('product', 'None'),
+                           'LOCALE': props.get('locale', 'en-US'),
+                           'PLATFORM': self.get_platform_identifier(platform),
+                           'KEY': routing_key
+                       }
+            filename = os.path.join(self.log_folder, branch, basename)
+            JSONFile(filename).write(data)
+        except:
+            self.logger.warning("JSON log file could not be written for %s." % routing_key)
+
+
     def on_build(self, data, message):
         (routing_key, props) = self.preprocess_message(data, message)
 
@@ -203,20 +223,9 @@ class Automation:
                 self.logger.info("%20s:\t%s" % (property, props[property]))
             return
 
-        # Save off the notification message if requested
+        # In debug mode save off all the notification messages
         if self.debug:
-            try:
-                basename = '%(BUILD_ID)s_%(PRODUCT)s_%(LOCALE)s_%(PLATFORM)s_%(KEY)s.log' % {
-                               'BUILD_ID': props.get('buildid'),
-                               'PRODUCT': product,
-                               'LOCALE': locale,
-                               'PLATFORM': platform,
-                               'KEY': routing_key
-                           }
-                filename = os.path.join(self.log_folder, branch, basename)
-                JSONFile(filename).write(data)
-            except:
-                self.logger.warning("JSON log file could not be written for %s." % routing_key)
+            self.log_notification(data, props)
 
         ## If the build process was broken we don't have to test this build
         #if props['build_failed']:
@@ -248,6 +257,7 @@ class Automation:
         if not (valid_product and valid_branch and valid_platform and valid_locale):
             return
 
+        self.log_notification(data, props)
         self.logger.info("Trigger tests for %(PRODUCT)s %(VERSION)s %(PLATFORM)s %(LOCALE)s %(BUILDID)s %(PREV_BUILDID)s" % {
                   'PRODUCT': product,
                   'VERSION': props.get('appVersion'),
