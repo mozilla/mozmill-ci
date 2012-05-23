@@ -206,11 +206,12 @@ class Automation:
         # Save off the notification message if requested
         if self.debug:
             try:
-                basename = '%(PRODUCT)s_%(PLATFORM)s_%(LOCALE)s_%(TIMESTAMP)s.log' % {
+                basename = '%(BUILD_ID)s_%(PRODUCT)s_%(LOCALE)s_%(PLATFORM)s_%(KEY)s.log' % {
+                               'BUILD_ID': props.get('buildid'),
                                'PRODUCT': product,
-                               'PLATFORM': platform,
                                'LOCALE': locale,
-                               'TIMESTAMP': data['_meta']['sent']
+                               'PLATFORM': platform,
+                               'KEY': routing_key
                            }
                 filename = os.path.join(self.log_folder, branch, basename)
                 JSONFile(filename).write(data)
