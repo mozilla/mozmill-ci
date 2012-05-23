@@ -188,14 +188,13 @@ class Automation:
         """Store the Pulse notification as log file on disk."""
         try:
             branch = props.get('branch', 'None')
-            platform = props.get('platform')
             routing_key = data['_meta']['routing_key']
 
             basename = '%(BUILD_ID)s_%(PRODUCT)s_%(LOCALE)s_%(PLATFORM)s_%(KEY)s.log' % {
                            'BUILD_ID': props.get('buildid'),
                            'PRODUCT': props.get('product', 'None'),
                            'LOCALE': props.get('locale', 'en-US'),
-                           'PLATFORM': self.get_platform_identifier(platform),
+                           'PLATFORM': props.get('platform'),
                            'KEY': routing_key
                        }
             filename = os.path.join(self.log_folder, branch, basename)
