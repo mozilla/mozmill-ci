@@ -11,5 +11,5 @@ echo "Downloading Jenkins $JENKINS_VERSION from $JENKINS_URL"
 curl --location $JENKINS_URL -z $JENKINS_WAR -o $JENKINS_WAR
 
 # TODO: Start Jenkins as daemon
-java -jar $JENKINS_WAR
+java -jar -Xms2g -Xmx2g -XX:MaxPermSize=512M -Xincgc $JENKINS_WAR
 
