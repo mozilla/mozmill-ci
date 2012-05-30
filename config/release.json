@@ -17,9 +17,7 @@
             "firefox"
         ],
         "locales": [
-            "de",
-            "en-US",
-            "es-ES"
+            "en-US"
         ]
     },
     "jenkins": {
