@@ -34,6 +34,6 @@ echo "Deactivating the environment"
 deactivate
 
 echo "Successfully created the Jenkins environment: '$ENV_DIR'"
-echo "Run 'source $ENV_DIR/bin activate' to activate the environment"
+echo "Run 'source $ENV_DIR/bin/activate' to activate the environment"
 
 rm -r $TMP_DIR
