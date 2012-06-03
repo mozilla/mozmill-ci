@@ -11,7 +11,8 @@
         ],
         "branches": [
             "release-mozilla-beta",
-            "release-mozilla-release"
+            "release-mozilla-release",
+            "release-mozilla-esr10"
         ],
         "products": [
             "firefox"
@@ -95,6 +96,33 @@
                 }
             },
             "release-mozilla-release": {
+                "testruns": [
+                    "functional",
+                    "endurance",
+                    "remote",
+                    "addons"
+                ],
+                "platforms": {
+                    "mac": [
+                        "mac && 10.5 && 32bit",
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.7 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && xp && 32bit",
+                        "windows && vista && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit"
+                    ],
+                    "linux": [
+                        "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 64bit"
+                    ]
+                }
+            },
+            "release-mozilla-esr10": {
                 "testruns": [
                     "functional",
                     "endurance",
