@@ -31,7 +31,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg pull</commandLine>
+      <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg pull -u</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
