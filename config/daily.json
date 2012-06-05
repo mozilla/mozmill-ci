@@ -95,7 +95,6 @@
             },
             "mozilla-aurora": {
                 "testruns": [
-                    "update",
                     "functional",
                     "endurance",
                     "remote",
