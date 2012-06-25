@@ -19,7 +19,7 @@
   <builders/>
   <publishers>
     <hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
-      <workspaceGlob></workspaceGlob>
+      <workspaceGlob>**/*.*</workspaceGlob>
       <workspaceExcludeGlob>README</workspaceExcludeGlob>
       <criteria>Successful</criteria>
       <archiveMethod>TAR</archiveMethod>
