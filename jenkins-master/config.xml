@@ -50,7 +50,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -70,7 +70,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -90,7 +90,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -110,7 +110,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -130,7 +130,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -150,7 +150,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -170,7 +170,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -190,7 +190,7 @@
         <ruby-proxy-object>
           <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
             <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-              <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
             </object>
             <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
           </ruby-object>
@@ -390,7 +390,7 @@
     <ruby-proxy-object>
       <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
         <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-          <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+          <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
         </object>
         <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
       </ruby-object>
@@ -404,16 +404,18 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>1</int>
+          <int>2</int>
           <string>MOZMILL_VERSION</string>
           <string>1.5.12</string>
+          <string>NOTIFICATION_ADDRESS</string>
+          <string>mozmill-ci@mozilla.org</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
     <ruby-proxy-object>
       <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
         <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-          <email pluginid="nodeofflinenotification" ruby-class="String">mozmill-ci@mozilla.org</email>
+          <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
         </object>
         <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
       </ruby-object>
