@@ -2,7 +2,7 @@
 <hudson.tasks.Mailer_-DescriptorImpl>
   <helpRedirect/>
   <defaultSuffix>@mozilla.com</defaultSuffix>
-  <hudsonUrl>http://qa-masterblaster.mv.mozilla.com:8080/</hudsonUrl>
+  <hudsonUrl>http://whimboo:8080/</hudsonUrl>
   <adminAddress>mozmill-ci@mozilla.com</adminAddress>
   <smtpHost>smtp.mozilla.com</smtpHost>
   <useSsl>true</useSsl>

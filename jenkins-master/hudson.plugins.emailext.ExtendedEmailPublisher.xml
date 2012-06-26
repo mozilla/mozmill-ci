@@ -10,7 +10,7 @@
 &#xd;
 Check console output at $BUILD_URL to view the results.</defaultBody>
   <maxAttachmentSize>-1</maxAttachmentSize>
-  <recipientList>mozmill-ci@mozilla.org</recipientList>
+  <recipientList>hskupin@mozilla.com</recipientList>
   <overrideGlobalSettings>false</overrideGlobalSettings>
   <precedenceBulk>false</precedenceBulk>
 </hudson.plugins.emailext.ExtendedEmailPublisherDescriptor>

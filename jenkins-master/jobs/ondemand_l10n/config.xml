@@ -67,6 +67,12 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact>
+      <projectName>tools</projectName>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact>
       <projectName>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
       <filter></filter>
       <target></target>
@@ -95,8 +101,7 @@
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>screenshots/*.*</artifacts>
-      <excludes>**/.placeholder</excludes>
+      <artifacts>screenshots/</artifacts>
       <latestOnly>false</latestOnly>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.junit.JUnitResultArchiver>
