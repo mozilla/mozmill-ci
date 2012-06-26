@@ -30,7 +30,6 @@ jenkins-master/plugins/ant.jpi
 jenkins-master/plugins/cvs.jpi
 jenkins-master/plugins/javadoc.jpi
 jenkins-master/plugins/maven-plugin.jpi
-jenkins-master/plugins/ruby-runtime.jpi
 jenkins-master/plugins/ssh-slaves.jpi
 jenkins-master/plugins/subversion.jpi
 jenkins-master/plugins/translation.jpi
