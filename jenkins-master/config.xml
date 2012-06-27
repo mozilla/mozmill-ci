@@ -406,9 +406,9 @@
           </default>
           <int>2</int>
           <string>MOZMILL_VERSION</string>
-          <string>1.5.12</string>
+          <string>1.5.13</string>
           <string>NOTIFICATION_ADDRESS</string>
-          <string>mozmill-ci@mozilla.org</string>
+          <string></string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>

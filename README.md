@@ -13,7 +13,12 @@ The two components (Pulse consumer and Jenkins master) have to be started separa
 
     ./start.sh
 
-Once Jenkins has been fully started, open `http://localhost:8080/` via your web browser. Open the `+admin` view and execute all of the listed jobs once. Also update the `Jenkins URL` of the master to a public accessible IP or DNS name, so that slave nodes can successfully connect.
+Once Jenkins has been fully started, you will have to configure your system now. Therefore open `http://localhost:8080/configure` via your web browser. In the section "Global properties" update the following entries:
+
+    MOZMILL_VERSION (Version of Mozmill to use)
+    NOTIFICATION_ADDRESS (Email address of the notification emails)
+
+After you are done with the configuration open the `+admin` view and execute all of the listed jobs once. Also update the `Jenkins URL` of the master to a public accessible IP or DNS name, so that slave nodes can successfully connect.
 
 Now you can start the Pulse consumer which pushes requests for jobs through the Jenkins API to the master:
 
