@@ -44,7 +44,7 @@
                     "transform": "get_platform_identifier"
                 },
                 "REPORT_URL": {
-                    "value": "http://mozauto.iriscouch.com/mozmill-ci"
+                    "value": "http://mozauto.iriscouch.com/mozmill-ci/"
                 }
             },
             "endurance": {
