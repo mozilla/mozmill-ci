@@ -136,10 +136,10 @@
       <defaultContent>Mozmill ${PROJECT_NAME} testrun for Firefox Nightly ${ENV,var=&quot;BUILD_ID&quot;} ${ENV,var=&quot;PLATFORM&quot;} ${ENV,var=&quot;LOCALE&quot;} completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
 
 View the build in Jenkins:
-    ${BUILD_URL}
+${BUILD_URL}
 
 View the results in the Mozmill Dashboard:
-${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;(.*)/db/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;    $1/#/remote/report/$2&quot;}</defaultContent>
+${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/remote/report/$2&quot;}</defaultContent>
       <attachmentsPattern></attachmentsPattern>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
