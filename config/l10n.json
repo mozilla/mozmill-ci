@@ -40,7 +40,7 @@
                     "transform": "get_platform_identifier"
                 },
                 "REPORT_URL": {
-                    "value": "http://mozmill-ci.blargon7.com/db/"
+                    "value": "http://mozauto.iriscouch.com/mozmill-ci"
                 }
             }
         },

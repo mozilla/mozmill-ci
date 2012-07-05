@@ -38,7 +38,7 @@ def main():
     testrun = testrun
 
     script = testrun['script']
-    report_url = 'report' in testrun and testrun['report'] or 'http://mozmill-ondemand.blargon7.com/db/'
+    report_url = 'report' in testrun and testrun['report'] or None
 
     # Iterate through all target nodes
     for section in config.sections():
