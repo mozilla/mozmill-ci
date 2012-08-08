@@ -58,6 +58,26 @@
       </nodeProperties>
     </slave>
     <slave>
+      <name>macosx_10.8_01</name>
+      <description>MacOS X 10.8</description>
+      <remoteFS>~/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>mac 10.8 64bit</label>
+      <nodeProperties>
+        <ruby-proxy-object>
+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
+            </object>
+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
+          </ruby-object>
+        </ruby-proxy-object>
+      </nodeProperties>
+    </slave>
+    <slave>
       <name>ubuntu_32_01</name>
       <description>Ubuntu 32bit</description>
       <remoteFS>~/jenkins</remoteFS>
