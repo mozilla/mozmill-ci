@@ -54,7 +54,7 @@ def main():
             build_type = 'release'
 
             # Expression to parse versions like: '5.0', '5.0#3', '5.0b1', '5.0b2#1', '10.0esr#1', '10.0.4esr#1'
-            pattern = re.compile(r'(?P<version>[\d\.]+(?:\w+)?)(?:#(?P<build>\d+))?')
+            pattern = re.compile(r'(?P<version>\d+[^#\s]+)(#(?P<build>\d+))?')
             try:
                 (version, build) = pattern.match(entry).group('version', 'build')
                 locales = config.get(section, entry).split(' ')
