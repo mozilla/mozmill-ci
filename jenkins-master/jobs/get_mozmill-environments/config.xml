@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <matrix-project>
   <actions/>
-  <description>Download the version of the Mozmill Environment as specified with the global $MOZMILL_VERSION variable.</description>
+  <description>Download the version of the Mozmill environment as specified with the global $MOZMILL_VERSION variable.</description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
