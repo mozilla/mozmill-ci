@@ -32,7 +32,7 @@
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>DELAY</name>
-          <description>Duration in seconds to wait before each iterations</description>
+          <description>Duration in seconds to wait before each iteration.</description>
           <defaultValue>0.1</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>

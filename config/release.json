@@ -51,6 +51,9 @@
                 }
             },
             "endurance": {
+                "DELAY": {
+                    "value": 0.1
+                },
                 "ENTITIES": {
                     "value": 10
                 },

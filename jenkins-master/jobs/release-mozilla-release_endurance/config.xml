@@ -26,6 +26,11 @@
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
+          <name>DELAY</name>
+          <description>Duration in seconds to wait before each iteration.</description>
+          <defaultValue>0.1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>ENTITIES</name>
           <description>Number of entities to execute.</description>
           <defaultValue>10</defaultValue>
@@ -122,7 +127,7 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run mozmill-automation/testrun_endurance.py --iterations=10 --entities=10 --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env/run mozmill-automation/testrun_endurance.py --iterations=$ITERATIONS --entities=$ENTITIES --delay=$DELAY --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
