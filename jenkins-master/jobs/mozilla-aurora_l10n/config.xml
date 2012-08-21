@@ -27,7 +27,7 @@
         </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>ENV_PLATFORM</name>
-          <description>Platform of the Mozmill environment (linux, mac, windows)</description>
+          <description>Platform of the Mozmill environment.</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>linux</string>
@@ -46,16 +46,33 @@
           <description>Labels of the nodes to execute the test on.</description>
           <defaultValue></defaultValue>
         </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
-        <hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
           <name>PLATFORM</name>
           <description>The platform to run the test on.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>linux</string>
+              <string>linux64</string>
+              <string>mac</string>
+              <string>mac64</string>
+              <string>win32</string>
+              <string>win64</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
           <name>REPORT_URL</name>
-          <description>URL of the Mozmill Dashboard to send reports to</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
+          <description>URL of the Mozmill Dashboard to send reports to.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>http://mozauto.iriscouch.com/mozmill-crowd/</string>
+              <string>http://mozauto.iriscouch.com/mozmill-addons/</string>
+              <string>http://mozauto.iriscouch.com/mozmill-ci/</string>
+              <string>http://mozauto.iriscouch.com/mozmill-ondemand/</string>
+              <string>http://mozauto.iriscouch.com/mozmill-release/</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
