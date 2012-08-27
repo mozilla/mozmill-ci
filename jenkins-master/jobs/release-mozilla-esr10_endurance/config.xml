@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Execute endurance tests for Release candidate builds.</description>
+  <description>Execute endurance tests for ESR10 candidate builds.</description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>100</numToKeep>
@@ -11,7 +11,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.queueSorter.PrioritySorterJobProperty>
-      <priority>840</priority>
+      <priority>740</priority>
     </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>

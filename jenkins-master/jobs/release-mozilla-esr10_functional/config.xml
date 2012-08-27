@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Execute endurance tests for Release candidate builds.</description>
+  <description>Execute functional tests for ESR10 candidate builds.</description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>100</numToKeep>
@@ -11,7 +11,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.queueSorter.PrioritySorterJobProperty>
-      <priority>840</priority>
+      <priority>750</priority>
     </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -25,16 +25,6 @@
           <description>The build type of Firefox.</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>DELAY</name>
-          <description>Duration in seconds to wait before each iteration.</description>
-          <defaultValue>0.1</defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>ENTITIES</name>
-          <description>Number of entities to execute.</description>
-          <defaultValue>10</defaultValue>
-        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>ENV_PLATFORM</name>
           <description>Platform of the Mozmill environment.</description>
@@ -46,11 +36,6 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>ITERATIONS</name>
-          <description>Number of iterations.</description>
-          <defaultValue>10</defaultValue>
-        </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>LOCALE</name>
           <description>The locale of Firefox.</description>
@@ -127,7 +112,7 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run mozmill-automation/testrun_endurance.py --iterations=$ITERATIONS --entities=$ENTITIES --delay=$DELAY --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env/run mozmill-automation/testrun_functional.py --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
@@ -182,7 +167,7 @@ View the build in Jenkins:
 ${BUILD_URL}
 
 View the results in the Mozmill Dashboard:
-${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/endurance/report/$2&quot;}</defaultContent>
+${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/functional/report/$2&quot;}</defaultContent>
       <attachmentsPattern></attachmentsPattern>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>

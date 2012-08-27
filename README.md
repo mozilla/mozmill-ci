@@ -54,22 +54,24 @@ If you want that the master node also executes jobs you will have to update its 
 ## Job priorities
 To allow Mozmill tests to be executed immediately for release and beta builds priorities are necessary. The same applies to the type of testrun, where some have higher priority.
 
-    trigger_ondemand        = 1099
+    trigger_ondemand            = 1099
 
-    ondemand                = 1000
-    release-mozilla-release =  600
-    release-mozilla-beta    =  500
-    mozilla-esr             =  400
-    mozilla-central         =  300
-    mozilla-aurora          =  200
-    mozilla-1.9.2           =  100
+    ondemand                    = 1000
+    release-mozilla-release     =  800
+    release-mozilla-esr(CUR)    =  700
+    release-mozilla-esr(LAST)   =  600
+    release-mozilla-beta        =  500
+    mozilla-esr                 =  400
+    mozilla-central             =  300
+    mozilla-aurora              =  200
+    mozilla-1.9.2               =  100
 
-    update                  =   60
-    functional              =   50
-    endurance               =   40
-    remote                  =   30
-    addon                   =   20
-    l10n                    =   10
+    update                      =   60
+    functional                  =   50
+    endurance                   =   40
+    remote                      =   30
+    addon                       =   20
+    l10n                        =   10
 
 The higher the priority value, the higher the priority the job will have in the queue. For example, mozilla-central_endurance will have a value of 340 (300 + 40) and will therefore be executed before mozilla-aurora_endurance, which will have a value of 240 (200 + 40).
 
