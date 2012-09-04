@@ -1,7 +1,7 @@
 {
     "pulse": {
-        "applabel": "qa-auto@mozilla.com|mozmill_release",
-        "routing_key_regex": "build\\..+_build\\.\\d+\\.finished",
+        "applabel": "test@example.org|my_identifier",
+        "routing_key_regex": "build\\..+(-l10n)?-nightly\\.\\d+\\.finished",
         "platforms": [
             "linux",
             "linux64",
@@ -10,9 +10,8 @@
             "win32"
         ],
         "branches": [
-            "release-mozilla-beta",
-            "release-mozilla-release",
-            "release-mozilla-esr10"
+            "mozilla-central",
+            "mozilla-aurora"
         ],
         "products": [
             "firefox"
@@ -29,11 +28,11 @@
     "testrun": {
         "jenkins_parameter_map": {
             "default": {
-                "BUILD_NUMBER": {
-                    "key": "build_number"
+                "BUILD_ID": {
+                    "key": "buildid"
                 },
                 "BUILD_TYPE": {
-                    "value": "candidate"
+                    "value": "daily"
                 },
                 "LOCALE": {
                     "key": "locale",
@@ -44,10 +43,7 @@
                     "transform": "get_platform_identifier"
                 },
                 "REPORT_URL": {
-                    "value": "http://mozauto.iriscouch.com/mozmill-ci/"
-                },
-                "VERSION": {
-                    "key": "version"
+                    "value": "http://my-couchdb-instance/"
                 }
             },
             "endurance": {
@@ -71,8 +67,9 @@
             }
         },
         "by_branch": {
-            "release-mozilla-beta": {
+            "mozilla-central": {
                 "testruns": [
+                    "update",
                     "functional",
                     "endurance",
                     "remote",
@@ -99,8 +96,9 @@
                     ]
                 }
             },
-            "release-mozilla-release": {
+            "mozilla-aurora": {
                 "testruns": [
+                    "update",
                     "functional",
                     "endurance",
                     "remote",
@@ -114,35 +112,6 @@
                         "mac && 10.8 && 64bit"
                     ],
                     "win32": [
-                        "windows && xp && 32bit",
-                        "windows && vista && 32bit",
-                        "windows && 7 && 32bit",
-                        "windows && 7 && 64bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 64bit"
-                    ]
-                }
-            },
-            "release-mozilla-esr10": {
-                "testruns": [
-                    "functional",
-                    "endurance",
-                    "remote",
-                    "addons"
-                ],
-                "platforms": {
-                    "mac": [
-                        "mac && 10.5 && 32bit",
-                        "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit",
-                        "mac && 10.8 && 64bit"
-                    ],
-                    "win32": [
-                        "windows && 2000 && 32bit",
                         "windows && xp && 32bit",
                         "windows && vista && 32bit",
                         "windows && 7 && 32bit",
