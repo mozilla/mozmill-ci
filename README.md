@@ -75,6 +75,21 @@ To allow Mozmill tests to be executed immediately for release and beta builds pr
 
 The higher the priority value, the higher the priority the job will have in the queue. For example, mozilla-central_endurance will have a value of 340 (300 + 40) and will therefore be executed before mozilla-aurora_endurance, which will have a value of 240 (200 + 40).
 
+## Merging branches
+The main development on the Mozmill CI code happens on the master branch. In not yet specified intervals we are merging changesets into the staging branch. It is used for testing all the new features before those go live on production. When running those merge tasks you will have to obey the following steps:
+
+1. Select the appropriate target branch
+2. Run 'git rebase master' for staging or 'git rebase staging' for production
+3. Merge the changes with 'git merge master' for staging or 'git merge staging' for production
+4. Ensure that the Jenkins patch can be applied by running 'patch -p1 <config/%BRANCH%/jenkins.patch'
+
+Once the changes have been landed you will have to update the staging or production machines. Run the following steps:
+
+1. Run 'git reset --hard' to remove the locally applied patch
+2. Pull the latest changes with 'git pull'
+3. Apply the Jenkins patch with 'patch -p1 <config/%BRANCH%/jenkins.patch'
+4. Restart Jenkins 
+
 ## Running on-demand tests
 1. Navigate to your Jenkins instance: http://IP:8080
 2. Open the +admin tab and look for the 'trigger-ondemand' row
