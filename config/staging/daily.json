@@ -11,7 +11,7 @@
         ],
         "branches": [
             "mozilla-central",
-            "mozilla-aurora",
+            "mozilla-aurora"
         ],
         "products": [
             "firefox"
