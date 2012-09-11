@@ -84,7 +84,9 @@
                         "windows && xp && 32bit",
                         "windows && vista && 32bit",
                         "windows && 7 && 32bit",
-                        "windows && 7 && 64bit"
+                        "windows && 7 && 64bit",
+                        "windows && 8 && 32bit",
+                        "windows && 8 && 64bit"
                     ],
                     "linux": [
                         "linux && ubuntu && 32bit"
@@ -112,7 +114,9 @@
                         "windows && xp && 32bit",
                         "windows && vista && 32bit",
                         "windows && 7 && 32bit",
-                        "windows && 7 && 64bit"
+                        "windows && 7 && 64bit",
+                        "windows && 8 && 32bit",
+                        "windows && 8 && 64bit"
                     ],
                     "linux": [
                         "linux && ubuntu && 32bit"
@@ -141,7 +145,9 @@
                         "windows && xp && 32bit",
                         "windows && vista && 32bit",
                         "windows && 7 && 32bit",
-                        "windows && 7 && 64bit"
+                        "windows && 7 && 64bit",
+                        "windows && 8 && 32bit",
+                        "windows && 8 && 64bit"
                     ],
                     "linux": [
                         "linux && ubuntu && 32bit"
