@@ -222,7 +222,7 @@
           </default>
           <int>2</int>
           <string>MOZMILL_VERSION</string>
-          <string>1.5.18</string>
+          <string>1.5.19</string>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>
         </tree-map>
