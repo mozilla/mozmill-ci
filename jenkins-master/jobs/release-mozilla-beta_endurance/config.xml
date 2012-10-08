@@ -115,7 +115,7 @@
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>mozmill-env/run mozmill-automation/download.py --type=$BUILD_TYPE --version=$VERSION --build-number=$BUILD_NUMBER --platform=$PLATFORM --locale=$LOCALE --directory=builds</commandLine>
+      <commandLine>mozmill-env/run mozdownload --type=$BUILD_TYPE --version=$VERSION --build-number=$BUILD_NUMBER --platform=$PLATFORM --locale=$LOCALE --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder>
