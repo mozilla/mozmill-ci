@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<matrix-project>
+<project>
   <actions/>
   <description>Download the version of the Mozmill environment as specified with the global $MOZMILL_VERSION variable.</description>
   <logRotator>
@@ -21,22 +21,6 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
-  <axes>
-    <hudson.matrix.TextAxis>
-      <name>ENV_PLATFORM</name>
-      <values>
-        <string>linux</string>
-        <string>mac</string>
-        <string>windows</string>
-      </values>
-    </hudson.matrix.TextAxis>
-    <hudson.matrix.LabelAxis>
-      <name>NODE</name>
-      <values>
-        <string>master</string>
-      </values>
-    </hudson.matrix.LabelAxis>
-  </axes>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact>
       <projectName>tools</projectName>
@@ -45,12 +29,12 @@
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>curl -O http://people.mozilla.com/~hskupin/downloads/mozmill-env/$MOZMILL_VERSION-$ENV_PLATFORM.zip</command>
+      <command>for PLATFORM in linux mac windows;
+  do echo Downloading environment for $PLATFORM;
+  curl -O http://people.mozilla.com/~hskupin/downloads/mozmill-env/$MOZMILL_VERSION-$PLATFORM.zip
+  unzip $MOZMILL_VERSION-$PLATFORM.zip -d $PLATFORM
+  done</command>
     </hudson.tasks.Shell>
-    <hudson.plugins.xshell.XShellBuilder>
-      <commandLine>unzip $MOZMILL_VERSION-$ENV_PLATFORM.zip</commandLine>
-      <executeFromWorkingDir>false</executeFromWorkingDir>
-    </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
     <hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
@@ -65,5 +49,4 @@
       <deleteDirs>false</deleteDirs>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
   </buildWrappers>
-  <runSequentially>false</runSequentially>
-</matrix-project>
+</project>
