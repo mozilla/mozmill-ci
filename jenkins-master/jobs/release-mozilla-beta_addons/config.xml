@@ -128,6 +128,20 @@
             <sendToRecipientList>true</sendToRecipientList>
           </email>
         </hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
+        <hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} ${ENV,var=&quot;LOCALE&quot;} on ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Platform: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${ENV,var=&quot;BUILD_ID&quot;}) was aborted.
+
+View the build in Jenkins:
+${BUILD_URL}</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <sendToRequester>false</sendToRequester>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
           <email>
             <recipientList></recipientList>
