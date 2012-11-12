@@ -80,8 +80,16 @@ The main development on the Mozmill CI code happens on the master branch. In not
 
 1. Select the appropriate target branch
 2. Run 'git rebase master' for staging or 'git rebase staging' for production
-3. Merge the changes with 'git merge master' for staging or 'git merge staging' for production
-4. Ensure that the Jenkins patch can be applied by running 'patch -p1 <config/%BRANCH%/jenkins.patch'
+3. Run 'git pull' for the remote branch you want to push to
+4. Ensure the merged patches are on top of the branch
+5. Ensure that the Jenkins patch can be applied by running 'patch -p1 <config/%BRANCH%/jenkins.patch'
+6. Run 'hg push' for the remote branch
+
+For emergency fixes we are using cherry-pick to port individual fixes to the staging and production branch:
+
+1. Select the appropriate target branch
+2. Run 'git cherry-pick %changeset%' to pick the specific changeset for the current branch
+3. Run 'git push' for the remote branch
 
 Once the changes have been landed you will have to update the staging or production machines. Run the following steps:
 
