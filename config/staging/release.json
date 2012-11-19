@@ -12,7 +12,7 @@
         "branches": [
             "release-mozilla-beta",
             "release-mozilla-release",
-            "release-mozilla-esr10"
+            "release-mozilla-esr17"
         ],
         "products": [
             "firefox"
@@ -106,7 +106,7 @@
                     ]
                 }
             },
-            "release-mozilla-esr10": {
+            "release-mozilla-esr17": {
                 "testruns": [
                     "functional",
                     "endurance",

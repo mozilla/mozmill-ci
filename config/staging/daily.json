@@ -11,7 +11,8 @@
         ],
         "branches": [
             "mozilla-central",
-            "mozilla-aurora"
+            "mozilla-aurora",
+            "mozilla-esr17"
         ],
         "products": [
             "firefox"
@@ -104,7 +105,7 @@
                     ]
                 }
             },
-            "mozilla-esr10": {
+            "mozilla-esr17": {
                 "testruns": [
                     "update",
                     "functional",
