@@ -4,7 +4,7 @@
         "routing_key_regex": "build\\..+(-l10n)?-nightly\\.\\d+\\.finished",
         "platforms": [
             "macosx",
-            "macosx64",
+            "macosx64"
         ],
         "branches": [
             "mozilla-central",
