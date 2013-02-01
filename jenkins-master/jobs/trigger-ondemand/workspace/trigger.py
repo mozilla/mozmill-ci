@@ -57,7 +57,7 @@ def main():
             pattern = re.compile(r'(?P<version>\d+[^#\s]+)(#(?P<build>\d+))?')
             try:
                 (version, build) = pattern.match(entry).group('version', 'build')
-                locales = config.get(section, entry).split(' ')
+                locales = config.get(section, entry).split()
 
                 # If a build number has been specified we have a candidate build
                 build_type = 'candidate' if build else build_type
