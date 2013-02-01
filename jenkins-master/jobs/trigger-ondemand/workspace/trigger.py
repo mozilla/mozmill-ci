@@ -46,7 +46,7 @@ def main():
         if not config.has_option(section, 'platform'):
             continue
         platform = config.get(section, 'platform')
-        node_labels = section.split(' ')
+        node_labels = section.split()
 
         # Iterate through all builds per platform
         for entry in config.options(section):
@@ -64,7 +64,11 @@ def main():
             except:
                 continue
 
+            if script in ['endurance']:
+                node_labels.append(script)
+
             for locale in locales:
+
                 parameters = {
                     'BUILD_TYPE': build_type,
                     'VERSION': version,

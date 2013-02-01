@@ -133,6 +133,8 @@ class Automation:
 
         # Add node and mozmill environment information
         parameters['NODES'] = node
+        if testrun in ['endurance']:
+            parameters['NODES'] = ' && '.join([parameters['NODES'], testrun])
         parameters['ENV_PLATFORM'] = self.get_mozmill_environment_platform(platform)
 
         return parameters
