@@ -83,7 +83,7 @@ The main development on the Mozmill CI code happens on the master branch. In not
 3. Run 'git pull' for the remote branch you want to push to
 4. Ensure the merged patches are on top of the branch
 5. Ensure that the Jenkins patch can be applied by running 'patch -p1 <config/%BRANCH%/jenkins.patch'
-6. Run 'hg push' for the remote branch
+6. Run 'git push' for the remote branch
 
 For emergency fixes we are using cherry-pick to port individual fixes to the staging and production branch:
 
