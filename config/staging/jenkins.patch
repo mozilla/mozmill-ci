@@ -241,7 +241,7 @@ index 755990a..87f4ace 100644
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
 -  <label>master</label>
-+  <label>master mac 10.6 64bit</label>
++  <label>master mac 10.6 64bit endurance</label>
    <nodeProperties>
      <ruby-proxy-object>
        <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
