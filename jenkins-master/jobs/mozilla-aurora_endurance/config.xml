@@ -38,7 +38,7 @@
         <hudson.model.StringParameterDefinition>
           <name>DELAY</name>
           <description>Duration in seconds to wait before each iteration.</description>
-          <defaultValue>0.1</defaultValue>
+          <defaultValue>5</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>ENTITIES</name>
