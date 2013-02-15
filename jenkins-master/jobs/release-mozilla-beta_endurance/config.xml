@@ -197,7 +197,7 @@ ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apo
       <deleteDirs>false</deleteDirs>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper>
-      <timeoutMinutes>60</timeoutMinutes>
+      <timeoutMinutes>300</timeoutMinutes>
       <failBuild>false</failBuild>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
   </buildWrappers>
