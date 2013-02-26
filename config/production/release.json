@@ -9,8 +9,7 @@
         "branches": [
             "release-mozilla-beta",
             "release-mozilla-release",
-            "release-mozilla-esr17",
-            "release-mozilla-esr10"
+            "release-mozilla-esr17"
         ],
         "products": [
             "firefox"
@@ -97,21 +96,6 @@
                 }
             },
             "release-mozilla-esr17": {
-                "testruns": [
-                    "functional",
-                    "endurance",
-                    "remote",
-                    "addons"
-                ],
-                "platforms": {
-                    "mac": [
-                        "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit",
-                        "mac && 10.8 && 64bit"
-                    ]
-                }
-            },
-            "release-mozilla-esr10": {
                 "testruns": [
                     "functional",
                     "endurance",

@@ -9,8 +9,7 @@
         "branches": [
             "mozilla-central",
             "mozilla-aurora",
-            "mozilla-esr17",
-            "mozilla-esr10"
+            "mozilla-esr17"
         ],
         "products": [
             "firefox"
@@ -97,22 +96,6 @@
                 }
             },
             "mozilla-esr17": {
-                "testruns": [
-                    "update",
-                    "functional",
-                    "endurance",
-                    "remote",
-                    "addons"
-                ],
-                "platforms": {
-                    "mac": [
-                        "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit",
-                        "mac && 10.8 && 64bit"
-                    ]
-                }
-            },
-            "mozilla-esr10": {
                 "testruns": [
                     "update",
                     "functional",

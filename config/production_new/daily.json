@@ -10,8 +10,7 @@
         "branches": [
             "mozilla-central",
             "mozilla-aurora",
-            "mozilla-esr17",
-            "mozilla-esr10"
+            "mozilla-esr17"
         ],
         "products": [
             "firefox"
@@ -94,7 +93,6 @@
             },
             "mozilla-aurora": {
                 "testruns": [
-                    "update",
                     "functional",
                     "endurance",
                     "remote",
@@ -129,34 +127,6 @@
                 ],
                 "platforms": {
                     "win32": [
-                        "windows && xp && 32bit",
-                        "windows && vista && 32bit",
-                        "windows && 7 && 32bit",
-                        "windows && 7 && 64bit",
-                        "windows && 8 && 32bit",
-                        "windows && 8 && 64bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 12.04 && 32bit",
-                        "linux && ubuntu && 12.10 && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 12.04 && 64bit",
-                        "linux && ubuntu && 12.10 && 64bit"
-                    ]
-                }
-            },
-            "mozilla-esr10": {
-                "testruns": [
-                    "update",
-                    "functional",
-                    "endurance",
-                    "remote",
-                    "addons"
-                ],
-                "platforms": {
-                    "win32": [
-                        "windows && 2000 && 32bit",
                         "windows && xp && 32bit",
                         "windows && vista && 32bit",
                         "windows && 7 && 32bit",
