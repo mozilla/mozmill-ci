@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index aac0e2a..69903d8 100644
+index 6905a57..d4423f0 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -14,7 +14,828 @@
@@ -832,7 +832,7 @@ index aac0e2a..69903d8 100644
    <quietPeriod>5</quietPeriod>
    <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
    <views>
-@@ -245,7 +1066,7 @@
+@@ -203,7 +1024,7 @@
            <string>MOZMILL_VERSION</string>
            <string>1.5.20</string>
            <string>NOTIFICATION_ADDRESS</string>
