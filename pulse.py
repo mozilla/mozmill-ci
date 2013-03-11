@@ -273,6 +273,11 @@ class Automation:
         target_platform = self.get_platform_identifier(platform)
 
         for testrun in target_branch['testruns']:
+            # TODO: Pretty bad hack, so make it configurable in the json config (#209)
+            # Do not run endurance tests for localized versions of Firefox
+            if testrun in ['endurance'] and locale != 'en-US':
+                continue
+
             # Fire off a build for each supported platform
             for node in target_branch['platforms'][target_platform]:
                 parameters = self.generate_job_parameters(testrun, node,
