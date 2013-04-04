@@ -1,18 +1,21 @@
 {
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_l10n",
-        "routing_key_regex": "build\\..+-l10n-dep\\.\\d+\\.finished",
+        "branches": [
+            "mozilla-aurora"
+        ],
+        "locales": [
+        ],
         "platforms": [
             "linux",
             "win32"
         ],
-        "branches": [
-            "mozilla-aurora"
-        ],
         "products": [
             "firefox"
         ],
-        "locales": [
+        "tags": [
+            "dep",
+            "l10n"
         ]
     },
     "jenkins": {
@@ -30,8 +33,7 @@
                     "value": "tinderbox"
                 },
                 "LOCALE": {
-                    "key": "locale",
-                    "default": "en-US"
+                    "key": "locale"
                 },
                 "PLATFORM": {
                     "key": "platform",

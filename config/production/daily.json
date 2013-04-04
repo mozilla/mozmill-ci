@@ -1,24 +1,26 @@
 {
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_daily",
-        "routing_key_regex": "build\\..+(-l10n)?-nightly\\.\\d+\\.finished",
-        "platforms": [
-            "macosx",
-            "macosx64"
-        ],
         "branches": [
             "mozilla-central",
             "mozilla-aurora",
             "mozilla-esr17"
-        ],
-        "products": [
-            "firefox"
         ],
         "locales": [
             "de",
             "en-US",
             "fr",
             "it"
+        ],
+        "platforms": [
+            "macosx",
+            "macosx64"
+        ],
+        "products": [
+            "firefox"
+        ],
+        "tags": [
+            "nightly"
         ]
     },
     "jenkins": {
@@ -36,8 +38,7 @@
                     "value": "daily"
                 },
                 "LOCALE": {
-                    "key": "locale",
-                    "default": "en-US"
+                    "key": "locale"
                 },
                 "PLATFORM": {
                     "key": "platform",

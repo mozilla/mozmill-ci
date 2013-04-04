@@ -1,7 +1,11 @@
 {
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_release",
-        "routing_key_regex": "build\\..+_build\\.\\d+\\.finished",
+        "branches": [
+            "release-mozilla-beta",
+            "release-mozilla-release",
+            "release-mozilla-esr17"
+        ],
         "platforms": [
             "linux",
             "linux64",
@@ -9,16 +13,13 @@
             "macosx64",
             "win32"
         ],
-        "branches": [
-            "release-mozilla-beta",
-            "release-mozilla-release",
-            "release-mozilla-esr17"
-        ],
         "products": [
             "firefox"
         ],
         "locales": [
             "en-US"
+        ],
+        "tags": [
         ]
     },
     "jenkins": {
@@ -36,8 +37,7 @@
                     "value": "candidate"
                 },
                 "LOCALE": {
-                    "key": "locale",
-                    "default": "en-US"
+                    "key": "locale"
                 },
                 "PLATFORM": {
                     "key": "platform",

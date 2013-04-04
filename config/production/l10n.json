@@ -1,20 +1,21 @@
 {
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_l10n",
-        "routing_key_regex": "build\\..+-l10n-dep\\.\\d+\\.finished",
-        "platforms": [
-            "linux",
-            "macosx",
-            "macosx64",
-            "win32"
-        ],
         "branches": [
             "mozilla-aurora"
+        ],
+        "locales": [
+        ],
+        "platforms": [
+            "macosx",
+            "macosx64"
         ],
         "products": [
             "firefox"
         ],
-        "locales": [
+        "tags": [
+            "dep",
+            "l10n"
         ]
     },
     "jenkins": {
@@ -32,8 +33,7 @@
                     "value": "tinderbox"
                 },
                 "LOCALE": {
-                    "key": "locale",
-                    "default": "en-US"
+                    "key": "locale"
                 },
                 "PLATFORM": {
                     "key": "platform",
@@ -52,13 +52,6 @@
                 "platforms": {
                     "mac": [
                         "mac && 10.7 && 64bit"
-                    ],
-                    "win32": [
-                        "windows && xp && 32bit",
-                        "windows && 7 && 32bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
                     ]
                 }
             }

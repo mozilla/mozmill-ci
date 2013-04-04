@@ -6,7 +6,7 @@ Before you can start the system the following commands have to be performed:
 
     git clone git://github.com/whimboo/mozmill-ci.git
     cd mozmill-ci
-    ./setup/configure.sh
+    ./setup.sh
 
 ## Startup
 The two components (Pulse consumer and Jenkins master) have to be started separately in two different terminals. As first step we have to setup the Jenkins master:

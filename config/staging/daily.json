@@ -1,7 +1,15 @@
 {
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_daily",
-        "routing_key_regex": "build\\..+(-l10n)?-nightly\\.\\d+\\.finished",
+        "branches": [
+            "mozilla-central",
+            "mozilla-aurora",
+            "mozilla-beta",
+            "mozilla-esr17"
+        ],
+        "locales": [
+            "en-US"
+        ],
         "platforms": [
             "linux",
             "linux64",
@@ -9,16 +17,11 @@
             "macosx64",
             "win32"
         ],
-        "branches": [
-            "mozilla-central",
-            "mozilla-aurora",
-            "mozilla-esr17"
-        ],
         "products": [
             "firefox"
         ],
-        "locales": [
-            "en-US"
+        "tags": [
+            "nightly"
         ]
     },
     "jenkins": {
@@ -36,8 +39,7 @@
                     "value": "daily"
                 },
                 "LOCALE": {
-                    "key": "locale",
-                    "default": "en-US"
+                    "key": "locale"
                 },
                 "PLATFORM": {
                     "key": "platform",
@@ -102,6 +104,9 @@
                     ],
                     "linux": [
                         "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 12.04 && 64bit"
                     ]
                 }
             },

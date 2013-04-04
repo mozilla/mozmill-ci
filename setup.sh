@@ -2,11 +2,10 @@
 
 PYTHON_VERSION=$(python -c "import sys;print sys.version[:3]")
 
-BASE_DIR=$(dirname $(cd $(dirname $BASH_SOURCE); pwd))
+BASE_DIR=$(cd $(dirname $BASH_SOURCE); pwd)
 ENV_DIR=$BASE_DIR/jenkins-env
 
-SETUP_DIR=$BASE_DIR/setup
-TMP_DIR=$SETUP_DIR/tmp
+TMP_DIR=$BASE_DIR/tmp
 
 URL_VIRTUALENV=https://bitbucket.org/ianb/virtualenv/raw/1.5.2/virtualenv.py
 
@@ -28,7 +27,7 @@ if [ ! -n "${VIRTUAL_ENV:+1}" ]; then
 fi
 
 echo "Installing required Python modules"
-pip install -r $SETUP_DIR/requirements.txt
+pip install -r requirements.txt
 
 echo "Deactivating the environment"
 deactivate
