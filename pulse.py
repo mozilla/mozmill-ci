@@ -196,9 +196,14 @@ class Automation:
         target_platform = self.get_platform_identifier(data['platform'])
 
         for testrun in target_branch['testruns']:
-            # TODO: Pretty bad hack, so make it configurable in the json config (#209)
+            # TODO: The following lines are pretty bad hacks,
+            # so make those configurable in the json config (#209)
             # Do not run endurance tests for localized versions of Firefox
             if testrun in ['endurance'] and data['locale'] != 'en-US':
+                continue
+            # Do not run update tests if no previous build id is specified
+            # See: https://bugzilla.mozilla.org/show_bug.cgi?id=714806#c17
+            if testrun in ['update'] and not data['previous_buildid']:
                 continue
 
             # Fire off a build for each supported platform
