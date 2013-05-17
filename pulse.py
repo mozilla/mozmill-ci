@@ -201,6 +201,13 @@ class Automation:
             # Do not run endurance tests for localized versions of Firefox
             if testrun in ['endurance'] and data['locale'] != 'en-US':
                 continue
+
+            # Do not run update tests for localized builds of Firefox, because
+            # packaging is broken if nighlies get retriggered
+            # See: https://bugzilla.mozilla.org/show_bug.cgi?id=858953
+            if testrun in ['update'] and data['locale'] != 'en-US':
+                continue
+
             # Do not run update tests if no previous build id is specified
             # See: https://bugzilla.mozilla.org/show_bug.cgi?id=714806#c17
             if testrun in ['update'] and not data['previous_buildid']:
