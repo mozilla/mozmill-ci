@@ -84,6 +84,9 @@
                     ],
                     "linux": [
                         "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 64bit"
                     ]
                 }
             },
@@ -106,7 +109,7 @@
                         "linux && ubuntu && 32bit"
                     ],
                     "linux64": [
-                        "linux && ubuntu && 12.04 && 64bit"
+                        "linux && ubuntu && 64bit"
                     ]
                 }
             },
@@ -127,6 +130,9 @@
                     ],
                     "linux": [
                         "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 64bit"
                     ]
                 }
             }
