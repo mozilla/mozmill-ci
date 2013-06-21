@@ -1,3 +1,0 @@
-mercurial==2.2.1
-python-jenkins==0.2
-pulsebuildmonitor==0.70

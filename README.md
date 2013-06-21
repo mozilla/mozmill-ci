@@ -8,6 +8,11 @@ Before you can start the system the following commands have to be performed:
     cd mozmill-ci
     ./setup.sh
 
+Make sure that you have the Python header files installed. If those are not present, install those:
+
+    Ubuntu:       Install the package via: apt-get install python-dev
+    OSX, Windows: Install the latest [Python 2.7](http://www.python.org/getit/)
+
 ## Startup
 The two components (Pulse consumer and Jenkins master) have to be started separately in two different terminals. As first step we have to setup the Jenkins master:
 

@@ -1,38 +1,45 @@
 #!/usr/bin/env bash
 
-PYTHON_VERSION=$(python -c "import sys;print sys.version[:3]")
+# Link to the folder which contains the zip archives of virtualenv
+URL_VIRTUALENV=https://codeload.github.com/pypa/virtualenv/zip/
 
-BASE_DIR=$(cd $(dirname $BASH_SOURCE); pwd)
-ENV_DIR=$BASE_DIR/jenkins-env
+VERSION_MERCURIAL=2.6.2
+VERSION_PULSEBUILDMONITOR=0.70
+VERSION_PYTHON_JENKINS=0.2
+VERSION_VIRTUALENV=1.9.1
 
-TMP_DIR=$BASE_DIR/tmp
+VERSION_PYTHON=$(python -c "import sys;print sys.version[:3]")
 
-URL_VIRTUALENV=https://bitbucket.org/ianb/virtualenv/raw/1.5.2/virtualenv.py
+DIR_BASE=$(cd $(dirname ${BASH_SOURCE}); pwd)
+DIR_ENV=${DIR_BASE}/jenkins-env
+DIR_TMP=${DIR_BASE}/tmp
 
+echo "Cleaning up existent jenkins-env and tmp folders"
+rm -r ${DIR_ENV} ${DIR_TMP}
 
-if [ -e $ENV_DIR ]; then
-  rm -r $ENV_DIR
-fi
-
-echo "Fetching latest version of virtualenv and creating new environment"
-mkdir $TMP_DIR && curl $URL_VIRTUALENV > $TMP_DIR/virtualenv.py
-python $TMP_DIR/virtualenv.py --no-site-packages $ENV_DIR
+echo "Fetching virtualenv ${VERSION_VIRTUALENV} and creating jenkins environment"
+mkdir ${DIR_TMP}
+curl ${URL_VIRTUALENV}${VERSION_VIRTUALENV} > ${DIR_TMP}/virtualenv.zip
+unzip ${DIR_TMP}/virtualenv.zip -d ${DIR_TMP}
+python ${DIR_TMP}/virtualenv-${VERSION_VIRTUALENV}/virtualenv.py ${DIR_ENV}
 
 echo "Activating the new environment"
-source $ENV_DIR/bin/activate
+source ${DIR_ENV}/bin/activate
 if [ ! -n "${VIRTUAL_ENV:+1}" ]; then
-    echo "### Failure in activating the new virtual environment: '$ENV_DIR'"
-    rm -r $ENV_DIR $TMP_DIR
+    echo "### Failure in activating the new virtual environment: '${DIR_ENV}'"
+    rm -r ${DIR_ENV} ${DIR_TMP}
     exit 1
 fi
 
-echo "Installing required Python modules"
-pip install -r requirements.txt
+echo "Installing required dependencies"
+pip install --upgrade --global-option="--pure" mercurial==${VERSION_MERCURIAL}
+pip install --upgrade python-jenkins==${VERSION_PYTHON_JENKINS}
+pip install --upgrade pulsebuildmonitor==${VERSION_PULSEBUILDMONITOR}
 
 echo "Deactivating the environment"
 deactivate
 
-echo "Successfully created the Jenkins environment: '$ENV_DIR'"
-echo "Run 'source $ENV_DIR/bin/activate' to activate the environment"
+echo "Successfully created the Jenkins environment: '${DIR_ENV}'"
+echo "Run 'source ${DIR_ENV}/bin/activate' to activate the environment"
 
-rm -r $TMP_DIR
+rm -r ${DIR_TMP}
