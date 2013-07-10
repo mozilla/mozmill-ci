@@ -1,8 +1,8 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index e3c6f17..7895412 100644
+index e3c6f17..34a2ba1 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -14,7 +14,788 @@
+@@ -14,7 +14,908 @@
    <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
    <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
    <clouds/>
@@ -788,11 +788,131 @@ index e3c6f17..7895412 100644
 +        </ruby-proxy-object>
 +      </nodeProperties>
 +    </slave>
++    <slave>
++      <name>mm-win-81-32-1</name>
++      <description>Windows 8.1 32bit</description>
++      <remoteFS>c:\jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>windows 8.1 32bit endurance</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-win-81-32-2</name>
++      <description>Windows 8.1 32bit</description>
++      <remoteFS>c:\jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>windows 8.1 32bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-win-81-32-3</name>
++      <description>Windows 8.1 32bit</description>
++      <remoteFS>c:\jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>windows 8.1 32bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-win-81-64-1</name>
++      <description>Windows 8-1 64bit</description>
++      <remoteFS>c:\jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>windows 8.1 64bit endurance</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-win-81-64-2</name>
++      <description>Windows 8-1 64bit</description>
++      <remoteFS>c:\jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>windows 8-1 64bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-win-81-64-3</name>
++      <description>Windows 8.1 64bit</description>
++      <remoteFS>c:\jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>windows 8.1 64bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
 +  </slaves>
    <quietPeriod>5</quietPeriod>
    <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
    <views>
-@@ -203,7 +984,7 @@
+@@ -203,7 +1104,7 @@
            <string>MOZMILL_VERSION</string>
            <string>1.5.21</string>
            <string>NOTIFICATION_ADDRESS</string>
