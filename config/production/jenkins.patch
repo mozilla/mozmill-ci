@@ -1,8 +1,8 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index e3c6f17..34a2ba1 100644
+index e3c6f17..59f17d5 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -14,7 +14,908 @@
+@@ -14,7 +14,1028 @@
    <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
    <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
    <clouds/>
@@ -417,6 +417,126 @@ index e3c6f17..34a2ba1 100644
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.10 64bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-ub-1304-32-1</name>
++      <description>Ubuntu 13.04 32bit</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>linux ubuntu 13.04 32bit endurance</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-ub-1304-32-2</name>
++      <description>Ubuntu 13.04 32bit</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>linux ubuntu 13.04 32bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-ub-1304-32-3</name>
++      <description>Ubuntu 13.04 32bit</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>linux ubuntu 13.04 32bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-ub-1304-64-1</name>
++      <description>Ubuntu 13.04 64bit</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>linux ubuntu 13.04 64bit endurance</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-ub-1304-64-2</name>
++      <description>Ubuntu 13.04 64bit</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>linux ubuntu 13.04 64bit</label>
++      <nodeProperties>
++        <ruby-proxy-object>
++          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
++            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
++            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
++              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
++            </object>
++          </ruby-object>
++        </ruby-proxy-object>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-ub-1304-64-3</name>
++      <description>Ubuntu 13.04 64bit</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>linux ubuntu 13.04 64bit</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -912,7 +1032,7 @@ index e3c6f17..34a2ba1 100644
    <quietPeriod>5</quietPeriod>
    <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
    <views>
-@@ -203,7 +1104,7 @@
+@@ -203,7 +1224,7 @@
            <string>MOZMILL_VERSION</string>
            <string>1.5.21</string>
            <string>NOTIFICATION_ADDRESS</string>
@@ -934,7 +1054,7 @@ index e8de1e3..ec46259 100644
    <useSsl>false</useSsl>
    <defaultContentType>text/plain</defaultContentType>
 diff --git a/jenkins-master/hudson.tasks.Mailer.xml b/jenkins-master/hudson.tasks.Mailer.xml
-index 5ad3a45..84a8183 100644
+index dbf3afd..396bbab 100644
 --- a/jenkins-master/hudson.tasks.Mailer.xml
 +++ b/jenkins-master/hudson.tasks.Mailer.xml
 @@ -2,6 +2,7 @@
@@ -943,5 +1063,5 @@ index 5ad3a45..84a8183 100644
    <defaultSuffix>@mozilla.com</defaultSuffix>
 +  <hudsonUrl>http://mm-ci-master.qa.scl3.mozilla.com:8080/</hudsonUrl>
    <adminAddress>mozmill-ci@mozilla.com</adminAddress>
-   <smtpHost>smtp.mozilla.com</smtpHost>
-   <useSsl>true</useSsl>
+   <smtpHost>smtp.mozilla.org</smtpHost>
+   <useSsl>false</useSsl>
