@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hudson.plugins.emailext.ExtendedEmailPublisherDescriptor>
-  <helpRedirect/>
+<hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.32">
   <adminAddress>mozmill-ci@mozilla.com</adminAddress>
   <useSsl>false</useSsl>
   <defaultContentType>text/plain</defaultContentType>
@@ -8,8 +7,15 @@
   <defaultBody>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:&#xd;
 &#xd;
 Check console output at $BUILD_URL to view the results.</defaultBody>
+  <defaultPresendScript></defaultPresendScript>
   <maxAttachmentSize>-1</maxAttachmentSize>
   <recipientList>$NOTIFICATION_ADDRESS</recipientList>
+  <defaultReplyTo></defaultReplyTo>
+  <excludedCommitters></excludedCommitters>
   <overrideGlobalSettings>false</overrideGlobalSettings>
+  <listId>Notifications from the Mozmill-CI system &lt;mozmill-ci.mozilla.org&gt;</listId>
   <precedenceBulk>false</precedenceBulk>
+  <debugMode>false</debugMode>
+  <enableSecurity>false</enableSecurity>
+  <enableWatching>false</enableWatching>
 </hudson.plugins.emailext.ExtendedEmailPublisherDescriptor>

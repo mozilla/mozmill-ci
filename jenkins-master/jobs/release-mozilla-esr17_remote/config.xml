@@ -2,7 +2,7 @@
 <project>
   <actions/>
   <description>Execute remote tests for ESR17 candidate builds.</description>
-  <logRotator>
+  <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>100</numToKeep>
     <artifactDaysToKeep>-1</artifactDaysToKeep>
@@ -10,7 +10,7 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@1.3">
       <priority>730</priority>
     </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
@@ -41,7 +41,7 @@
           <description>The locale of Firefox.</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
-        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.4">
           <name>NODES</name>
           <description>Labels of the nodes to execute the test on.</description>
           <defaultValue></defaultValue>
@@ -73,7 +73,10 @@
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
-  <scm class="hudson.scm.NullSCM"/>
+  <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.5">
+    <parentJobName>get_mozmill-tests</parentJobName>
+    <criteria>Successful</criteria>
+  </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -81,29 +84,23 @@
   <triggers class="vector"/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
-    <hudson.plugins.copyartifact.CopyArtifact>
-      <projectName>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</projectName>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
+      <project>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</project>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact>
-      <projectName>get_mozmill-tests</projectName>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
+      <project>get_mozmill-automation</project>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact>
-      <projectName>get_mozmill-automation</projectName>
-      <filter></filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
       <commandLine>mozmill-env/run mozdownload --type=$BUILD_TYPE --version=$VERSION --build-number=$BUILD_NUMBER --platform=$PLATFORM --locale=$LOCALE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
-    <hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
       <commandLine>mozmill-env/run mozmill-automation/testrun_remote.py --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
@@ -114,7 +111,7 @@
       <keepLongStdio>false</keepLongStdio>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
-    <hudson.plugins.emailext.ExtendedEmailPublisher>
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.32">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
@@ -126,6 +123,10 @@
             <sendToRequester>false</sendToRequester>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo></replyTo>
           </email>
         </hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
         <hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
@@ -140,6 +141,10 @@ ${BUILD_URL}</body>
             <sendToRequester>false</sendToRequester>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo></replyTo>
           </email>
         </hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
         <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
@@ -151,6 +156,10 @@ ${BUILD_URL}</body>
             <sendToRequester>false</sendToRequester>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo></replyTo>
           </email>
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
         <hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
@@ -162,6 +171,10 @@ ${BUILD_URL}</body>
             <sendToRequester>false</sendToRequester>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
+            <attachmentsPattern></attachmentsPattern>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo></replyTo>
           </email>
         </hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
       </configuredTriggers>
@@ -175,15 +188,25 @@ ${BUILD_URL}
 View the results in the Mozmill Dashboard:
 ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/remote/report/$2&quot;}</defaultContent>
       <attachmentsPattern></attachmentsPattern>
+      <presendScript></presendScript>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+      <replyTo></replyTo>
+      <saveOutput>false</saveOutput>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.16">
       <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
-    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.11">
       <timeoutMinutes>60</timeoutMinutes>
       <failBuild>false</failBuild>
+      <writingDescription>false</writingDescription>
+      <timeoutPercentage>0</timeoutPercentage>
+      <timeoutType>absolute</timeoutType>
+      <timeoutMinutesElasticDefault>3</timeoutMinutesElasticDefault>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
   </buildWrappers>
 </project>

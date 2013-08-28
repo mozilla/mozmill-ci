@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>1.455</version>
+  <version>1.509.2</version>
   <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -32,7 +32,7 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
-      <jobNames class="tree-set">
+      <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
         <string>get_mozmill-automation</string>
         <string>get_mozmill-environments</string>
@@ -57,7 +57,7 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
-      <jobNames class="tree-set">
+      <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>
@@ -78,7 +78,7 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
-      <jobNames class="tree-set">
+      <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>
@@ -99,7 +99,7 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
-      <jobNames class="tree-set">
+      <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>
@@ -120,7 +120,7 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
-      <jobNames class="tree-set">
+      <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>
@@ -141,7 +141,7 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
-      <jobNames class="tree-set">
+      <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>
@@ -162,7 +162,7 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
-      <jobNames class="tree-set">
+      <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>

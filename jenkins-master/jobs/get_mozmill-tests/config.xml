@@ -2,7 +2,7 @@
 <project>
   <actions/>
   <description>Clone the Mozmill tests repository.</description>
-  <logRotator>
+  <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>100</numToKeep>
     <artifactDaysToKeep>-1</artifactDaysToKeep>
@@ -10,11 +10,11 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@1.3">
       <priority>1099</priority>
     </hudson.queueSorter.PrioritySorterJobProperty>
   </properties>
-  <scm class="hudson.plugins.mercurial.MercurialSCM">
+  <scm class="hudson.plugins.mercurial.MercurialSCM" plugin="mercurial@1.46">
     <installation>(Default)</installation>
     <source>http://hg.mozilla.org/qa/mozmill-tests</source>
     <modules></modules>
@@ -36,16 +36,17 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
       <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg pull -u</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
-    <hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
+    <hudson.plugins.cloneworkspace.CloneWorkspacePublisher plugin="clone-workspace-scm@0.5">
       <workspaceGlob></workspaceGlob>
       <criteria>Successful</criteria>
       <archiveMethod>TAR</archiveMethod>
+      <overrideDefaultExcludes>true</overrideDefaultExcludes>
     </hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
   </publishers>
   <buildWrappers/>

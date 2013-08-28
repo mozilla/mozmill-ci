@@ -14,7 +14,6 @@ nextBuildNumber
 jenkins-master/.owner
 jenkins-master/fingerprints
 jenkins-master/hudson.maven.*
-jenkins-master/hudson.model.UpdateCenter.xml
 jenkins-master/hudson.scm.CVSSCM.xml
 jenkins-master/hudson.scm.SubversionSCM.xml
 jenkins-master/hudson.tasks.Ant.xml
