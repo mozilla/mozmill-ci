@@ -8,9 +8,15 @@
         ],
         "locales": [
             "de",
+            "en-GB",
             "en-US",
+            "es-ES",
             "fr",
-            "it"
+            "it",
+            "ja",
+            "pl",
+            "pt-BR",
+            "ru"
         ],
         "platforms": [
             "linux",
