@@ -51,10 +51,10 @@
             },
             "endurance": {
                 "ENTITIES": {
-                    "value": 10
+                    "value": 2
                 },
                 "ITERATIONS": {
-                    "value": 10
+                    "value": 2
                 }
             },
             "update": {
