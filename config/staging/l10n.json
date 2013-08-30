@@ -5,6 +5,10 @@
             "mozilla-aurora"
         ],
         "locales": [
+            "de",
+            "fr",
+            "it",
+            "ru"
         ],
         "platforms": [
             "linux",
@@ -42,7 +46,7 @@
                     "transform": "get_platform_identifier"
                 },
                 "REPORT_URL": {
-                    "value": "http://mozauto.iriscouch.com/mozmill-daily/"
+                    "value": "http://mozauto.iriscouch.com/mozmill-staging/"
                 }
             }
         },
@@ -53,10 +57,10 @@
                 ],
                 "platforms": {
                     "linux": [
-                        "linux && ubuntu && 12.04 && 32bit"
+                        "linux && ubuntu && 32bit"
                     ],
                     "mac": [
-                        "mac && 10.8 && 64bit"
+                        "mac && 10.6 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
