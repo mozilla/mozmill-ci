@@ -1,75 +1,13 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 40e896d..c9509ab 100644
+index 0047a90..25701c4 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -14,7 +14,212 @@
+@@ -14,7 +14,88 @@
    <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
    <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
    <clouds/>
 -  <slaves/>
 +  <slaves>
-+    <slave>
-+      <name>macosx_10.5_01</name>
-+      <description>MacOS X 10.5</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.5 32bit endurance</label>
-+      <nodeProperties/>
-+    </slave>
-+    <slave>
-+      <name>macosx_10.6_01</name>
-+      <description>MacOS X 10.6</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.6 64bit endurance</label>
-+      <nodeProperties/>
-+    </slave>
-+    <slave>
-+      <name>macosx_10.7_01</name>
-+      <description>MacOS X 10.7</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.7 64bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>macosx_10.8_01</name>
-+      <description>MacOS X 10.8</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.8 64bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
-+    </slave>
 +    <slave>
 +      <name>ubuntu_32_01</name>
 +      <description>Ubuntu 32bit</description>
@@ -131,26 +69,6 @@ index 40e896d..c9509ab 100644
 +      </nodeProperties>
 +    </slave>
 +    <slave>
-+      <name>windows-vista_32_01</name>
-+      <description>Windows Vista 32bit</description>
-+      <remoteFS>c:\jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows vista 32bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
 +      <name>windows-7_32_01</name>
 +      <description>Windows 7 32bit</description>
 +      <remoteFS>c:\jenkins</remoteFS>
@@ -170,53 +88,11 @@ index 40e896d..c9509ab 100644
 +        </ruby-proxy-object>
 +      </nodeProperties>
 +    </slave>
-+    <slave>
-+      <name>windows-7_64_01</name>
-+      <description>Windows 7 64bit</description>
-+      <remoteFS>c:\jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 7 64bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>windows-8_32_01</name>
-+      <description>Windows 8 32bit</description>
-+      <remoteFS>c:\jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 8 32bit endurance</label>
-+      <nodeProperties/>
-+    </slave>
-+    <slave>
-+      <name>windows-8_64_01</name>
-+      <description>Windows 8 64bit</description>
-+      <remoteFS>c:\jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 8 64bit endurance</label>
-+      <nodeProperties/>
-+    </slave>
 +  </slaves>
    <quietPeriod>5</quietPeriod>
    <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
    <views>
-@@ -180,7 +385,7 @@
+@@ -180,7 +261,7 @@
    </views>
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
