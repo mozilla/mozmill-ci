@@ -4,6 +4,7 @@
         "branches": [
             "release-mozilla-beta",
             "release-mozilla-release",
+            "release-mozilla-esr24",
             "release-mozilla-esr17"
         ],
         "platforms": [
@@ -91,6 +92,28 @@
                 }
             },
             "release-mozilla-release": {
+                "testruns": [
+                    "functional",
+                    "endurance",
+                    "remote",
+                    "addons"
+                ],
+                "platforms": {
+                    "mac": [
+                        "mac && 10.6 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 7 && 32bit"
+                    ],
+                    "linux": [
+                        "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 64bit"
+                    ]
+                }
+            },
+            "release-mozilla-esr24": {
                 "testruns": [
                     "functional",
                     "endurance",

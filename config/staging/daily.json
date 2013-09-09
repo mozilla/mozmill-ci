@@ -5,6 +5,7 @@
             "mozilla-central",
             "mozilla-aurora",
             "mozilla-beta",
+            "mozilla-esr24",
             "mozilla-esr17"
         ],
         "locales": [
@@ -91,6 +92,29 @@
                 }
             },
             "mozilla-aurora": {
+                "testruns": [
+                    "update",
+                    "functional",
+                    "endurance",
+                    "remote",
+                    "addons"
+                ],
+                "platforms": {
+                    "mac": [
+                        "mac && 10.6 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 7 && 32bit"
+                    ],
+                    "linux": [
+                        "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 64bit"
+                    ]
+                }
+            },
+            "mozilla-esr24": {
                 "testruns": [
                     "update",
                     "functional",
