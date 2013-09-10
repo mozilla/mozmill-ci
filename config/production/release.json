@@ -180,7 +180,6 @@
             "release-mozilla-esr17": {
                 "testruns": [
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
