@@ -95,18 +95,12 @@
       <target></target>
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
-      <project>get_mozmill-automation</project>
-      <filter></filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
       <commandLine>mozmill-env/run mozdownload --type=$BUILD_TYPE --branch=mozilla-central --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --date=$DATE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
-      <commandLine>mozmill-env/run mozmill-automation/testrun_remote.py --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env/run testrun_remote --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

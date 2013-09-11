@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <matrix-project>
   <actions/>
-  <description>Download the version of the Mozmill environment as specified with the global $MOZMILL_VERSION variable.</description>
+  <description>Download the version of the Mozmill environment as specified with the global $MOZMILL_AUTOMATION_VERSION variable.</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -45,10 +45,10 @@
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>curl -O https://mozqa.com/mozmill-env/$MOZMILL_VERSION-$ENV_PLATFORM.zip</command>
+      <command>curl -O https://mozqa.com/mozmill-env/$MOZMILL_AUTOMATION_VERSION-$ENV_PLATFORM.zip</command>
     </hudson.tasks.Shell>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
-      <commandLine>unzip $MOZMILL_VERSION-$ENV_PLATFORM.zip</commandLine>
+      <commandLine>unzip $MOZMILL_AUTOMATION_VERSION-$ENV_PLATFORM.zip</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

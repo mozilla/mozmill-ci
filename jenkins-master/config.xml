@@ -200,8 +200,8 @@
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
           <int>2</int>
-          <string>MOZMILL_VERSION</string>
-          <string>1.5.22</string>
+          <string>MOZMILL_AUTOMATION_VERSION</string>
+          <string>1.5.22.1</string>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>
         </tree-map>
