@@ -14,7 +14,14 @@ if [ -f $JENKINS_WAR.part ]; then
 fi
 
 source jenkins-env/bin/activate
+if [$? -eq 0]; then
+    echo "Virtual environment activated successfully."
+    # TODO: Start Jenkins as daemon
+    echo "Starting Jenkins"
+    java -jar -Xms2g -Xmx2g -XX:MaxPermSize=512M -Xincgc $JENKINS_WAR
+else
+    echo "Could not activate virtual environment."
+    echo "Exiting."
+fi
 
-# TODO: Start Jenkins as daemon
-java -jar -Xms2g -Xmx2g -XX:MaxPermSize=512M -Xincgc $JENKINS_WAR
 
