@@ -14,7 +14,7 @@ if [ -f $JENKINS_WAR.part ]; then
 fi
 
 source jenkins-env/bin/activate
-if [$? -eq 0]; then
+if [ $? -eq 0 ]; then
     echo "Virtual environment activated successfully."
     # TODO: Start Jenkins as daemon
     echo "Starting Jenkins"
