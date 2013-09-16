@@ -49,5 +49,7 @@
       <overrideDefaultExcludes>true</overrideDefaultExcludes>
     </hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
   </publishers>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.7"/>
+  </buildWrappers>
 </project>

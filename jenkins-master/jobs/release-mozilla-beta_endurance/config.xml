@@ -217,5 +217,6 @@ ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apo
       <timeoutType>absolute</timeoutType>
       <timeoutMinutesElasticDefault>3</timeoutMinutesElasticDefault>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.7"/>
   </buildWrappers>
 </project>
