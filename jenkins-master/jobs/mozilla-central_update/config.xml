@@ -228,7 +228,7 @@ ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apo
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.7"/>
     <EnvInjectBuildWrapper plugin="envinject@1.88">
       <info>
-        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:5,nsSocketTransport:5,nsHostResolver:5
+        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:5,nsSocketTransport:5,nsHostResolver:5,append
 NSPR_LOG_FILE=http.log</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
