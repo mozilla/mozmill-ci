@@ -95,11 +95,16 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
-      <commandLine>mozmill-env/run testrun_remote --repository=mozmill-tests --junit=report.xml --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env/run testrun_remote --repository=mozmill-tests --junit=report.xml --screenshot-path=screenshots --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>screenshots/</artifacts>
+      <latestOnly>false</latestOnly>
+      <allowEmptyArchive>false</allowEmptyArchive>
+    </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.junit.JUnitResultArchiver>
       <testResults>report_*.xml</testResults>
       <keepLongStdio>false</keepLongStdio>
