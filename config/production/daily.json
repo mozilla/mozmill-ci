@@ -98,9 +98,7 @@
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
                         "windows && 8 && 32bit",
-                        "windows && 8 && 64bit",
-                        "windows && 8.1 && 32bit",
-                        "windows && 8.1 && 64bit"
+                        "windows && 8 && 64bit"
                     ]
                 }
             },
@@ -132,9 +130,7 @@
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
                         "windows && 8 && 32bit",
-                        "windows && 8 && 64bit",
-                        "windows && 8.1 && 32bit",
-                        "windows && 8.1 && 64bit"
+                        "windows && 8 && 64bit"
                     ]
                 }
             },
@@ -200,9 +196,7 @@
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
                         "windows && 8 && 32bit",
-                        "windows && 8 && 64bit",
-                        "windows && 8.1 && 32bit",
-                        "windows && 8.1 && 64bit"
+                        "windows && 8 && 64bit"
                     ]
                 }
             }
