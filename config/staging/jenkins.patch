@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 0047a90..25701c4 100644
+index d589b79..736d618 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -14,7 +14,88 @@
@@ -92,7 +92,7 @@ index 0047a90..25701c4 100644
    <quietPeriod>5</quietPeriod>
    <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
    <views>
-@@ -180,7 +261,7 @@
+@@ -242,7 +323,7 @@
    </views>
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
