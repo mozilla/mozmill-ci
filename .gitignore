@@ -2,5 +2,5 @@
 *.pyc
 *.bak
 jenkins-env/
-jenkins.war
+*.war
 log/

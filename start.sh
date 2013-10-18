@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-JENKINS_VERSION=1.509.2
+JENKINS_VERSION=1.509.4
 JENKINS_URL="http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war"
-JENKINS_WAR=jenkins.war
+JENKINS_WAR=jenkins-$JENKINS_VERSION.war
 
 export JENKINS_HOME=$(dirname $BASH_SOURCE)/jenkins-master
 
