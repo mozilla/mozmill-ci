@@ -15,8 +15,8 @@ def main():
     driver.get(base_url + 'computer/')
     node_links = driver.find_elements_by_css_selector(
         "tr[id*='node_'] > td:nth-child(2) > a")
-    nodes = [{'name':link.text, 'href':link.get_attribute('href')} for
-        link in node_links]
+    nodes = [{'name': link.text, 'href': link.get_attribute('href')} for
+             link in node_links]
 
     for i, node in enumerate(nodes):
         driver.get(node['href'] + 'configure')
@@ -33,8 +33,9 @@ def main():
     driver.get(base_url)
     job_links = driver.find_elements_by_css_selector(
         "tr[id*='job_'] > td:nth-child(3) > a")
-    jobs = [{'name':link.text, 'href':link.get_attribute('href')} for
-        link in job_links]
+    jobs = [{'name': link.text, 'href': link.get_attribute('href')} for
+            link in job_links]
+    assert len(jobs) > 0, 'No jobs configured in Jenkins!'
 
     for i, job in enumerate(jobs):
         driver.get(job['href'] + 'configure')

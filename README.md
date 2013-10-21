@@ -20,7 +20,7 @@ You will need to have the Python header files installed:
 * OSX, Windows: Install the latest [Python 2.7](http://www.python.org/getit/)
 
 ## Startup
-To start Jenkins simply run `./start.sh` from the mozmill-ci directory. You
+To start Jenkins simply run `./start.py` from the mozmill-ci directory. You
 can tell when Jenkins is running by looking out for "Jenkins is fully up and
 running" in the console output. You will also be able to view the web dashboard
 by pointing your browser at http://localhost:8080/
@@ -208,7 +208,7 @@ made, the default will reset back to 'aurora'.
 ## Troubleshooting
 If Jenkins fails to start it may be due to the default memory requirements. If
 your machine has less than 2GB of available memory you may need to reduce the
-values for `Xms` and `Xmx` in `start.sh`
+values for `Xms` and `Xmx` in `start.py`
 
 Due to [issue #125](https://github.com/mozilla/mozmill-ci/issues/125)
 you may experience issues saving the Jenkins configuration. If so, try

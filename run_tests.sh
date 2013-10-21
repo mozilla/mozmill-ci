@@ -4,6 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+set -e
 DIR_TEST_ENV="test/venv"
 DIR_JENKINS_ENV=jenkins-env
 VERSION_VIRTUALENV=1.9.1
@@ -27,7 +28,7 @@ else
 fi
 
 echo "Starting Jenkins"
-./start.sh > jenkins.out &
+./start.py > jenkins.out &
 sleep 60
 
 # Check if environment exists, if not, create a virtualenv:
@@ -36,7 +37,9 @@ then
   echo "Using virtual environment in $DIR_TEST_ENV"
 else
   echo "Creating a virtual environment (version ${VERSION_VIRTUALENV}) in ${DIR_TEST_ENV}"
-  curl -L https://raw.github.com/pypa/virtualenv/${VERSION_VIRTUALENV}/virtualenv.py | python - --no-site-packages $DIR_TEST_ENV
+  curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-${VERSION_VIRTUALENV}.tar.gz
+  tar xvfz virtualenv-${VERSION_VIRTUALENV}.tar.gz
+  python virtualenv-${VERSION_VIRTUALENV}/virtualenv.py ${DIR_TEST_ENV}
 fi
 . $DIR_TEST_ENV/bin/activate || exit $?
 
