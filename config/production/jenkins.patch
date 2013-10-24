@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index eb1abeb..5e9f31a 100644
+index 8cd6dae..b13e6b2 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -14,7 +14,1288 @@
@@ -36,7 +36,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.6 64bit</label>
++      <label>mac 10.6 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -116,7 +116,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.7 64bit</label>
++      <label>mac 10.7 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -196,7 +196,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.8 64bit</label>
++      <label>mac 10.8 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -276,7 +276,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.9 64bit</label>
++      <label>mac 10.9 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -356,7 +356,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 12.04 32bit</label>
++      <label>linux ubuntu 12.04 32bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -436,7 +436,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 12.04 64bit</label>
++      <label>linux ubuntu 12.04 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -516,7 +516,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 13.04 32bit</label>
++      <label>linux ubuntu 13.04 32bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -596,7 +596,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 13.04 64bit</label>
++      <label>linux ubuntu 13.04 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -676,7 +676,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows xp 32bit</label>
++      <label>windows xp 32bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -756,7 +756,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows vista 32bit</label>
++      <label>windows vista 32bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -836,7 +836,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 7 32bit</label>
++      <label>windows 7 32bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -916,7 +916,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 7 64bit</label>
++      <label>windows 7 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -996,7 +996,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 8 32bit</label>
++      <label>windows 8 32bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -1076,7 +1076,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 8 64bit</label>
++      <label>windows 8 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -1156,7 +1156,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 8.1 32bit</label>
++      <label>windows 8.1 32bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -1236,7 +1236,7 @@ index eb1abeb..5e9f31a 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>windows 8.1 64bit</label>
++      <label>windows 8.1 64bit endurance</label>
 +      <nodeProperties>
 +        <ruby-proxy-object>
 +          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
@@ -1294,7 +1294,7 @@ index eb1abeb..5e9f31a 100644
    <views>
 @@ -265,7 +1546,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>2.0</string>
+           <string>1.5.24</string>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
