@@ -18,6 +18,7 @@ hudson.tasks.Ant.xml
 hudson.tasks.Maven.xml
 hudson.tasks.Shell.xml
 hudson.triggers.SCMTrigger.xml
+jenkins.mvn.GlobalMavenConfig.xml
 jobs/*/workspace/
 !jobs/tools/workspace
 logs

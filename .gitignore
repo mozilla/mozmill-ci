@@ -2,5 +2,7 @@
 *.pyc
 *.bak
 jenkins-env/
+jenkins.out
+*.log
 *.war
 log/

@@ -14,7 +14,23 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds/>
-  <slaves/>
+  <slaves>
+    <slave>
+      <name>dummy</name>
+      <description></description>
+      <remoteFS></remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@0.25">
+        <host></host>
+        <port>22</port>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+  </slaves>
   <quietPeriod>5</quietPeriod>
   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>
@@ -267,10 +283,10 @@
   <nodeProperties>
     <ruby-proxy-object>
       <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
         <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
           <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
         </object>
+        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
       </ruby-object>
     </ruby-proxy-object>
   </nodeProperties>
@@ -292,10 +308,10 @@
     </hudson.slaves.EnvironmentVariablesNodeProperty>
     <ruby-proxy-object>
       <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
         <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
           <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
         </object>
+        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
       </ruby-object>
     </ruby-proxy-object>
   </globalNodeProperties>

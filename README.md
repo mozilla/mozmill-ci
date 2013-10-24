@@ -137,6 +137,15 @@ queue. For example, mozilla-central_endurance will have a value of 340 (300 +
 40) and will therefore be executed before mozilla-aurora_endurance, which will
 have a value of 240 (200 + 40).
 
+## Testing changes
+In order to check that patches will apply and no Jenkins configuration changes
+are missing from your changes you can run the `run_tests.sh` script. This uses
+[Selenium](http://code.google.com/p/selenium/) and
+[PhantomJS](http://phantomjs.org/) to save the configuration for each job and
+reports any unexpected changes. Note that you will need to
+[download](http://phantomjs.org/download.html) PhantomJS and put it in your
+path in order for these tests to run.
+
 ## Merging branches
 The main development on the Mozmill CI code happens on the master branch. In
 not yet specified intervals we are merging changesets into the staging branch.
@@ -147,8 +156,8 @@ When running those merge tasks you will have to obey the following steps:
 2. Run 'git rebase master' for staging or 'git rebase staging' for production
 3. Run 'git pull' for the remote branch you want to push to
 4. Ensure the merged patches are on top of the branch
-5. Ensure that the Jenkins patch can be applied by running 'patch -p1
-<config/%BRANCH%/jenkins.patch'
+5. Ensure that the Jenkins patch can be applied by running 'patch --dry-run -p1
+ <config/%BRANCH%/jenkins.patch'
 6. Run 'git push' for the remote branch
 
 For emergency fixes we are using cherry-pick to port individual fixes to the

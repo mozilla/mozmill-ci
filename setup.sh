@@ -11,10 +11,10 @@ VERSION_VIRTUALENV=1.9.1
 VERSION_PYTHON=$(python -c "import sys;print sys.version[:3]")
 
 DIR_BASE=$(cd $(dirname ${BASH_SOURCE}); pwd)
-DIR_ENV=${DIR_BASE}/jenkins-env
+DIR_ENV=${DIR_BASE}/${1:-"jenkins-env"}
 DIR_TMP=${DIR_BASE}/tmp
 
-echo "Cleaning up existent jenkins-env and tmp folders"
+echo "Cleaning up existent jenkins env and tmp folders"
 rm -r ${DIR_ENV} ${DIR_TMP}
 
 echo "Fetching virtualenv ${VERSION_VIRTUALENV} and creating jenkins environment"

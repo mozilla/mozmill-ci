@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.5">
+<hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.4">
   <defaultSuffix>@mozilla.com</defaultSuffix>
   <adminAddress>mozmill-ci@mozilla.com</adminAddress>
   <smtpHost>smtp.mozilla.org</smtpHost>
