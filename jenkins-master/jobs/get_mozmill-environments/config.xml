@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<matrix-project>
+<project>
   <actions/>
   <description>Download the version of the Mozmill environment as specified with the global $MOZMILL_AUTOMATION_VERSION variable.</description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -21,46 +21,19 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <axes>
-    <hudson.matrix.TextAxis>
-      <name>ENV_PLATFORM</name>
-      <values>
-        <string>linux</string>
-        <string>mac</string>
-        <string>windows</string>
-      </values>
-    </hudson.matrix.TextAxis>
-    <hudson.matrix.LabelAxis>
-      <name>NODE</name>
-      <values>
-        <string>master</string>
-      </values>
-    </hudson.matrix.LabelAxis>
-  </axes>
   <builders>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
-      <project>tools</project>
-      <filter></filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>curl -O https://mozqa.com/mozmill-env/$MOZMILL_AUTOMATION_VERSION-$ENV_PLATFORM.zip</command>
+      <command>for PLATFORM in linux mac windows; do
+  echo Downloading environment for $PLATFORM
+  curl -O https://mozqa.com/mozmill-env/$MOZMILL_AUTOMATION_VERSION-$PLATFORM.zip
+  unzip $MOZMILL_AUTOMATION_VERSION-$PLATFORM.zip
+  mv mozmill-env mozmill-env-$PLATFORM
+  rm $MOZMILL_AUTOMATION_VERSION-$PLATFORM.zip
+done
+</command>
     </hudson.tasks.Shell>
-    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
-      <commandLine>unzip $MOZMILL_AUTOMATION_VERSION-$ENV_PLATFORM.zip</commandLine>
-      <executeFromWorkingDir>false</executeFromWorkingDir>
-    </hudson.plugins.xshell.XShellBuilder>
   </builders>
-  <publishers>
-    <hudson.plugins.cloneworkspace.CloneWorkspacePublisher plugin="clone-workspace-scm@0.5">
-      <workspaceGlob></workspaceGlob>
-      <workspaceExcludeGlob>README, *.exe, *.zip</workspaceExcludeGlob>
-      <criteria>Successful</criteria>
-      <archiveMethod>TAR</archiveMethod>
-      <overrideDefaultExcludes>false</overrideDefaultExcludes>
-    </hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
-  </publishers>
+  <publishers/>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.16">
       <deleteDirs>false</deleteDirs>
@@ -68,7 +41,4 @@
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.7"/>
   </buildWrappers>
-  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
-    <runSequentially>false</runSequentially>
-  </executionStrategy>
-</matrix-project>
+</project>

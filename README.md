@@ -30,9 +30,8 @@ recently been deleted, you will need to run some admin jobs to finish the
 setup. Open http://localhost:8080/view/+admin/ and schedule builds of the
 following jobs *in order* by clicking the clock icon in the last column.
 
-1. tools
-2. get_mozmill-environments
-3. get_mozmill-tests
+1. get_mozmill-environments
+2. get_mozmill-tests
 
 You should *not* build the trigger-ondemand job.
 

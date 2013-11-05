@@ -105,17 +105,17 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
-      <project>get_mozmill-environments/NODE=master,ENV_PLATFORM=$ENV_PLATFORM</project>
-      <filter></filter>
+      <project>get_mozmill-environments</project>
+      <filter>mozmill-env-$ENV_PLATFORM/**</filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
-      <commandLine>mozmill-env/run mozdownload --type=$BUILD_TYPE --branch=mozilla-aurora --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --date=$DATE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --branch=mozilla-aurora --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --date=$DATE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
-      <commandLine>mozmill-env/run testrun_endurance --iterations=$ITERATIONS --entities=$ENTITIES --delay=$DELAY --repository=mozmill-tests --junit=report.xml --screenshot-path=screenshots --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_endurance --iterations=$ITERATIONS --entities=$ENTITIES --delay=$DELAY --repository=mozmill-tests --junit=report.xml --screenshot-path=screenshots --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
@@ -123,7 +123,7 @@
     <hudson.tasks.ArtifactArchiver>
       <artifacts>screenshots/</artifacts>
       <latestOnly>false</latestOnly>
-      <allowEmptyArchive>false</allowEmptyArchive>
+      <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.junit.JUnitResultArchiver>
       <testResults>report_*.xml</testResults>

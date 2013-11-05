@@ -1,4 +1,0 @@
-Placeholder file so that the Artifact Archiver doesn't mark a build as failed if no screenshots have been created.
-
-Can be removed when the following Jenkins issue has been solved:
-https://issues.jenkins-ci.org/browse/JENKINS-10502
