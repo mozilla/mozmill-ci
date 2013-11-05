@@ -57,7 +57,7 @@ By default there is no e-mail address for notifications to be sent. In our
 production system we have these sent to the mozmill-ci mailing list. If you
 would like to enable notifications locally (this can be useful during testing)
 you will need to specify the recipient e-mail address for the
-`NOTIFICATION_ADDRESS` environment variable. This can be found in 
+`NOTIFICATION_ADDRESS` environment variable. This can be found in
 http://localhost:8080/configure under the section headed "Global properties".
 
 ## Jenkins URL
@@ -121,7 +121,7 @@ have higher priority.
     <tr><td>mozilla-esr</td><td>400</td>
     <tr><td>mozilla-central</td><td>300</td>
     <tr><td>mozilla-aurora</td><td>200</td>
-    <tr><td>mozilla-1.9.2</td><td>100</td>
+    <tr><td>mozilla-project</td><td>100</td>
 </table>
 <table>
     <tr><td>update</td><td>60</td>
@@ -147,7 +147,7 @@ When running those merge tasks you will have to obey the following steps:
 2. Run 'git rebase master' for staging or 'git rebase staging' for production
 3. Run 'git pull' for the remote branch you want to push to
 4. Ensure the merged patches are on top of the branch
-5. Ensure that the Jenkins patch can be applied by running 'patch -p1 
+5. Ensure that the Jenkins patch can be applied by running 'patch -p1
 <config/%BRANCH%/jenkins.patch'
 6. Run 'git push' for the remote branch
 
@@ -165,14 +165,14 @@ production machines. Run the following steps:
 1. Run 'git reset --hard' to remove the locally applied patch
 2. Pull the latest changes with 'git pull'
 3. Apply the Jenkins patch with 'patch -p1 <config/%BRANCH%/jenkins.patch'
-4. Restart Jenkins 
+4. Restart Jenkins
 
 ## Running on-demand tests
 1. Open the +admin tab in your Jenkins instance:
 http://localhost:8080/view/+admin/
 2. Find the 'trigger-ondemand' job and click the clock icon with tooltip
 'Schedule a Build'
-4. Upload your ondemand.cfg file (see examples in 
+4. Upload your ondemand.cfg file (see examples in
 [./config/ondemand/](https://github.com/whimboo/mozmill-ci/tree/master/config/ondemand))
 5. Click 'Back to Dashboard' link and open the @ondemand tab
 
@@ -180,11 +180,18 @@ If you see an ondemand_* testrun in the middle is blinking and the nodes on the
 left are not 'idle', your testrun is executing. The results should appear in
 your dashboard when complete.
 
+## Running tests for builds of project branches
+Beside the mozilla-central branch also project branches exists, which are used by
+developers for new feature integration work. You will be able to run tests for those
+builds by executing one of the 'project_*' jobs which can be found under the
+'project' view. Keep in mind that you will have to enter the branch name, e.g. 'ux'
+for the UX branch.
+
 ## Uninterrupted Aurora update tests
 After a Firefox release, the source code is merged from default -> aurora and
 from aurora -> beta. At this point the Aurora updates are temporarily disabled.
 In order for the Aurora update tests to continue, the channel must be changed
-from 'aurora' to 'auroratest'. You can do this by configuring the 
+from 'aurora' to 'auroratest'. You can do this by configuring the
 mozilla-aurora_update job via the Jenkins web console and changing the default
 value for the CHANNEL parameter. Note that if a new release of Mozmill CI is
 made, the default will reset back to 'aurora'.

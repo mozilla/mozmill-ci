@@ -2,6 +2,7 @@
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_daily",
         "branches": [
+            "mozilla-project",
             "mozilla-central",
             "mozilla-aurora",
             "mozilla-beta",
@@ -33,6 +34,9 @@
     "testrun": {
         "jenkins_parameter_map": {
             "default": {
+                "BRANCH": {
+                    "key": "branch"
+                },
                 "BUILD_ID": {
                     "key": "buildid"
                 },
@@ -68,6 +72,27 @@
             }
         },
         "by_branch": {
+            "mozilla-project": {
+                "testruns": [
+                    "update",
+                    "functional",
+                    "remote"
+                ],
+                "platforms": {
+                    "mac": [
+                        "mac && 10.6 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 7 && 32bit"
+                    ],
+                    "linux": [
+                        "linux && ubuntu && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 64bit"
+                    ]
+                }
+            },
             "mozilla-central": {
                 "testruns": [
                     "update",

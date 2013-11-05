@@ -40,6 +40,9 @@
     "testrun": {
         "jenkins_parameter_map": {
             "default": {
+                "BRANCH": {
+                    "key": "branch"
+                },
                 "BUILD_NUMBER": {
                     "key": "build_number"
                 },

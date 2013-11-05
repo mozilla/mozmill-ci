@@ -191,6 +191,11 @@ class Automation:
             self.logger.info('Cancel processing of broken build: status=%s' % results[data['status']])
             return
 
+        # If it is an unknown tree assume a project branch based off from mozilla-central
+        if not data['tree'] in self.config['testrun']['by_branch']:
+            data['branch'] = data['tree']
+            data['tree'] = 'project'
+
         # Queue up jobs for the branch as given by config settings
         target_branch = self.config['testrun']['by_branch'][data['tree']]
         target_platform = self.get_platform_identifier(data['platform'])
