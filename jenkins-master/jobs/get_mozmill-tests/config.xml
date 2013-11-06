@@ -36,9 +36,11 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.8">
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
       <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg pull -u</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
+      <regexToKill></regexToKill>
+      <timeAllocated></timeAllocated>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
