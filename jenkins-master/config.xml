@@ -284,7 +284,7 @@
           </default>
           <int>2</int>
           <string>MOZMILL_AUTOMATION_VERSION</string>
-          <string>1.5.24</string>
+          <string>1.5.24.1</string>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>
         </tree-map>
