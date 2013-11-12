@@ -83,6 +83,7 @@
                         "mac && 10.6 && 64bit"
                     ],
                     "win32": [
+                        "windows && xp && 32bit",
                         "windows && 7 && 32bit"
                     ],
                     "linux": [
@@ -106,6 +107,7 @@
                         "mac && 10.6 && 64bit"
                     ],
                     "win32": [
+                        "windows && xp && 32bit",
                         "windows && 7 && 32bit"
                     ],
                     "linux": [
@@ -129,6 +131,7 @@
                         "mac && 10.6 && 64bit"
                     ],
                     "win32": [
+                        "windows && xp && 32bit",
                         "windows && 7 && 32bit"
                     ],
                     "linux": [
@@ -152,6 +155,7 @@
                         "mac && 10.6 && 64bit"
                     ],
                     "win32": [
+                        "windows && xp && 32bit",
                         "windows && 7 && 32bit"
                     ],
                     "linux": [
@@ -175,6 +179,7 @@
                         "mac && 10.6 && 64bit"
                     ],
                     "win32": [
+                        "windows && xp && 32bit",
                         "windows && 7 && 32bit"
                     ],
                     "linux": [
