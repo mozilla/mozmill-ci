@@ -30,23 +30,11 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>CHANNEL</name>
           <description>Update channel.</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>nightly</string>
-              <string>aurora</string>
-              <string>auroratest</string>
-              <string>beta</string>
-              <string>betatest</string>
-              <string>release</string>
-              <string>releasetest</string>
-              <string>esr</string>
-              <string>esrtest</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
+          <defaultValue>release</defaultValue>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>ENV_PLATFORM</name>
           <description>Platform of the Mozmill environment.</description>
