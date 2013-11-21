@@ -3,6 +3,7 @@
 import ConfigParser
 import re
 import sys
+import time
 
 import jenkins
 
@@ -41,6 +42,7 @@ def main():
     report_url = 'report' in testrun and testrun['report'] or None
 
     # Iterate through all target nodes
+    job_count = 0
     for section in config.sections():
         # Retrieve the platform, i.e. win32 or linux64
         if not config.has_option(section, 'platform'):
@@ -93,6 +95,12 @@ def main():
 
                 print 'Triggering job: ondemand_%s with %s' % (script, parameters)
                 j.build_job('ondemand_%s' % script, parameters)
+                job_count += 1
+
+            # Give Jenkins a bit of breath to process other threads
+            time.sleep(2.5)
+
+    print "%d jobs have been triggered." % job_count
 
 if __name__ == "__main__":
     main()

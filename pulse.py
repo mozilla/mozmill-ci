@@ -10,6 +10,7 @@ import logging
 import optparse
 import os
 import socket
+import time
 
 import jenkins
 from pulsebuildmonitor import start_pulse_monitor
@@ -233,6 +234,9 @@ class Automation:
                     self.logger.error('Jenkins instance at "%s" cannot be reached: %s' % (
                         self.config['jenkins']['url'],
                         str(e)))
+
+            # Give Jenkins a bit of breath to process other threads
+            time.sleep(2.5)
 
     def on_debug(self, data):
         """In debug mode save off all raw notifications"""
