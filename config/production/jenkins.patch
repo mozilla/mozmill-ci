@@ -1,8 +1,8 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 8cd6dae..b13e6b2 100644
+index 741d63f..ebb3772 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -16,19 +16,1284 @@
+@@ -16,16 +16,1028 @@
    <clouds/>
    <slaves>
      <slave>
@@ -15,24 +15,16 @@ index 8cd6dae..b13e6b2 100644
        <numExecutors>1</numExecutors>
        <mode>NORMAL</mode>
        <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
--      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@0.25">
--        <host></host>
--        <port>22</port>
--      </launcher>
+       <launcher class="hudson.slaves.JNLPLauncher"/>
 -      <label></label>
 -      <nodeProperties/>
 -      <userId>anonymous</userId>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.6 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -45,14 +37,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.6 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -65,14 +53,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.6 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -85,14 +69,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.6 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -105,14 +85,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.7 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -125,14 +101,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.7 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -145,14 +117,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.7 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -165,14 +133,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.7 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -185,14 +149,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.8 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -205,14 +165,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.8 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -225,14 +181,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.8 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -245,14 +197,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.8 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -265,14 +213,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -285,14 +229,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -305,14 +245,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -325,14 +261,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -345,14 +277,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -365,14 +293,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -385,14 +309,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -405,14 +325,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -425,14 +341,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -445,14 +357,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -465,14 +373,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -485,14 +389,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 12.04 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -505,14 +405,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -525,14 +421,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -545,14 +437,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -565,14 +453,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -585,14 +469,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -605,14 +485,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -625,14 +501,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -645,14 +517,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 13.04 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -665,14 +533,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -685,14 +549,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -705,14 +565,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -725,14 +581,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -745,14 +597,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows vista 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -765,14 +613,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows vista 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -785,14 +629,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows vista 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -805,14 +645,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows vista 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -825,14 +661,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -845,14 +677,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -865,14 +693,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -885,14 +709,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -905,14 +725,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -925,14 +741,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -945,14 +757,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -965,14 +773,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -985,14 +789,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1005,14 +805,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1025,14 +821,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1045,14 +837,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1065,14 +853,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1085,14 +869,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1105,14 +885,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1125,14 +901,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1145,14 +917,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1165,14 +933,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1185,14 +949,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1205,14 +965,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1225,14 +981,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1245,14 +997,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit endurance</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1265,14 +1013,10 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
 +    </slave>
 +    <slave>
@@ -1285,21 +1029,31 @@ index 8cd6dae..b13e6b2 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit</label>
 +      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -281,7 +1546,7 @@
+@@ -277,7 +1289,12 @@
+   <primaryView>All</primaryView>
+   <slaveAgentPort>0</slaveAgentPort>
+   <label>master</label>
+-  <nodeProperties/>
++  <nodeProperties>
++    <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++      <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++      <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++    </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
++  </nodeProperties>
+   <globalNodeProperties>
+     <hudson.slaves.EnvironmentVariablesNodeProperty>
+       <envVars serialization="custom">
+@@ -290,7 +1307,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>1.5.24</string>
+           <string>2.0.1</string>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
@@ -1319,7 +1073,7 @@ index 431c590..3e84b6b 100644
    <useSsl>false</useSsl>
    <defaultContentType>text/plain</defaultContentType>
 diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
-index 922ba65..51d36ea 100644
+index 2cec9ac..cfce914 100644
 --- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 +++ b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 @@ -1,5 +1,5 @@

@@ -22,10 +22,7 @@
       <numExecutors>1</numExecutors>
       <mode>NORMAL</mode>
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@0.25">
-        <host></host>
-        <port>22</port>
-      </launcher>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
       <label></label>
       <nodeProperties/>
       <userId>anonymous</userId>
@@ -280,16 +277,7 @@
   <primaryView>All</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label>master</label>
-  <nodeProperties>
-    <ruby-proxy-object>
-      <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-        <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-          <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-        </object>
-        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-      </ruby-object>
-    </ruby-proxy-object>
-  </nodeProperties>
+  <nodeProperties/>
   <globalNodeProperties>
     <hudson.slaves.EnvironmentVariablesNodeProperty>
       <envVars serialization="custom">
@@ -306,13 +294,5 @@
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
-    <ruby-proxy-object>
-      <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-        <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-          <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-        </object>
-        <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-      </ruby-object>
-    </ruby-proxy-object>
   </globalNodeProperties>
 </hudson>

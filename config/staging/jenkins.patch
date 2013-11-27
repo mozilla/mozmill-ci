@@ -1,8 +1,8 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 91f9eef..c6f522c 100644
+index 741d63f..29e4dba 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -16,19 +16,84 @@
+@@ -16,16 +16,48 @@
    <clouds/>
    <slaves>
      <slave>
@@ -15,25 +15,10 @@ index 91f9eef..c6f522c 100644
        <numExecutors>1</numExecutors>
        <mode>NORMAL</mode>
        <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
--      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@0.25">
--        <host></host>
--        <port>22</port>
--      </launcher>
+       <launcher class="hudson.slaves.JNLPLauncher"/>
 -      <label></label>
--      <nodeProperties/>
--      <userId>anonymous</userId>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 32bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
++      <nodeProperties/>
 +    </slave>
 +    <slave>
 +      <name>ubuntu_64_01</name>
@@ -44,16 +29,7 @@ index 91f9eef..c6f522c 100644
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 64bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
++      <nodeProperties/>
 +    </slave>
 +    <slave>
 +      <name>windows-xp_32_01</name>
@@ -64,16 +40,7 @@ index 91f9eef..c6f522c 100644
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
++      <nodeProperties/>
 +    </slave>
 +    <slave>
 +      <name>windows-7_32_01</name>
@@ -84,40 +51,20 @@ index 91f9eef..c6f522c 100644
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit endurance</label>
-+      <nodeProperties>
-+        <ruby-proxy-object>
-+          <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-+            <pluginid pluginid="nodeofflinenotification" ruby-class="String">nodeofflinenotification</pluginid>
-+            <object ruby-class="EmailNodeProperty" pluginid="nodeofflinenotification">
-+              <email pluginid="nodeofflinenotification" ruby-class="String">$NOTIFICATION_ADDRESS</email>
-+            </object>
-+          </ruby-object>
-+        </ruby-proxy-object>
-+      </nodeProperties>
+       <nodeProperties/>
+-      <userId>anonymous</userId>
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -258,7 +323,7 @@
+@@ -276,7 +308,7 @@
    </views>
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
 -  <label>master</label>
 +  <label>master mac 10.6 64bit endurance</label>
-   <nodeProperties>
-     <ruby-proxy-object>
-       <ruby-object ruby-class="Jenkins::Slaves::NodePropertyProxy" pluginid="nodeofflinenotification">
-diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
-index 922ba65..540ddf7 100644
---- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
-+++ b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
-@@ -1,5 +1,5 @@
- <?xml version='1.0' encoding='UTF-8'?>
- <jenkins.model.JenkinsLocationConfiguration>
-   <adminAddress>mozmill-ci@mozilla.org</adminAddress>
--  <jenkinsUrl>http://localhost:8080/</jenkinsUrl>
-+  <jenkinsUrl>http://qa-masterblaster.mv.mozilla.com:8080/</jenkinsUrl>
- </jenkins.model.JenkinsLocationConfiguration>
-\ No newline at end of file
+   <nodeProperties/>
+   <globalNodeProperties>
+     <hudson.slaves.EnvironmentVariablesNodeProperty>
 diff --git a/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml b/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
 index 431c590..8957d52 100644
 --- a/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
@@ -130,3 +77,15 @@ index 431c590..8957d52 100644
    <adminAddress>mozmill-ci@mozilla.com</adminAddress>
    <useSsl>false</useSsl>
    <defaultContentType>text/plain</defaultContentType>
+diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
+index 2cec9ac..9b0a7ed 100644
+--- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
++++ b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
+@@ -1,5 +1,5 @@
+ <?xml version='1.0' encoding='UTF-8'?>
+ <jenkins.model.JenkinsLocationConfiguration>
+   <adminAddress>mozmill-ci@mozilla.org</adminAddress>
+-  <jenkinsUrl>http://localhost:8080/</jenkinsUrl>
++  <jenkinsUrl>http://qa-masterblaster.mv.mozilla.com:8080/</jenkinsUrl>
+ </jenkins.model.JenkinsLocationConfiguration>
+\ No newline at end of file

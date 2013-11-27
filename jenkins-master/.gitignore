@@ -22,6 +22,7 @@ jenkins.mvn.GlobalMavenConfig.xml
 jobs/*/workspace/
 !jobs/tools/workspace
 logs
+monitoring/
 nodeMonitors.xml
 plugins/*/
 plugins/ant.jpi
