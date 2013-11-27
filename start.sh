@@ -18,7 +18,7 @@ if [ $? -eq 0 ]; then
     echo "Virtual environment activated successfully."
     # TODO: Start Jenkins as daemon
     echo "Starting Jenkins"
-    java -jar -Xms2g -Xmx2g -XX:MaxPermSize=512M -XX:+HeapDumpOnOutOfMemoryError -Xincgc $JENKINS_WAR
+    java -server -jar -Xms2g -Xmx2g -XX:MaxPermSize=512M -XX:+HeapDumpOnOutOfMemoryError -Xincgc $JENKINS_WAR
 else
     echo "Could not activate virtual environment."
     echo "Exiting."
