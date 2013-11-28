@@ -142,7 +142,7 @@
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
+            <attachBuildLog>true</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
@@ -161,7 +161,7 @@ ${BUILD_URL}</body>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
+            <attachBuildLog>true</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
@@ -177,7 +177,7 @@ ${BUILD_URL}</body>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
+            <attachBuildLog>true</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
@@ -195,7 +195,7 @@ View the results in the Mozmill Dashboard:
 ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/update/report/$2&quot;}</defaultContent>
       <attachmentsPattern></attachmentsPattern>
       <presendScript></presendScript>
-      <attachBuildLog>false</attachBuildLog>
+      <attachBuildLog>true</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>
       <replyTo></replyTo>
       <saveOutput>false</saveOutput>
