@@ -95,13 +95,13 @@
       <target></target>
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
       <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --branch=mozilla-aurora --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --date=$DATE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>
       <timeAllocated></timeAllocated>
     </hudson.plugins.xshell.XShellBuilder>
-    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
       <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_addons --with-untrusted --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>

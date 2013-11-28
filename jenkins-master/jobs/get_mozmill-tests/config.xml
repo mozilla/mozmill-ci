@@ -36,13 +36,13 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
       <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg pull -u -R ${WORKSPACE}/mozmill-tests</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>
       <timeAllocated></timeAllocated>
     </hudson.plugins.xshell.XShellBuilder>
-    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
       <commandLine>${JENKINS_HOME}/../jenkins-env/bin/hg branches -R ${WORKSPACE}/mozmill-tests</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>
