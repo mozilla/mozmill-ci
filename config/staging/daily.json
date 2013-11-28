@@ -2,7 +2,7 @@
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_daily",
         "branches": [
-            "mozilla-project",
+            "holly",
             "mozilla-central",
             "mozilla-aurora",
             "mozilla-beta",
@@ -72,7 +72,7 @@
             }
         },
         "by_branch": {
-            "mozilla-project": {
+            "project": {
                 "testruns": [
                     "update",
                     "functional",
