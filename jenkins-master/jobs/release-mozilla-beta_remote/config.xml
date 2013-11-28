@@ -137,7 +137,7 @@
           <email>
             <recipientList></recipientList>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
-            <body>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} ${ENV,var=&quot;LOCALE&quot;} on ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Platform: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${ENV,var=&quot;BUILD_ID&quot;}) was aborted.
+            <body>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} ${ENV,var=&quot;LOCALE&quot;} on ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Platform: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${ENV,var=&quot;BUILD_ID&quot;}) was aborted.
 
 View the build in Jenkins:
 ${BUILD_URL}</body>
@@ -170,8 +170,8 @@ ${BUILD_URL}</body>
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
       </configuredTriggers>
       <contentType>default</contentType>
-      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME}: ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} ${ENV,var=&quot;LOCALE&quot;} on ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Platform: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${ENV,var=&quot;BUILD_ID&quot;})</defaultSubject>
-      <defaultContent>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} ${ENV,var=&quot;LOCALE&quot;} on ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Platform: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${ENV,var=&quot;BUILD_ID&quot;}) completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
+      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME}: ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} ${ENV,var=&quot;LOCALE&quot;} on ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Platform: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${ENV,var=&quot;BUILD_ID&quot;})</defaultSubject>
+      <defaultContent>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} ${ENV,var=&quot;LOCALE&quot;} on ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Platform: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${ENV,var=&quot;BUILD_ID&quot;}) completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
 
 View the build in Jenkins:
 ${BUILD_URL}
