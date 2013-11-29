@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 741d63f..ebb3772 100644
+index 85f936c..e6aa6c6 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -16,16 +16,1028 @@
@@ -1053,7 +1053,7 @@ index 741d63f..ebb3772 100644
        <envVars serialization="custom">
 @@ -290,7 +1307,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>2.0.1</string>
+           <string>2.0.1.1</string>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
@@ -1072,6 +1072,18 @@ index 431c590..3e84b6b 100644
    <adminAddress>mozmill-ci@mozilla.com</adminAddress>
    <useSsl>false</useSsl>
    <defaultContentType>text/plain</defaultContentType>
+diff --git a/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml b/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
+index 5acecc9..4e8a1ce 100644
+--- a/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
++++ b/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
+@@ -1,6 +1,6 @@
+ <?xml version='1.0' encoding='UTF-8'?>
+ <hudson.plugins.ircbot.IrcPublisher_-DescriptorImpl plugin="ircbot@2.23">
+-  <enabled>false</enabled>
++  <enabled>true</enabled>
+   <hostname>irc.mozilla.org</hostname>
+   <port>6697</port>
+   <ssl>true</ssl>
 diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 index 2cec9ac..cfce914 100644
 --- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
