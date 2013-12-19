@@ -90,12 +90,6 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
-      <project></project>
-      <filter>mozmill-env-$ENV_PLATFORM/**</filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
       <project>get_mozmill-environments</project>
       <filter>mozmill-env-$ENV_PLATFORM/**</filter>
       <target></target>
