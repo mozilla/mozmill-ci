@@ -60,10 +60,10 @@
                 ],
                 "platforms": {
                     "linux": [
-                        "linux && ubuntu && 13.04 && 64bit"
+                        "linux && ubuntu && 13.10 && 64bit"
                     ],
                     "linux64": [
-                        "linux && ubuntu && 13.04 && 64bit"
+                        "linux && ubuntu && 13.10 && 64bit"
                     ],
                     "mac": [
                         "mac && 10.9 && 64bit"
