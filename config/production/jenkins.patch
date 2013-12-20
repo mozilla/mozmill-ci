@@ -2,12 +2,7 @@ diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
 index 4fd3f50..353bbf6 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -11,26 +11,1166 @@
-   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
-   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
-   <jdks/>
-   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
-   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+@@ -16,16 +16,1156 @@
    <clouds/>
    <slaves>
      <slave>
@@ -1170,17 +1165,7 @@ index 4fd3f50..353bbf6 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
-   <views>
-     <hudson.model.AllView>
-       <owner class="hudson" reference="../../.."/>
-       <name>All</name>
-@@ -272,27 +1412,32 @@
-         <hudson.views.BuildButtonColumn/>
-       </columns>
-       <includeRegex>^project.*</includeRegex>
-     </listView>
-   </views>
+@@ -277,7 +1417,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -1194,12 +1179,7 @@ index 4fd3f50..353bbf6 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-         <unserializable-parents/>
-         <tree-map>
-           <default>
-             <comparator class="hudson.util.CaseInsensitiveComparator"/>
-           </default>
-           <int>2</int>
+@@ -290,7 +1435,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
            <string>2.0.2</string>
            <string>NOTIFICATION_ADDRESS</string>
@@ -1208,14 +1188,11 @@ index 4fd3f50..353bbf6 100644
          </tree-map>
        </envVars>
      </hudson.slaves.EnvironmentVariablesNodeProperty>
-   </globalNodeProperties>
- </hudson>
-\ No newline at end of file
 diff --git a/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml b/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
 index 431c590..3e84b6b 100644
 --- a/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
 +++ b/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
-@@ -1,11 +1,11 @@
+@@ -1,6 +1,6 @@
  <?xml version='1.0' encoding='UTF-8'?>
  <hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.35.1">
 -  <hudsonUrl>http://localhost:8080/</hudsonUrl>
@@ -1223,16 +1200,11 @@ index 431c590..3e84b6b 100644
    <adminAddress>mozmill-ci@mozilla.com</adminAddress>
    <useSsl>false</useSsl>
    <defaultContentType>text/plain</defaultContentType>
-   <defaultSubject>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!</defaultSubject>
-   <defaultBody>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:&#xd;
- &#xd;
- Check console output at $BUILD_URL to view the results.</defaultBody>
-   <defaultPresendScript></defaultPresendScript>
 diff --git a/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml b/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
 index fb48559..7aeea8c 100644
 --- a/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
 +++ b/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
-@@ -1,11 +1,11 @@
+@@ -1,6 +1,6 @@
  <?xml version='1.0' encoding='UTF-8'?>
  <hudson.plugins.ircbot.IrcPublisher_-DescriptorImpl plugin="ircbot@2.23">
 -  <enabled>false</enabled>
@@ -1240,11 +1212,6 @@ index fb48559..7aeea8c 100644
    <hostname>irc.mozilla.org</hostname>
    <port>6697</port>
    <ssl>true</ssl>
-   <disallowPrivateChat>false</disallowPrivateChat>
-   <login>mozmill-ci-bot</login>
-   <sslTrustAllCertificates>false</sslTrustAllCertificates>
-   <password></password>
-   <nick>mozmill-ci-bot</nick>
 diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 index 2cec9ac..cfce914 100644
 --- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
