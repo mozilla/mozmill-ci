@@ -79,18 +79,26 @@
                     "remote"
                 ],
                 "platforms": {
+                    "linux": [
+                        "linux && ubuntu && 12.04 && 32bit",
+                        "linux && ubuntu && 13.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 12.04 && 64bit",
+                        "linux && ubuntu && 13.04 && 64bit"
+                    ],
                     "mac": [
-                        "mac && 10.6 && 64bit"
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.7 && 64bit",
+                        "mac && 10.8 && 64bit",
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && 7 && 32bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 64bit"
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -103,18 +111,26 @@
                     "addons"
                 ],
                 "platforms": {
+                    "linux": [
+                        "linux && ubuntu && 12.04 && 32bit",
+                        "linux && ubuntu && 13.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 12.04 && 64bit",
+                        "linux && ubuntu && 13.04 && 64bit"
+                    ],
                     "mac": [
-                        "mac && 10.6 && 64bit"
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.7 && 64bit",
+                        "mac && 10.8 && 64bit",
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && 7 && 32bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 64bit"
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -127,18 +143,26 @@
                     "addons"
                 ],
                 "platforms": {
+                    "linux": [
+                        "linux && ubuntu && 12.04 && 32bit",
+                        "linux && ubuntu && 13.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 12.04 && 64bit",
+                        "linux && ubuntu && 13.04 && 64bit"
+                    ],
                     "mac": [
-                        "mac && 10.6 && 64bit"
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.7 && 64bit",
+                        "mac && 10.8 && 64bit",
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && 7 && 32bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 64bit"
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -151,18 +175,26 @@
                     "addons"
                 ],
                 "platforms": {
+                    "linux": [
+                        "linux && ubuntu && 12.04 && 32bit",
+                        "linux && ubuntu && 13.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 12.04 && 64bit",
+                        "linux && ubuntu && 13.04 && 64bit"
+                    ],
                     "mac": [
-                        "mac && 10.6 && 64bit"
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.7 && 64bit",
+                        "mac && 10.8 && 64bit",
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && 7 && 32bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 64bit"
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -175,18 +207,26 @@
                     "addons"
                 ],
                 "platforms": {
+                    "linux": [
+                        "linux && ubuntu && 12.04 && 32bit",
+                        "linux && ubuntu && 13.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 12.04 && 64bit",
+                        "linux && ubuntu && 13.04 && 64bit"
+                    ],
                     "mac": [
-                        "mac && 10.6 && 64bit"
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.7 && 64bit",
+                        "mac && 10.8 && 64bit",
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && 7 && 32bit"
-                    ],
-                    "linux": [
-                        "linux && ubuntu && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 64bit"
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
                     ]
                 }
             }
