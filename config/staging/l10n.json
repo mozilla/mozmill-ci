@@ -69,7 +69,7 @@
                         "mac && 10.9 && 64bit"
                     ],
                     "win32": [
-                        "windows && xp && 64bit",
+                        "windows && xp && 32bit",
                         "windows && 8.1 && 64bit"
                     ]
                 }
