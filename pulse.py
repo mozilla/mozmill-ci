@@ -194,7 +194,7 @@ class Automation:
 
         # If it is not an official nightly or release branch, assume a project
         # branch based off from mozilla-central
-        if not data['tree'].startswith('mozilla-'):
+        if not 'mozilla-' in data['tree']:
             data['branch'] = data['tree']
             data['tree'] = 'project'
 
