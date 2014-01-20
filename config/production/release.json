@@ -90,12 +90,10 @@
                 "platforms": {
                     "linux": [
                         "linux && ubuntu && 12.04 && 32bit",
-                        "linux && ubuntu && 13.04 && 32bit",
                         "linux && ubuntu && 13.10 && 32bit"
                     ],
                     "linux64": [
                         "linux && ubuntu && 12.04 && 64bit",
-                        "linux && ubuntu && 13.04 && 64bit",
                         "linux && ubuntu && 13.10 && 64bit"
                     ],
                     "mac": [
@@ -126,12 +124,10 @@
                 "platforms": {
                     "linux": [
                         "linux && ubuntu && 12.04 && 32bit",
-                        "linux && ubuntu && 13.04 && 32bit",
                         "linux && ubuntu && 13.10 && 32bit"
                     ],
                     "linux64": [
                         "linux && ubuntu && 12.04 && 64bit",
-                        "linux && ubuntu && 13.04 && 64bit",
                         "linux && ubuntu && 13.10 && 64bit"
                     ],
                     "mac": [
@@ -162,12 +158,10 @@
                 "platforms": {
                     "linux": [
                         "linux && ubuntu && 12.04 && 32bit",
-                        "linux && ubuntu && 13.04 && 32bit",
                         "linux && ubuntu && 13.10 && 32bit"
                     ],
                     "linux64": [
                         "linux && ubuntu && 12.04 && 64bit",
-                        "linux && ubuntu && 13.04 && 64bit",
                         "linux && ubuntu && 13.10 && 64bit"
                     ],
                     "mac": [
