@@ -6,18 +6,6 @@
             "release-mozilla-release",
             "release-mozilla-esr24"
         ],
-        "locales": [
-            "de",
-            "en-GB",
-            "en-US",
-            "es-ES",
-            "fr",
-            "it",
-            "ja",
-            "pl",
-            "pt-BR",
-            "ru"
-        ],
         "platforms": [
             "linux",
             "linux64",
@@ -84,6 +72,18 @@
         },
         "by_branch": {
             "release-mozilla-beta": {
+                "locales": [
+                    "de",
+                    "en-GB",
+                    "en-US",
+                    "es-ES",
+                    "fr",
+                    "it",
+                    "ja",
+                    "pl",
+                    "pt-BR",
+                    "ru"
+                ],
                 "testruns": [
                     "functional",
                     "endurance",
@@ -118,6 +118,18 @@
                 }
             },
             "release-mozilla-release": {
+                "locales": [
+                    "de",
+                    "en-GB",
+                    "en-US",
+                    "es-ES",
+                    "fr",
+                    "it",
+                    "ja",
+                    "pl",
+                    "pt-BR",
+                    "ru"
+                ],
                 "testruns": [
                     "functional",
                     "endurance",
@@ -152,6 +164,12 @@
                 }
             },
             "release-mozilla-esr24": {
+                "locales": [
+                    "de",
+                    "en-US",
+                    "ru",
+                    "zh-CN"
+                ],
                 "testruns": [
                     "functional",
                     "endurance",

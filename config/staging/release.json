@@ -16,9 +16,6 @@
         "products": [
             "firefox"
         ],
-        "locales": [
-            "en-US"
-        ],
         "tags": [
         ]
     },
@@ -75,6 +72,9 @@
         },
         "by_branch": {
             "release-mozilla-beta": {
+                "locales": [
+                    "en-US"
+                ],
                 "testruns": [
                     "functional",
                     "endurance",
@@ -106,6 +106,9 @@
                 }
             },
             "release-mozilla-release": {
+                "locales": [
+                    "en-US"
+                ],
                 "testruns": [
                     "functional",
                     "endurance",
@@ -137,6 +140,9 @@
                 }
             },
             "release-mozilla-esr24": {
+                "locales": [
+                    "en-US"
+                ],
                 "testruns": [
                     "functional",
                     "endurance",

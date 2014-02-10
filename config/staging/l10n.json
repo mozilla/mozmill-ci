@@ -4,12 +4,6 @@
         "branches": [
             "mozilla-aurora"
         ],
-        "locales": [
-            "de",
-            "fr",
-            "it",
-            "ru"
-        ],
         "platforms": [
             "linux",
             "macosx",
@@ -58,6 +52,11 @@
         },
         "by_branch": {
             "mozilla-aurora": {
+                "locales": [
+                    "fa",
+                    "ru",
+                    "zh-CN"
+                ],
                 "testruns": [
                     "l10n"
                 ],

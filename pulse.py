@@ -85,7 +85,6 @@ class Automation:
                                            trees=self.config['pulse']['branches'],
                                            platforms=self.config['pulse']['platforms'],
                                            products=self.config['pulse']['products'],
-                                           locales=self.config['pulse']['locales'],
                                            buildtypes=None,
                                            tests=None,
                                            buildtags=self.config['pulse']['tags'],
@@ -201,6 +200,11 @@ class Automation:
         # Queue up jobs for the branch as given by config settings
         target_branch = self.config['testrun']['by_branch'][data['tree']]
         target_platform = self.get_platform_identifier(data['platform'])
+
+        # Check locale restrictions and stop processing if locale is not wanted
+        if target_branch['locales'] and \
+                data['locale'] not in target_branch['locales']:
+            return
 
         for testrun in target_branch['testruns']:
             # TODO: The following lines are pretty bad hacks,

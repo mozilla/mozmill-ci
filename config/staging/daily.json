@@ -7,9 +7,6 @@
             "mozilla-beta",
             "mozilla-esr24"
         ],
-        "locales": [
-            "en-US"
-        ],
         "platforms": [
             "linux",
             "linux64",
@@ -74,6 +71,9 @@
         },
         "by_branch": {
             "project": {
+                "locales": [
+                    "en-US"
+                ],
                 "testruns": [
                     "update",
                     "functional",
@@ -104,6 +104,9 @@
                 }
             },
             "mozilla-central": {
+                "locales": [
+                    "en-US"
+                ],
                 "testruns": [
                     "update",
                     "functional",
@@ -136,6 +139,11 @@
                 }
             },
             "mozilla-aurora": {
+                "locales": [
+                    "en-US",
+                    "fa",
+                    "zh-CN"
+                ],
                 "testruns": [
                     "update",
                     "functional",
@@ -168,6 +176,11 @@
                 }
             },
             "mozilla-esr24": {
+                "locales": [
+                    "en-US",
+                    "fa",
+                    "zh-CN"
+                ],
                 "testruns": [
                     "update",
                     "functional",
