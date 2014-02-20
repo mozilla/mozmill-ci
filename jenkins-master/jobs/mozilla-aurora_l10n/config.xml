@@ -32,7 +32,7 @@
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>DATE</name>
-          <description>The build date of Firefox.</description>
+          <description>The build date of Firefox. (Not used for l10n due to Bug 962011)</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
@@ -96,7 +96,7 @@
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --branch=mozilla-aurora --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --date=$DATE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --branch=mozilla-aurora --platform=$PLATFORM --locale=$LOCALE --build-id=$BUILD_ID --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>
       <timeAllocated></timeAllocated>
