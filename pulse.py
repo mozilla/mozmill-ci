@@ -285,7 +285,10 @@ def main():
     if not len(args):
         parser.error('A configuration file has to be passed in as first argument.')
 
-    logging.basicConfig(level=logging.INFO)
+    logging.Formatter.converter = time.gmtime
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s %(levelname)s:%(name)s:%(message)s',
+                        datefmt='%Y-%m-%dT%H:%M:%SZ')
     logger = logging.getLogger('automation')
 
     DailyAutomation(config=JSONFile(args[0]).read(),
