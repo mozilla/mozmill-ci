@@ -2,7 +2,6 @@
     "pulse": {
         "applabel": "qa-auto@mozilla.com|mozmill_daily",
         "branches": [
-            "holly",
             "mozilla-central",
             "mozilla-aurora",
             "mozilla-esr24"
