@@ -85,6 +85,9 @@ def main():
                 if script == 'update' and 'target-build-id' in testrun:
                     parameters['TARGET_BUILD_ID'] = testrun['target-build-id']
                     parameters['CHANNEL'] = testrun['channel']
+                    parameters['OVERRIDE_UPDATE_CHANNEL'] = \
+                        testrun.get('override-update-channel', None)
+
                 elif script == 'endurance':
                     if 'delay' in testrun:
                         parameters['DELAY'] = testrun['delay']
