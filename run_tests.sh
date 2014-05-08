@@ -36,7 +36,7 @@ then
   echo "Using virtual environment in $DIR_TEST_ENV"
 else
   echo "Creating a virtual environment (version ${VERSION_VIRTUALENV}) in ${DIR_TEST_ENV}"
-  curl https://raw.github.com/pypa/virtualenv/${VERSION_VIRTUALENV}/virtualenv.py | python - --no-site-packages $DIR_TEST_ENV
+  curl -L https://raw.github.com/pypa/virtualenv/${VERSION_VIRTUALENV}/virtualenv.py | python - --no-site-packages $DIR_TEST_ENV
 fi
 . $DIR_TEST_ENV/bin/activate || exit $?
 
