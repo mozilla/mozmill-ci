@@ -134,7 +134,7 @@
       <keepLongStdio>false</keepLongStdio>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
-    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.35.1">
+    <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.38.1">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
         <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
@@ -142,10 +142,9 @@
             <recipientList></recipientList>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
-            <sendToDevelopers>false</sendToDevelopers>
-            <sendToRequester>false</sendToRequester>
-            <includeCulprits>false</includeCulprits>
-            <sendToRecipientList>true</sendToRecipientList>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
             <attachmentsPattern></attachmentsPattern>
             <attachBuildLog>true</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
@@ -161,10 +160,9 @@
 
 View the build in Jenkins:
 ${BUILD_URL}</body>
-            <sendToDevelopers>false</sendToDevelopers>
-            <sendToRequester>false</sendToRequester>
-            <includeCulprits>false</includeCulprits>
-            <sendToRecipientList>true</sendToRecipientList>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
             <attachmentsPattern></attachmentsPattern>
             <attachBuildLog>true</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>
@@ -177,10 +175,9 @@ ${BUILD_URL}</body>
             <recipientList></recipientList>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
             <body>$PROJECT_DEFAULT_CONTENT</body>
-            <sendToDevelopers>false</sendToDevelopers>
-            <sendToRequester>false</sendToRequester>
-            <includeCulprits>false</includeCulprits>
-            <sendToRecipientList>true</sendToRecipientList>
+            <recipientProviders>
+              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+            </recipientProviders>
             <attachmentsPattern></attachmentsPattern>
             <attachBuildLog>true</attachBuildLog>
             <compressBuildLog>false</compressBuildLog>

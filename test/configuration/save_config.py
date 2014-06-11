@@ -7,9 +7,10 @@ def main():
     driver = webdriver.PhantomJS()
     driver.implicitly_wait(10)
 
-    # TODO: Uncomment when #345 is resolved
-    # * Upgrade Email-ext plugin to 2.36
-    #   https://github.com/mozilla/mozmill-ci/issues/345
+    print 'Saving main configuration...'
+    driver.get(base_url + 'configure')
+    driver.find_element_by_css_selector(
+        '#bottom-sticker .submit-button button').click()
 
     print 'Saving node configurations...'
     driver.get(base_url + 'computer/')
@@ -23,11 +24,6 @@ def main():
         print '[%d/%d] %s' % (i + 1, len(nodes), node['name'])
         driver.find_element_by_css_selector('.submit-button button').click()
         driver.find_element_by_css_selector('#main-panel h1')
-
-    # print 'Saving main configuration...'
-    # driver.get(base_url + 'configure')
-    # driver.find_element_by_css_selector(
-    #     '#bottom-sticker .submit-button button').click()
 
     print 'Saving job configurations...'
     driver.get(base_url)

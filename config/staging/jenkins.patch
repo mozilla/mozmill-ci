@@ -1,8 +1,8 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 5efb66c..8cacc94 100644
+index f334d85..9a84f84 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -16,16 +16,212 @@
+@@ -17,16 +17,212 @@
    <clouds/>
    <slaves>
      <slave>
@@ -221,7 +221,7 @@ index 5efb66c..8cacc94 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -235,7 +431,12 @@
+@@ -245,7 +441,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -235,18 +235,6 @@ index 5efb66c..8cacc94 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-diff --git a/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml b/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
-index 431c590..009074e 100644
---- a/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
-+++ b/jenkins-master/hudson.plugins.emailext.ExtendedEmailPublisher.xml
-@@ -1,6 +1,6 @@
- <?xml version='1.0' encoding='UTF-8'?>
- <hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.35.1">
--  <hudsonUrl>http://localhost:8080/</hudsonUrl>
-+  <hudsonUrl>http://mm-ci-staging.qa.scl3.mozilla.com:8080/</hudsonUrl>
-   <adminAddress>mozmill-ci@mozilla.com</adminAddress>
-   <useSsl>false</useSsl>
-   <defaultContentType>text/plain</defaultContentType>
 diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 index 2cec9ac..a8c78ed 100644
 --- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
