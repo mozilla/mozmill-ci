@@ -7,6 +7,7 @@
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
   <securityRealm class="hudson.security.SecurityRealm$None"/>
+  <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
@@ -62,6 +63,7 @@
         <hudson.views.LastDurationColumn/>
         <hudson.views.BuildButtonColumn/>
       </columns>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -83,6 +85,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^mozilla-central.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -104,6 +107,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^mozilla-aurora.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -125,6 +129,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^release-mozilla-beta.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -146,6 +151,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^release-mozilla-release.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -167,6 +173,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^ondemand.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -188,6 +195,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^mozilla-esr24.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -209,6 +217,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^release-mozilla-esr24.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -230,6 +239,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>^project.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
   </views>
   <primaryView>All</primaryView>

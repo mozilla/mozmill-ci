@@ -10,7 +10,7 @@ import sys
 import urllib2
 
 
-JENKINS_VERSION = '1.509.4'
+JENKINS_VERSION = '1.554.2'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
 JENKINS_WAR = 'jenkins-%s.war' % JENKINS_VERSION
 JENKINS_ENV = 'jenkins-env/bin/activate_this.py'
