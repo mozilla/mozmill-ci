@@ -9,12 +9,13 @@ from subprocess import check_call, CalledProcessError
 import sys
 import urllib2
 
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 JENKINS_VERSION = '1.554.2'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
-JENKINS_WAR = 'jenkins-%s.war' % JENKINS_VERSION
-JENKINS_ENV = 'jenkins-env/bin/activate_this.py'
 
+JENKINS_ENV = os.path.join(HERE, 'jenkins-env', 'bin', 'activate_this.py')
+JENKINS_WAR = os.path.join(HERE, 'jenkins-%s.war' % JENKINS_VERSION)
 
 def download_jenkins():
     """Downloads Jenkins.war file"""
@@ -54,7 +55,7 @@ if __name__ == "__main__":
 
     # TODO: Start Jenkins as daemon
     print "Starting Jenkins"
-    os.environ['JENKINS_HOME'] = 'jenkins-master'
+    os.environ['JENKINS_HOME'] = os.path.join(HERE, 'jenkins-master')
     args = ['java', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
             '-Xincgc', '-jar', JENKINS_WAR]
     try:
