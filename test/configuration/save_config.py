@@ -1,4 +1,9 @@
+import os
 from selenium import webdriver
+
+
+# This environment variable should contain the path to the Jenkins directory.
+ENV_JENKINS_HOME = os.environ['JENKINS_HOME']
 
 
 def main():
@@ -31,7 +36,8 @@ def main():
         "tr[id*='job_'] > td:nth-child(3) > a")
     jobs = [{'name': link.text, 'href': link.get_attribute('href')} for
             link in job_links]
-    assert len(jobs) > 0, 'No jobs configured in Jenkins!'
+    assert len(jobs) == _jenkins_job_count(),\
+            'Incorrect number of jobs for Jenkins.'
 
     for i, job in enumerate(jobs):
         driver.get(job['href'] + 'configure')
@@ -41,6 +47,12 @@ def main():
         driver.find_element_by_css_selector('#main-panel h1')
 
     driver.quit()
+
+
+def _jenkins_job_count():
+    """Return the number of jobs as listed under Jenkins."""
+    jenkins_jobs_dir = os.path.join(ENV_JENKINS_HOME, 'jobs')
+    return len(os.walk(jenkins_jobs_dir).next()[1])
 
 
 if __name__ == "__main__":
