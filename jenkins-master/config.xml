@@ -300,7 +300,7 @@
           </default>
           <int>2</int>
           <string>MOZMILL_AUTOMATION_VERSION</string>
-          <string>2.0.6.1</string>
+          <string>2.0.6.2</string>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>
         </tree-map>

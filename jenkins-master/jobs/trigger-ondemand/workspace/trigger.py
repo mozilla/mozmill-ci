@@ -35,7 +35,7 @@ def main():
     # Check testrun entries
     testrun = { }
     for entry in config.options('testrun'):
-        testrun.update({entry: config.get('testrun', entry)})
+        testrun.update({entry: config.get('testrun', entry, raw=True)})
     testrun = testrun
 
     script = testrun['script']
@@ -87,6 +87,8 @@ def main():
                     parameters['CHANNEL'] = testrun['channel']
                     parameters['OVERRIDE_UPDATE_CHANNEL'] = \
                         testrun.get('override-update-channel', None)
+                    parameters['OVERRIDE_UPDATE_URL'] = \
+                        testrun.get('override-update-url', None)
 
                 elif script == 'endurance':
                     if 'delay' in testrun:

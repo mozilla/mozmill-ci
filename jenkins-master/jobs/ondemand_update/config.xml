@@ -71,6 +71,11 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>OVERRIDE_UPDATE_URL</name>
+          <description>The URL used by Firefox when checking for updates.</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>PLATFORM</name>
           <description>The platform to run the test on.</description>
@@ -127,7 +132,7 @@
       <timeAllocated></timeAllocated>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_update --app=$APPLICATION --target-buildid=$TARGET_BUILD_ID --override-update-channel=$OVERRIDE_UPDATE_CHANNEL --channel=$CHANNEL --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_update --app=$APPLICATION --target-buildid=$TARGET_BUILD_ID --override-update-channel=$OVERRIDE_UPDATE_CHANNEL --override-update-url=$OVERRIDE_UPDATE_URL --channel=$CHANNEL --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>
       <timeAllocated></timeAllocated>
