@@ -1,4 +1,7 @@
 # Mozmill CI
+
+[![Build Status](https://travis-ci.org/mozilla/mozmill-ci.svg?branch=master)](https://travis-ci.org/mozilla/mozmill-ci)
+
 With the Mozmill CI project we aim to get a fully automated testing cycle
 implemented for testing Firefox in the Mozilla QA compartment. We therefore use
 the [Mozilla Pulse](http://pulse.mozilla.org/) message broker to identify when
