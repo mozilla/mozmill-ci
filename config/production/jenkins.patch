@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 1ead5e1..6096a67 100644
+index 4802111..6df643a 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,16 +17,1156 @@
@@ -1165,7 +1165,7 @@ index 1ead5e1..6096a67 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -245,7 +1385,12 @@
+@@ -289,7 +1429,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -1179,7 +1179,7 @@ index 1ead5e1..6096a67 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-@@ -258,7 +1403,7 @@
+@@ -302,7 +1447,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
            <string>2.0.6.2</string>
            <string>NOTIFICATION_ADDRESS</string>
@@ -1433,6 +1433,71 @@ index 63b53df..cfc4854 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
+diff --git a/jenkins-master/jobs/mozilla-esr31_addons/config.xml b/jenkins-master/jobs/mozilla-esr31_addons/config.xml
+index 64cf7cb..b884de4 100644
+--- a/jenkins-master/jobs/mozilla-esr31_addons/config.xml
++++ b/jenkins-master/jobs/mozilla-esr31_addons/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute add-ons tests for ESR31 builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/mozilla-esr31_endurance/config.xml b/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
+index d601568..a11bcca 100644
+--- a/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
++++ b/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute endurance tests for ESR31 builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/mozilla-esr31_functional/config.xml b/jenkins-master/jobs/mozilla-esr31_functional/config.xml
+index ccd4d46..658eb28 100644
+--- a/jenkins-master/jobs/mozilla-esr31_functional/config.xml
++++ b/jenkins-master/jobs/mozilla-esr31_functional/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute functional tests for ESR31 builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/mozilla-esr31_remote/config.xml b/jenkins-master/jobs/mozilla-esr31_remote/config.xml
+index 8ec98ae..e852492 100644
+--- a/jenkins-master/jobs/mozilla-esr31_remote/config.xml
++++ b/jenkins-master/jobs/mozilla-esr31_remote/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute remote tests for ESR31 builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/mozilla-esr31_update/config.xml b/jenkins-master/jobs/mozilla-esr31_update/config.xml
+index 6aec7c7..8ca7ed4 100644
+--- a/jenkins-master/jobs/mozilla-esr31_update/config.xml
++++ b/jenkins-master/jobs/mozilla-esr31_update/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute update tests for ESR31 builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_addons/config.xml b/jenkins-master/jobs/ondemand_addons/config.xml
 index 113effa..64c6f1f 100644
 --- a/jenkins-master/jobs/ondemand_addons/config.xml
@@ -1499,7 +1564,7 @@ index f4f81e5..7145e00 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_update/config.xml b/jenkins-master/jobs/ondemand_update/config.xml
-index 8ef3395..a3f154b 100644
+index 2ac5967..595c010 100644
 --- a/jenkins-master/jobs/ondemand_update/config.xml
 +++ b/jenkins-master/jobs/ondemand_update/config.xml
 @@ -4,7 +4,7 @@
@@ -1616,7 +1681,7 @@ index 751533e..ebf0cc8 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml b/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
-index 26ccf77..78cb7fc 100644
+index 8a3e827..7a2e5ea 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
 @@ -4,7 +4,7 @@
@@ -1629,7 +1694,7 @@ index 26ccf77..78cb7fc 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml b/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
-index d2f2f17..b561eee 100644
+index 2373140..3669484 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
 @@ -4,7 +4,7 @@
@@ -1642,7 +1707,7 @@ index d2f2f17..b561eee 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
-index a71b6dd..7e97384 100644
+index 2145394..bfc97e6 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -1655,7 +1720,7 @@ index a71b6dd..7e97384 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml b/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
-index 6e7ba06..2286a81 100644
+index 62c2e06..07b4121 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
 @@ -4,7 +4,7 @@
