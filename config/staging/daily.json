@@ -148,7 +148,6 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
@@ -185,7 +184,6 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
@@ -222,7 +220,6 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],

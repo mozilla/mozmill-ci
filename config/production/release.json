@@ -88,7 +88,6 @@
                 ],
                 "testruns": [
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
@@ -135,7 +134,6 @@
                 ],
                 "testruns": [
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
@@ -175,7 +173,6 @@
                 ],
                 "testruns": [
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
@@ -215,7 +212,6 @@
                 ],
                 "testruns": [
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
