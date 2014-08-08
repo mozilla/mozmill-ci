@@ -74,17 +74,26 @@
         "by_branch": {
             "release-mozilla-beta": {
                 "locales": [
+                    "ar",
+                    "cs",
                     "de",
                     "en-GB",
                     "en-US",
                     "es-ES",
+                    "es-MX",
                     "fr",
+                    "hu",
                     "it",
                     "ja",
                     "ja-JP-mac",
+                    "nl",
                     "pl",
                     "pt-BR",
-                    "ru"
+                    "ru",
+                    "tr",
+                    "vi"
+                    "zh-CN",
+                    "zh-TW"
                 ],
                 "testruns": [
                     "functional",
@@ -120,17 +129,26 @@
             },
             "release-mozilla-release": {
                 "locales": [
+                    "ar",
+                    "cs",
                     "de",
                     "en-GB",
                     "en-US",
                     "es-ES",
+                    "es-MX",
                     "fr",
+                    "hu",
                     "it",
                     "ja",
                     "ja-JP-mac",
+                    "nl",
                     "pl",
                     "pt-BR",
-                    "ru"
+                    "ru",
+                    "tr",
+                    "vi"
+                    "zh-CN",
+                    "zh-TW"
                 ],
                 "testruns": [
                     "functional",
