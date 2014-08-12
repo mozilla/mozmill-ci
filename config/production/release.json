@@ -107,8 +107,7 @@
                 ],
                 "testruns": [
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [
@@ -172,8 +171,7 @@
                 ],
                 "testruns": [
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [
@@ -211,8 +209,7 @@
                 ],
                 "testruns": [
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [
@@ -250,8 +247,7 @@
                 ],
                 "testruns": [
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [

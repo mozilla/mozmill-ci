@@ -153,8 +153,7 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [
@@ -193,8 +192,7 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [
@@ -233,8 +231,7 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [
