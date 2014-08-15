@@ -1655,7 +1655,7 @@ index cea3be8..fcdd38d 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
-index da13432..a854f00 100644
+index da13432..04a4240 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -1663,12 +1663,12 @@ index da13432..a854f00 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>700</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_remote/config.xml b/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
-index 751533e..ebf0cc8 100644
+index 751533e..1413426 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
 @@ -4,7 +4,7 @@
@@ -1676,12 +1676,12 @@ index 751533e..ebf0cc8 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>700</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml b/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
-index 8a3e827..7a2e5ea 100644
+index 8a3e827..3e16b9d 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
 @@ -4,7 +4,7 @@
@@ -1689,12 +1689,12 @@ index 8a3e827..7a2e5ea 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>100</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml b/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
-index 2373140..3669484 100644
+index 2373140..4a93998 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
 @@ -4,7 +4,7 @@
@@ -1702,12 +1702,12 @@ index 2373140..3669484 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>100</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
-index 2145394..bfc97e6 100644
+index 2145394..3476566 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -1715,12 +1715,12 @@ index 2145394..bfc97e6 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>100</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml b/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
-index 62c2e06..07b4121 100644
+index 62c2e06..e326480 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
 @@ -4,7 +4,7 @@
@@ -1728,7 +1728,59 @@ index 62c2e06..07b4121 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>100</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml b/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml
+index 3a9e951..82189b5 100644
+--- a/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml
++++ b/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute add-ons tests for ESR31 candidate builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>100</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml b/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml
+index d2d0a6a..551e38a 100644
+--- a/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml
++++ b/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute endurance tests for ESR31 candidate builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>100</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml
+index 64f0f64..b36e0f8 100644
+--- a/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml
++++ b/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute functional tests for ESR31 candidate builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>100</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml b/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml
+index 73062c3..5a5b62d 100644
+--- a/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml
++++ b/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute remote tests for ESR31 candidate builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>100</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
@@ -1759,7 +1811,7 @@ index 25fb31e..1af0435 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_functional/config.xml b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
-index 78b8989..771fb59 100644
+index 78b8989..1f21a0f 100644
 --- a/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -1767,12 +1819,12 @@ index 78b8989..771fb59 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>700</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_remote/config.xml b/jenkins-master/jobs/release-mozilla-release_remote/config.xml
-index a345763..2fe71f5 100644
+index a345763..6da9569 100644
 --- a/jenkins-master/jobs/release-mozilla-release_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_remote/config.xml
 @@ -4,7 +4,7 @@
@@ -1780,7 +1832,7 @@ index a345763..2fe71f5 100644
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
-+    <numToKeep>200</numToKeep>
++    <numToKeep>700</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
