@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 1ead5e1..7488531 100644
+index 4802111..0ebfe4b 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,16 +17,244 @@
@@ -20,22 +20,6 @@ index 1ead5e1..7488531 100644
 -      <nodeProperties/>
 -      <userId>anonymous</userId>
 +      <label>mac 10.6 64bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-osx-107</name>
-+      <description>OS X 10.7</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.7 64bit endurance</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
@@ -68,6 +52,22 @@ index 1ead5e1..7488531 100644
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit endurance</label>
++      <nodeProperties>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-osx-1010</name>
++      <description>OS X 10.10</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>mac 10.10 64bit endurance</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
@@ -253,7 +253,7 @@ index 1ead5e1..7488531 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -245,7 +473,12 @@
+@@ -289,7 +517,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
