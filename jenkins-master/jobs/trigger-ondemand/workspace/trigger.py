@@ -85,8 +85,8 @@ def main():
                 if script == 'update' and 'target-build-id' in testrun:
                     parameters['TARGET_BUILD_ID'] = testrun['target-build-id']
                     parameters['CHANNEL'] = testrun['channel']
-                    parameters['OVERRIDE_UPDATE_CHANNEL'] = \
-                        testrun.get('override-update-channel', None)
+                    parameters['ALLOW_MAR_CHANNEL'] = \
+                        testrun.get('allow-mar-channel', None)
                     parameters['OVERRIDE_UPDATE_URL'] = \
                         testrun.get('override-update-url', None)
 

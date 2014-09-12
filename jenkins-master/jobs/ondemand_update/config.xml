@@ -62,8 +62,8 @@
           <defaultValue></defaultValue>
         </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
-          <name>OVERRIDE_UPDATE_CHANNEL</name>
-          <description>Append an accepted channel in update-settings.ini</description>
+          <name>ALLOW_MAR_CHANNEL</name>
+          <description>MAR channel to be allowed for an update</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>None</string>
@@ -132,7 +132,7 @@
       <timeAllocated></timeAllocated>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_update --app=$APPLICATION --target-buildid=$TARGET_BUILD_ID --override-update-channel=$OVERRIDE_UPDATE_CHANNEL --override-update-url=$OVERRIDE_UPDATE_URL --channel=$CHANNEL --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_update --app=$APPLICATION --target-buildid=$TARGET_BUILD_ID --allow-mar-channel=$ALLOW_MAR_CHANNEL --override-update-url=$OVERRIDE_UPDATE_URL --channel=$CHANNEL --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
       <regexToKill></regexToKill>
       <timeAllocated></timeAllocated>
