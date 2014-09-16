@@ -150,33 +150,43 @@ reports any unexpected changes. Note that you will need to
 path in order for these tests to run.
 
 ## Merging branches
-The main development on the Mozmill CI code happens on the master branch. In
-not yet specified intervals we are merging changesets into the staging branch.
-It is used for testing all the new features before those go live on production.
-When running those merge tasks you will have to obey the following steps:
+Development on the Mozmill CI code happens on the master branch. In not yet
+specified intervals we are merging changesets into the staging branch.
+That branch is used for testing all the new features before those go live on
+production. When running the merge tasks you will have to obey the steps below.
 
-1. Select the appropriate target branch
-2. Run 'git rebase master' for staging or 'git rebase staging' for production
-3. Run 'git pull' for the remote branch you want to push to
-4. Ensure the merged patches are on top of the branch
-5. Ensure that the Jenkins patch can be applied by running 'patch --dry-run -p1
- <config/%BRANCH%/jenkins.patch'
-6. Run 'git push' for the remote branch
+Merge from master branch to staging:
 
-For emergency fixes we are using cherry-pick to port individual fixes to the
-staging and production branch:
+1. `git checkout master` to select the master branch
+2. `git pull upstream master` to retrieve the latest changes from upstream
+3. `git checkout staging` to select the staging branch
+4. `git pull upstream staging` to retrieve the latest changes from upstream
+5. `git rebase master` to merge all the latest changes from master into staging
+6. `git log` to check if all the changesets are listed
+7. `git rebase -i HEAD^` in case a merge changeset is listed on top
+8. Ensure that the Jenkins patch can be applied by running `patch --dry-run -p1
+ <config/%BRANCH%/jenkins.patch`
+6. `git push upstream staging` to push the changes to upstream
 
-1. Select the appropriate target branch
-2. Run 'git cherry-pick %changeset%' to pick the specific changeset for the
-current branch
-3. Run 'git push' for the remote branch
+Merge from staging branch to production:
+
+1. `git checkout staging` to select the staging branch
+2. `git pull upstream staging` to retrieve the latest changes from upstream
+3. `git checkout production` to select the production branch
+4. `git pull upstream production` to retrieve the latest changes from upstream
+5. `git rebase staging` to merge all the latest changes from staging into production
+6. `git log` to check if all the changesets are listed
+7. `git rebase -i HEAD^` in case a merge changeset is listed on top
+8. Ensure that the Jenkins patch can be applied by running `patch --dry-run -p1
+ <config/%BRANCH%/jenkins.patch`
+6. `git push upstream production` to push the changes to upstream
 
 Once the changes have been landed you will have to update the staging or
 production machines. Run the following steps:
 
-1. Run 'git reset --hard' to remove the locally applied patch
-2. Pull the latest changes with 'git pull'
-3. Apply the Jenkins patch with 'patch -p1 <config/%BRANCH%/jenkins.patch'
+1. Run `git reset --hard` to remove the locally applied patch
+2. Pull the latest changes with `git pull`
+3. Apply the Jenkins patch with `patch -p1 <config/%BRANCH%/jenkins.patch`
 4. Restart Jenkins
 
 ## Running on-demand tests
