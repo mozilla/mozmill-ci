@@ -201,9 +201,19 @@ class Automation:
         target_branch = self.config['testrun']['by_branch'][data['tree']]
         target_platform = self.get_platform_identifier(data['platform'])
 
-        # Check locale restrictions and stop processing if locale is not wanted
-        if target_branch['locales'] and \
+        # Process the blacklist if one is present
+        if 'blacklist' in target_branch:
+            # Check the locale against the locales blacklist if one is present and
+            # stop processing it if listed there
+            if 'locales' in target_branch['blacklist'] and \
+                    data['locale'] in target_branch['blacklist']['locales']:
+                self.logger.info('Cancel processing of blacklisted locale: %s' % data['locale'])
+                return
+
+        # Process the whitelist if one is present
+        if 'locales' in target_branch and \
                 data['locale'] not in target_branch['locales']:
+            self.logger.info('Cancel processing of non-whitelisted locale: %s' % data['locale'])
             return
 
         for testrun in target_branch['testruns']:
