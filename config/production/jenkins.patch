@@ -1188,18 +1188,6 @@ index fbc293d..1038e71 100644
          </tree-map>
        </envVars>
      </hudson.slaves.EnvironmentVariablesNodeProperty>
-diff --git a/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml b/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
-index fb48559..7aeea8c 100644
---- a/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
-+++ b/jenkins-master/hudson.plugins.ircbot.IrcPublisher.xml
-@@ -1,6 +1,6 @@
- <?xml version='1.0' encoding='UTF-8'?>
- <hudson.plugins.ircbot.IrcPublisher_-DescriptorImpl plugin="ircbot@2.23">
--  <enabled>false</enabled>
-+  <enabled>true</enabled>
-   <hostname>irc.mozilla.org</hostname>
-   <port>6697</port>
-   <ssl>true</ssl>
 diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 index 2cec9ac..cfce914 100644
 --- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
