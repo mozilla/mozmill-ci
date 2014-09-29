@@ -129,11 +129,6 @@
       <latestOnly>false</latestOnly>
       <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
-    <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>report_*.xml</testResults>
-      <keepLongStdio>false</keepLongStdio>
-      <testDataPublishers/>
-    </hudson.tasks.junit.JUnitResultArchiver>
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.38.1">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
