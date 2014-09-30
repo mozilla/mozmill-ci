@@ -1181,7 +1181,7 @@ index fbc293d..1038e71 100644
        <envVars serialization="custom">
 @@ -302,7 +1447,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>2.0.8</string>
+           <string>2.0.8.1</string>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
