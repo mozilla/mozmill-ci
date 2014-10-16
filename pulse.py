@@ -4,6 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import ConfigParser
 import copy
 import json
 import logging
@@ -13,6 +14,8 @@ import socket
 import time
 
 import jenkins
+
+from mozillapulse.config import PulseConfiguration
 from pulsebuildmonitor import start_pulse_monitor
 
 
@@ -54,10 +57,10 @@ class JSONFile:
 
 class Automation:
 
-    def __init__(self, config, debug, log_folder, logger,
+    def __init__(self, configfile, pulse_authfile, debug, log_folder, logger,
                  message=None, display_only=False):
 
-        self.config = config
+        self.config = JSONFile(configfile).read()
         self.debug = debug
         self.log_folder = log_folder
         self.logger = logger
@@ -68,16 +71,22 @@ class Automation:
                                        self.config['jenkins']['username'],
                                        self.config['jenkins']['password'])
 
-        # Whenever only a single message has to be sent we can return immediately
+        # When a local pulse message is used, return immediately
         if self.test_message:
             data = JSONFile(self.test_message).read()
             self.on_build(data)
             return
 
-        # Make the consumer dependent to the host to prevent queue corruption by
-        # other machines which are using the same queue name
-        label = '%s|%s' % (self.config['pulse']['applabel'], socket.getfqdn())
+        # Load Pulse Guardian authentication from config file
+        if not os.path.exists(pulse_authfile):
+            print 'Config file for Mozilla Pulse does not exist!'
+            return
 
+        pulse_cfgfile = ConfigParser.ConfigParser()
+        pulse_cfgfile.read(pulse_authfile)
+        pulse_cfg = PulseConfiguration.read_from_config(pulse_cfgfile)
+
+        label = '%s|%s' % (self.config['pulse']['applabel'], socket.getfqdn())
         self.monitor = start_pulse_monitor(buildCallback=self.on_build,
                                            testCallback=None,
                                            pulseCallback=self.on_debug if self.debug else None,
@@ -88,7 +97,8 @@ class Automation:
                                            buildtypes=None,
                                            tests=None,
                                            buildtags=self.config['pulse']['tags'],
-                                           logger=self.logger)
+                                           logger=self.logger,
+                                           pulse_cfg=pulse_cfg)
 
         try:
             while self.monitor.is_alive():
@@ -286,6 +296,10 @@ def main():
                       dest='log_folder',
                       default='log',
                       help='Folder to write notification log files into')
+    parser.add_option('--pulse-authfile',
+                      dest='pulse_authfile',
+                      default='.pulse_config.ini',
+                      help='Path to the authentiation file for Pulse Guardian')
     parser.add_option('--push-message',
                       dest='message',
                       help='Log file of a Pulse message to process for Jenkins')
@@ -305,7 +319,8 @@ def main():
                         datefmt='%Y-%m-%dT%H:%M:%SZ')
     logger = logging.getLogger('automation')
 
-    DailyAutomation(config=JSONFile(args[0]).read(),
+    DailyAutomation(configfile=args[0],
+                    pulse_authfile=options.pulse_authfile,
                     debug=options.debug,
                     log_folder=options.log_folder,
                     logger=logger,
