@@ -11,7 +11,7 @@ import urllib2
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-JENKINS_VERSION = '1.554.2'
+JENKINS_VERSION = '1.565.3'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
 
 JENKINS_ENV = os.path.join(HERE, 'jenkins-env', 'bin', 'activate_this.py')
