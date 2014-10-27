@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index fbc293d..1038e71 100644
+index 19ef6af..3bec5f6 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,16 +17,1156 @@
@@ -1181,7 +1181,7 @@ index fbc293d..1038e71 100644
        <envVars serialization="custom">
 @@ -302,7 +1447,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>2.0.8.1</string>
+           <string>2.0.9</string>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
@@ -1201,7 +1201,7 @@ index 2cec9ac..cfce914 100644
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
 diff --git a/jenkins-master/jobs/get_mozmill-tests/config.xml b/jenkins-master/jobs/get_mozmill-tests/config.xml
-index 179daff..43ecf6b 100644
+index 45e17ee..da7d6b8 100644
 --- a/jenkins-master/jobs/get_mozmill-tests/config.xml
 +++ b/jenkins-master/jobs/get_mozmill-tests/config.xml
 @@ -3,8 +3,8 @@
@@ -1216,7 +1216,7 @@ index 179daff..43ecf6b 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_addons/config.xml b/jenkins-master/jobs/mozilla-aurora_addons/config.xml
-index f11ceef..63792b6 100644
+index 099482b..5df0408 100644
 --- a/jenkins-master/jobs/mozilla-aurora_addons/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1231,7 +1231,7 @@ index f11ceef..63792b6 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_endurance/config.xml b/jenkins-master/jobs/mozilla-aurora_endurance/config.xml
-index ecbfc1e..45e6abd 100644
+index c3b59c4..44a2507 100644
 --- a/jenkins-master/jobs/mozilla-aurora_endurance/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1246,7 +1246,7 @@ index ecbfc1e..45e6abd 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_functional/config.xml b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-index 5662a80..d14460d 100644
+index 2237c39..d0c77bd 100644
 --- a/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1261,7 +1261,7 @@ index 5662a80..d14460d 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_l10n/config.xml b/jenkins-master/jobs/mozilla-aurora_l10n/config.xml
-index 52d325c..af66a7a 100644
+index cd38f5b..5d517ea 100644
 --- a/jenkins-master/jobs/mozilla-aurora_l10n/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_l10n/config.xml
 @@ -3,8 +3,8 @@
@@ -1276,7 +1276,7 @@ index 52d325c..af66a7a 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_remote/config.xml b/jenkins-master/jobs/mozilla-aurora_remote/config.xml
-index f32afaa..8517463 100644
+index feda105..27886b6 100644
 --- a/jenkins-master/jobs/mozilla-aurora_remote/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1291,7 +1291,7 @@ index f32afaa..8517463 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index 1807b0e..a1828cb 100644
+index 2f1266e..e09f6f0 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 @@ -3,8 +3,8 @@
@@ -1306,7 +1306,7 @@ index 1807b0e..a1828cb 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_addons/config.xml b/jenkins-master/jobs/mozilla-central_addons/config.xml
-index 0f3c0ef..4625d1f 100644
+index 45aa078..2ebc70d 100644
 --- a/jenkins-master/jobs/mozilla-central_addons/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1321,7 +1321,7 @@ index 0f3c0ef..4625d1f 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_endurance/config.xml b/jenkins-master/jobs/mozilla-central_endurance/config.xml
-index 67cf4c1..6c36205 100644
+index bfb4b57..3b9b8cf 100644
 --- a/jenkins-master/jobs/mozilla-central_endurance/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1336,7 +1336,7 @@ index 67cf4c1..6c36205 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_functional/config.xml b/jenkins-master/jobs/mozilla-central_functional/config.xml
-index 2221920..cf03efc 100644
+index 5a3cdc6..1d6eb94 100644
 --- a/jenkins-master/jobs/mozilla-central_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1351,7 +1351,7 @@ index 2221920..cf03efc 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_remote/config.xml b/jenkins-master/jobs/mozilla-central_remote/config.xml
-index 9ef5905..ed28291 100644
+index e39e836..47c8a12 100644
 --- a/jenkins-master/jobs/mozilla-central_remote/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1366,7 +1366,7 @@ index 9ef5905..ed28291 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index eafc6df..f810dd2 100644
+index 9c9e3de..7fa334a 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -3,8 +3,8 @@
@@ -1381,7 +1381,7 @@ index eafc6df..f810dd2 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr24_addons/config.xml b/jenkins-master/jobs/mozilla-esr24_addons/config.xml
-index f8f2403..3de7a94 100644
+index 5e5c09a..3093f0b 100644
 --- a/jenkins-master/jobs/mozilla-esr24_addons/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr24_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1396,7 +1396,7 @@ index f8f2403..3de7a94 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr24_endurance/config.xml b/jenkins-master/jobs/mozilla-esr24_endurance/config.xml
-index 504f9ba..df68937 100644
+index 192e1be..99fc47c 100644
 --- a/jenkins-master/jobs/mozilla-esr24_endurance/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr24_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1411,7 +1411,7 @@ index 504f9ba..df68937 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr24_functional/config.xml b/jenkins-master/jobs/mozilla-esr24_functional/config.xml
-index 996b393..5367b29 100644
+index 1296893..c8a9b77 100644
 --- a/jenkins-master/jobs/mozilla-esr24_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr24_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1426,7 +1426,7 @@ index 996b393..5367b29 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr24_remote/config.xml b/jenkins-master/jobs/mozilla-esr24_remote/config.xml
-index e3e9e0d..c4dccce 100644
+index 0631ebe..f71355b 100644
 --- a/jenkins-master/jobs/mozilla-esr24_remote/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr24_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1441,7 +1441,7 @@ index e3e9e0d..c4dccce 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr24_update/config.xml b/jenkins-master/jobs/mozilla-esr24_update/config.xml
-index 63b53df..0a32a8a 100644
+index 8b522b3..b1c9498 100644
 --- a/jenkins-master/jobs/mozilla-esr24_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr24_update/config.xml
 @@ -3,8 +3,8 @@
@@ -1456,7 +1456,7 @@ index 63b53df..0a32a8a 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr31_addons/config.xml b/jenkins-master/jobs/mozilla-esr31_addons/config.xml
-index 64cf7cb..201461e 100644
+index a5d3b5c..e04592a 100644
 --- a/jenkins-master/jobs/mozilla-esr31_addons/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr31_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1471,7 +1471,7 @@ index 64cf7cb..201461e 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr31_endurance/config.xml b/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
-index d601568..3506267 100644
+index 0b56136..e5ce350 100644
 --- a/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1486,7 +1486,7 @@ index d601568..3506267 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr31_functional/config.xml b/jenkins-master/jobs/mozilla-esr31_functional/config.xml
-index ccd4d46..2a13c46 100644
+index d11f1f2..1346a60 100644
 --- a/jenkins-master/jobs/mozilla-esr31_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr31_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1501,7 +1501,7 @@ index ccd4d46..2a13c46 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr31_remote/config.xml b/jenkins-master/jobs/mozilla-esr31_remote/config.xml
-index 8ec98ae..e98b926 100644
+index a421d4e..bb10d35 100644
 --- a/jenkins-master/jobs/mozilla-esr31_remote/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr31_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1516,7 +1516,7 @@ index 8ec98ae..e98b926 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-esr31_update/config.xml b/jenkins-master/jobs/mozilla-esr31_update/config.xml
-index 6aec7c7..53d25ce 100644
+index 13b0b72..367053d 100644
 --- a/jenkins-master/jobs/mozilla-esr31_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-esr31_update/config.xml
 @@ -3,8 +3,8 @@
@@ -1531,7 +1531,7 @@ index 6aec7c7..53d25ce 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_addons/config.xml b/jenkins-master/jobs/ondemand_addons/config.xml
-index 113effa..09e34ec 100644
+index 287b95a..4bb9aa2 100644
 --- a/jenkins-master/jobs/ondemand_addons/config.xml
 +++ b/jenkins-master/jobs/ondemand_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1546,7 +1546,7 @@ index 113effa..09e34ec 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_endurance/config.xml b/jenkins-master/jobs/ondemand_endurance/config.xml
-index c8367e8..0f7c738 100644
+index 191ba6e..c8e9a7c 100644
 --- a/jenkins-master/jobs/ondemand_endurance/config.xml
 +++ b/jenkins-master/jobs/ondemand_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1561,7 +1561,7 @@ index c8367e8..0f7c738 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_functional/config.xml b/jenkins-master/jobs/ondemand_functional/config.xml
-index fda8a1b..35bb52d 100644
+index 4306d57..cf77649 100644
 --- a/jenkins-master/jobs/ondemand_functional/config.xml
 +++ b/jenkins-master/jobs/ondemand_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1576,7 +1576,7 @@ index fda8a1b..35bb52d 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_l10n/config.xml b/jenkins-master/jobs/ondemand_l10n/config.xml
-index ab55527..fefac65 100644
+index b30667d..75124a9 100644
 --- a/jenkins-master/jobs/ondemand_l10n/config.xml
 +++ b/jenkins-master/jobs/ondemand_l10n/config.xml
 @@ -3,8 +3,8 @@
@@ -1591,7 +1591,7 @@ index ab55527..fefac65 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_remote/config.xml b/jenkins-master/jobs/ondemand_remote/config.xml
-index f4f81e5..646fd71 100644
+index 4cbf69c..81b740d 100644
 --- a/jenkins-master/jobs/ondemand_remote/config.xml
 +++ b/jenkins-master/jobs/ondemand_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1606,7 +1606,7 @@ index f4f81e5..646fd71 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_update/config.xml b/jenkins-master/jobs/ondemand_update/config.xml
-index 1fb8022..ee0f53d 100644
+index 5622d40..86bf869 100644
 --- a/jenkins-master/jobs/ondemand_update/config.xml
 +++ b/jenkins-master/jobs/ondemand_update/config.xml
 @@ -3,8 +3,8 @@
@@ -1621,7 +1621,7 @@ index 1fb8022..ee0f53d 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_addons/config.xml b/jenkins-master/jobs/project_addons/config.xml
-index 3ed1aaf..0f29c0f 100644
+index f0a4be3..f6f1bac 100644
 --- a/jenkins-master/jobs/project_addons/config.xml
 +++ b/jenkins-master/jobs/project_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1636,7 +1636,7 @@ index 3ed1aaf..0f29c0f 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_endurance/config.xml b/jenkins-master/jobs/project_endurance/config.xml
-index abcc16e..5142859 100644
+index 296a88e..567e050 100644
 --- a/jenkins-master/jobs/project_endurance/config.xml
 +++ b/jenkins-master/jobs/project_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1651,7 +1651,7 @@ index abcc16e..5142859 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_functional/config.xml b/jenkins-master/jobs/project_functional/config.xml
-index 20b4524..356be42 100644
+index 8619ca9..71519a2 100644
 --- a/jenkins-master/jobs/project_functional/config.xml
 +++ b/jenkins-master/jobs/project_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1666,7 +1666,7 @@ index 20b4524..356be42 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_remote/config.xml b/jenkins-master/jobs/project_remote/config.xml
-index fc07708..34f4134 100644
+index f11bb10..c9e7a05 100644
 --- a/jenkins-master/jobs/project_remote/config.xml
 +++ b/jenkins-master/jobs/project_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1681,10 +1681,10 @@ index fc07708..34f4134 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_update/config.xml b/jenkins-master/jobs/project_update/config.xml
-index 023c16b..3b88790 100644
+index e7769b3..394a46f 100644
 --- a/jenkins-master/jobs/project_update/config.xml
 +++ b/jenkins-master/jobs/project_update/config.xml
-@@ -3,8 +3,8 @@
+@@ -3,7 +3,7 @@
    <actions/>
    <description>Execute update tests for Nightly builds based on a project branch.</description>
    <logRotator class="hudson.tasks.LogRotator">
@@ -1693,9 +1693,8 @@ index 023c16b..3b88790 100644
      <numToKeep>100</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_addons/config.xml b/jenkins-master/jobs/release-mozilla-beta_addons/config.xml
-index 0cf3a37..6219541 100644
+index 73a668c..35eba3b 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_addons/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1710,7 +1709,7 @@ index 0cf3a37..6219541 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_endurance/config.xml b/jenkins-master/jobs/release-mozilla-beta_endurance/config.xml
-index cea3be8..41562e1 100644
+index 99d17f7..22b51f8 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_endurance/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1725,7 +1724,7 @@ index cea3be8..41562e1 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
-index da13432..f4cdc63 100644
+index 658fbc6..0915f98 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1740,7 +1739,7 @@ index da13432..f4cdc63 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_remote/config.xml b/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
-index 751533e..24cd618 100644
+index 05953dc..2a28f70 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1755,7 +1754,7 @@ index 751533e..24cd618 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml b/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
-index 8a3e827..6b3707c 100644
+index 33518d8..cd808d4 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1770,7 +1769,7 @@ index 8a3e827..6b3707c 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml b/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
-index 2373140..600fa87 100644
+index 99155c9..50ecb9e 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1785,7 +1784,7 @@ index 2373140..600fa87 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
-index 2145394..57e5447 100644
+index b2095e8..6a76193 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1800,7 +1799,7 @@ index 2145394..57e5447 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml b/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
-index 62c2e06..05a1485 100644
+index f7ca3e5..37d86bf 100644
 --- a/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr24_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1815,7 +1814,7 @@ index 62c2e06..05a1485 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml b/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml
-index 3a9e951..c16a271 100644
+index f54de44..958a5f7 100644
 --- a/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr31_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1830,7 +1829,7 @@ index 3a9e951..c16a271 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml b/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml
-index d2d0a6a..8ae996b 100644
+index 06b7b0a..22ae2cb 100644
 --- a/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr31_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1845,7 +1844,7 @@ index d2d0a6a..8ae996b 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml
-index 64f0f64..d71b2b8 100644
+index 3c32f39..53b2f2f 100644
 --- a/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr31_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1860,7 +1859,7 @@ index 64f0f64..d71b2b8 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml b/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml
-index 73062c3..7fb6eda 100644
+index df011ca..109d9f2 100644
 --- a/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr31_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1875,7 +1874,7 @@ index 73062c3..7fb6eda 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_addons/config.xml b/jenkins-master/jobs/release-mozilla-release_addons/config.xml
-index a70b487..f9b2422 100644
+index ca6da7e..e85309b 100644
 --- a/jenkins-master/jobs/release-mozilla-release_addons/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_addons/config.xml
 @@ -3,8 +3,8 @@
@@ -1890,7 +1889,7 @@ index a70b487..f9b2422 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_endurance/config.xml b/jenkins-master/jobs/release-mozilla-release_endurance/config.xml
-index 25fb31e..444591f 100644
+index 7040b19..ad5967d 100644
 --- a/jenkins-master/jobs/release-mozilla-release_endurance/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_endurance/config.xml
 @@ -3,8 +3,8 @@
@@ -1905,7 +1904,7 @@ index 25fb31e..444591f 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_functional/config.xml b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
-index 78b8989..da81592 100644
+index 9f39709..12fdcd9 100644
 --- a/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1920,7 +1919,7 @@ index 78b8989..da81592 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_remote/config.xml b/jenkins-master/jobs/release-mozilla-release_remote/config.xml
-index a345763..da10969 100644
+index 203d0b1..2b63da5 100644
 --- a/jenkins-master/jobs/release-mozilla-release_remote/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1935,7 +1934,7 @@ index a345763..da10969 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/trigger-ondemand/config.xml b/jenkins-master/jobs/trigger-ondemand/config.xml
-index c8d148e..f5a3ade 100644
+index d7e9270..d3c6357 100644
 --- a/jenkins-master/jobs/trigger-ondemand/config.xml
 +++ b/jenkins-master/jobs/trigger-ondemand/config.xml
 @@ -4,7 +4,7 @@
