@@ -61,9 +61,6 @@
                     "l10n"
                 ],
                 "platforms": {
-                    "linux": [
-                        "linux && ubuntu && 13.10 && 64bit"
-                    ],
                     "linux64": [
                         "linux && ubuntu && 13.10 && 64bit"
                     ],
