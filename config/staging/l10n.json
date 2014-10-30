@@ -1,6 +1,6 @@
 {
     "pulse": {
-        "applabel": "qa-auto@mozilla.com|mozmill_l10n",
+        "applabel": "mozmill_l10n",
         "branches": [
             "mozilla-aurora"
         ],

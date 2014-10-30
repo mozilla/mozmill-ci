@@ -86,7 +86,7 @@ class Automation:
         pulse_cfgfile.read(pulse_authfile)
         pulse_cfg = PulseConfiguration.read_from_config(pulse_cfgfile)
 
-        label = '%s|%s' % (self.config['pulse']['applabel'], socket.getfqdn())
+        label = '%s/%s' % (socket.getfqdn(), self.config['pulse']['applabel'])
         self.monitor = start_pulse_monitor(buildCallback=self.on_build,
                                            testCallback=None,
                                            pulseCallback=self.on_debug if self.debug else None,
