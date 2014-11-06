@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hudson.plugins.ansicolor.AnsiColorBuildWrapper_-DescriptorImpl plugin="ansicolor@0.3.1">
+<hudson.plugins.ansicolor.AnsiColorBuildWrapper_-DescriptorImpl plugin="ansicolor@0.4.0">
   <colorMaps>
     <hudson.plugins.ansicolor.AnsiColorMap>
       <name>xterm</name>

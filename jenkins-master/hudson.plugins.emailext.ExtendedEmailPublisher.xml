@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.38.1">
+<hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.38.2">
   <adminAddress>mozmill-ci@mozilla.com</adminAddress>
   <useSsl>false</useSsl>
   <defaultContentType>text/plain</defaultContentType>

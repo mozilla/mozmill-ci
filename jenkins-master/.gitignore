@@ -31,9 +31,11 @@ plugins/cvs.jpi
 plugins/credentials.jpi
 plugins/external-monitor-job.jpi
 plugins/javadoc.jpi
+plugins/junit.jpi
 plugins/ldap.jpi
 plugins/mailer.jpi
 plugins/matrix-auth.jpi
+plugins/matrix-project.jpi
 plugins/maven-plugin.jpi
 plugins/pam-auth.jpi
 plugins/ssh-credentials.jpi
