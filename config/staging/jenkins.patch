@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 4802111..0ebfe4b 100644
+index 2199993..ee29de8 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,16 +17,244 @@
@@ -253,7 +253,7 @@ index 4802111..0ebfe4b 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -289,7 +517,12 @@
+@@ -245,7 +473,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
