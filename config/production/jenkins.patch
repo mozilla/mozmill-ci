@@ -1,22 +1,21 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 2199993..e970d0b 100644
+index cec3cb6..e970d0b 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -17,16 +17,1156 @@
+@@ -17,40 +17,1156 @@
    <clouds/>
    <slaves>
      <slave>
--      <name>dummy</name>
--      <description></description>
--      <remoteFS></remoteFS>
+-      <name>dummy-linux</name>
+-      <description>Dummy slave node for testing purposes</description>
 +      <name>mm-osx-106-1</name>
 +      <description>OS X 10.6</description>
-+      <remoteFS>jenkins</remoteFS>
+       <remoteFS>jenkins</remoteFS>
        <numExecutors>1</numExecutors>
        <mode>NORMAL</mode>
        <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
        <launcher class="hudson.slaves.JNLPLauncher"/>
--      <label></label>
+-      <label>linux ubuntu 12.04 13.10 14.04 32bit 64bit endurance</label>
 -      <nodeProperties/>
 -      <userId>anonymous</userId>
 +      <label>mac 10.6 64bit endurance</label>
@@ -26,15 +25,20 @@ index 2199993..e970d0b 100644
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
-+    </slave>
-+    <slave>
+     </slave>
+     <slave>
+-      <name>dummy-mac</name>
+-      <description>Dummy slave node for testing purposes</description>
 +      <name>mm-osx-106-2</name>
 +      <description>OS X 10.6</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
+       <remoteFS>jenkins</remoteFS>
+       <numExecutors>1</numExecutors>
+       <mode>NORMAL</mode>
+       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+       <launcher class="hudson.slaves.JNLPLauncher"/>
+-      <label>mac 10.6 10.7 10.8 10.9 10.10 64bit endurance</label>
+-      <nodeProperties/>
+-      <userId>anonymous</userId>
 +      <label>mac 10.6 64bit endurance</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
@@ -42,8 +46,10 @@ index 2199993..e970d0b 100644
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
-+    </slave>
-+    <slave>
+     </slave>
+     <slave>
+-      <name>dummy-windows</name>
+-      <description>Dummy slave node for testing purposes</description>
 +      <name>mm-osx-106-3</name>
 +      <description>OS X 10.6</description>
 +      <remoteFS>jenkins</remoteFS>
@@ -1150,11 +1156,14 @@ index 2199993..e970d0b 100644
 +    <slave>
 +      <name>mm-win-81-64-4</name>
 +      <description>Windows 8.1 64bit</description>
-+      <remoteFS>c:\jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
+       <remoteFS>c:\jenkins</remoteFS>
+       <numExecutors>1</numExecutors>
+       <mode>NORMAL</mode>
+       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+       <launcher class="hudson.slaves.JNLPLauncher"/>
+-      <label>windows xp vista 7 8 8.1 32bit 64bit endurance</label>
+-      <nodeProperties/>
+-      <userId>anonymous</userId>
 +      <label>windows 8.1 64bit</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
@@ -1165,7 +1174,7 @@ index 2199993..e970d0b 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -245,7 +1385,12 @@
+@@ -269,7 +1385,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -1179,7 +1188,7 @@ index 2199993..e970d0b 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-@@ -258,7 +1403,7 @@
+@@ -282,7 +1403,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
            <string>2.0.9</string>
            <string>NOTIFICATION_ADDRESS</string>
