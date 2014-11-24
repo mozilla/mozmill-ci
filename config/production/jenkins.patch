@@ -1206,7 +1206,7 @@ index 2cec9ac..cfce914 100644
  <jenkins.model.JenkinsLocationConfiguration>
    <adminAddress>mozmill-ci@mozilla.org</adminAddress>
 -  <jenkinsUrl>http://localhost:8080/</jenkinsUrl>
-+  <jenkinsUrl>http://mm-ci-master.qa.scl3.mozilla.com:8080/</jenkinsUrl>
++  <jenkinsUrl>http://mm-ci-production.qa.scl3.mozilla.com:8080/</jenkinsUrl>
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
 diff --git a/jenkins-master/jobs/get_mozmill-tests/config.xml b/jenkins-master/jobs/get_mozmill-tests/config.xml
