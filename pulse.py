@@ -211,17 +211,17 @@ class Automation:
         target_branch = self.config['testrun']['by_branch'][data['tree']]
         target_platform = self.get_platform_identifier(data['platform'])
 
-        # Process the blacklist if one is present
+        # Handle blacklist items if present
         if 'blacklist' in target_branch:
-            # Check the locale against the locales blacklist if one is present and
-            # stop processing it if listed there
+            # Cancel processing of the build if the locale is blacklisted
             if 'locales' in target_branch['blacklist'] and \
                     data['locale'] in target_branch['blacklist']['locales']:
                 self.logger.info('Cancel processing of blacklisted locale: %s' % data['locale'])
                 return
 
-        # Process the whitelist if one is present
-        if 'locales' in target_branch and \
+        # Cancel processing of the build if the locale is not white-listed. An
+        # empty array means all locales will be processed.
+        if 'locales' in target_branch and len(target_branch['locales']) and \
                 data['locale'] not in target_branch['locales']:
             self.logger.info('Cancel processing of non-whitelisted locale: %s' % data['locale'])
             return

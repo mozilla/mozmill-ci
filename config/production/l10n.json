@@ -5,7 +5,7 @@
             "mozilla-aurora"
         ],
         "platforms": [
-            "linux",
+            "linux64",
             "macosx",
             "macosx64",
             "win32"
