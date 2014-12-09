@@ -75,6 +75,7 @@
                 "blacklist": {
                     "locales": [
                         "az",
+                        "cy",
                         "ku"
                     ]
                 },
