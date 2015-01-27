@@ -6,7 +6,7 @@ URL_VIRTUALENV=https://codeload.github.com/pypa/virtualenv/zip/
 VERSION_MERCURIAL=2.6.2
 VERSION_PULSEBUILDMONITOR=0.90
 VERSION_PYTHON_JENKINS=0.2.1
-VERSION_VIRTUALENV=1.9.1
+VERSION_VIRTUALENV=12.0.5
 
 VERSION_PYTHON=$(python -c "import sys;print sys.version[:3]")
 

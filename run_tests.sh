@@ -7,7 +7,7 @@
 set -e
 DIR_TEST_ENV="test/venv"
 DIR_JENKINS_ENV=jenkins-env
-VERSION_VIRTUALENV=1.9.1
+VERSION_VIRTUALENV=12.0.5
 
 export JENKINS_HOME=jenkins-master
 
