@@ -3,8 +3,7 @@
         "applabel": "mozmill_daily",
         "branches": [
             "mozilla-central",
-            "mozilla-aurora",
-            "mozilla-esr31"
+            "mozilla-aurora"
         ],
         "platforms": [
             "linux",

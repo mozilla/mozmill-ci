@@ -208,8 +208,13 @@ class Automation:
             data['tree'] = 'project'
 
         # Queue up jobs for the branch as given by config settings
-        target_branch = self.config['testrun']['by_branch'][data['tree']]
+        target_branch = self.config['testrun']['by_branch'].get(data['tree'])
         target_platform = self.get_platform_identifier(data['platform'])
+
+        # Ensure that the branch is really supported by us
+        if target_branch is None:
+            self.logger.error('Cancel processing of unsupported branch: %s' % data['tree'])
+            return
 
         # Handle blacklist items if present
         if 'blacklist' in target_branch:
