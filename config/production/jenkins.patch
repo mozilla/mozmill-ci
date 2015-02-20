@@ -1062,7 +1062,7 @@ index ff836d9..ed2f76e 100644
        <envVars serialization="custom">
 @@ -282,7 +1275,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>2.0.9.1</string>
+           <string>2.0.10</string>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
