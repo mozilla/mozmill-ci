@@ -75,7 +75,8 @@
                 "blacklist": {
                     "locales": [
                         "az",
-                        "cy"
+                        "cy",
+                        "ro"
                     ]
                 },
                 "testruns": [
@@ -113,7 +114,8 @@
                 "blacklist": {
                     "locales": [
                         "az",
-                        "cy"
+                        "cy",
+                        "ro"
                     ]
                 },
                 "testruns": [
