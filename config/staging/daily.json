@@ -52,14 +52,6 @@
                     "value": "http://mozauto.iriscouch.com/mozmill-staging/"
                 }
             },
-            "endurance": {
-                "ENTITIES": {
-                    "value": 2
-                },
-                "ITERATIONS": {
-                    "value": 2
-                }
-            },
             "update": {
                 "BUILD_ID": {
                     "key": "previous_buildid"
@@ -114,7 +106,6 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],

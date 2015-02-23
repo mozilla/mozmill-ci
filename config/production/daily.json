@@ -51,14 +51,6 @@
                     "value": "http://mozauto.iriscouch.com/mozmill-daily/"
                 }
             },
-            "endurance": {
-                "ENTITIES": {
-                    "value": 10
-                },
-                "ITERATIONS": {
-                    "value": 10
-                }
-            },
             "update": {
                 "BUILD_ID": {
                     "key": "previous_buildid"
@@ -116,7 +108,6 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "endurance",
                     "remote",
                     "addons"
                 ],
