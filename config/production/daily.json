@@ -108,8 +108,7 @@
                 "testruns": [
                     "update",
                     "functional",
-                    "remote",
-                    "addons"
+                    "remote"
                 ],
                 "platforms": {
                     "linux": [
