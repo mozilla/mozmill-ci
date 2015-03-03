@@ -11,7 +11,8 @@
             "linux64",
             "macosx",
             "macosx64",
-            "win32"
+            "win32",
+            "win64"
         ],
         "products": [
             "firefox"
@@ -100,6 +101,10 @@
                         "windows && 7 && 64bit",
                         "windows && 8.1 && 32bit",
                         "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -131,6 +136,10 @@
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
                         "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
                         "windows && 8.1 && 64bit"
                     ]
                 }
