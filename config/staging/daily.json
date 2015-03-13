@@ -140,7 +140,7 @@
                 "locales": [
                     "ar",
                     "en-US",
-                    "zh-CN"
+                    "zh-TW"
                 ],
                 "testruns": [
                     "update",
