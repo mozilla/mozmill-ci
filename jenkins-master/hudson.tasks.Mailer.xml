@@ -2,7 +2,7 @@
 <hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.10">
   <defaultSuffix>@mozilla.com</defaultSuffix>
   <adminAddress>mozmill-ci@mozilla.com</adminAddress>
-  <smtpHost>smtp.mozilla.org</smtpHost>
+  <smtpHost>smtp.mail.scl3.mozilla.com</smtpHost>
   <useSsl>false</useSsl>
   <smtpPort>25</smtpPort>
   <charset>UTF-8</charset>
