@@ -74,7 +74,7 @@
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
         <string>get_mozmill-environments</string>
         <string>get_mozmill-tests</string>
-        <string>tools</string>
+        <string>scripts</string>
         <string>trigger-ondemand</string>
       </jobNames>
       <jobFilters/>
