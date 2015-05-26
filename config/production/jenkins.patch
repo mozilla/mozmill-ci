@@ -82,14 +82,14 @@ index 18017a4..59b9aac 100644
 +      </nodeProperties>
 +    </slave>
 +    <slave>
-+      <name>mm-osx-107-1</name>
-+      <description>OS X 10.7</description>
++      <name>mm-osx-1010-1</name>
++      <description>OS X 10.10</description>
 +      <remoteFS>jenkins</remoteFS>
 +      <numExecutors>1</numExecutors>
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.7 64bit endurance</label>
++      <label>mac 10.10 64bit endurance</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
@@ -98,14 +98,14 @@ index 18017a4..59b9aac 100644
 +      </nodeProperties>
 +    </slave>
 +    <slave>
-+      <name>mm-osx-107-2</name>
-+      <description>OS X 10.7</description>
++      <name>mm-osx-1010-2</name>
++      <description>OS X 10.10</description>
 +      <remoteFS>jenkins</remoteFS>
 +      <numExecutors>1</numExecutors>
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.7 64bit endurance</label>
++      <label>mac 10.10 64bit endurance</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
@@ -114,14 +114,14 @@ index 18017a4..59b9aac 100644
 +      </nodeProperties>
 +    </slave>
 +    <slave>
-+      <name>mm-osx-107-3</name>
-+      <description>OS X 10.7</description>
++      <name>mm-osx-1010-3</name>
++      <description>OS X 10.10</description>
 +      <remoteFS>jenkins</remoteFS>
 +      <numExecutors>1</numExecutors>
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.7 64bit</label>
++      <label>mac 10.10 64bit</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
@@ -130,14 +130,14 @@ index 18017a4..59b9aac 100644
 +      </nodeProperties>
 +    </slave>
 +    <slave>
-+      <name>mm-osx-107-4</name>
-+      <description>OS X 10.7</description>
++      <name>mm-osx-1010-4</name>
++      <description>OS X 10.10</description>
 +      <remoteFS>jenkins</remoteFS>
 +      <numExecutors>1</numExecutors>
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.7 64bit</label>
++      <label>mac 10.10 64bit</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>

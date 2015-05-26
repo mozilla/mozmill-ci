@@ -81,9 +81,9 @@
                     ],
                     "mac": [
                         "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit",
                         "mac && 10.8 && 64bit",
-                        "mac && 10.9 && 64bit"
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
@@ -122,9 +122,9 @@
                     ],
                     "mac": [
                         "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit",
                         "mac && 10.8 && 64bit",
-                        "mac && 10.9 && 64bit"
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
@@ -166,9 +166,9 @@
                     ],
                     "mac": [
                         "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit",
                         "mac && 10.8 && 64bit",
-                        "mac && 10.9 && 64bit"
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
@@ -210,9 +210,9 @@
                     ],
                     "mac": [
                         "mac && 10.6 && 64bit",
-                        "mac && 10.7 && 64bit",
                         "mac && 10.8 && 64bit",
-                        "mac && 10.9 && 64bit"
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
                     ],
                     "win32": [
                         "windows && xp && 32bit",
