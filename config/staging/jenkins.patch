@@ -256,51 +256,12 @@ index 2cec9ac..a8c78ed 100644
 +  <jenkinsUrl>http://mm-ci-staging.qa.scl3.mozilla.com:8080/</jenkinsUrl>
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
-diff --git a/jenkins-master/jobs/mozilla-aurora_addons/config.xml b/jenkins-master/jobs/mozilla-aurora_addons/config.xml
-index af17fdd..2a65fe7 100644
---- a/jenkins-master/jobs/mozilla-aurora_addons/config.xml
-+++ b/jenkins-master/jobs/mozilla-aurora_addons/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute add-ons tests for Aurora builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-aurora_endurance/config.xml b/jenkins-master/jobs/mozilla-aurora_endurance/config.xml
-index 67d3f18..c897efc 100644
---- a/jenkins-master/jobs/mozilla-aurora_endurance/config.xml
-+++ b/jenkins-master/jobs/mozilla-aurora_endurance/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute endurance tests for Aurora builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_functional/config.xml b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-index 056de65..149a611 100644
+index 5feaa99..a9afa87 100644
 --- a/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 @@ -4,7 +4,7 @@
-   <description>Execute functional tests for Aurora builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-aurora_l10n/config.xml b/jenkins-master/jobs/mozilla-aurora_l10n/config.xml
-index fd615c3..387e40c 100644
---- a/jenkins-master/jobs/mozilla-aurora_l10n/config.xml
-+++ b/jenkins-master/jobs/mozilla-aurora_l10n/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute l10n tests for Aurora builds.</description>
+   <description>Execute functional tests for Firefox Developer Edition builds.</description>
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
@@ -309,11 +270,11 @@ index fd615c3..387e40c 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_remote/config.xml b/jenkins-master/jobs/mozilla-aurora_remote/config.xml
-index 7d47a5f..98b5d72 100644
+index c707449..9f36511 100644
 --- a/jenkins-master/jobs/mozilla-aurora_remote/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_remote/config.xml
 @@ -4,7 +4,7 @@
-   <description>Execute remote tests for Aurora builds.</description>
+   <description>Execute remote tests for Firefox Developer Edition builds.</description>
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
@@ -322,11 +283,11 @@ index 7d47a5f..98b5d72 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index 2e90406..9202364 100644
+index aa51f8b..c17c141 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 @@ -4,7 +4,7 @@
-   <description>Execute update tests for Aurora builds.</description>
+   <description>Execute update tests for Firefox Developer Edition builds.</description>
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
@@ -335,7 +296,7 @@ index 2e90406..9202364 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_functional/config.xml b/jenkins-master/jobs/mozilla-central_functional/config.xml
-index e179c57..2df40b8 100644
+index 59685b7..9939f2b 100644
 --- a/jenkins-master/jobs/mozilla-central_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -348,7 +309,7 @@ index e179c57..2df40b8 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_remote/config.xml b/jenkins-master/jobs/mozilla-central_remote/config.xml
-index 8e532f1..5fb254f 100644
+index b7deeba..2d70224 100644
 --- a/jenkins-master/jobs/mozilla-central_remote/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_remote/config.xml
 @@ -4,7 +4,7 @@
@@ -361,7 +322,7 @@ index 8e532f1..5fb254f 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index 6022fd6..a8281de 100644
+index 433f335..9b43f55 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -4,7 +4,7 @@
