@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index f32806a..32b9669 100644
+index 18017a4..59b9aac 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,40 +17,1028 @@
@@ -1066,9 +1066,9 @@ index f32806a..32b9669 100644
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
-         </tree-map>
-       </envVars>
-     </hudson.slaves.EnvironmentVariablesNodeProperty>
+           <string>PIP_FIND_LINKS</string>
+           <string>http://pypi.pub.build.mozilla.org/pub</string>
+           <string>PIP_NO_INDEX</string>
 diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 index 2cec9ac..bfe0e1f 100644
 --- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
@@ -1187,7 +1187,7 @@ index 2e90406..57a7531 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_functional/config.xml b/jenkins-master/jobs/mozilla-central_functional/config.xml
-index e179c57..7e50926 100644
+index 59685b7..fce23cc 100644
 --- a/jenkins-master/jobs/mozilla-central_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1202,7 +1202,7 @@ index e179c57..7e50926 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_remote/config.xml b/jenkins-master/jobs/mozilla-central_remote/config.xml
-index 8e532f1..f284a15 100644
+index b7deeba..17549b7 100644
 --- a/jenkins-master/jobs/mozilla-central_remote/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1217,7 +1217,7 @@ index 8e532f1..f284a15 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index 6022fd6..6b603fc 100644
+index 433f335..dab6d9e 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -3,8 +3,8 @@
