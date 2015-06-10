@@ -43,11 +43,14 @@ class Runner(object):
         command = ['mozdownload',
                    '--destination=%s' % self.build_path,
                    '--type=%s' % options.build_type,
-                   '--branch=%s' % options.branch,
-                   '--build-id=%s' % options.build_id,
+                   '--version=%s' % options.build_version,
                    '--locale=%s' % options.build_locale,
                    '--platform=%s' % options.platform,
                    ]
+
+        if options.build_number and options.build_number != 'None':
+            command.append('--build-number=%s' % options.build_number)
+
         subprocess.check_call(command)
 
     def run_tests(self, options, args):
@@ -90,9 +93,6 @@ class Runner(object):
 
 def main():
     parser = optparse.OptionParser()
-    parser.add_option('--branch',
-                      dest='branch',
-                      help='The branch of the Github repository to use')
     parser.add_option('--type',
                       dest='type',
                       choices=['functional', 'remote', 'update'],
@@ -102,21 +102,18 @@ def main():
                       help='The platform identifier where the build gets executed')
 
     build_options = optparse.OptionGroup(parser, "Build specific options")
-    build_options.add_option('--build-date',
-                             dest='build_date',
-                             help='The date when the build has been created.')
-    build_options.add_option('--build-id',
-                             dest='build_id',
-                             help='The BUILDID of the build to test')
     build_options.add_option('--build-locale',
                              dest='build_locale',
                              default='en-US',
                              help='The locale of the build. Default: %default')
+    build_options.add_option('--build-number',
+                             dest='build_number',
+                             help='The build number of the candidate build')
     build_options.add_option('--build-type',
                              dest='build_type',
-                             choices=['daily', 'tinderbox', 'try'],
-                             default='daily',
-                             help='Type of the build (daily, tinderbox, try).'
+                             choices=['candidate', 'release'],
+                             default='candidate',
+                             help='Type of the build (candidate, release).'
                              ' Default: %default')
     build_options.add_option('--build-version',
                              dest='build_version',

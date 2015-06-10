@@ -48,7 +48,7 @@
         <hudson.model.StringParameterDefinition>
           <name>LOCALE</name>
           <description>The locale of Firefox.</description>
-          <defaultValue></defaultValue>
+          <defaultValue>en-US</defaultValue>
         </hudson.model.StringParameterDefinition>
         <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.4">
           <name>NODES</name>
@@ -72,7 +72,7 @@
         <hudson.model.StringParameterDefinition>
           <name>TARGET_BUILD_ID</name>
           <description>The expected build id of Firefox after the update.</description>
-          <defaultValue></defaultValue>
+          <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>

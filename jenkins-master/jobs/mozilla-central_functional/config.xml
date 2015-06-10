@@ -43,7 +43,7 @@
         <hudson.model.StringParameterDefinition>
           <name>LOCALE</name>
           <description>The locale of Firefox.</description>
-          <defaultValue></defaultValue>
+          <defaultValue>en-US</defaultValue>
         </hudson.model.StringParameterDefinition>
         <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.4">
           <name>NODES</name>
