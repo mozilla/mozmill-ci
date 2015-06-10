@@ -102,17 +102,13 @@
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && vista && 32bit",
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
-                        "windows && 8 && 32bit",
-                        "windows && 8 && 64bit",
                         "windows && 8.1 && 32bit",
                         "windows && 8.1 && 64bit"
                     ],
                     "win64": [
                         "windows && 7 && 64bit",
-                        "windows && 8 && 64bit",
                         "windows && 8.1 && 64bit"
                     ]
                 }
@@ -146,17 +142,13 @@
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && vista && 32bit",
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
-                        "windows && 8 && 32bit",
-                        "windows && 8 && 64bit",
                         "windows && 8.1 && 32bit",
                         "windows && 8.1 && 64bit"
                     ],
                     "win64": [
                         "windows && 7 && 64bit",
-                        "windows && 8 && 64bit",
                         "windows && 8.1 && 64bit"
                     ]
                 }
@@ -189,11 +181,8 @@
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && vista && 32bit",
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
-                        "windows && 8 && 32bit",
-                        "windows && 8 && 64bit",
                         "windows && 8.1 && 32bit",
                         "windows && 8.1 && 64bit"
                     ]
@@ -227,11 +216,8 @@
                     ],
                     "win32": [
                         "windows && xp && 32bit",
-                        "windows && vista && 32bit",
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
-                        "windows && 8 && 32bit",
-                        "windows && 8 && 64bit",
                         "windows && 8.1 && 32bit",
                         "windows && 8.1 && 64bit"
                     ]
