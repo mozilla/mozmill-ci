@@ -41,6 +41,9 @@
                 "BUILD_TYPE": {
                     "value": "candidate"
                 },
+                "BUILD_VERSION": {
+                    "key": "version"
+                },
                 "LOCALE": {
                     "key": "locale"
                 },
@@ -50,9 +53,6 @@
                 },
                 "REPORT_URL": {
                     "value": "http://mozauto.iriscouch.com/mozmill-staging/"
-                },
-                "VERSION": {
-                    "key": "version"
                 }
             },
             "endurance": {
