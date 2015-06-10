@@ -174,30 +174,6 @@
                         "windows && 8.1 && 64bit"
                     ]
                 }
-            },
-            "mozilla-esr31": {
-                "locales": [
-                    "en-US"
-                ],
-                "testruns": [
-                    "update",
-                    "functional",
-                    "remote"
-                ],
-                "platforms": {
-                    "linux": [
-                        "linux && ubuntu && 14.10 && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 14.10 && 64bit"
-                    ],
-                    "mac": [
-                        "mac && 10.9 && 64bit"
-                    ],
-                    "win32": [
-                        "windows && 8.1 && 64bit"
-                    ]
-                }
             }
         }
     }

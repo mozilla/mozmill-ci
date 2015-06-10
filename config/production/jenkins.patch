@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 18017a4..5450856 100644
+index 05404e1..c0228cf 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,40 +17,836 @@
@@ -854,7 +854,7 @@ index 18017a4..5450856 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -313,7 +1109,12 @@
+@@ -269,7 +1065,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -868,7 +868,7 @@ index 18017a4..5450856 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-@@ -326,7 +1127,7 @@
+@@ -282,7 +1083,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
            <string>2.0.10</string>
            <string>NOTIFICATION_ADDRESS</string>
@@ -986,81 +986,6 @@ index aed0a52..b46f73f 100644
 @@ -3,8 +3,8 @@
    <actions/>
    <description>Execute update tests for Nightly builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-esr31_addons/config.xml b/jenkins-master/jobs/mozilla-esr31_addons/config.xml
-index 12722cd..506cb21 100644
---- a/jenkins-master/jobs/mozilla-esr31_addons/config.xml
-+++ b/jenkins-master/jobs/mozilla-esr31_addons/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute add-ons tests for ESR31 builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-esr31_endurance/config.xml b/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
-index 1773119..006613f 100644
---- a/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
-+++ b/jenkins-master/jobs/mozilla-esr31_endurance/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute endurance tests for ESR31 builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-esr31_functional/config.xml b/jenkins-master/jobs/mozilla-esr31_functional/config.xml
-index fa76297..d7d1995 100644
---- a/jenkins-master/jobs/mozilla-esr31_functional/config.xml
-+++ b/jenkins-master/jobs/mozilla-esr31_functional/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute functional tests for ESR31 builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-esr31_remote/config.xml b/jenkins-master/jobs/mozilla-esr31_remote/config.xml
-index 9440aa3..2e211c4 100644
---- a/jenkins-master/jobs/mozilla-esr31_remote/config.xml
-+++ b/jenkins-master/jobs/mozilla-esr31_remote/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute remote tests for ESR31 builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-esr31_update/config.xml b/jenkins-master/jobs/mozilla-esr31_update/config.xml
-index 72c3ba8..3e485ad 100644
---- a/jenkins-master/jobs/mozilla-esr31_update/config.xml
-+++ b/jenkins-master/jobs/mozilla-esr31_update/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute update tests for ESR31 builds.</description>
    <logRotator class="hudson.tasks.LogRotator">
 -    <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
