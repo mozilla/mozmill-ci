@@ -74,13 +74,17 @@
         },
         "by_branch": {
             "release-mozilla-beta": {
-                "blacklist": {
-                    "locales": [
-                        "az",
-                        "cy",
-                        "ro"
-                    ]
-                },
+                "locales": [
+                    "ar",
+                    "de",
+                    "en-US",
+                    "es-ES",
+                    "fr",
+                    "it",
+                    "pl",
+                    "pt-BR",
+                    "ru"
+                ],
                 "testruns": [
                     "functional",
                     "remote"
@@ -114,13 +118,17 @@
                 }
             },
             "release-mozilla-release": {
-                "blacklist": {
-                    "locales": [
-                        "az",
-                        "cy",
-                        "ro"
-                    ]
-                },
+                "locales": [
+                    "ar",
+                    "de",
+                    "en-US",
+                    "es-ES",
+                    "fr",
+                    "it",
+                    "pl",
+                    "pt-BR",
+                    "ru"
+                ],
                 "testruns": [
                     "functional",
                     "remote"
@@ -155,10 +163,7 @@
             },
             "release-mozilla-esr38": {
                 "locales": [
-                    "de",
-                    "en-US",
-                    "ru",
-                    "zh-TW"
+                    "en-US"
                 ],
                 "testruns": [
                     "functional",
@@ -190,10 +195,7 @@
             },
             "release-mozilla-esr31": {
                 "locales": [
-                    "de",
-                    "en-US",
-                    "ru",
-                    "zh-TW"
+                    "en-US"
                 ],
                 "testruns": [
                     "functional",
