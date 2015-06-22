@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Execute functional tests for Release candidate builds.</description>
+  <description>Execute functional tests for Firefox release builds.</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>10</numToKeep>
@@ -20,31 +20,30 @@
           <description>The application type.</description>
           <defaultValue>firefox</defaultValue>
         </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>BUILD_NUMBER</name>
-          <description>The build number of the Firefox candidate build.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
           <name>BUILD_TYPE</name>
           <description>The build type of Firefox.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>ENV_PLATFORM</name>
-          <description>Platform of the Mozmill environment.</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
-              <string>linux</string>
-              <string>mac</string>
-              <string>windows</string>
+              <string>release</string>
+              <string>candidate</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
+          <name>BUILD_VERSION</name>
+          <description>The version of the Firefox release build.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_NUMBER</name>
+          <description>The build number of the Firefox release build (if candidate).</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>LOCALE</name>
           <description>The locale of Firefox.</description>
-          <defaultValue></defaultValue>
+          <defaultValue>en-US</defaultValue>
         </hudson.model.StringParameterDefinition>
         <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.4">
           <name>NODES</name>
@@ -65,22 +64,35 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>REPORT_URL</name>
-          <description>URL of the Mozmill Dashboard to send reports to.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>VERSION</name>
-          <description>The version of Firefox.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
-  <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.5">
-    <parentJobName>get_mozmill-tests</parentJobName>
-    <criteria>Successful</criteria>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/mozilla/firefox-ui-tests.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/mozilla-release</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.LocalBranch>
+        <localBranch>mozilla-release</localBranch>
+      </hudson.plugins.git.extensions.impl.LocalBranch>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>true</shallow>
+        <reference></reference>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>firefox-ui-tests</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -90,30 +102,26 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
-      <project>get_mozmill-environments</project>
-      <filter>mozmill-env-$ENV_PLATFORM/**</filter>
+      <project>scripts</project>
+      <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --version=$VERSION --build-number=$BUILD_NUMBER --platform=$PLATFORM --locale=$LOCALE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
-      <executeFromWorkingDir>false</executeFromWorkingDir>
-    </hudson.plugins.xshell.XShellBuilder>
-    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_functional --app=$APPLICATION --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
+      <commandLine>python runtests_release.py --type=functional --platform=$PLATFORM --build-type=$BUILD_TYPE --build-version=$BUILD_VERSION --build-number=$BUILD_NUMBER --build-locale=$LOCALE</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>data/screenshots/</artifacts>
+      <artifacts>*.xml,*.html,*.log</artifacts>
       <allowEmptyArchive>true</allowEmptyArchive>
       <onlyIfSuccessful>false</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
       <defaultExcludes>true</defaultExcludes>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1.0">
-      <testResults>report_*.xml</testResults>
+      <testResults>report.xml</testResults>
       <keepLongStdio>false</keepLongStdio>
       <testDataPublishers/>
       <healthScaleFactor>1.0</healthScaleFactor>
@@ -140,7 +148,7 @@
           <email>
             <recipientList></recipientList>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
-            <body>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%application%&quot;} ${ENV,var=&quot;LOCALE&quot;} on ${NODE_NAME} (${ENV,var=&quot;BUILD_ID&quot;}) was aborted.
+            <body>Marionette ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;.*application_display_name: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;${APPLICATION}&quot;} ${BUILD_LOG_REGEX, regex=&quot;.*application_version: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${LOCALE}, ${BUILD_ID}, ${BUILD_LOG_REGEX, regex=&quot;.*application_changeset: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;unknown changeset&quot;}) on ${NODE_NAME} was aborted.
 
 View the build in Jenkins:
 ${BUILD_URL}</body>
@@ -171,25 +179,37 @@ ${BUILD_URL}</body>
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
       </configuredTriggers>
       <contentType>default</contentType>
-      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME}: ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%application%&quot;} ${ENV,var=&quot;LOCALE&quot;} on ${NODE_NAME} (${ENV,var=&quot;BUILD_ID&quot;})</defaultSubject>
-      <defaultContent>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%application%&quot;} ${ENV,var=&quot;LOCALE&quot;} on ${NODE_NAME} (${ENV,var=&quot;BUILD_ID&quot;}) completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
+      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME}: ${BUILD_LOG_REGEX, regex=&quot;.*application_display_name: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;${APPLICATION}&quot;} ${BUILD_LOG_REGEX, regex=&quot;.*application_version: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${LOCALE}, ${BUILD_ID}) on ${NODE_NAME}</defaultSubject>
+      <defaultContent>Marionette ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;.*application_display_name: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;${APPLICATION}&quot;} ${BUILD_LOG_REGEX, regex=&quot;.*application_version: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${LOCALE}, ${BUILD_ID}, ${BUILD_LOG_REGEX, regex=&quot;.*application_changeset: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;unknown changeset&quot;}) on ${NODE_NAME} completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
 
 View the build in Jenkins:
 ${BUILD_URL}
 
-View the results in the Mozmill Dashboard:
-${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/functional/report/$2&quot;}</defaultContent>
+View the HTML report:
+${BUILD_URL}artifact/report.html
+
+Test Failures:
+==============
+
+${FAILED_TESTS}
+</defaultContent>
       <attachmentsPattern></attachmentsPattern>
       <presendScript></presendScript>
       <attachBuildLog>true</attachBuildLog>
-      <compressBuildLog>false</compressBuildLog>
+      <compressBuildLog>true</compressBuildLog>
       <replyTo></replyTo>
       <saveOutput>false</saveOutput>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.16">
-      <deleteDirs>false</deleteDirs>
+      <patterns>
+        <hudson.plugins.ws__cleanup.Pattern>
+          <pattern></pattern>
+          <type>INCLUDE</type>
+        </hudson.plugins.ws__cleanup.Pattern>
+      </patterns>
+      <deleteDirs>true</deleteDirs>
       <cleanupParameter></cleanupParameter>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.11">

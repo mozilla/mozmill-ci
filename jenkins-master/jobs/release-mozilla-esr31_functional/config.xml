@@ -30,6 +30,11 @@
           <description>The build type of Firefox.</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_VERSION</name>
+          <description>The version of Firefox.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>ENV_PLATFORM</name>
           <description>Platform of the Mozmill environment.</description>
@@ -70,11 +75,6 @@
           <description>URL of the Mozmill Dashboard to send reports to.</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>VERSION</name>
-          <description>The version of Firefox.</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -96,7 +96,7 @@
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --version=$VERSION --build-number=$BUILD_NUMBER --platform=$PLATFORM --locale=$LOCALE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --version=$BUILD_VERSION --build-number=$BUILD_NUMBER --platform=$PLATFORM --locale=$LOCALE --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
