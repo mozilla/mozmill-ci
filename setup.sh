@@ -48,8 +48,15 @@ echo -e "Run 'source ${DIR_ENV}/bin/activate' to activate the environment\n"
 echo -e "To be able to connect to Mozilla Pulse make sure to create an"
 echo -e "account at https://pulse.mozilla.org, and update .pulse_config.ini"
 echo -e "with your authentication information\n"
+
+echo -e "To submit test results to treeherder please add all necessary"
+echo -e "credentials to .jenkins.properties and restart Jenkins\n"
 echo -e "##################################################################\n"
 
 if [ ! -f ".pulse_config.ini" ]; then
   cp config/pulse_config.ini ./.pulse_config.ini
+fi
+
+if [ ! -f ".jenkins.properties" ]; then
+  cp config/jenkins.properties ./.jenkins.properties
 fi

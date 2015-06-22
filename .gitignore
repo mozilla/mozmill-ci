@@ -1,4 +1,5 @@
 .DS_Store
+.jenkins.properties
 .pulse_config.ini
 *.pyc
 *.bak

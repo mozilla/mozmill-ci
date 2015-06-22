@@ -57,6 +57,9 @@
                 },
                 "TARGET_BUILD_ID": {
                     "key": "buildid"
+                },
+                "TARGET_BUILD_REVISION": {
+                    "key": "revision"
                 }
             }
         },

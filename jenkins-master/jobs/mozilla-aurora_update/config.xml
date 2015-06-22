@@ -74,8 +74,25 @@
           <description>The expected build id of Firefox after the update.</description>
           <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TARGET_BUILD_REVISION</name>
+          <description>The expected revision of Firefox after the update.</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <EnvInjectJobProperty plugin="envinject@1.88">
+      <info>
+        <propertiesFilePath>$JENKINS_HOME/../.jenkins.properties</propertiesFilePath>
+        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:3,nsHostResolver:5,append
+NSPR_LOG_FILE=http.log</propertiesContent>
+        <loadFilesFromMaster>true</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <contributors/>
+    </EnvInjectJobProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -118,7 +135,7 @@
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python runtests.py --type=update --branch=mozilla-aurora --platform=$PLATFORM --build-type=$BUILD_TYPE --build-id=$BUILD_ID --build-locale=$LOCALE --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID</commandLine>
+      <commandLine>python runtests.py --type=update --branch=mozilla-aurora --platform=$PLATFORM --build-type=$BUILD_TYPE --build-id=$BUILD_ID --build-locale=$LOCALE --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID --update-target-revision=$TARGET_BUILD_REVISION</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
@@ -133,21 +150,6 @@
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.38.2">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
-        <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
-          <email>
-            <recipientList></recipientList>
-            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
-            <body>$PROJECT_DEFAULT_CONTENT</body>
-            <recipientProviders>
-              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
-            </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>true</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
-            <replyTo></replyTo>
-            <contentType>project</contentType>
-          </email>
-        </hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
         <hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
           <email>
             <recipientList></recipientList>
@@ -228,12 +230,5 @@ ${FAILED_TESTS}
     <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.0">
       <colorMapName>xterm</colorMapName>
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
-    <EnvInjectBuildWrapper plugin="envinject@1.88">
-      <info>
-        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:3,nsHostResolver:5,append
-NSPR_LOG_FILE=http.log</propertiesContent>
-        <loadFilesFromMaster>false</loadFilesFromMaster>
-      </info>
-    </EnvInjectBuildWrapper>
   </buildWrappers>
 </project>

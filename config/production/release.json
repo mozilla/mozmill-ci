@@ -55,20 +55,15 @@
                     "value": "http://mozauto.iriscouch.com/mozmill-release/"
                 }
             },
-            "endurance": {
-                "ENTITIES": {
-                    "value": 10
-                },
-                "ITERATIONS": {
-                    "value": 10
-                }
-            },
             "update": {
                 "BUILD_ID": {
                     "key": "previous_buildid"
                 },
                 "TARGET_BUILD_ID": {
                     "key": "buildid"
+                },
+                "TARGET_BUILD_REVISION": {
+                    "key": "revision"
                 }
             }
         },
