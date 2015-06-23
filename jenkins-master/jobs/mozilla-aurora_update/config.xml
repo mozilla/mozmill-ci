@@ -228,5 +228,12 @@ ${FAILED_TESTS}
     <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.0">
       <colorMapName>xterm</colorMapName>
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+    <EnvInjectBuildWrapper plugin="envinject@1.88">
+      <info>
+        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:3,nsHostResolver:5,append
+NSPR_LOG_FILE=http.log</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
   </buildWrappers>
 </project>

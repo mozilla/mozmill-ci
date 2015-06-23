@@ -935,7 +935,7 @@ index 264880c..3381e56 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index 650d210..caed87c 100644
+index 39054a9..5419c4b 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 @@ -3,8 +3,8 @@
@@ -980,7 +980,7 @@ index 6bcc217..51cd2ab 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index aed0a52..b46f73f 100644
+index 57b54bf..b8080b2 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -3,8 +3,8 @@
@@ -1084,38 +1084,8 @@ index 464d89e..af1523d 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/project_addons/config.xml b/jenkins-master/jobs/project_addons/config.xml
-index e45f877..d61be71 100644
---- a/jenkins-master/jobs/project_addons/config.xml
-+++ b/jenkins-master/jobs/project_addons/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute add-ons tests for Nightly builds based on a project branch.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/project_endurance/config.xml b/jenkins-master/jobs/project_endurance/config.xml
-index fb6ce8f..4c0ad31 100644
---- a/jenkins-master/jobs/project_endurance/config.xml
-+++ b/jenkins-master/jobs/project_endurance/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute endurance tests for Nightly builds based on a project branch.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/project_functional/config.xml b/jenkins-master/jobs/project_functional/config.xml
-index 7ae37a4..f581753 100644
+index bcc5746..a02f27a 100644
 --- a/jenkins-master/jobs/project_functional/config.xml
 +++ b/jenkins-master/jobs/project_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -1130,7 +1100,7 @@ index 7ae37a4..f581753 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_remote/config.xml b/jenkins-master/jobs/project_remote/config.xml
-index d90df95..1627bf6 100644
+index 5d4fed0..151e5c8 100644
 --- a/jenkins-master/jobs/project_remote/config.xml
 +++ b/jenkins-master/jobs/project_remote/config.xml
 @@ -3,8 +3,8 @@
@@ -1145,7 +1115,7 @@ index d90df95..1627bf6 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_update/config.xml b/jenkins-master/jobs/project_update/config.xml
-index 13f1277..a9414dd 100644
+index f884f59..77539d9 100644
 --- a/jenkins-master/jobs/project_update/config.xml
 +++ b/jenkins-master/jobs/project_update/config.xml
 @@ -3,7 +3,7 @@

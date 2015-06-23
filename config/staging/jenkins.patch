@@ -283,7 +283,7 @@ index 264880c..268ae18 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index 650d210..0409309 100644
+index 39054a9..31b0ca5 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 @@ -4,7 +4,7 @@
@@ -322,7 +322,7 @@ index 6bcc217..62aac84 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index aed0a52..8a3c1e3 100644
+index 57b54bf..c63dff5 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -4,7 +4,7 @@
@@ -412,34 +412,8 @@ index 464d89e..582effb 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/project_addons/config.xml b/jenkins-master/jobs/project_addons/config.xml
-index e45f877..ba43e9b 100644
---- a/jenkins-master/jobs/project_addons/config.xml
-+++ b/jenkins-master/jobs/project_addons/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute add-ons tests for Nightly builds based on a project branch.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/project_endurance/config.xml b/jenkins-master/jobs/project_endurance/config.xml
-index fb6ce8f..7887c2b 100644
---- a/jenkins-master/jobs/project_endurance/config.xml
-+++ b/jenkins-master/jobs/project_endurance/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute endurance tests for Nightly builds based on a project branch.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/project_functional/config.xml b/jenkins-master/jobs/project_functional/config.xml
-index 7ae37a4..b23af09 100644
+index bcc5746..b297490 100644
 --- a/jenkins-master/jobs/project_functional/config.xml
 +++ b/jenkins-master/jobs/project_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -452,7 +426,7 @@ index 7ae37a4..b23af09 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/project_remote/config.xml b/jenkins-master/jobs/project_remote/config.xml
-index d90df95..9bda7f2 100644
+index 5d4fed0..44eba93 100644
 --- a/jenkins-master/jobs/project_remote/config.xml
 +++ b/jenkins-master/jobs/project_remote/config.xml
 @@ -4,7 +4,7 @@
