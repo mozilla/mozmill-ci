@@ -1,8 +1,8 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 05404e1..c0228cf 100644
+index 05404e1..b953887 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -17,40 +17,836 @@
+@@ -17,40 +17,708 @@
    <clouds/>
    <slaves>
      <slave>
@@ -402,134 +402,6 @@ index 05404e1..c0228cf 100644
 +      </nodeProperties>
 +    </slave>
 +    <slave>
-+      <name>mm-ub-1410-32-1</name>
-+      <description>Ubuntu 14.10 32bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 32bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-32-2</name>
-+      <description>Ubuntu 14.10 32bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 32bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-32-3</name>
-+      <description>Ubuntu 14.10 32bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 32bit</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-32-4</name>
-+      <description>Ubuntu 14.10 32bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 32bit</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-64-1</name>
-+      <description>Ubuntu 14.10 64bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 64bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-64-2</name>
-+      <description>Ubuntu 14.10 64bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 64bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-64-3</name>
-+      <description>Ubuntu 14.10 64bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 64bit</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-64-4</name>
-+      <description>Ubuntu 14.10 64bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 64bit</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
 +      <name>mm-win-xp-32-1</name>
 +      <description>Windows XP 32bit</description>
 +      <remoteFS>c:\jenkins</remoteFS>
@@ -854,7 +726,7 @@ index 05404e1..c0228cf 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -269,7 +1065,12 @@
+@@ -269,7 +937,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -868,7 +740,7 @@ index 05404e1..c0228cf 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-@@ -282,7 +1083,7 @@
+@@ -282,7 +955,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
            <string>2.0.10</string>
            <string>NOTIFICATION_ADDRESS</string>

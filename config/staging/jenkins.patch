@@ -1,8 +1,8 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 05404e1..fd7bea2 100644
+index 05404e1..366b916 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -17,40 +17,212 @@
+@@ -17,40 +17,180 @@
    <clouds/>
    <slaves>
      <slave>
@@ -114,38 +114,6 @@ index 05404e1..fd7bea2 100644
 +      </nodeProperties>
 +    </slave>
 +    <slave>
-+      <name>mm-ub-1410-32</name>
-+      <description>Ubuntu 14.10 32bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 32bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
-+      <name>mm-ub-1410-64</name>
-+      <description>Ubuntu 14.10 64bit</description>
-+      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-+      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>linux ubuntu 14.10 64bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-+    </slave>
-+    <slave>
 +      <name>mm-win-xp-32</name>
 +      <description>Windows XP 32bit</description>
 +      <remoteFS>c:\jenkins</remoteFS>
@@ -230,7 +198,7 @@ index 05404e1..fd7bea2 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -269,7 +441,12 @@
+@@ -269,7 +409,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
