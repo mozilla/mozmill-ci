@@ -119,7 +119,7 @@ class Runner(object):
             '--binary=%s' % binary,
             '--log-xunit=report.xml',  # Enable XUnit reporting for Jenkins result analysis
             '--log-html=report.html',  # Enable HTML reports with screenshots
-            '--log-tbpl=tbpl.log',
+            '--log-tbpl=tbpl.log',  # Enable TBPL logs for treeherder
         ]
 
         if options.type == 'update':
