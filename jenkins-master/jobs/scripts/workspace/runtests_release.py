@@ -161,28 +161,25 @@ class Runner(object):
                                 url=http_log_url)
         finally:
             if job and th:
-                try:
-                    gecko_log_url = self.upload_s3('gecko.log')
-                    if gecko_log_url:
-                        job.add_details(title='gecko.log',
-                                        value=gecko_log_url,
-                                        content_type='link',
-                                        url=gecko_log_url)
+                gecko_log_url = self.upload_s3('gecko.log')
+                if gecko_log_url:
+                    job.add_details(title='gecko.log',
+                                    value=gecko_log_url,
+                                    content_type='link',
+                                    url=gecko_log_url)
 
-                    tbpl_log_url = self.upload_s3('tbpl.log')
-                    if tbpl_log_url:
-                        parser = JobResultParser('tbpl.log')
-                        job.add_log_reference(os.path.basename('tbpl.log'), tbpl_log_url,
-                                              parse_status='parsed')
-                        job.add_artifact(name='text_log_summary',
-                                         artifact_type='json',
-                                         blob={'step_data': parser.failures_as_json(),
-                                               'logurl': tbpl_log_url})
+                tbpl_log_url = self.upload_s3('tbpl.log')
+                if tbpl_log_url:
+                    parser = JobResultParser('tbpl.log')
+                    job.add_log_reference(os.path.basename('tbpl.log'), tbpl_log_url,
+                                          parse_status='parsed')
+                    job.add_artifact(name='text_log_summary',
+                                     artifact_type='json',
+                                     blob={'step_data': parser.failures_as_json(),
+                                           'logurl': tbpl_log_url})
 
-                    job.completed(result='testfailed' if failed else 'success')
-                    th.submit_results(job)
-                except Exception, e:
-                    print('Cannot post job information to treeherder: %s' % e.message)
+                job.completed(result='testfailed' if failed else 'success')
+                th.submit_results(job)
 
     def upload_s3(self, path):
         if not self.s3_bucket:
