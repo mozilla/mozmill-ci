@@ -139,21 +139,6 @@
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.38.2">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
-        <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
-          <email>
-            <recipientList></recipientList>
-            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
-            <body>$PROJECT_DEFAULT_CONTENT</body>
-            <recipientProviders>
-              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
-            </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>true</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
-            <replyTo></replyTo>
-            <contentType>project</contentType>
-          </email>
-        </hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
         <hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
           <email>
             <recipientList></recipientList>
