@@ -11,9 +11,10 @@ import uuid
 import mozinfo
 import requests
 from thclient import TreeherderClient, TreeherderJob, TreeherderJobCollection
+from thclient.auth import TreeherderAuth
 
 
-LOOKUP_FRAGMENT = 'api/project/%s/revision-lookup/?revision=%s'
+LOOKUP_FRAGMENT = 'api/project/%s/resultset/?revision=%s'
 REVISON_FRAGMENT = '/#/jobs?repo=%s&revision=%s'
 
 
@@ -145,22 +146,25 @@ class TreeherderSubmission(object):
         assert response.json(), 'Unable to determine revision hash for %s. ' \
                                 'Perhaps it has not been ingested by ' \
                                 'Treeherder?' % self.revision
-        return response.json()[self.revision]['revision_hash']
+        return response.json()['results'][0]['revision_hash']
 
     def submit_results(self, job):
         job.add_project(self.project)
         job.add_revision_hash(self.retrieve_revision_hash())
         job.add_submit_timestamp(int(time.time()))
 
-        job_collection = TreeherderJobCollection(job_type='update')
+        job_collection = TreeherderJobCollection()
         job_collection.add(job)
 
         # self.logger.info
         print('Sending results to Treeherder: %s' % job_collection.to_json())
 
+        auth = TreeherderAuth(self.key, self.secret, self.project)
+
         url = urlparse(self.url)
-        client = TreeherderClient(protocol=url.scheme, host=url.hostname)
-        client.post_collection(self.project, self.key, self.secret, job_collection)
+        client = TreeherderClient(protocol=url.scheme, host=url.hostname,
+                                  auth=auth)
+        client.post_collection(self.project, job_collection)
 
         # self.logger.info
         print('Results are available to view at: %s' % (

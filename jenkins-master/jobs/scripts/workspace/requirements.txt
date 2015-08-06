@@ -1,2 +1,2 @@
-boto >= 2.38.0
-treeherder-client >= 1.5
+boto == 2.38.0
+treeherder-client == 1.6
