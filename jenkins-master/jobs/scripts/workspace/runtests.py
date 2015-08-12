@@ -84,7 +84,7 @@ class Runner(object):
         if options.type == 'update':
             changeset = options.update_target_revision[:12]
         else:
-            changeset = version_info['application_changeset']
+            changeset = version_info['application_changeset'][:12]
 
         job = None
         th = None

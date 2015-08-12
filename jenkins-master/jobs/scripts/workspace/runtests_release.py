@@ -86,7 +86,7 @@ class Runner(object):
         # There is no target revision present in the pulse message for release
         # builds. But given that we actually don't run update tests for those builds,
         # we can simply retrieve it from the source build
-        changeset = version_info['application_changeset']
+        changeset = version_info['application_changeset'][:12]
 
         job = None
         th = None
