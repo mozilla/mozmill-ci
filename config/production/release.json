@@ -4,8 +4,7 @@
         "branches": [
             "release-mozilla-beta",
             "release-mozilla-release",
-            "release-mozilla-esr38",
-            "release-mozilla-esr31"
+            "release-mozilla-esr38"
         ],
         "platforms": [
             "linux",
@@ -151,35 +150,6 @@
                 }
             },
             "release-mozilla-esr38": {
-                "locales": [
-                    "en-US"
-                ],
-                "testruns": [
-                    "functional",
-                    "remote"
-                ],
-                "platforms": {
-                    "linux": [
-                        "linux && ubuntu && 14.04 && 32bit"
-                    ],
-                    "linux64": [
-                        "linux && ubuntu && 14.04 && 64bit"
-                    ],
-                    "mac": [
-                        "mac && 10.6 && 64bit",
-                        "mac && 10.9 && 64bit",
-                        "mac && 10.10 && 64bit"
-                    ],
-                    "win32": [
-                        "windows && xp && 32bit",
-                        "windows && 7 && 32bit",
-                        "windows && 7 && 64bit",
-                        "windows && 8.1 && 32bit",
-                        "windows && 8.1 && 64bit"
-                    ]
-                }
-            },
-            "release-mozilla-esr31": {
                 "locales": [
                     "en-US"
                 ],
