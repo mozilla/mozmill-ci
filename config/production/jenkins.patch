@@ -742,7 +742,7 @@ index 186f464..6c760a0 100644
        <envVars serialization="custom">
 @@ -260,7 +933,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>2.0.10</string>
+           <string>2.0.10.2</string>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>

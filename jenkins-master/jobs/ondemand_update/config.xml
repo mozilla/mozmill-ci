@@ -126,7 +126,7 @@
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --platform=$PLATFORM --version=$VERSION --locale=$LOCALE --build-number=$BUILD_NUMBER --retry-attempts=10 --retry-delay=30 --directory=builds</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --platform=$PLATFORM --version=$VERSION --locale=$LOCALE --build-number=$BUILD_NUMBER --retry-attempts=10 --retry-delay=30 --destination=builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
