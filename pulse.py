@@ -6,7 +6,6 @@
 
 import ConfigParser
 import copy
-import json
 import logging
 import optparse
 import os
@@ -14,67 +13,43 @@ import socket
 import time
 
 import jenkins
+import requests
+import taskcluster
 
-from mozillapulse.config import PulseConfiguration
-from pulsebuildmonitor import start_pulse_monitor
-
-
-class NotFoundException(Exception):
-    """Exception for a resource not being found (e.g. no logs)"""
-
-    def __init__(self, message, location):
-        self.location = location
-        Exception.__init__(self, ': '.join([message, location]))
+import lib
+from lib.jsonfile import JSONFile
+from lib.queues import (NormalizedBuildQueue,
+                        TaskCompletedQueue,
+                        )
 
 
-class JSONFile:
-
-    def __init__(self, filename):
-        self.filename = os.path.abspath(filename)
-
-    def read(self):
-        if not os.path.isfile(self.filename):
-            raise NotFoundException('Specified file cannot be found.',
-                                    self.filename)
-
-        try:
-            f = open(self.filename, 'r')
-            return json.loads(f.read())
-        finally:
-            f.close()
-
-    def write(self, data):
-        folder = os.path.dirname(self.filename)
-        if not os.path.exists(folder):
-            os.makedirs(folder)
-
-        try:
-            f = open(self.filename, 'w')
-            f.write(json.dumps(data))
-        finally:
-            f.close()
-
-
-class Automation:
+class FirefoxAutomation:
 
     def __init__(self, configfile, pulse_authfile, debug, log_folder, logger,
-                 message=None, display_only=False):
+                 build_message=None, update_message=None, display_only=False):
 
         self.config = JSONFile(configfile).read()
         self.debug = debug
         self.log_folder = log_folder
         self.logger = logger
         self.display_only = display_only
-        self.test_message = message
+        self.build_message = build_message
+        self.update_message = update_message
 
         self.jenkins = jenkins.Jenkins(self.config['jenkins']['url'],
                                        self.config['jenkins']['username'],
                                        self.config['jenkins']['password'])
 
-        # When a local pulse message is used, return immediately
-        if self.test_message:
-            data = JSONFile(self.test_message).read()
+        # When a local build message is used, return immediately
+        if self.build_message:
+            data = JSONFile(self.build_message).read()
             self.on_build(data)
+            return
+
+        # When a local update message is used, return immediately
+        if self.update_message:
+            data = JSONFile(self.update_message).read()
+            self.on_update(data)
             return
 
         # Load Pulse Guardian authentication from config file
@@ -84,27 +59,29 @@ class Automation:
 
         pulse_cfgfile = ConfigParser.ConfigParser()
         pulse_cfgfile.read(pulse_authfile)
-        pulse_cfg = PulseConfiguration.read_from_config(pulse_cfgfile)
 
-        label = '%s/%s' % (socket.getfqdn(), self.config['pulse']['applabel'])
-        self.monitor = start_pulse_monitor(buildCallback=self.on_build,
-                                           testCallback=None,
-                                           pulseCallback=self.on_debug if self.debug else None,
-                                           label=label,
-                                           trees=self.config['pulse']['branches'],
-                                           platforms=self.config['pulse']['platforms'],
-                                           products=self.config['pulse']['products'],
-                                           buildtypes=None,
-                                           tests=None,
-                                           buildtags=self.config['pulse']['tags'],
-                                           logger=self.logger,
-                                           pulse_cfg=pulse_cfg)
+        auth = {}
+        for key, value in pulse_cfgfile.items('pulse'):
+            auth.update({key: value})
 
-        try:
-            while self.monitor.is_alive():
-                self.monitor.join(1.0)
-        except (KeyboardInterrupt, SystemExit):
-            self.logger.info('Shutting down Pulse listener')
+        name = 'queue/{user}/{host}/{type}'.format(user=auth['user'],
+                                                   host=socket.getfqdn(),
+                                                   type=self.config['pulse']['applabel'])
+        queue_builds = NormalizedBuildQueue(name=name + '_build', callback=self.on_build,
+                                            routing_key='build.#')
+        queue_updates = TaskCompletedQueue(name=name + '_update', callback=self.on_update,
+                                           routing_key='#.funsize-balrog.#')
+
+        with lib.PulseConnection(userid=auth['user'], password=auth['password']) as connection:
+            consumer = lib.PulseConsumer(connection)
+
+            try:
+                consumer.add_queue(queue_builds)
+                consumer.add_queue(queue_updates)
+
+                consumer.run()
+            except KeyboardInterrupt:
+                self.logger.info('Shutting down Pulse listener')
 
     def generate_job_parameters(self, testrun, node, platform, build_properties):
         # Create parameter map from Pulse to Jenkins properties
@@ -130,165 +107,175 @@ class Automation:
             if 'transform' in parameter_map[entry]:
                 # A transformation method has to be called
                 method = parameter_map[entry]['transform']
-                value = Automation.__dict__[method](self, value)
+                value = FirefoxAutomation.__dict__[method](self, value)
 
             parameters[entry] = value
 
-        # Add node and mozmill environment information
         parameters['NODES'] = node
-        if testrun in ['endurance']:
-            parameters['NODES'] = ' && '.join([parameters['NODES'], testrun])
-        parameters['ENV_PLATFORM'] = self.get_mozmill_environment_platform(platform)
 
         return parameters
 
-    def get_mozmill_environment_platform(self, platform):
-        # Map to translate the platform to the Mozmill environment platform
-        ENVIRONMENT_PLATFORM_MAP = {'linux': 'linux',
-                                    'linux64': 'linux',
-                                    'mac': 'mac',
-                                    'win32': 'windows',
-                                    'win64': 'windows'}
-
-        return ENVIRONMENT_PLATFORM_MAP[platform]
-
     def get_platform_identifier(self, platform):
-        # Map to translate platform ids from Pulse to Mozmill / Firefox
-        PLATFORM_MAP = {'linux': 'linux',
+        # Map to translate platform ids from RelEng
+        platform_map = {'linux': 'linux',
                         'linux64': 'linux64',
                         'macosx': 'mac',
                         'macosx64': 'mac',
                         'win32': 'win32',
                         'win64': 'win64'}
 
-        return PLATFORM_MAP[platform]
+        return platform_map[platform]
 
-    def on_build(self, data):
-        # From: http://hg.mozilla.org/build/buildbot/file/08b7c51d2962/master/buildbot/status/builder.py#l25
+    def on_build(self, data, message=None):
+        if message:
+            data = data['payload']
+
+        self.process_build(allowed_testruns=['functional', 'remote'],
+                           platform=data['platform'],
+                           product=data['product'].lower(),
+                           version=data['version'],
+                           branch=data['tree'],
+                           locale=data['locale'],
+                           buildid=data['buildid'],
+                           revision=data['revision'],
+                           tags=data['tags'],
+                           status=data['status'],
+                           json_data=data,
+                           )
+
+    def on_update(self, data, message=None):
+        if message:
+            # Retrieve manifest file with build information via TaskCluster
+            queue = taskcluster.client.Queue()
+            url = queue.buildUrl('getLatestArtifact', data['status']['taskId'],
+                                 'public/env/manifest.json')
+            response = requests.get(url)
+            try:
+                response.raise_for_status()
+                data = response.json()
+            finally:
+                response.close()
+        else:
+            # Locally saved files will contain a single build only
+            data = [data]
+
+        for build_info in data:
+            self.process_build(allowed_testruns=['update'],
+                               platform=build_info['platform'],
+                               product=build_info['appName'].lower(),
+                               branch=build_info['branch'],
+                               locale=build_info['locale'],
+                               buildid=build_info['from_buildid'],
+                               revision=build_info['revision'],
+                               target_version=build_info['version'],
+                               target_buildid=build_info['to_buildid'],
+                               json_data=build_info,
+                               )
+
+    def process_build(self, allowed_testruns, platform, product, branch, locale,
+                      buildid, revision, tags=None, version=None, status=0,
+                      target_buildid=None, target_version=None, json_data=None):
+
+        # Known failures from buildbot (http://mzl.la/1hlCYkw)
         results = ['success', 'warnings', 'failure', 'skipped', 'exception', 'retry']
-
-        log_data = {'BRANCH': data['tree'],
-                    'BUILD_ID': data['buildid'],
-                    'KEY': data['key'],
-                    'LOCALE': data['locale'],
-                    'PRODUCT': data['product'],
-                    'PLATFORM': data['platform'],
-                    'STATUS': results[data['status']],
-                    'TIMESTAMP': data['timestamp'],
-                    'VERSION': data['version']}
-
-        # Output build information to the console
-        self.logger.info('%(TIMESTAMP)s - %(PRODUCT)s %(VERSION)s (%(BUILD_ID)s, %(LOCALE)s, %(PLATFORM)s) [%(BRANCH)s]' % log_data)
-
-        # ... and store to disk
-        basename = '%(BUILD_ID)s_%(PRODUCT)s_%(LOCALE)s_%(PLATFORM)s_%(KEY)s.log' % log_data
-        filename = os.path.join(self.log_folder, data['tree'], basename)
-
-        try:
-            JSONFile(filename).write(data)
-        except Exception, e:
-            self.logger.warning("Log file could not be written: %s." % str(e))
 
         # if `--display-only` option has been specified only print build information and return
         if self.display_only:
             self.logger.info("Build properties:")
-            for prop in data:
-                self.logger.info("%20s:\t%s" % (prop, data[prop]))
+            for prop in sorted(json_data):
+                self.logger.info("{:>24}:  {}".format(prop, json_data[prop]))
             return
 
-        # If the build process was broken we don't have to test this build
-        if data['status'] != 0:
-            self.logger.info('Cancel processing of broken build: status=%s' % results[data['status']])
+        # Run checks to ensure it's a wanted build
+        config = self.config['pulse']
+        if config['platforms'] and platform not in config['platforms']:
+            self.logger.debug('Cancel processing due to invalid platform: {}'.format(platform))
+            return
+        if config['products'] and product not in config['products']:
+            self.logger.debug('Cancel processing due to invalid product: {}'.format(product))
+            return
+        if config['tags'] and tags is not None and not set(config['tags']).issubset(tags):
+            self.logger.debug('Cancel processing due to invalid build tags: {}'.format(tags))
+            return
+        if config['trees'] and branch not in config['trees']:
+            self.logger.debug('Cancel processing due to invalid branch: {}'.format(branch))
             return
 
-        # If it is not an official nightly or release branch, assume a project
+        # If it's not a nightly or release branch, assume a project
         # branch based off from mozilla-central
-        if not 'mozilla-' in data['tree']:
-            data['branch'] = data['tree']
-            data['tree'] = 'project'
+        if 'mozilla-' not in branch:
+            branch = 'project'
 
-        # Queue up jobs for the branch as given by config settings
-        target_branch = self.config['testrun']['by_branch'].get(data['tree'])
-        target_platform = self.get_platform_identifier(data['platform'])
-
-        # Ensure that the branch is really supported by us
-        if target_branch is None:
-            self.logger.error('Cancel processing of unsupported branch: %s' % data['tree'])
+        # Get settings for the branch to run the tests for
+        branch_config = self.config['testrun']['by_branch'].get(branch)
+        if branch_config is None:
+            self.logger.debug('Cancel processing due to missing branch config: {}'.format(branch))
             return
 
-        # Handle blacklist items if present
-        if 'blacklist' in target_branch:
-            # Cancel processing of the build if the locale is blacklisted
-            if 'locales' in target_branch['blacklist'] and \
-                    data['locale'] in target_branch['blacklist']['locales']:
-                self.logger.info('Cancel processing of blacklisted locale: %s' % data['locale'])
+        # Check if locale is blacklisted
+        if 'blacklist' in branch_config:
+            if 'locales' in branch_config['blacklist'] and \
+                    locale in branch_config['blacklist']['locales']:
+                self.logger.debug('Cancel processing due to blacklisted locale: {}'.format(locale))
                 return
 
-        # Cancel processing of the build if the locale is not white-listed. An
-        # empty array means all locales will be processed.
-        if 'locales' in target_branch and len(target_branch['locales']) and \
-                data['locale'] not in target_branch['locales']:
-            self.logger.info('Cancel processing of non-whitelisted locale: %s' % data['locale'])
+        # Cancel processing if the locale is not white-listed. An empty array means
+        # all locales will be processed.
+        if 'locales' in branch_config and len(branch_config['locales']) and \
+                locale not in branch_config['locales']:
+            self.logger.debug('Cancel processing due to non-whitelisted locale: {}'.format(locale))
             return
 
-        for testrun in target_branch['testruns']:
-            # TODO: The following lines are pretty bad hacks,
-            # so make those configurable in the json config (#209)
-            # Do not run endurance tests for localized versions of Firefox
-            if testrun in ['endurance'] and data['locale'] != 'en-US':
-                continue
+        # Print build information to console
+        log_data = (branch, buildid, locale, product, platform, revision,
+                    version, target_buildid)
+        if target_buildid:
+            self.logger.info('{3} {6} ({1} => {7}, {5}, {2}, {4}) [{0}]'.format(*log_data))
+        else:
+            self.logger.info('{3} {6} ({1}, {5}, {2}, {4}) [{0}]'.format(*log_data))
 
-            # Do not run update tests for localized builds of Firefox, because
-            # packaging is broken if nighlies get retriggered
-            # See: https://bugzilla.mozilla.org/show_bug.cgi?id=858953
-            if testrun in ['update'] and data['locale'] != 'en-US':
-                continue
+        # Store build information to disk
+        basename = '{1}_{3}_{2}_{4}_{0}.log'.format(*log_data)
+        if target_buildid:
+            basename = '{}_{}'.format(target_buildid, basename)
+        filename = os.path.join(self.log_folder, branch, basename)
 
-            # Do not run update tests if no previous build id is specified
-            # See: https://bugzilla.mozilla.org/show_bug.cgi?id=714806#c17
-            if testrun in ['update'] and not data['previous_buildid']:
+        try:
+            if not os.path.exists(filename):
+                JSONFile(filename).write(json_data)
+        except Exception, e:
+            self.logger.warning("Log file could not be written: {}.".format(str(e)))
+
+        # Lets keep it after saving the log information so we might be able to
+        # manually force-trigger those jobs in case of build failures.
+        if status != 0:
+            self.logger.info('Cancel processing due to broken build: {}'.format(results[status]))
+            return
+
+        platform_id = self.get_platform_identifier(platform)
+
+        # Generate job data and queue up in Jenkins
+        for testrun in branch_config['testruns']:
+            if testrun not in allowed_testruns:
                 continue
 
             # Fire off a build for each supported platform
-            for node in target_branch['platforms'][target_platform]:
-                job = '%s_%s' % (data['tree'], testrun)
+            for node in branch_config['platforms'][platform_id]:
+                job = '{}_{}'.format(branch, testrun)
                 parameters = self.generate_job_parameters(testrun, node,
-                                                          target_platform, data)
+                                                          platform_id, json_data)
 
-                self.logger.info('Triggering job "%s" on "%s"' % (job, node))
+                self.logger.info('Triggering job "{}" on "{}"'.format(job, node))
                 try:
                     self.jenkins.build_job(job, parameters)
                 except Exception, e:
                     # For now simply discard and continue.
                     # Later we might want to implement a queuing mechanism.
-                    self.logger.error('Jenkins instance at "%s" cannot be reached: %s' % (
-                        self.config['jenkins']['url'],
-                        str(e)))
+                    self.logger.error('Cannot submit build request to "{}": {}'.format(
+                        self.config['jenkins']['url'], str(e)))
 
             # Give Jenkins a bit of breath to process other threads
             time.sleep(2.5)
-
-    def on_debug(self, data):
-        """In debug mode save off all raw notifications"""
-
-        basename = '%(BUILD_ID)s_%(PRODUCT)s_%(LOCALE)s_%(PLATFORM)s_%(KEY)s.log' % {
-            'BUILD_ID': data['payload']['buildid'],
-            'PRODUCT': data['payload']['product'],
-            'LOCALE': data['payload']['locale'],
-            'PLATFORM': data['payload']['platform'],
-            'KEY': data['payload']['key']}
-        filename = os.path.join('debug', data['payload']['tree'], basename)
-
-        try:
-            JSONFile(filename).write(data)
-        except Exception, e:
-            self.logger.warning("Debug file could not be written: %s." % str(e))
-
-
-class DailyAutomation(Automation):
-
-    def __init__(self, *args, **kwargs):
-        Automation.__init__(self, *args, **kwargs)
 
 
 def main():
@@ -301,13 +288,20 @@ def main():
                       dest='log_folder',
                       default='log',
                       help='Folder to write notification log files into')
+    parser.add_option('--log-level',
+                      dest='log_level',
+                      default='INFO',
+                      help='Logging level, default: %default')
     parser.add_option('--pulse-authfile',
                       dest='pulse_authfile',
                       default='.pulse_config.ini',
                       help='Path to the authentiation file for Pulse Guardian')
-    parser.add_option('--push-message',
-                      dest='message',
-                      help='Log file of a Pulse message to process for Jenkins')
+    parser.add_option('--push-build-message',
+                      dest='build_message',
+                      help='Log file of a build message to process for Jenkins')
+    parser.add_option('--push-update-message',
+                      dest='update_message',
+                      help='Log file of an update message to process for Jenkins')
     parser.add_option('--display-only',
                       dest='display_only',
                       action='store_true',
@@ -319,18 +313,20 @@ def main():
         parser.error('A configuration file has to be passed in as first argument.')
 
     logging.Formatter.converter = time.gmtime
-    logging.basicConfig(level=logging.INFO,
-                        format='%(asctime)s %(levelname)s:%(name)s:%(message)s',
+    logging.basicConfig(level=options.log_level,
+                        format='%(asctime)s %(levelname)6s %(name)s: %(message)s',
                         datefmt='%Y-%m-%dT%H:%M:%SZ')
-    logger = logging.getLogger('automation')
+    logger = logging.getLogger('mozmill-ci')
 
-    DailyAutomation(configfile=args[0],
-                    pulse_authfile=options.pulse_authfile,
-                    debug=options.debug,
-                    log_folder=options.log_folder,
-                    logger=logger,
-                    message=options.message,
-                    display_only=options.display_only)
+    FirefoxAutomation(configfile=args[0],
+                      pulse_authfile=options.pulse_authfile,
+                      debug=options.debug,
+                      log_folder=options.log_folder,
+                      logger=logger,
+                      build_message=options.build_message,
+                      update_message=options.update_message,
+                      display_only=options.display_only)
+
 
 if __name__ == "__main__":
     main()

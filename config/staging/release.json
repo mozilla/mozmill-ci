@@ -1,11 +1,6 @@
 {
     "pulse": {
         "applabel": "mozmill_release",
-        "branches": [
-            "release-mozilla-beta",
-            "release-mozilla-release",
-            "release-mozilla-esr38"
-        ],
         "platforms": [
             "linux",
             "linux64",
@@ -18,6 +13,11 @@
             "firefox"
         ],
         "tags": [
+        ],
+        "trees": [
+            "release-mozilla-beta",
+            "release-mozilla-release",
+            "release-mozilla-esr38"
         ]
     },
     "jenkins": {
@@ -32,7 +32,7 @@
                     "key": "product"
                 },
                 "BRANCH": {
-                    "key": "branch"
+                    "key": "tree"
                 },
                 "BUILD_NUMBER": {
                     "key": "build_number"
@@ -49,20 +49,6 @@
                 "PLATFORM": {
                     "key": "platform",
                     "transform": "get_platform_identifier"
-                },
-                "REPORT_URL": {
-                    "value": "http://mozauto.iriscouch.com/mozmill-staging/"
-                }
-            },
-            "update": {
-                "BUILD_ID": {
-                    "key": "previous_buildid"
-                },
-                "TARGET_BUILD_ID": {
-                    "key": "buildid"
-                },
-                "TARGET_BUILD_REVISION": {
-                    "key": "revision"
                 }
             }
         },

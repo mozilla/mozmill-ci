@@ -1,9 +1,6 @@
 {
     "pulse": {
         "applabel": "mozmill_l10n",
-        "branches": [
-            "mozilla-aurora"
-        ],
         "platforms": [
             "linux64",
             "macosx",
@@ -16,6 +13,9 @@
         "tags": [
             "dep",
             "l10n"
+        ],
+        "trees": [
+            "mozilla-aurora"
         ]
     },
     "jenkins": {
@@ -30,7 +30,7 @@
                     "key": "product"
                 },
                 "BRANCH": {
-                    "key": "branch"
+                    "key": "tree"
                 },
                 "BUILD_ID": {
                     "key": "buildid"
@@ -44,9 +44,6 @@
                 "PLATFORM": {
                     "key": "platform",
                     "transform": "get_platform_identifier"
-                },
-                "REPORT_URL": {
-                    "value": "http://mozauto.iriscouch.com/mozmill-staging/"
                 }
             }
         },

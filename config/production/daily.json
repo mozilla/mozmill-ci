@@ -1,10 +1,6 @@
 {
     "pulse": {
         "applabel": "mozmill_daily",
-        "branches": [
-            "mozilla-central",
-            "mozilla-aurora"
-        ],
         "platforms": [
             "linux",
             "linux64",
@@ -18,6 +14,10 @@
         ],
         "tags": [
             "nightly"
+        ],
+        "trees": [
+            "mozilla-central",
+            "mozilla-aurora"
         ]
     },
     "jenkins": {
@@ -32,7 +32,7 @@
                     "key": "product"
                 },
                 "BRANCH": {
-                    "key": "branch"
+                    "key": "tree"
                 },
                 "BUILD_ID": {
                     "key": "buildid"
@@ -46,17 +46,17 @@
                 "PLATFORM": {
                     "key": "platform",
                     "transform": "get_platform_identifier"
-                },
-                "REPORT_URL": {
-                    "value": "http://mozauto.iriscouch.com/mozmill-daily/"
                 }
             },
             "update": {
+                "APPLICATION": {
+                    "key": "appName"
+                },
                 "BUILD_ID": {
-                    "key": "previous_buildid"
+                    "key": "from_buildid"
                 },
                 "TARGET_BUILD_ID": {
-                    "key": "buildid"
+                    "key": "to_buildid"
                 },
                 "TARGET_BUILD_REVISION": {
                     "key": "revision"
