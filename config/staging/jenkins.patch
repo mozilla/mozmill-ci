@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 186f464..c032232 100644
+index daeba8b..179dc8e 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,40 +17,180 @@
@@ -237,19 +237,6 @@ index ab106ed..d037d93 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-aurora_remote/config.xml b/jenkins-master/jobs/mozilla-aurora_remote/config.xml
-index 8aba009..adecbd1 100644
---- a/jenkins-master/jobs/mozilla-aurora_remote/config.xml
-+++ b/jenkins-master/jobs/mozilla-aurora_remote/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute remote tests for Firefox Developer Edition builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 index dc04c35..832cd97 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
@@ -276,19 +263,6 @@ index be62eae..3c491d7 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-central_remote/config.xml b/jenkins-master/jobs/mozilla-central_remote/config.xml
-index e794791..6bee051 100644
---- a/jenkins-master/jobs/mozilla-central_remote/config.xml
-+++ b/jenkins-master/jobs/mozilla-central_remote/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute remote tests for Nightly builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
 index 47e4a82..ef82c33 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
@@ -303,7 +277,7 @@ index 47e4a82..ef82c33 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_functional/config.xml b/jenkins-master/jobs/ondemand_functional/config.xml
-index 5ccdd67..f24315c 100644
+index 80262ca..dc4a56d 100644
 --- a/jenkins-master/jobs/ondemand_functional/config.xml
 +++ b/jenkins-master/jobs/ondemand_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -315,21 +289,8 @@ index 5ccdd67..f24315c 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/ondemand_remote/config.xml b/jenkins-master/jobs/ondemand_remote/config.xml
-index de9572a..58ace03 100644
---- a/jenkins-master/jobs/ondemand_remote/config.xml
-+++ b/jenkins-master/jobs/ondemand_remote/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute remote tests for release and candidate builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_update/config.xml b/jenkins-master/jobs/ondemand_update/config.xml
-index 464d89e..582effb 100644
+index 4be7c41..9a130a1 100644
 --- a/jenkins-master/jobs/ondemand_update/config.xml
 +++ b/jenkins-master/jobs/ondemand_update/config.xml
 @@ -4,7 +4,7 @@
@@ -354,38 +315,12 @@ index 894621e..c3b841e 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/project_remote/config.xml b/jenkins-master/jobs/project_remote/config.xml
-index f24ec95..20f5a95 100644
---- a/jenkins-master/jobs/project_remote/config.xml
-+++ b/jenkins-master/jobs/project_remote/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute remote tests for Nightly builds based on a project branch.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 index eee074a..8d3d5ed 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 @@ -4,7 +4,7 @@
    <description>Execute functional tests for Firefox Beta builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/release-mozilla-beta_remote/config.xml b/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
-index d2771d0..81a5cda 100644
---- a/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
-+++ b/jenkins-master/jobs/release-mozilla-beta_remote/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute remote tests for Firefox Beta builds.</description>
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
@@ -406,38 +341,12 @@ index 7d25520..9fd6b92 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/release-mozilla-esr38_remote/config.xml b/jenkins-master/jobs/release-mozilla-esr38_remote/config.xml
-index 61087de..dd7108a 100644
---- a/jenkins-master/jobs/release-mozilla-esr38_remote/config.xml
-+++ b/jenkins-master/jobs/release-mozilla-esr38_remote/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute remote tests for Firefox 38.0ESR release builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_functional/config.xml b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 index a356756..9fc835d 100644
 --- a/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 @@ -4,7 +4,7 @@
    <description>Execute functional tests for Firefox release builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
-     <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <numToKeep>50</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/release-mozilla-release_remote/config.xml b/jenkins-master/jobs/release-mozilla-release_remote/config.xml
-index f631a89..601f305 100644
---- a/jenkins-master/jobs/release-mozilla-release_remote/config.xml
-+++ b/jenkins-master/jobs/release-mozilla-release_remote/config.xml
-@@ -4,7 +4,7 @@
-   <description>Execute remote tests for Firefox release builds.</description>
    <logRotator class="hudson.tasks.LogRotator">
      <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>

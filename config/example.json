@@ -67,8 +67,7 @@
             "mozilla-central": {
                 "testruns": [
                     "update",
-                    "functional",
-                    "remote",
+                    "functional"
                 ],
                 "platforms": {
                     "linux": [
@@ -95,8 +94,7 @@
             "mozilla-aurora": {
                 "testruns": [
                     "update",
-                    "functional",
-                    "remote",
+                    "functional"
                 ],
                 "platforms": {
                     "linux": [

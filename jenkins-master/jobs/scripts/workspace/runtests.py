@@ -138,10 +138,6 @@ class Runner(object):
             manifests = [firefox_puppeteer.manifest, firefox_ui_tests.manifest_functional]
             command.extend(manifests)
 
-        elif options.type == 'remote':
-            manifests = [firefox_ui_tests.manifest_remote]
-            command.extend(manifests)
-
         print('Calling command to execute tests: %s' % command)
         failed = False
 
@@ -198,7 +194,7 @@ def main():
                       help='The branch of the Github repository to use')
     parser.add_option('--type',
                       dest='type',
-                      choices=['functional', 'remote', 'update'],
+                      choices=['functional', 'update'],
                       help='The type of tests to execute')
     parser.add_option('--platform',
                       dest='platform',

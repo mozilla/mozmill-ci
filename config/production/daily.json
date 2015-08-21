@@ -70,8 +70,7 @@
                 ],
                 "testruns": [
                     "update",
-                    "functional",
-                    "remote"
+                    "functional"
                 ],
                 "platforms": {
                     "linux": [
@@ -104,8 +103,7 @@
                 ],
                 "testruns": [
                     "update",
-                    "functional",
-                    "remote"
+                    "functional"
                 ],
                 "platforms": {
                     "linux": [
@@ -141,8 +139,7 @@
                 ],
                 "testruns": [
                     "update",
-                    "functional",
-                    "remote"
+                    "functional"
                 ],
                 "platforms": {
                     "linux": [
