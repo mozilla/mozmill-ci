@@ -3,11 +3,6 @@
 # Link to the folder which contains the zip archives of virtualenv
 URL_VIRTUALENV=https://github.com/pypa/virtualenv/archive/
 
-VERSION_KOMBU=3.0.26
-VERSION_MERCURIAL=2.6.2
-VERSION_PYTHON_JENKINS=0.4.8
-VERSION_REQUESTS=2.7.0
-VERSION_TASKCLUSTER=0.0.24
 VERSION_VIRTUALENV=13.1.0
 
 VERSION_PYTHON=$(python -c "import sys;print sys.version[:3]")
@@ -34,10 +29,7 @@ if [ ! -n "${VIRTUAL_ENV:+1}" ]; then
 fi
 
 echo "Installing required dependencies"
-pip install --upgrade kombu==${VERSION_KOMBU} python-jenkins==${VERSION_PYTHON_JENKINS} requests==${VERSION_REQUESTS} taskcluster==${VERSION_TASKCLUSTER}
-
-# To be removed once we no longer need Mozmill tests
-pip install --upgrade --global-option="--pure" mercurial==${VERSION_MERCURIAL}
+pip install -r ${DIR_BASE}/requirements.txt
 
 echo -e "Deactivating the environment\n"
 deactivate
