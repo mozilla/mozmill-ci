@@ -34,7 +34,10 @@ if [ ! -n "${VIRTUAL_ENV:+1}" ]; then
 fi
 
 echo "Installing required dependencies"
-pip install --upgrade --global-option="--pure" mercurial==${VERSION_MERCURIAL} kombu==${VERSION_KOMBU} python-jenkins==${VERSION_PYTHON_JENKINS} requests==${VERSION_REQUESTS} taskcluster==${VERSION_TASKCLUSTER}
+pip install --upgrade kombu==${VERSION_KOMBU} python-jenkins==${VERSION_PYTHON_JENKINS} requests==${VERSION_REQUESTS} taskcluster==${VERSION_TASKCLUSTER}
+
+# To be removed once we no longer need Mozmill tests
+pip install --upgrade --global-option="--pure" mercurial==${VERSION_MERCURIAL}
 
 echo -e "Deactivating the environment\n"
 deactivate
