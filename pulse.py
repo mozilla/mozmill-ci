@@ -13,13 +13,11 @@ import socket
 import time
 
 import jenkins
-import requests
-import taskcluster
 
 import lib
 from lib.jsonfile import JSONFile
 from lib.queues import (NormalizedBuildQueue,
-                        TaskCompletedQueue,
+                        FunsizeTaskCompletedQueue,
                         )
 
 
@@ -37,42 +35,39 @@ class FirefoxAutomation:
         self.update_message = update_message
 
         self.jenkins = jenkins.Jenkins(self.config['jenkins']['url'],
-                                       self.config['jenkins']['username'],
-                                       self.config['jenkins']['password'])
+                                       self.config['jenkins']['auth']['username'],
+                                       self.config['jenkins']['auth']['password'])
 
-        # When a local build message is used, return immediately
+        # Setup Pulse listeners
+        self.load_pulse_config(pulse_authfile)
+        queue_name = 'queue/{user}/{host}/{type}'.format(user=self.pulse_auth['user'],
+                                                         host=socket.getfqdn(),
+                                                         type=self.config['pulse']['applabel'])
+
+        # Queue for build notifications
+        queue_builds = NormalizedBuildQueue(name='{}_build'.format(queue_name),
+                                            callback=self.process_build,
+                                            pulse_config=self.config['pulse'])
+
+        # Queue for update notifications
+        queue_updates = FunsizeTaskCompletedQueue(name='{}_update'.format(queue_name),
+                                                  callback=self.process_build,
+                                                  pulse_config=self.config['pulse'])
+
+        # When a local build message is used, process it and return immediately
         if self.build_message:
             data = JSONFile(self.build_message).read()
-            self.on_build(data)
+            queue_builds.process_message(data, None)
             return
 
-        # When a local update message is used, return immediately
+        # When a local update message is used, process it and return immediately
         if self.update_message:
             data = JSONFile(self.update_message).read()
-            self.on_update(data)
+            queue_updates.process_message(data, None)
             return
 
-        # Load Pulse Guardian authentication from config file
-        if not os.path.exists(pulse_authfile):
-            print 'Config file for Mozilla Pulse does not exist!'
-            return
-
-        pulse_cfgfile = ConfigParser.ConfigParser()
-        pulse_cfgfile.read(pulse_authfile)
-
-        auth = {}
-        for key, value in pulse_cfgfile.items('pulse'):
-            auth.update({key: value})
-
-        name = 'queue/{user}/{host}/{type}'.format(user=auth['user'],
-                                                   host=socket.getfqdn(),
-                                                   type=self.config['pulse']['applabel'])
-        queue_builds = NormalizedBuildQueue(name=name + '_build', callback=self.on_build,
-                                            routing_key='build.#')
-        queue_updates = TaskCompletedQueue(name=name + '_update', callback=self.on_update,
-                                           routing_key='#.funsize-balrog.#')
-
-        with lib.PulseConnection(userid=auth['user'], password=auth['password']) as connection:
+        with lib.PulseConnection(userid=self.pulse_auth['user'],
+                                 password=self.pulse_auth['password']) as connection:
             consumer = lib.PulseConsumer(connection)
 
             try:
@@ -83,9 +78,23 @@ class FirefoxAutomation:
             except KeyboardInterrupt:
                 self.logger.info('Shutting down Pulse listener')
 
-    def generate_job_parameters(self, testrun, node, platform, build_properties):
+    def load_pulse_config(self, pulse_authfile):
+        if not os.path.exists(pulse_authfile):
+            raise IOError('Config file for Mozilla Pulse not found: {}'.
+                          format(os.path.abspath(pulse_authfile)))
+
+        pulse_cfgfile = ConfigParser.ConfigParser()
+        pulse_cfgfile.read(pulse_authfile)
+
+        auth = {}
+        for key, value in pulse_cfgfile.items('pulse'):
+            auth.update({key: value})
+
+        self.pulse_auth = auth
+
+    def generate_job_parameters(self, testrun, node, platform, tree, build_properties):
         # Create parameter map from Pulse to Jenkins properties
-        map = self.config['testrun']['jenkins_parameter_map']
+        map = self.config['pulse']['trees'][tree]['jenkins_parameter_map']
         parameter_map = copy.deepcopy(map['default'])
         if testrun in map:
             for key in map[testrun]:
@@ -126,104 +135,18 @@ class FirefoxAutomation:
 
         return platform_map[platform]
 
-    def on_build(self, data, message=None):
-        if message:
-            data = data['payload']
-
-        self.process_build(allowed_testruns=['functional', 'remote'],
-                           platform=data['platform'],
-                           product=data['product'].lower(),
-                           version=data['version'],
-                           branch=data['tree'],
-                           locale=data['locale'],
-                           buildid=data['buildid'],
-                           revision=data['revision'],
-                           tags=data['tags'],
-                           status=data['status'],
-                           json_data=data,
-                           )
-
-    def on_update(self, data, message=None):
-        if message:
-            # Retrieve manifest file with build information via TaskCluster
-            queue = taskcluster.client.Queue()
-            url = queue.buildUrl('getLatestArtifact', data['status']['taskId'],
-                                 'public/env/manifest.json')
-            response = requests.get(url)
-            try:
-                response.raise_for_status()
-                data = response.json()
-            finally:
-                response.close()
-        else:
-            # Locally saved files will contain a single build only
-            data = [data]
-
-        for build_info in data:
-            self.process_build(allowed_testruns=['update'],
-                               platform=build_info['platform'],
-                               product=build_info['appName'].lower(),
-                               branch=build_info['branch'],
-                               locale=build_info['locale'],
-                               buildid=build_info['from_buildid'],
-                               revision=build_info['revision'],
-                               target_version=build_info['version'],
-                               target_buildid=build_info['to_buildid'],
-                               json_data=build_info,
-                               )
-
     def process_build(self, allowed_testruns, platform, product, branch, locale,
                       buildid, revision, tags=None, version=None, status=0,
                       target_buildid=None, target_version=None, json_data=None):
 
         # Known failures from buildbot (http://mzl.la/1hlCYkw)
-        results = ['success', 'warnings', 'failure', 'skipped', 'exception', 'retry']
+        buildbot_results = ['success', 'warnings', 'failure', 'skipped', 'exception', 'retry']
 
-        # if `--display-only` option has been specified only print build information and return
+        # if `--display-only` option has been specified, print update information only
         if self.display_only:
-            self.logger.info("Build properties:")
+            self.logger.info("Properties:")
             for prop in sorted(json_data):
                 self.logger.info("{:>24}:  {}".format(prop, json_data[prop]))
-            return
-
-        # Run checks to ensure it's a wanted build
-        config = self.config['pulse']
-        if config['platforms'] and platform not in config['platforms']:
-            self.logger.debug('Cancel processing due to invalid platform: {}'.format(platform))
-            return
-        if config['products'] and product not in config['products']:
-            self.logger.debug('Cancel processing due to invalid product: {}'.format(product))
-            return
-        if config['tags'] and tags is not None and not set(config['tags']).issubset(tags):
-            self.logger.debug('Cancel processing due to invalid build tags: {}'.format(tags))
-            return
-        if config['trees'] and branch not in config['trees']:
-            self.logger.debug('Cancel processing due to invalid branch: {}'.format(branch))
-            return
-
-        # If it's not a nightly or release branch, assume a project
-        # branch based off from mozilla-central
-        if 'mozilla-' not in branch:
-            branch = 'project'
-
-        # Get settings for the branch to run the tests for
-        branch_config = self.config['testrun']['by_branch'].get(branch)
-        if branch_config is None:
-            self.logger.debug('Cancel processing due to missing branch config: {}'.format(branch))
-            return
-
-        # Check if locale is blacklisted
-        if 'blacklist' in branch_config:
-            if 'locales' in branch_config['blacklist'] and \
-                    locale in branch_config['blacklist']['locales']:
-                self.logger.debug('Cancel processing due to blacklisted locale: {}'.format(locale))
-                return
-
-        # Cancel processing if the locale is not white-listed. An empty array means
-        # all locales will be processed.
-        if 'locales' in branch_config and len(branch_config['locales']) and \
-                locale not in branch_config['locales']:
-            self.logger.debug('Cancel processing due to non-whitelisted locale: {}'.format(locale))
             return
 
         # Print build information to console
@@ -235,7 +158,7 @@ class FirefoxAutomation:
             self.logger.info('{3} {6} ({1}, {5}, {2}, {4}) [{0}]'.format(*log_data))
 
         # Store build information to disk
-        basename = '{1}_{3}_{2}_{4}_{0}.log'.format(*log_data)
+        basename = '{1}_{3}_{2}_{4}.log'.format(*log_data)
         if target_buildid:
             basename = '{}_{}'.format(target_buildid, basename)
         filename = os.path.join(self.log_folder, branch, basename)
@@ -249,9 +172,10 @@ class FirefoxAutomation:
         # Lets keep it after saving the log information so we might be able to
         # manually force-trigger those jobs in case of build failures.
         if status != 0:
-            self.logger.info('Cancel processing due to broken build: {}'.format(results[status]))
-            return
+            raise ValueError('Cancel processing due to broken build: {}'.
+                             format(buildbot_results[status]))
 
+        branch_config = self.config['jenkins']['jobs'][branch]
         platform_id = self.get_platform_identifier(platform)
 
         # Generate job data and queue up in Jenkins
@@ -259,20 +183,24 @@ class FirefoxAutomation:
             if testrun not in allowed_testruns:
                 continue
 
-            # Fire off a build for each supported platform
-            for node in branch_config['platforms'][platform_id]:
-                job = '{}_{}'.format(branch, testrun)
-                parameters = self.generate_job_parameters(testrun, node,
-                                                          platform_id, json_data)
-
-                self.logger.info('Triggering job "{}" on "{}"'.format(job, node))
+            # Fire off a build for each supported platform version
+            for node in branch_config['nodes'][platform_id]:
                 try:
+                    job = '{}_{}'.format(branch, testrun)
+                    parameters = self.generate_job_parameters(testrun,
+                                                              node,
+                                                              platform_id,
+                                                              branch,
+                                                              json_data)
+
+                    self.logger.info('Triggering job "{}" on "{}"'.format(job, node))
+                    self.logger.debug('Parameters: {}'.format(parameters))
                     self.jenkins.build_job(job, parameters)
-                except Exception, e:
+                except Exception:
                     # For now simply discard and continue.
                     # Later we might want to implement a queuing mechanism.
-                    self.logger.error('Cannot submit build request to "{}": {}'.format(
-                        self.config['jenkins']['url'], str(e)))
+                    self.logger.exception('Cannot create job at "{}"'.
+                                          format(self.config['jenkins']['url']))
 
             # Give Jenkins a bit of breath to process other threads
             time.sleep(2.5)
@@ -314,7 +242,7 @@ def main():
 
     logging.Formatter.converter = time.gmtime
     logging.basicConfig(level=options.log_level,
-                        format='%(asctime)s %(levelname)6s %(name)s: %(message)s',
+                        format='%(asctime)s %(levelname)5s %(name)s: %(message)s',
                         datefmt='%Y-%m-%dT%H:%M:%SZ')
     logger = logging.getLogger('mozmill-ci')
 

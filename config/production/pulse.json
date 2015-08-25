@@ -1,0 +1,442 @@
+{
+    "pulse": {
+        "applabel": "production",
+        "trees": {
+            "mozilla-central": {
+                "blacklist": {
+                    "locales": [
+                    ]
+                },
+                "locales": [
+                    "en-US"
+                ],
+                "platforms": [
+                    "linux",
+                    "linux64",
+                    "macosx",
+                    "macosx64",
+                    "win32",
+                    "win64"
+                ],
+                "products": [
+                    "firefox"
+                ],
+                "tags": [
+                    "nightly"
+                ],
+                "jenkins_parameter_map": {
+                    "default": {
+                        "APPLICATION": {
+                            "key": "product"
+                        },
+                        "BRANCH": {
+                            "key": "tree"
+                        },
+                        "BUILD_ID": {
+                            "key": "buildid"
+                        },
+                        "BUILD_TYPE": {
+                            "value": "daily"
+                        },
+                        "LOCALE": {
+                            "key": "locale"
+                        },
+                        "PLATFORM": {
+                            "key": "platform",
+                            "transform": "get_platform_identifier"
+                        }
+                    },
+                    "update": {
+                        "APPLICATION": {
+                            "key": "appName"
+                        },
+                        "BUILD_ID": {
+                            "key": "from_buildid"
+                        },
+                        "TARGET_BUILD_ID": {
+                            "key": "to_buildid"
+                        },
+                        "TARGET_BUILD_REVISION": {
+                            "key": "revision"
+                        }
+                    }
+                }
+            },
+            "mozilla-aurora": {
+                "blacklist": {
+                    "locales": [
+                    ]
+                },
+                "locales": [
+                    "de",
+                    "en-US",
+                    "ru",
+                    "zh-TW"
+                ],
+                "platforms": [
+                    "linux",
+                    "linux64",
+                    "macosx",
+                    "macosx64",
+                    "win32",
+                    "win64"
+                ],
+                "products": [
+                    "firefox"
+                ],
+                "tags": [
+                    "nightly"
+                ],
+                "jenkins_parameter_map": {
+                    "default": {
+                        "APPLICATION": {
+                            "key": "product"
+                        },
+                        "BRANCH": {
+                            "key": "tree"
+                        },
+                        "BUILD_ID": {
+                            "key": "buildid"
+                        },
+                        "BUILD_TYPE": {
+                            "value": "daily"
+                        },
+                        "LOCALE": {
+                            "key": "locale"
+                        },
+                        "PLATFORM": {
+                            "key": "platform",
+                            "transform": "get_platform_identifier"
+                        }
+                    },
+                    "update": {
+                        "APPLICATION": {
+                            "key": "appName"
+                        },
+                        "BUILD_ID": {
+                            "key": "from_buildid"
+                        },
+                        "TARGET_BUILD_ID": {
+                            "key": "to_buildid"
+                        },
+                        "TARGET_BUILD_REVISION": {
+                            "key": "revision"
+                        }
+                    }
+                }
+            },
+            "release-mozilla-beta": {
+                "blacklist": {
+                    "locales": [
+                    ]
+                },
+                "locales": [
+                    "ar",
+                    "de",
+                    "en-US",
+                    "es-ES",
+                    "fr",
+                    "it",
+                    "pl",
+                    "pt-BR",
+                    "ru"
+                ],
+                "platforms": [
+                    "linux",
+                    "linux64",
+                    "macosx",
+                    "macosx64",
+                    "win32",
+                    "win64"
+                ],
+                "products": [
+                    "firefox"
+                ],
+                "tags": [
+                ],
+                "jenkins_parameter_map": {
+                    "default": {
+                        "APPLICATION": {
+                            "key": "product"
+                        },
+                        "BRANCH": {
+                            "key": "tree"
+                        },
+                        "BUILD_NUMBER": {
+                            "key": "build_number"
+                        },
+                        "BUILD_TYPE": {
+                            "value": "candidate"
+                        },
+                        "BUILD_VERSION": {
+                            "key": "version"
+                        },
+                        "LOCALE": {
+                            "key": "locale"
+                        },
+                        "PLATFORM": {
+                            "key": "platform",
+                            "transform": "get_platform_identifier"
+                        }
+                    }
+                }
+            },
+            "release-mozilla-release": {
+                "blacklist": {
+                    "locales": [
+                    ]
+                },
+                "locales": [
+                    "ar",
+                    "de",
+                    "en-US",
+                    "es-ES",
+                    "fr",
+                    "it",
+                    "pl",
+                    "pt-BR",
+                    "ru"
+                ],
+                "platforms": [
+                    "linux",
+                    "linux64",
+                    "macosx",
+                    "macosx64",
+                    "win32",
+                    "win64"
+                ],
+                "products": [
+                    "firefox"
+                ],
+                "tags": [
+                ],
+                "jenkins_parameter_map": {
+                    "default": {
+                        "APPLICATION": {
+                            "key": "product"
+                        },
+                        "BRANCH": {
+                            "key": "tree"
+                        },
+                        "BUILD_NUMBER": {
+                            "key": "build_number"
+                        },
+                        "BUILD_TYPE": {
+                            "value": "candidate"
+                        },
+                        "BUILD_VERSION": {
+                            "key": "version"
+                        },
+                        "LOCALE": {
+                            "key": "locale"
+                        },
+                        "PLATFORM": {
+                            "key": "platform",
+                            "transform": "get_platform_identifier"
+                        }
+                    }
+                }
+            },
+            "release-mozilla-esr38": {
+                "blacklist": {
+                    "locales": [
+                    ]
+                },
+                "locales": [
+                    "en-US"
+                ],
+                "platforms": [
+                    "linux",
+                    "linux64",
+                    "macosx",
+                    "macosx64",
+                    "win32",
+                    "win64"
+                ],
+                "products": [
+                    "firefox"
+                ],
+                "tags": [
+                ],
+                "jenkins_parameter_map": {
+                    "default": {
+                        "APPLICATION": {
+                            "key": "product"
+                        },
+                        "BRANCH": {
+                            "key": "tree"
+                        },
+                        "BUILD_NUMBER": {
+                            "key": "build_number"
+                        },
+                        "BUILD_TYPE": {
+                            "value": "candidate"
+                        },
+                        "BUILD_VERSION": {
+                            "key": "version"
+                        },
+                        "LOCALE": {
+                            "key": "locale"
+                        },
+                        "PLATFORM": {
+                            "key": "platform",
+                            "transform": "get_platform_identifier"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "jenkins": {
+        "url": "http://localhost:8080",
+        "auth": {
+            "username": "mozilla",
+            "password": "test1234"
+        },
+        "jobs": {
+            "mozilla-central": {
+                "testruns": [
+                    "update",
+                    "functional"
+                ],
+                "nodes": {
+                    "linux": [
+                        "linux && ubuntu && 14.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && xp && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "mozilla-aurora": {
+                "testruns": [
+                    "update",
+                    "functional"
+                ],
+                "nodes": {
+                    "linux": [
+                        "linux && ubuntu && 14.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && xp && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "release-mozilla-beta": {
+                "testruns": [
+                    "functional"
+                ],
+                "nodes": {
+                    "linux": [
+                        "linux && ubuntu && 14.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && xp && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "release-mozilla-release": {
+                "testruns": [
+                    "functional"
+                ],
+                "nodes": {
+                    "linux": [
+                        "linux && ubuntu && 14.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && xp && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "release-mozilla-esr38": {
+                "testruns": [
+                    "functional"
+                ],
+                "nodes": {
+                    "linux": [
+                        "linux && ubuntu && 14.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.6 && 64bit",
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && xp && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            }
+        }
+    }
+}

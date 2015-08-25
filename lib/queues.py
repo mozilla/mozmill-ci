@@ -3,15 +3,22 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import logging
+import re
 
 from kombu import Exchange, Queue
+import requests
+import taskcluster
 
 
 class PulseQueue(Queue):
 
     def __init__(self, name=None, exchange_name=None, exchange=None,
-                 durable=False, auto_delete=True, callback=None, **kwargs):
+                 durable=False, auto_delete=True, callback=None,
+                 pulse_config=None, **kwargs):
         self.callback = callback
+        self.pulse_config = pulse_config or {}
+
+        self.data = None
         self.logger = logging.getLogger('mozmill-ci')
 
         if exchange_name:
@@ -21,6 +28,38 @@ class PulseQueue(Queue):
         Queue.__init__(self, name=name, exchange=exchange, durable=durable,
                        auto_delete=not durable, **kwargs)
 
+    def _preprocess_message(self, body, message):
+        raise NotImplementedError('Method has to be implemented in subclass.')
+
+    def is_valid_locale(self, tree, locale):
+        whitelist = self.pulse_config['trees'][tree]['locales']
+        blacklist = self.pulse_config['trees'][tree]['blacklist']['locales']
+
+        return locale not in blacklist and (not whitelist or locale in whitelist)
+
+    def is_valid_platform(self, tree, platform):
+        platforms = self.pulse_config['trees'][tree]['platforms']
+
+        return not platforms or platform in platforms
+
+    def is_valid_product(self, tree, product):
+        products = self.pulse_config['trees'][tree]['products']
+
+        return not products or product in products
+
+    def is_valid_tree(self, tree):
+        trees = self.pulse_config['trees'].keys()
+
+        return not trees or tree in trees
+
+    def has_valid_tags(self, tree, tags):
+        all_tags = set(self.pulse_config['trees'][tree]['tags'])
+
+        return not all_tags or all_tags.issubset(set(tags))
+
+    def _on_message(self, data):
+        raise NotImplementedError('Method has to be implemented in subclass.')
+
     def process_message(self, body, message):
         """Top level callback processing pulse messages.
 
@@ -29,25 +68,192 @@ class PulseQueue(Queue):
         :param message: kombu.Message
         """
         try:
-            self.callback(body, message)
+            self.logger.debug('Received message for routing key "{}": {}'.format(self.routing_key,
+                                                                                 body))
+            preprocessed_body = self._preprocess_message(body, message)
+            self._on_message(preprocessed_body)
+
+        except ValueError, e:
+            self.logger.debug(e.message)
+
         except Exception:
-            self.logger.exception('Failed to process message')
+            self.logger.exception('Failed to process Mozilla Pulse message.')
+
         finally:
-            message.ack()
+            if message:
+                message.ack()
 
 
 class NormalizedBuildQueue(PulseQueue):
 
     def __init__(self, exchange_name='exchange/build/normalized',
-                 routing_key='#', **kwargs):
+                 routing_key='build.#', **kwargs):
 
         PulseQueue.__init__(self, exchange_name=exchange_name,
                             routing_key=routing_key, **kwargs)
 
+    def _on_message(self, data):
+        # Check if its a valid tree
+        tree = data['tree']
+        if not self.is_valid_tree(tree):
+            raise ValueError('Cancel build request due to invalid tree: {}'.
+                             format(tree))
 
-class TaskCompletedQueue(PulseQueue):
+        # Check if it's a valid product
+        if not self.is_valid_product(tree, data['product'].lower()):
+            raise ValueError('Cancel build request due to invalid product: {}'.
+                             format(data['product'].lower()))
+
+        # Check if it's a valid platform
+        if not self.is_valid_platform(tree, data['platform']):
+            raise ValueError('Cancel build request due to invalid platform: {}'.
+                             format(data['platform']))
+
+        # Check if there are valid tags
+        if not self.has_valid_tags(tree, data['tags']):
+            raise ValueError('Cancel build request due to invalid tags: {}'.
+                             format(data['tags']))
+
+        # Check if it's a valid locale
+        if not self.is_valid_locale(tree, data['locale']):
+            raise ValueError('Cancel build request due to invalid locale: {}'.
+                             format(data['locale']))
+
+        self.callback(allowed_testruns=['functional'],
+                      platform=data['platform'],
+                      product=data['product'].lower(),
+                      version=data['version'],
+                      branch=data['tree'],
+                      locale=data['locale'],
+                      buildid=data['buildid'],
+                      revision=data['revision'],
+                      tags=data['tags'],
+                      status=data['status'],
+                      json_data=data,
+                      )
+
+    def _preprocess_message(self, body, message):
+        # We are not interested in the meta data
+        return body['payload'] if message else body
+
+
+class FunsizeTaskCompletedQueue(PulseQueue):
+
+    key_regex = re.compile(r'.*funsize.*\.(?P<tree>.*)\.latest\.(?P<platform>.*)'
+                           '\.(?P<locale>.*)\.(?P<partial_id>.*)\.balrog')
 
     def __init__(self, exchange_name='exchange/taskcluster-queue/v1/task-completed',
-                 routing_key='#', **kwargs):
+                 routing_key='#.funsize-balrog.#', **kwargs):
         PulseQueue.__init__(self, exchange_name=exchange_name,
                             routing_key=routing_key, **kwargs)
+
+    def _on_message(self, data):
+        # In case of --push-update-message we only have a single locale contained
+        if isinstance(data, dict):
+            data = [data]
+
+        for update in data:
+            # Check if its a valid tree
+            tree = update['branch']
+            if not self.is_valid_tree(tree):
+                raise ValueError('Cancel update request due to invalid tree: {}'.
+                                 format(tree))
+
+            # Check if it's a valid product
+            if not self.is_valid_product(tree, update['appName'].lower()):
+                raise ValueError('Cancel update request due to invalid product: {}'.
+                                 format(update['appName'].lower()))
+
+            # Check if it's a valid platform
+            if not self.is_valid_platform(tree, update['platform']):
+                raise ValueError('Cancel update request due to invalid platform: {}'.
+                                 format(update['platform']))
+
+            # Check if it's a valid locale
+            if not self.is_valid_locale(tree, update['locale']):
+                raise ValueError('Cancel update request due to invalid locale: {}'.
+                                 format(update['locale']))
+
+            self.callback(allowed_testruns=['update'],
+                          platform=update['platform'],
+                          product=update['appName'].lower(),
+                          branch=update['branch'],
+                          locale=update['locale'],
+                          buildid=update['from_buildid'],
+                          revision=update['revision'],
+                          target_version=update['version'],
+                          target_buildid=update['to_buildid'],
+                          json_data=update,
+                          )
+
+    def _preprocess_message(self, body, message=None):
+        """Download the update manifest by processing the received funsize message."""
+        allowed_locales_found = None
+
+        # If a message is present, check if the routing keys contain updates we want to test.
+        # If not, do an early abort to prevent an unnecessary query of taskcluster and download
+        # of the funsize update manifest from S3.
+        if message:
+            allowed_locales_found = False
+
+            for routing_key in message.headers['CC']:
+                try:
+                    match = self.key_regex.search(routing_key)
+                    if not match:
+                        continue
+
+                    self.logger.debug('Found routing key: {}'.format(match.group(0)))
+                    tree = match.group('tree')
+
+                    # If we don't cover the current tree no action is needed even for other
+                    # entries in that message because all have the same tree
+                    if not self.is_valid_tree(tree):
+                        raise ValueError('Cancel update request due to invalid tree: {}'.
+                                         format(tree))
+
+                    # TODO: Check for product once it's part of the routing key (Bug 1198003)
+
+                    # If we don't cover the current platform no action is needed even for other
+                    # entries in that message because all have the same platform
+                    if not self.is_valid_platform(tree, match.group('platform')):
+                        raise ValueError('Cancel update request due to invalid platform: {}'.
+                                         format(match.group('platform')))
+
+                    # If we cover the locale we have to download the manifest. Remaining
+                    # entries in that message don't have to be checked.
+                    locales = match.group('locale').split('_')
+                    for locale in locales:
+                        if self.is_valid_locale(tree, locale):
+                            allowed_locales_found = True
+                            break
+
+                except ValueError:
+                    raise
+
+                except:
+                    # Just log but don't care about any failure
+                    self.logger.exception('Failed to preprocess the message.')
+
+        # In case of --push-update-message we already have the wanted manifest
+        if 'status' not in body:
+            return body
+
+        # Abort preprocessing in case no valid locale has been found in the routing keys
+        if allowed_locales_found is False:
+            raise ValueError('Cancel update request due to invalid locales')
+
+        # Download the manifest from S3 for full processing
+        manifest = None
+        queue = taskcluster.client.Queue()
+        url = queue.buildUrl('getLatestArtifact', body['status']['taskId'],
+                             'public/env/manifest.json')
+        response = requests.get(url)
+        try:
+            response.raise_for_status()
+
+            manifest = response.json()
+            self.logger.debug('Received update manifest: {}'.format(manifest))
+        finally:
+            response.close()
+
+        return manifest
