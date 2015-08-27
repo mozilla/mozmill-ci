@@ -73,7 +73,7 @@ class PulseQueue(Queue):
             preprocessed_body = self._preprocess_message(body, message)
             self._on_message(preprocessed_body)
 
-        except ValueError, e:
+        except ValueError as e:
             self.logger.debug(e.message)
 
         except Exception:
@@ -138,9 +138,10 @@ class NormalizedBuildQueue(PulseQueue):
 
 
 class FunsizeTaskCompletedQueue(PulseQueue):
-
-    key_regex = re.compile(r'.*funsize.*\.(?P<tree>.*)\.latest\.(?P<platform>.*)'
-                           '\.(?P<locale>.*)\.(?P<partial_id>.*)\.balrog')
+    # Routing keys we are interested in for pre-processing the funsize notification
+    # are of form: index.funsize.v1.mozilla-central.latest.win32.4.5.balrog
+    cc_key_regex = re.compile(r'.*funsize.*\.v1\.(?P<tree>.*)\.latest\.'
+                              '(?P<platform>.*?)\..*\.balrog')
 
     def __init__(self, exchange_name='exchange/taskcluster-queue/v1/task-completed',
                  routing_key='#.funsize-balrog.#', **kwargs):
@@ -153,52 +154,53 @@ class FunsizeTaskCompletedQueue(PulseQueue):
             data = [data]
 
         for update in data:
-            # Check if its a valid tree
-            tree = update['branch']
-            if not self.is_valid_tree(tree):
-                raise ValueError('Cancel update request due to invalid tree: {}'.
-                                 format(tree))
+            try:
+                # Check if its a valid tree
+                tree = update['branch']
+                if not self.is_valid_tree(tree):
+                    raise ValueError('Cancel update request due to invalid tree: {}'.
+                                     format(tree))
 
-            # Check if it's a valid product
-            if not self.is_valid_product(tree, update['appName'].lower()):
-                raise ValueError('Cancel update request due to invalid product: {}'.
-                                 format(update['appName'].lower()))
+                # Check if it's a valid product
+                if not self.is_valid_product(tree, update['appName'].lower()):
+                    raise ValueError('Cancel update request due to invalid product: {}'.
+                                     format(update['appName'].lower()))
 
-            # Check if it's a valid platform
-            if not self.is_valid_platform(tree, update['platform']):
-                raise ValueError('Cancel update request due to invalid platform: {}'.
-                                 format(update['platform']))
+                # Check if it's a valid platform
+                if not self.is_valid_platform(tree, update['platform']):
+                    raise ValueError('Cancel update request due to invalid platform: {}'.
+                                     format(update['platform']))
 
-            # Check if it's a valid locale
-            if not self.is_valid_locale(tree, update['locale']):
-                raise ValueError('Cancel update request due to invalid locale: {}'.
-                                 format(update['locale']))
+                # Check if it's a valid locale
+                if not self.is_valid_locale(tree, update['locale']):
+                    raise ValueError('Cancel update request due to invalid locale: {}'.
+                                     format(update['locale']))
 
-            self.callback(allowed_testruns=['update'],
-                          platform=update['platform'],
-                          product=update['appName'].lower(),
-                          branch=update['branch'],
-                          locale=update['locale'],
-                          buildid=update['from_buildid'],
-                          revision=update['revision'],
-                          target_version=update['version'],
-                          target_buildid=update['to_buildid'],
-                          json_data=update,
-                          )
+                self.callback(allowed_testruns=['update'],
+                              platform=update['platform'],
+                              product=update['appName'].lower(),
+                              branch=update['branch'],
+                              locale=update['locale'],
+                              buildid=update['from_buildid'],
+                              revision=update['revision'],
+                              target_version=update['version'],
+                              target_buildid=update['to_buildid'],
+                              json_data=update,
+                              )
+            except ValueError as e:
+                self.logger.info(e.message)
+            except Exception:
+                self.logger.exception('Failed to process update message.')
 
     def _preprocess_message(self, body, message=None):
         """Download the update manifest by processing the received funsize message."""
-        allowed_locales_found = None
-
         # If a message is present, check if the routing keys contain updates we want to test.
         # If not, do an early abort to prevent an unnecessary query of taskcluster and download
         # of the funsize update manifest from S3.
         if message:
-            allowed_locales_found = False
-
             for routing_key in message.headers['CC']:
                 try:
-                    match = self.key_regex.search(routing_key)
+                    match = self.cc_key_regex.search(routing_key)
                     if not match:
                         continue
 
@@ -211,21 +213,11 @@ class FunsizeTaskCompletedQueue(PulseQueue):
                         raise ValueError('Cancel update request due to invalid tree: {}'.
                                          format(tree))
 
-                    # TODO: Check for product once it's part of the routing key (Bug 1198003)
-
                     # If we don't cover the current platform no action is needed even for other
                     # entries in that message because all have the same platform
                     if not self.is_valid_platform(tree, match.group('platform')):
                         raise ValueError('Cancel update request due to invalid platform: {}'.
                                          format(match.group('platform')))
-
-                    # If we cover the locale we have to download the manifest. Remaining
-                    # entries in that message don't have to be checked.
-                    locales = match.group('locale').split('_')
-                    for locale in locales:
-                        if self.is_valid_locale(tree, locale):
-                            allowed_locales_found = True
-                            break
 
                 except ValueError:
                     raise
@@ -235,12 +227,8 @@ class FunsizeTaskCompletedQueue(PulseQueue):
                     self.logger.exception('Failed to preprocess the message.')
 
         # In case of --push-update-message we already have the wanted manifest
-        if 'status' not in body:
+        if 'workerId' not in body:
             return body
-
-        # Abort preprocessing in case no valid locale has been found in the routing keys
-        if allowed_locales_found is False:
-            raise ValueError('Cancel update request due to invalid locales')
 
         # Download the manifest from S3 for full processing
         manifest = None

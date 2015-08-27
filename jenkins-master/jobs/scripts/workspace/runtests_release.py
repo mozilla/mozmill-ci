@@ -113,7 +113,7 @@ class Runner(object):
                                           key=os.environ['TREEHERDER_KEY_%s' % repository],
                                           secret=os.environ['TREEHERDER_SECRET_%s' % repository])
                 th.submit_results(job)
-            except Exception, e:
+            except Exception as e:
                 print('Cannot post job information to treeherder: %s' % e.message)
 
         command = [
@@ -184,7 +184,7 @@ class Runner(object):
         try:
             remote_filename = '%s_%s' % (str(uuid.uuid4()), os.path.basename(path))
             return self.s3_bucket.upload(path, remote_filename)
-        except Exception, e:
+        except Exception as e:
             print 'Failure uploading "%s" to S3: %s' % (path, str(e))
             return None
 

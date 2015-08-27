@@ -166,7 +166,7 @@ class FirefoxAutomation:
         try:
             if not os.path.exists(filename):
                 JSONFile(filename).write(json_data)
-        except Exception, e:
+        except Exception as e:
             self.logger.warning("Log file could not be written: {}.".format(str(e)))
 
         # Lets keep it after saving the log information so we might be able to
