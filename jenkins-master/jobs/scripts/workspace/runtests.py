@@ -81,9 +81,10 @@ class Runner(object):
         version_info = mozversion.get_version(binary=binary)
         repository = version_info['application_repository'].split('/')[-1]
 
-        if options.type == 'update':
-            changeset = options.update_target_revision[:12]
+        if options.build_revision != 'None':
+            changeset = options.build_revision[:12]
         else:
+            # In case there is no revision specified try to get it from the application
             changeset = version_info['application_changeset'][:12]
 
         job = None
@@ -211,6 +212,9 @@ def main():
                              dest='build_locale',
                              default='en-US',
                              help='The locale of the build. Default: %default')
+    build_options.add_option('--build-revision',
+                             dest='build_revision',
+                             help='The revision of the build')
     build_options.add_option('--build-type',
                              dest='build_type',
                              choices=['daily', 'tinderbox', 'try'],
@@ -232,15 +236,9 @@ def main():
     update_options.add_option('--update-target-version',
                               dest='update_target_version',
                               help='The expected version of the updated build')
-    update_options.add_option('--update-target-revision',
-                              dest='update_target_revision',
-                              help='The expected revision of the updated build')
     parser.add_option_group(update_options)
 
     (options, args) = parser.parse_args()
-
-    if options.type == 'update' and options.update_target_revision is None:
-        parser.error('--update-target-revision is a mandatory option')
 
     try:
         path = os.path.abspath(os.path.join(here, 'venv'))

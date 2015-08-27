@@ -64,6 +64,11 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>REVISION</name>
+          <description>The revision of Firefox which is used for the report to Treeherder.</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
     <EnvInjectJobProperty plugin="envinject@1.88">
@@ -118,7 +123,7 @@
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python runtests_release.py --type=functional --platform=$PLATFORM --build-type=$BUILD_TYPE --build-version=$BUILD_VERSION --build-number=$BUILD_NUMBER --build-locale=$LOCALE</commandLine>
+      <commandLine>python runtests_release.py --type=functional --platform=$PLATFORM --build-type=$BUILD_TYPE --build-version=$BUILD_VERSION --build-number=$BUILD_NUMBER --build-locale=$LOCALE --build-revision=$REVISION</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

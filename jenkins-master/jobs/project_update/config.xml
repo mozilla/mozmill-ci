@@ -70,14 +70,14 @@
           </choices>
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
+          <name>REVISION</name>
+          <description>The expected revision of Firefox after the upgrade, which is also used for the report to Treeherder.</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>TARGET_BUILD_ID</name>
           <description>The expected build id of Firefox after the update.</description>
           <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>TARGET_BUILD_REVISION</name>
-          <description>The expected revision of Firefox after the update.</description>
-          <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
@@ -135,7 +135,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python runtests.py --type=update --branch=$BRANCH --platform=$PLATFORM --build-type=$BUILD_TYPE --build-id=$BUILD_ID --build-locale=$LOCALE --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID --update-target-revision=$TARGET_BUILD_REVISION</commandLine>
+      <commandLine>python runtests.py --type=update --branch=$BRANCH --platform=$PLATFORM --build-type=$BUILD_TYPE --build-id=$BUILD_ID --build-locale=$LOCALE --build-revision=$REVISION --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

@@ -44,6 +44,9 @@
                         "PLATFORM": {
                             "key": "platform",
                             "transform": "get_platform_identifier"
+                        },
+                        "REVISION": {
+                            "key": "revision"
                         }
                     },
                     "update": {
@@ -55,9 +58,6 @@
                         },
                         "TARGET_BUILD_ID": {
                             "key": "to_buildid"
-                        },
-                        "TARGET_BUILD_REVISION": {
-                            "key": "revision"
                         }
                     }
                 }
@@ -107,6 +107,9 @@
                         "PLATFORM": {
                             "key": "platform",
                             "transform": "get_platform_identifier"
+                        },
+                        "REVISION": {
+                            "key": "revision"
                         }
                     },
                     "update": {
@@ -118,9 +121,6 @@
                         },
                         "TARGET_BUILD_ID": {
                             "key": "to_buildid"
-                        },
-                        "TARGET_BUILD_REVISION": {
-                            "key": "revision"
                         }
                     }
                 }
@@ -177,6 +177,9 @@
                         "PLATFORM": {
                             "key": "platform",
                             "transform": "get_platform_identifier"
+                        },
+                        "REVISION": {
+                            "key": "revision"
                         }
                     }
                 }
@@ -233,6 +236,9 @@
                         "PLATFORM": {
                             "key": "platform",
                             "transform": "get_platform_identifier"
+                        },
+                        "REVISION": {
+                            "key": "revision"
                         }
                     }
                 }
@@ -281,6 +287,9 @@
                         "PLATFORM": {
                             "key": "platform",
                             "transform": "get_platform_identifier"
+                        },
+                        "REVISION": {
+                            "key": "revision"
                         }
                     }
                 }

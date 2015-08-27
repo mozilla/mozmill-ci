@@ -83,10 +83,11 @@ class Runner(object):
         version_info = mozversion.get_version(binary=binary)
         repository = version_info['application_repository'].split('/')[-1]
 
-        # There is no target revision present in the pulse message for release
-        # builds. But given that we actually don't run update tests for those builds,
-        # we can simply retrieve it from the source build
-        changeset = version_info['application_changeset'][:12]
+        if options.build_revision != 'None':
+            changeset = options.build_revision[:12]
+        else:
+            # In case there is no revision specified try to get it from the application
+            changeset = version_info['application_changeset'][:12]
 
         job = None
         th = None
@@ -207,6 +208,9 @@ def main():
     build_options.add_option('--build-number',
                              dest='build_number',
                              help='The build number of the candidate build')
+    build_options.add_option('--build-revision',
+                             dest='build_revision',
+                             help='The revision of the build')
     build_options.add_option('--build-type',
                              dest='build_type',
                              choices=['candidate', 'release'],
