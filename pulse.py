@@ -6,6 +6,7 @@
 
 import ConfigParser
 import copy
+from datetime import datetime
 import logging
 import optparse
 import os
@@ -149,16 +150,37 @@ class FirefoxAutomation:
                 self.logger.info("{:>24}:  {}".format(prop, json_data[prop]))
             return
 
+        log_data = {
+            'branch': branch,
+            'buildid': buildid,
+            'locale': locale,
+            'product': product,
+            'platform': platform,
+            'revision': revision,
+            'version': version,
+            'target_buildid': target_buildid,
+            'target_version': target_version,
+        }
+
+        # Bug 1176828 - Repack notifications for beta/release builds do not contain
+        # a buildid. So use the timestamp if present as replacement
+        if not log_data.get('buildid') and 'timestamp' in json_data:
+            try:
+                d = datetime.strptime(json_data['timestamp'], '%Y-%m-%dT%H:%M:%SZ')
+                log_data['buildid'] = d.strftime('%Y%m%d%H%M')
+            except:
+                pass
+
         # Print build information to console
-        log_data = (branch, buildid, locale, product, platform, revision,
-                    version, target_buildid)
         if target_buildid:
-            self.logger.info('{3} {6} ({1} => {7}, {5}, {2}, {4}) [{0}]'.format(*log_data))
+            self.logger.info('{product} {target_version} ({buildid} => {target_buildid},'
+                             ' {revision}, {locale}, {platform}) [{branch}]'.format(**log_data))
         else:
-            self.logger.info('{3} {6} ({1}, {5}, {2}, {4}) [{0}]'.format(*log_data))
+            self.logger.info('{product} {version} ({buildid}, {revision}, {locale},'
+                             ' {platform}) [{branch}]'.format(**log_data))
 
         # Store build information to disk
-        basename = '{1}_{3}_{2}_{4}.log'.format(*log_data)
+        basename = '{buildid}_{product}_{locale}_{platform}.log'.format(**log_data)
         if target_buildid:
             basename = '{}_{}'.format(target_buildid, basename)
         filename = os.path.join(self.log_folder, branch, basename)
