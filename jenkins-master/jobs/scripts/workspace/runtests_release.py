@@ -97,10 +97,11 @@ class Runner(object):
 
         if os.environ.get('TREEHERDER_URL'):
             # Setup job for treeherder and post 'running' status
-            job = FirefoxUITestJob(product_name=version_info['application_name'],
+            job = FirefoxUITestJob(job_type=options.type,
+                                   product_name=version_info['application_name'],
                                    locale=options.build_locale,
-                                   group_name='Firefox UI Test - %s' % options.type,
-                                   group_symbol='F%s' % options.type[0])
+                                   update_number=options.update_number
+                                   )
 
             if os.environ.get('BUILD_URL'):
                 job.add_details(title='CI Build',
@@ -226,6 +227,9 @@ def main():
     update_options.add_option('--update-channel',
                               dest='update_channel',
                               help='The update channel to use for the update test')
+    update_options.add_option('--update-number',
+                              dest='update_number',
+                              help='The number of the partial update: today - N days.')
     update_options.add_option('--update-target-build-id',
                               dest='update_target_build_id',
                               help='The expected BUILDID of the updated build')
@@ -235,6 +239,10 @@ def main():
     parser.add_option_group(update_options)
 
     (options, args) = parser.parse_args()
+
+    # Fix defaults as passed in by Jenkins
+    if options.update_number == 'None':
+        options.update_number = None
 
     try:
         path = os.path.abspath(os.path.join(here, 'venv'))

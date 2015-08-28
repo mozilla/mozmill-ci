@@ -20,7 +20,7 @@ REVISON_FRAGMENT = '/#/jobs?repo=%s&revision=%s'
 
 class FirefoxUITestJob(TreeherderJob):
 
-    def __init__(self, product_name, locale, group_name, group_symbol):
+    def __init__(self, job_type, product_name, locale, update_number=None):
         TreeherderJob.__init__(self, data={})
 
         self._details = []
@@ -41,13 +41,26 @@ class FirefoxUITestJob(TreeherderJob):
         # TODO debug or others?
         self.add_option_collection({'opt': True})
 
+        group_name = 'Firefox UI Test - {type}'.format(type=job_type)
+        group_symbol = 'F{type_id}'.format(type_id=job_type[0])
+
+        # Bug 1174973 - for now we need unique job names even in different groups
+        job_name = '{group} ({locale}{update_number})'.format(
+            group=group_name,
+            locale=locale,
+            update_number='-{}'.format(update_number) if update_number else ''
+        )
+        job_symbol = '{locale}{update_number}'.format(
+            locale=locale,
+            update_number='-{}'.format(update_number) if update_number else ''
+        )
+
         # TODO: Add e10s group later
         self.add_group_name(group_name)
         self.add_group_symbol(group_symbol)
 
-        # Bug 1174973 - for now we need unique job names even in different groups
-        self.add_job_name("%s (%s)" % (group_name, locale))
-        self.add_job_symbol(locale)
+        self.add_job_name(job_name)
+        self.add_job_symbol(job_symbol)
 
         self.add_start_timestamp(int(time.time()))
 

@@ -58,6 +58,9 @@
                         },
                         "TARGET_BUILD_ID": {
                             "key": "to_buildid"
+                        },
+                        "UPDATE_NUMBER": {
+                            "key": "update_number"
                         }
                     }
                 }
@@ -120,6 +123,9 @@
                         },
                         "TARGET_BUILD_ID": {
                             "key": "to_buildid"
+                        },
+                        "UPDATE_NUMBER": {
+                            "key": "update_number"
                         }
                     }
                 }
