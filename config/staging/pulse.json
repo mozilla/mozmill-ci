@@ -8,7 +8,8 @@
                     ]
                 },
                 "locales": [
-                    "en-US"
+                    "en-US",
+                    "fr"
                 ],
                 "platforms": [
                     "linux",
@@ -136,7 +137,8 @@
                     ]
                 },
                 "locales": [
-                    "en-US"
+                    "en-US",
+                    "pl"
                 ],
                 "platforms": [
                     "linux",
@@ -187,7 +189,8 @@
                     ]
                 },
                 "locales": [
-                    "en-US"
+                    "en-US",
+                    "de"
                 ],
                 "platforms": [
                     "linux",
@@ -238,7 +241,8 @@
                     ]
                 },
                 "locales": [
-                    "en-US"
+                    "en-US",
+                    "es-ES"
                 ],
                 "platforms": [
                     "linux",
