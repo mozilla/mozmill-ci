@@ -119,6 +119,7 @@ class Runner(object):
         command = [
             'firefox-ui-update' if options.type == 'update' else 'firefox-ui-tests',
             '--binary=%s' % binary,
+            '--workspace=data',
             '--log-xunit=report.xml',  # Enable XUnit reporting for Jenkins result analysis
             '--log-html=report.html',  # Enable HTML reports with screenshots
             '--log-tbpl=tbpl.log',  # Enable TBPL logs for treeherder
