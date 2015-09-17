@@ -16,29 +16,9 @@
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
-          <name>APPLICATION</name>
-          <description>The application type.</description>
-          <defaultValue>firefox</defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>BUILD_TYPE</name>
-          <description>The build type of Firefox.</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>release</string>
-              <string>candidate</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>BUILD_VERSION</name>
-          <description>The version of the Firefox release build.</description>
+          <name>BUILD_URL</name>
+          <description>The URL of the build installer.</description>
           <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>BUILD_NUMBER</name>
-          <description>The build number of the Firefox release build (if candidate).</description>
-          <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>LOCALE</name>
@@ -50,20 +30,6 @@
           <description>Labels of the nodes to execute the test on.</description>
           <defaultValue></defaultValue>
         </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>PLATFORM</name>
-          <description>The platform to run the test on.</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>linux</string>
-              <string>linux64</string>
-              <string>mac</string>
-              <string>mac64</string>
-              <string>win32</string>
-              <string>win64</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>REVISION</name>
           <description>The revision of Firefox which is used for the report to Treeherder.</description>
@@ -123,7 +89,7 @@
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python runtests_release.py --type=functional --platform=$PLATFORM --build-type=$BUILD_TYPE --build-version=$BUILD_VERSION --build-number=$BUILD_NUMBER --build-locale=$LOCALE --build-revision=$REVISION</commandLine>
+      <commandLine>python runtests.py --type=functional --branch=mozilla-release --build-revision=$REVISION --build-locale=$LOCALE --installer-url=$BUILD_URL</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
@@ -148,7 +114,7 @@
           <email>
             <recipientList></recipientList>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
-            <body>Marionette ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;.*application_display_name: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;${APPLICATION}&quot;} ${BUILD_LOG_REGEX, regex=&quot;.*application_version: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${LOCALE}, ${BUILD_ID}, ${BUILD_LOG_REGEX, regex=&quot;.*application_changeset: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;unknown changeset&quot;}) on ${NODE_NAME} was aborted.
+            <body>Marionette ${PROJECT_NAME} testrun for ${BUILD_URL} on ${NODE_NAME} was aborted.
 
 View the build in Jenkins:
 ${BUILD_URL}</body>
@@ -179,8 +145,8 @@ ${BUILD_URL}</body>
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
       </configuredTriggers>
       <contentType>default</contentType>
-      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME}: ${BUILD_LOG_REGEX, regex=&quot;.*application_display_name: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;${APPLICATION}&quot;} ${BUILD_LOG_REGEX, regex=&quot;.*application_version: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${LOCALE}, ${BUILD_ID}) on ${NODE_NAME}</defaultSubject>
-      <defaultContent>Marionette ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;.*application_display_name: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;${APPLICATION}&quot;} ${BUILD_LOG_REGEX, regex=&quot;.*application_version: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false} (${LOCALE}, ${BUILD_ID}, ${BUILD_LOG_REGEX, regex=&quot;.*application_changeset: (.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;unknown changeset&quot;}) on ${NODE_NAME} completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
+      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME} on ${NODE_NAME}</defaultSubject>
+      <defaultContent>Marionette ${PROJECT_NAME} testrun for ${BUILD_URL} on ${NODE_NAME} completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
 
 View the build in Jenkins:
 ${BUILD_URL}

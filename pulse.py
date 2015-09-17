@@ -14,6 +14,7 @@ import socket
 import time
 
 import jenkins
+from mozdownload import FactoryScraper
 
 import lib
 from lib.jsonfile import JSONFile
@@ -93,9 +94,9 @@ class FirefoxAutomation:
 
         self.pulse_auth = auth
 
-    def generate_job_parameters(self, testrun, node, platform, tree, build_properties):
+    def generate_job_parameters(self, testrun, node, **pulse_properties):
         # Create parameter map from Pulse to Jenkins properties
-        map = self.config['pulse']['trees'][tree]['jenkins_parameter_map']
+        map = self.config['pulse']['trees'][pulse_properties['tree']]['jenkins_parameter_map']
         parameter_map = copy.deepcopy(map['default'])
         if testrun in map:
             for key in map[testrun]:
@@ -108,15 +109,18 @@ class FirefoxAutomation:
 
             if 'key' in parameter_map[entry]:
                 # A key means we have to retrieve a value from a dict
-                value = build_properties.get(parameter_map[entry]['key'],
+                value = pulse_properties.get(parameter_map[entry]['key'],
                                              parameter_map[entry].get('default'))
             elif 'value' in parameter_map[entry]:
                 # A value means we have an hard-coded value
                 value = parameter_map[entry]['value']
+            else:
+                value = pulse_properties
 
             if 'transform' in parameter_map[entry]:
                 # A transformation method has to be called
                 method = parameter_map[entry]['transform']
+
                 value = FirefoxAutomation.__dict__[method](self, value)
 
             parameters[entry] = value
@@ -125,97 +129,131 @@ class FirefoxAutomation:
 
         return parameters
 
+    def get_installer_url(self, properties):
+        """Gets the installer URL if not given by the Pulse build notification.
+
+        If the URL is not present it will be generated with mozdownload.
+        """
+        if properties.get('build_url'):
+            return properties['build_url']
+
+        # Update tests for beta/release builds would actually need a build_type
+        # of 'release' instead of 'candidate' but we do not run the tests for
+        # those builds.
+        build_type = 'candidate' if 'release-' in properties['tree'] else 'daily'
+
+        kwargs = {
+            # General arguments for all types of builds
+            'locale': properties['locale'],
+            'platform': self.get_platform_identifier(properties['platform']),
+            'retry_attempts': 5,
+            'retry_delay': 30,
+
+            # Arguments for daily builds
+            'branch': properties.get('branch'),
+            'build_id': properties.get('buildid'),
+
+            # Arguments for candidate builds
+            'build_number': properties.get('build_number'),
+            'version': properties.get('version'),
+        }
+
+        self.logger.debug('Retrieve url for {} build: {}'.format(build_type, kwargs))
+        scraper = FactoryScraper(build_type, **kwargs)
+
+        return scraper.url
+
     def get_platform_identifier(self, platform):
         # Map to translate platform ids from RelEng
-        platform_map = {'linux': 'linux',
-                        'linux64': 'linux64',
-                        'macosx': 'mac',
+        platform_map = {'macosx': 'mac',
                         'macosx64': 'mac',
-                        'win32': 'win32',
-                        'win64': 'win64'}
+                        }
 
-        return platform_map[platform]
+        return platform_map.get('platform', platform)
 
-    def process_build(self, allowed_testruns, platform, product, branch, locale,
-                      buildid, revision, tags=None, version=None, status=0,
-                      target_buildid=None, target_version=None, json_data=None):
+    def process_build(self, **pulse_properties):
+        """Check properties and trigger a Jenkins build.
 
+        :param allowed_test: Type of tests which are allowed to be run.
+        :param platform: Platform to run the tests on.
+        :param product: Name of the product (application).
+        :param branch: Name of the branch the build was created off.
+        :param locale: Locale of the build.
+        :param buildid: ID of the build.
+        :param revision: Revision (changeset) of the build.
+        :param tags: Build classification tags (e.g. nightly, l10n).
+        :param version: Version of the build.
+        :param status: Build status from Buildbot (build notifications only).
+        :param target_buildid: ID of the build after the upgrade (update notification only).
+        :param target_version: Version of the build after the upgrade (update notification only).
+        :param tree: Releng branch name the build was created off.
+        :param raw_json: Raw pulse notification data
+
+        """
         # Known failures from buildbot (http://mzl.la/1hlCYkw)
         buildbot_results = ['success', 'warnings', 'failure', 'skipped', 'exception', 'retry']
 
-        # if `--display-only` option has been specified, print update information only
-        if self.display_only:
-            self.logger.info("Properties:")
-            for prop in sorted(json_data):
-                self.logger.info("{:>24}:  {}".format(prop, json_data[prop]))
-            return
-
-        log_data = {
-            'branch': branch,
-            'buildid': buildid,
-            'locale': locale,
-            'product': product,
-            'platform': platform,
-            'revision': revision,
-            'version': version,
-            'target_buildid': target_buildid,
-            'target_version': target_version,
-        }
-
         # Bug 1176828 - Repack notifications for beta/release builds do not contain
         # a buildid. So use the timestamp if present as replacement
-        if not log_data.get('buildid') and 'timestamp' in json_data:
+        if not pulse_properties['buildid'] and 'timestamp' in pulse_properties['raw_json']:
             try:
-                d = datetime.strptime(json_data['timestamp'], '%Y-%m-%dT%H:%M:%SZ')
-                log_data['buildid'] = d.strftime('%Y%m%d%H%M')
+                d = datetime.strptime(pulse_properties['raw_json']['timestamp'],
+                                      '%Y-%m-%dT%H:%M:%SZ')
+                pulse_properties['buildid'] = d.strftime('%Y%m%d%H%M')
             except:
                 pass
 
         # Print build information to console
-        if target_buildid:
+        if pulse_properties.get('target_buildid'):
             self.logger.info('{product} {target_version} ({buildid} => {target_buildid},'
-                             ' {revision}, {locale}, {platform}) [{branch}]'.format(**log_data))
+                             ' {revision}, {locale}, {platform}) [{branch}]'.format(
+                                 **pulse_properties))
         else:
             self.logger.info('{product} {version} ({buildid}, {revision}, {locale},'
-                             ' {platform}) [{branch}]'.format(**log_data))
+                             ' {platform}) [{branch}]'.format(**pulse_properties))
 
         # Store build information to disk
-        basename = '{buildid}_{product}_{locale}_{platform}.log'.format(**log_data)
-        if target_buildid:
-            basename = '{}_{}'.format(target_buildid, basename)
-        filename = os.path.join(self.log_folder, branch, basename)
+        basename = '{buildid}_{product}_{locale}_{platform}.log'.format(**pulse_properties)
+        if pulse_properties.get('target_buildid'):
+            basename = '{}_{}'.format(pulse_properties['target_buildid'], basename)
+        filename = os.path.join(self.log_folder, pulse_properties['branch'], basename)
 
         try:
             if not os.path.exists(filename):
-                JSONFile(filename).write(json_data)
+                JSONFile(filename).write(pulse_properties['raw_json'])
         except Exception as e:
             self.logger.warning("Log file could not be written: {}.".format(str(e)))
 
         # Lets keep it after saving the log information so we might be able to
         # manually force-trigger those jobs in case of build failures.
-        if status != 0:
+        if pulse_properties.get('status') and pulse_properties['status'] != 0:
             raise ValueError('Cancel processing due to broken build: {}'.
-                             format(buildbot_results[status]))
+                             format(buildbot_results[pulse_properties['status']]))
 
-        branch_config = self.config['jenkins']['jobs'][branch]
-        platform_id = self.get_platform_identifier(platform)
+        tree_config = self.config['jenkins']['jobs'][pulse_properties['tree']]
+        platform_id = self.get_platform_identifier(pulse_properties['platform'])
+
+        # Get the build URL now so it hasn't to be done for each individual build.
+        pulse_properties['build_url'] = self.get_installer_url(pulse_properties)
 
         # Generate job data and queue up in Jenkins
-        for testrun in branch_config['testruns']:
-            if testrun not in allowed_testruns:
+        for testrun in tree_config['testruns']:
+            if testrun not in pulse_properties['allowed_testruns']:
                 continue
 
             # Fire off a build for each supported platform version
-            for node in branch_config['nodes'][platform_id]:
+            for node in tree_config['nodes'][platform_id]:
                 try:
-                    job = '{}_{}'.format(branch, testrun)
+                    job = '{}_{}'.format(pulse_properties['tree'], testrun)
                     parameters = self.generate_job_parameters(testrun,
                                                               node,
-                                                              platform_id,
-                                                              branch,
-                                                              json_data)
+                                                              **pulse_properties)
 
                     self.logger.info('Triggering job "{}" on "{}"'.format(job, node))
+                    if self.display_only:
+                        self.logger.info('Parameters: {}'.format(parameters))
+                        continue
+
                     self.logger.debug('Parameters: {}'.format(parameters))
                     self.jenkins.build_job(job, parameters)
                 except Exception:

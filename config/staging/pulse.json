@@ -27,38 +27,19 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "APPLICATION": {
-                            "key": "product"
-                        },
-                        "BRANCH": {
-                            "key": "tree"
-                        },
-                        "BUILD_ID": {
-                            "key": "buildid"
-                        },
-                        "BUILD_TYPE": {
-                            "value": "daily"
+                        "BUILD_URL": {
+                            "key": "build_url"
                         },
                         "LOCALE": {
                             "key": "locale"
-                        },
-                        "PLATFORM": {
-                            "key": "platform",
-                            "transform": "get_platform_identifier"
                         },
                         "REVISION": {
                             "key": "revision"
                         }
                     },
                     "update": {
-                        "APPLICATION": {
-                            "key": "appName"
-                        },
-                        "BUILD_ID": {
-                            "key": "from_buildid"
-                        },
                         "TARGET_BUILD_ID": {
-                            "key": "to_buildid"
+                            "key": "target_buildid"
                         },
                         "UPDATE_NUMBER": {
                             "key": "update_number"
@@ -92,38 +73,19 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "APPLICATION": {
-                            "key": "product"
-                        },
-                        "BRANCH": {
-                            "key": "tree"
-                        },
-                        "BUILD_ID": {
-                            "key": "buildid"
-                        },
-                        "BUILD_TYPE": {
-                            "value": "daily"
+                        "BUILD_URL": {
+                            "key": "build_url"
                         },
                         "LOCALE": {
                             "key": "locale"
-                        },
-                        "PLATFORM": {
-                            "key": "platform",
-                            "transform": "get_platform_identifier"
                         },
                         "REVISION": {
                             "key": "revision"
                         }
                     },
                     "update": {
-                        "APPLICATION": {
-                            "key": "appName"
-                        },
-                        "BUILD_ID": {
-                            "key": "from_buildid"
-                        },
                         "TARGET_BUILD_ID": {
-                            "key": "to_buildid"
+                            "key": "target_buildid"
                         },
                         "UPDATE_NUMBER": {
                             "key": "update_number"
@@ -155,27 +117,11 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "APPLICATION": {
-                            "key": "product"
-                        },
-                        "BRANCH": {
-                            "key": "tree"
-                        },
-                        "BUILD_NUMBER": {
-                            "key": "build_number"
-                        },
-                        "BUILD_TYPE": {
-                            "value": "candidate"
-                        },
-                        "BUILD_VERSION": {
-                            "key": "version"
+                        "BUILD_URL": {
+                            "key": "build_url"
                         },
                         "LOCALE": {
                             "key": "locale"
-                        },
-                        "PLATFORM": {
-                            "key": "platform",
-                            "transform": "get_platform_identifier"
                         },
                         "REVISION": {
                             "key": "revision"
@@ -207,27 +153,11 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "APPLICATION": {
-                            "key": "product"
-                        },
-                        "BRANCH": {
-                            "key": "tree"
-                        },
-                        "BUILD_NUMBER": {
-                            "key": "build_number"
-                        },
-                        "BUILD_TYPE": {
-                            "value": "candidate"
-                        },
-                        "BUILD_VERSION": {
-                            "key": "version"
+                        "BUILD_URL": {
+                            "key": "build_url"
                         },
                         "LOCALE": {
                             "key": "locale"
-                        },
-                        "PLATFORM": {
-                            "key": "platform",
-                            "transform": "get_platform_identifier"
                         },
                         "REVISION": {
                             "key": "revision"
@@ -259,27 +189,11 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "APPLICATION": {
-                            "key": "product"
-                        },
-                        "BRANCH": {
-                            "key": "tree"
-                        },
-                        "BUILD_NUMBER": {
-                            "key": "build_number"
-                        },
-                        "BUILD_TYPE": {
-                            "value": "candidate"
-                        },
-                        "BUILD_VERSION": {
-                            "key": "version"
+                        "BUILD_URL": {
+                            "key": "build_url"
                         },
                         "LOCALE": {
                             "key": "locale"
-                        },
-                        "PLATFORM": {
-                            "key": "platform",
-                            "transform": "get_platform_identifier"
                         },
                         "REVISION": {
                             "key": "revision"

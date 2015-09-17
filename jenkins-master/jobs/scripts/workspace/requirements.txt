@@ -1,2 +1,3 @@
-boto == 2.38.0
-treeherder-client == 1.6
+boto==2.38.0
+mozdownload==1.18
+treeherder-client==1.6

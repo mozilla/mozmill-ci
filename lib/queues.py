@@ -119,18 +119,28 @@ class NormalizedBuildQueue(PulseQueue):
             raise ValueError('Cancel build request due to invalid locale: {}'.
                              format(data['locale']))
 
-        self.callback(allowed_testruns=['functional'],
-                      platform=data['platform'],
-                      product=data['product'].lower(),
-                      version=data['version'],
-                      branch=data['tree'],
-                      locale=data['locale'],
-                      buildid=data['buildid'],
-                      revision=data['revision'],
-                      tags=data['tags'],
-                      status=data['status'],
-                      json_data=data,
-                      )
+        # Candidate builds of betas and releases are shipped by Releng with a branch named
+        # release-mozilla-(release|beta|esrXX). We have to strip the leading 'release-'
+        # portion to get the real branch which we need for our firefox-ui-tests branch checkout.
+        data['branch'] = tree.replace('release-', '')
+
+        build_properties = {
+            'allowed_testruns': ['functional'],
+            'branch': data['branch'],
+            'buildid': data['buildid'],
+            'build_number': data.get('build_number'),
+            'build_url': data.get('buildurl'),  # not present in l10n builds
+            'locale': data['locale'],
+            'platform': data['platform'],
+            'product': data['product'].lower(),
+            'revision': data['revision'],
+            'status': data['status'],
+            'tags': data['tags'],
+            'tree': data['tree'],
+            'version': data['version'],
+            'raw_json': data,
+        }
+        self.callback(**build_properties)
 
     def _preprocess_message(self, body, message):
         # We are not interested in the meta data
@@ -176,17 +186,22 @@ class FunsizeTaskCompletedQueue(PulseQueue):
                     raise ValueError('Cancel update request due to invalid locale: {}'.
                                      format(update['locale']))
 
-                self.callback(allowed_testruns=['update'],
-                              platform=update['platform'],
-                              product=update['appName'].lower(),
-                              branch=update['branch'],
-                              locale=update['locale'],
-                              buildid=update['from_buildid'],
-                              revision=update['revision'],
-                              target_version=update['version'],
-                              target_buildid=update['to_buildid'],
-                              json_data=update,
-                              )
+                update_properties = {
+                    'allowed_testruns': ['update'],
+                    'branch': update['branch'],
+                    'buildid': update['from_buildid'],
+                    'locale': update['locale'],
+                    'platform': update['platform'],
+                    'product': update['appName'].lower(),
+                    'revision': update['revision'],
+                    'target_buildid': update['to_buildid'],
+                    'target_version': update['version'],
+                    'tree': update['branch'],
+                    'update_number': update['update_number'],
+                    'raw_json': update,
+                }
+                self.callback(**update_properties)
+
             except ValueError as e:
                 self.logger.info(e.message)
             except Exception:
