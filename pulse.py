@@ -226,7 +226,7 @@ class FirefoxAutomation:
 
         # Lets keep it after saving the log information so we might be able to
         # manually force-trigger those jobs in case of build failures.
-        if pulse_properties.get('status') and pulse_properties['status'] != 0:
+        if pulse_properties.get('status') and pulse_properties['status'] not in (0, 5):
             raise ValueError('Cancel processing due to broken build: {}'.
                              format(buildbot_results[pulse_properties['status']]))
 
