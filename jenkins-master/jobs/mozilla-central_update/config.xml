@@ -21,7 +21,7 @@
           <defaultValue>nightly</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
-          <name>BUILD_URL</name>
+          <name>INSTALLER_URL</name>
           <description>The URL of the build installer.</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
@@ -106,7 +106,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python runtests.py --type=update --branch=mozilla-central --build-revision=$REVISION --build-locale=$LOCALE --installer-url=$BUILD_URL --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID --update-number=$UPDATE_NUMBER</commandLine>
+      <commandLine>python runtests.py --type=update --branch=mozilla-central --build-revision=$REVISION --build-locale=$LOCALE --installer-url=$INSTALLER_URL --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID --update-number=$UPDATE_NUMBER</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

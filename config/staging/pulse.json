@@ -27,7 +27,7 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "BUILD_URL": {
+                        "INSTALLER_URL": {
                             "key": "build_url"
                         },
                         "LOCALE": {
@@ -73,7 +73,7 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "BUILD_URL": {
+                        "INSTALLER_URL": {
                             "key": "build_url"
                         },
                         "LOCALE": {
@@ -117,7 +117,7 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "BUILD_URL": {
+                        "INSTALLER_URL": {
                             "key": "build_url"
                         },
                         "LOCALE": {
@@ -153,7 +153,7 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "BUILD_URL": {
+                        "INSTALLER_URL": {
                             "key": "build_url"
                         },
                         "LOCALE": {
@@ -189,7 +189,7 @@
                 ],
                 "jenkins_parameter_map": {
                     "default": {
-                        "BUILD_URL": {
+                        "INSTALLER_URL": {
                             "key": "build_url"
                         },
                         "LOCALE": {
