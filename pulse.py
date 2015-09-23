@@ -169,7 +169,7 @@ class FirefoxAutomation:
                         'macosx64': 'mac',
                         }
 
-        return platform_map.get('platform', platform)
+        return platform_map.get(platform, platform)
 
     def process_build(self, **pulse_properties):
         """Check properties and trigger a Jenkins build.
