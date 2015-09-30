@@ -21,6 +21,8 @@ class PulseQueue(Queue):
         self.data = None
         self.logger = logging.getLogger('mozmill-ci')
 
+        durable = durable or self.pulse_config.get('durable', False)
+
         if exchange_name:
             # Using passive mode is important, otherwise pulse returns 403
             exchange = Exchange(exchange_name, type='topic', passive=True)

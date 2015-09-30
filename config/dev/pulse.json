@@ -1,16 +1,17 @@
 {
     "pulse": {
-        "applabel": "staging",
-        "durable": true,
+        "applabel": "dev",
+        "durable": false,
         "trees": {
             "mozilla-central": {
                 "blacklist": {
                     "locales": [
+                        "fr"
                     ]
                 },
                 "locales": [
                     "en-US",
-                    "fr"
+                    "de"
                 ],
                 "platforms": [
                     "linux",
@@ -51,12 +52,12 @@
             "mozilla-aurora": {
                 "blacklist": {
                     "locales": [
+                        "fr"
                     ]
                 },
                 "locales": [
-                    "ar",
-                    "en-US",
-                    "zh-TW"
+                    "de",
+                    "en-US"
                 ],
                 "platforms": [
                     "linux",
@@ -97,11 +98,12 @@
             "release-mozilla-beta": {
                 "blacklist": {
                     "locales": [
+                        "fr"
                     ]
                 },
                 "locales": [
                     "en-US",
-                    "pl"
+                    "it"
                 ],
                 "platforms": [
                     "linux",
@@ -133,11 +135,12 @@
             "release-mozilla-release": {
                 "blacklist": {
                     "locales": [
+                        "fr"
                     ]
                 },
                 "locales": [
-                    "en-US",
-                    "de"
+                    "ar",
+                    "en-US"
                 ],
                 "platforms": [
                     "linux",
@@ -169,11 +172,11 @@
             "release-mozilla-esr38": {
                 "blacklist": {
                     "locales": [
+                        "fr"
                     ]
                 },
                 "locales": [
-                    "en-US",
-                    "es-ES"
+                    "en-US"
                 ],
                 "platforms": [
                     "linux",
@@ -273,8 +276,7 @@
             },
             "release-mozilla-beta": {
                 "testruns": [
-                    "functional",
-                    "remote"
+                    "functional"
                 ],
                 "nodes": {
                     "linux": [
@@ -303,8 +305,7 @@
             },
             "release-mozilla-release": {
                 "testruns": [
-                    "functional",
-                    "remote"
+                    "functional"
                 ],
                 "nodes": {
                     "linux": [
@@ -333,8 +334,7 @@
             },
             "release-mozilla-esr38": {
                 "testruns": [
-                    "functional",
-                    "remote"
+                    "functional"
                 ],
                 "nodes": {
                     "linux": [

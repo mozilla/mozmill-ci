@@ -1,6 +1,7 @@
 {
     "pulse": {
         "applabel": "production",
+        "durable": true,
         "trees": {
             "mozilla-central": {
                 "blacklist": {
