@@ -26,15 +26,14 @@ from lib.queues import (NormalizedBuildQueue,
 class FirefoxAutomation:
 
     def __init__(self, configfile, pulse_authfile, debug, log_folder, logger,
-                 build_message=None, update_message=None, display_only=False):
+                 message=None, display_only=False):
 
         self.config = JSONFile(configfile).read()
         self.debug = debug
         self.log_folder = log_folder
         self.logger = logger
         self.display_only = display_only
-        self.build_message = build_message
-        self.update_message = update_message
+        self.message = message
 
         self.jenkins = jenkins.Jenkins(self.config['jenkins']['url'],
                                        self.config['jenkins']['auth']['username'],
@@ -56,10 +55,15 @@ class FirefoxAutomation:
                                                   callback=self.process_build,
                                                   pulse_config=self.config['pulse'])
 
-        # When a local build message is used, process it and return immediately
-        if self.build_message:
-            data = JSONFile(self.build_message).read()
-            queue_builds.process_message(data, None)
+        # When a local message is used, process it and return immediately
+        if self.message:
+            data = JSONFile(self.message).read()
+
+            # Check type of message and let it process by the correct queue
+            if data.get('ACCEPTED_MAR_CHANNEL_IDS'):
+                queue_updates.process_message(data, None)
+            else:
+                queue_builds.process_message(data, None)
             return
 
         # When a local update message is used, process it and return immediately
@@ -284,12 +288,9 @@ def main():
                       dest='pulse_authfile',
                       default='.pulse_config.ini',
                       help='Path to the authentiation file for Pulse Guardian')
-    parser.add_option('--push-build-message',
-                      dest='build_message',
-                      help='Log file of a build message to process for Jenkins')
-    parser.add_option('--push-update-message',
-                      dest='update_message',
-                      help='Log file of an update message to process for Jenkins')
+    parser.add_option('--push-message',
+                      dest='message',
+                      help='Log file of a Pulse message to process for Jenkins')
     parser.add_option('--display-only',
                       dest='display_only',
                       action='store_true',
@@ -311,8 +312,7 @@ def main():
                       debug=options.debug,
                       log_folder=options.log_folder,
                       logger=logger,
-                      build_message=options.build_message,
-                      update_message=options.update_message,
+                      message=options.message,
                       display_only=options.display_only)
 
 

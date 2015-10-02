@@ -2,6 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import json
 import logging
 import re
 
@@ -71,7 +72,7 @@ class PulseQueue(Queue):
         """
         try:
             self.logger.debug('Received message for routing key "{}": {}'.format(self.routing_key,
-                                                                                 body))
+                                                                                 json.dumps(body)))
             preprocessed_body = self._preprocess_message(body, message)
             self._on_message(preprocessed_body)
 
@@ -146,7 +147,7 @@ class NormalizedBuildQueue(PulseQueue):
 
     def _preprocess_message(self, body, message):
         # We are not interested in the meta data
-        return body['payload'] if message else body
+        return body.get('payload', body)
 
 
 class FunsizeTaskCompletedQueue(PulseQueue):
