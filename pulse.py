@@ -220,7 +220,7 @@ class FirefoxAutomation:
         basename = '{buildid}_{product}_{locale}_{platform}.log'.format(**pulse_properties)
         if pulse_properties.get('target_buildid'):
             basename = '{}_{}'.format(pulse_properties['target_buildid'], basename)
-        filename = os.path.join(self.log_folder, pulse_properties['branch'], basename)
+        filename = os.path.join(self.log_folder, pulse_properties['tree'], basename)
 
         try:
             if not os.path.exists(filename):
