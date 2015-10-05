@@ -66,12 +66,6 @@ class FirefoxAutomation:
                 queue_builds.process_message(data, None)
             return
 
-        # When a local update message is used, process it and return immediately
-        if self.update_message:
-            data = JSONFile(self.update_message).read()
-            queue_updates.process_message(data, None)
-            return
-
         with lib.PulseConnection(userid=self.pulse_auth['user'],
                                  password=self.pulse_auth['password']) as connection:
             consumer = lib.PulseConsumer(connection)
