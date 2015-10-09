@@ -4,231 +4,123 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import optparse
+import argparse
 import os
+import shutil
 import subprocess
 import sys
-import uuid
 
 here = os.path.dirname(os.path.abspath(__file__))
+venv_path = os.path.join(here, 'tests_venv')
+
+
+# Create the test environment and activate it
+# TODO remove once we make use of the mozharness script
+import environment
+command = ['python', os.path.join(here, 'firefox-ui-tests', 'create_venv.py'),
+           '--strict', '--with-optional', venv_path]
+print('Run command to create virtual environment for Firefox UI Tests: %s' % command)
+subprocess.check_call(command)
+environment.activate(venv_path)
+
+# Can only be imported after the environment has been activated
+import firefox_ui_tests
+import firefox_puppeteer
+
+from mozdownload import FactoryScraper
+
+from config import config
+from jenkins import JenkinsDefaultValueAction
 
 
 class Runner(object):
 
-    def __init__(self, venv_path):
-        self.venv_path = venv_path
-        self.build_path = os.path.join(here, 'build')
+    def run_tests(self, args):
+        settings = config['test_types'][args.type]
 
-        self.s3_bucket = None
+        # In case the log folder does not exist yet we have to create it because
+        # otherwise Marionette will fail for e.g. gecko.log (see bug 1211666)
+        if settings['logs'].get('gecko.log'):
+            try:
+                os.makedirs(os.path.dirname(settings['logs']['gecko.log']))
+            except OSError:
+                print('Failed to create log folder for {}'.format(settings['logs']['gecko.log']))
 
-        os.chdir(here)
-        self.activate_venv()
-
-    def activate_venv(self):
-        os.chdir(os.path.join(here, 'firefox-ui-tests'))
-        command = ['python', 'create_venv.py', self.venv_path]
-
-        print('Calling command to create virtual environment: %s' % command)
-        subprocess.check_call(command)
-
-        os.chdir(here)
-
-        dir = 'Scripts' if sys.platform == 'win32' else 'bin'
-        env_activate_file = os.path.join(self.venv_path, dir, 'activate_this.py')
-
-        # Activate the environment and set the VIRTUAL_ENV os variable
-        execfile(env_activate_file, dict(__file__=env_activate_file))
-        os.environ['VIRTUAL_ENV'] = self.venv_path
-
-        command = ['pip', 'install', '-r', 'requirements.txt']
-
-        print('Calling command to install additional Python packages: %s' % command)
-        subprocess.check_call(command)
-
-    def run_tests(self, options, args):
-        import firefox_ui_tests
-        import firefox_puppeteer
-        import mozinstall
-        import mozversion
-        import s3
-
-        from mozdownload import FactoryScraper
-        from treeherder import FirefoxUITestJob, JobResultParser, TreeherderSubmission
-
-        print('Downloading the installer: %s' % options.installer_url)
+        print('Downloading the installer: {}'.format(args.installer_url))
         scraper = FactoryScraper('direct',
-                                 url=options.installer_url,
+                                 url=args.installer_url,
                                  retry_attempts=5,
                                  retry_delay=30,
                                  )
         installer_path = scraper.download()
 
-        print('Installing the build: %s' % installer_path)
-        install_path = mozinstall.install(installer_path, 'firefox')
-
-        binary = mozinstall.get_binary(install_path, 'firefox')
-        print('Binary installed to: %s' % binary)
-
-        version_info = mozversion.get_version(binary=binary)
-        repository = version_info['application_repository'].split('/')[-1]
-
-        if options.build_revision != 'None':
-            changeset = options.build_revision[:12]
-        else:
-            # In case there is no revision specified try to get it from the application
-            changeset = version_info['application_changeset'][:12]
-
-        job = None
-        th = None
-
-        if (os.environ.get('AWS_BUCKET')):
-            self.s3_bucket = s3.S3Bucket(os.environ['AWS_BUCKET'])
-
-        if os.environ.get('TREEHERDER_URL'):
-            # Setup job for treeherder and post 'running' status
-            job = FirefoxUITestJob(job_type=options.type,
-                                   product_name=version_info['application_name'],
-                                   locale=options.build_locale,
-                                   update_number=options.update_number
-                                   )
-
-            if os.environ.get('BUILD_URL'):
-                job.add_details(title='CI Build',
-                                value=os.environ['BUILD_URL'],
-                                content_type='link',
-                                url=os.environ['BUILD_URL'])
-
-            try:
-                th = TreeherderSubmission(project=repository, revision=changeset,
-                                          url=os.environ['TREEHERDER_URL'],
-                                          client_id=os.environ['TREEHERDER_CLIENT_ID'],
-                                          secret=os.environ['TREEHERDER_SECRET'])
-                th.submit_results(job)
-            except Exception as e:
-                print('Cannot post job information to treeherder: %s' % e.message)
-
         command = [
-            'firefox-ui-update' if options.type == 'update' else 'firefox-ui-tests',
-            '--binary=%s' % binary,
-            '--workspace=data',
-            '--log-xunit=report.xml',  # Enable XUnit reporting for Jenkins result analysis
-            '--log-html=report.html',  # Enable HTML reports with screenshots
-            '--log-tbpl=tbpl.log',  # Enable TBPL logs for treeherder
+            'firefox-ui-update' if args.type == 'update' else 'firefox-ui-tests',
+            '--installer', installer_path,
+            '--workspace', os.getcwd(),
+            '--log-tbpl', settings['logs']['tbpl.log'],
         ]
 
-        if options.type == 'update':
-            # Ensure to enable Gecko log output in the console because the file gets
-            # overwritten with the second update run
-            command.append('--gecko-log=-')
+        if args.type == 'update':
+            # Enable Gecko log to the console because the file would be overwritten
+            # by the second update test
+            command.extend(['--gecko-log', '-'])
 
-            if options.update_channel and options.update_channel != 'None':
-                command.append('--update-channel=%s' % options.update_channel)
-            if options.update_target_version and options.update_target_version != 'None':
-                command.append('--update-target-version=%s' % options.update_target_version)
-            if options.update_target_build_id and options.update_target_build_id != 'None':
-                command.append('--update-target-buildid=%s' % options.update_target_build_id)
+            if args.update_channel:
+                command.extend(['--update-channel', args.update_channel])
+            if args.update_target_version:
+                command.extend(['--update-target-version', args.update_target_version])
+            if args.update_target_build_id:
+                command.extend(['--update-target-buildids', args.update_target_build_id])
 
-        elif options.type == 'functional':
+        elif args.type == 'functional':
+            command.extend(['--gecko-log', settings['logs']['gecko.log']])
+
             manifests = [firefox_puppeteer.manifest, firefox_ui_tests.manifest_functional]
             command.extend(manifests)
 
-        print('Calling command to execute tests: %s' % command)
-        failed = False
+        retval = 0
 
+        print('Calling command to execute tests: {}'.format(command))
+        retval = subprocess.call(command)
+
+        # Save exit code into file for further processing in report submission
         try:
-            subprocess.check_call(command)
-        except:
-            failed = True
+            with file('retval.txt', 'w') as f:
+                f.write(str(retval))
+        except OSError as e:
+            print('Failed to save return value: {}'.format(e))
 
-            # Only for failing update tests add the HTTP.log as artifact
-            http_log_url = self.upload_s3('http.log')
-            if http_log_url:
-                job.add_details(title='http.log',
-                                value=http_log_url,
-                                content_type='link',
-                                url=http_log_url)
-        finally:
-            if job and th:
-                gecko_log_url = self.upload_s3('gecko.log')
-                if gecko_log_url:
-                    job.add_details(title='gecko.log',
-                                    value=gecko_log_url,
-                                    content_type='link',
-                                    url=gecko_log_url)
-
-                tbpl_log_url = self.upload_s3('tbpl.log')
-                if tbpl_log_url:
-                    parser = JobResultParser('tbpl.log')
-                    job.add_log_reference(os.path.basename('tbpl.log'), tbpl_log_url,
-                                          parse_status='parsed')
-                    job.add_artifact(name='text_log_summary',
-                                     artifact_type='json',
-                                     blob={'step_data': parser.failures_as_json(),
-                                           'logurl': tbpl_log_url})
-
-                job.completed(result='testfailed' if failed else 'success')
-                th.submit_results(job)
-
-    def upload_s3(self, path):
-        if not self.s3_bucket:
-            return None
-
-        try:
-            remote_filename = '%s_%s' % (str(uuid.uuid4()), os.path.basename(path))
-            return self.s3_bucket.upload(path, remote_filename)
-        except Exception as e:
-            print 'Failure uploading "%s" to S3: %s' % (path, str(e))
-            return None
+        # Delete http.log if tests were passing
+        if not retval and settings['logs'].get('http.log'):
+            shutil.rmtree(settings['logs']['http.log'], ignore_errors=True)
 
 
 def main():
-    parser = optparse.OptionParser()
-    parser.add_option('--branch',
-                      dest='branch',
-                      help='The branch of the Github repository to use')
-    parser.add_option('--type',
-                      dest='type',
-                      choices=['functional', 'update'],
-                      help='The type of tests to execute')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--type',
+                        required=True,
+                        choices=config['test_types'].keys(),
+                        help='The type of tests to execute')
+    parser.add_argument('--installer-url',
+                        required=True,
+                        help='The URL of the build installer.')
 
-    build_options = optparse.OptionGroup(parser, "Build specific options")
-    build_options.add_option('--build-locale',
-                             dest='build_locale',
-                             default='en-US',
-                             help='The locale of the build. Default: %default')
-    build_options.add_option('--build-revision',
-                             dest='build_revision',
-                             help='The revision of the build')
-    build_options.add_option('--installer-url',
-                             dest='installer_url',
-                             help='The URL of the build installer.')
-    parser.add_option_group(build_options)
-
-    update_options = optparse.OptionGroup(parser, "Update test specific options")
-    update_options.add_option('--update-channel',
-                              dest='update_channel',
+    update_group = parser.add_argument_group('update', 'Update test specific options')
+    update_group.add_argument('--update-channel',
+                              action=JenkinsDefaultValueAction,
                               help='The update channel to use for the update test')
-    update_options.add_option('--update-number',
-                              dest='update_number',
-                              help='The number of the partial update: today - N days.')
-    update_options.add_option('--update-target-build-id',
-                              dest='update_target_build_id',
+    update_group.add_argument('--update-target-build-id',
+                              action=JenkinsDefaultValueAction,
                               help='The expected BUILDID of the updated build')
-    update_options.add_option('--update-target-version',
-                              dest='update_target_version',
+    update_group.add_argument('--update-target-version',
+                              action=JenkinsDefaultValueAction,
                               help='The expected version of the updated build')
-    parser.add_option_group(update_options)
-
-    (options, args) = parser.parse_args()
-
-    # Fix defaults as passed in by Jenkins
-    if options.update_number == 'None':
-        options.update_number = None
+    args = parser.parse_args()
 
     try:
-        path = os.path.abspath(os.path.join(here, 'venv'))
-        runner = Runner(venv_path=path)
-        runner.run_tests(options, args)
+        runner = Runner()
+        runner.run_tests(args)
     except subprocess.CalledProcessError as e:
         sys.exit(e)
 

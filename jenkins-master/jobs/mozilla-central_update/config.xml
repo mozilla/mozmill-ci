@@ -106,18 +106,33 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python runtests.py --type=update --branch=mozilla-central --build-revision=$REVISION --build-locale=$LOCALE --installer-url=$INSTALLER_URL --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID --update-number=$UPDATE_NUMBER</commandLine>
+      <commandLine>python -u submission.py --test-type=update --build-state=running --repository=mozilla-central --revision=$REVISION --locale=$LOCALE --update-number=$UPDATE_NUMBER treeherder_venv</commandLine>
+      <executeFromWorkingDir>false</executeFromWorkingDir>
+    </hudson.plugins.xshell.XShellBuilder>
+    <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
+      <commandLine>python runtests.py --type=update --installer-url=$INSTALLER_URL --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>*.xml,*.html,*.log</artifacts>
+      <artifacts>build/upload/*.*</artifacts>
       <allowEmptyArchive>true</allowEmptyArchive>
       <onlyIfSuccessful>false</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
       <defaultExcludes>true</defaultExcludes>
     </hudson.tasks.ArtifactArchiver>
+    <org.jenkinsci.plugins.postbuildscript.PostBuildScript plugin="postbuildscript@0.17">
+      <buildSteps>
+        <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
+          <commandLine>python -u submission.py --test-type=update --build-state=completed --repository=mozilla-central --revision=$REVISION --locale=$LOCALE --update-number=$UPDATE_NUMBER treeherder_venv</commandLine>
+          <executeFromWorkingDir>false</executeFromWorkingDir>
+        </hudson.plugins.xshell.XShellBuilder>
+      </buildSteps>
+      <scriptOnlyIfSuccess>false</scriptOnlyIfSuccess>
+      <scriptOnlyIfFailure>false</scriptOnlyIfFailure>
+      <markBuildUnstable>true</markBuildUnstable>
+    </org.jenkinsci.plugins.postbuildscript.PostBuildScript>
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.38.2">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>

@@ -26,11 +26,12 @@ class S3Error(Exception):
 
 class S3Bucket(object):
 
-    def __init__(self, bucket_name):
-        self.bucket_name = bucket_name
+    def __init__(self, bucket_name, access_key_id, access_secret_key):
         self._bucket = None
-        self.access_key_id = os.environ['AWS_ACCESS_KEY_ID']
-        self.access_secret_key = os.environ['AWS_SECRET_ACCESS_KEY']
+
+        self.bucket_name = bucket_name
+        self.access_key_id = access_key_id
+        self.access_secret_key = access_secret_key
 
     @property
     def bucket(self):

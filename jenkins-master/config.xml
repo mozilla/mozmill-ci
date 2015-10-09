@@ -232,7 +232,7 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>4</int>
+          <int>5</int>
           <string>MOZMILL_AUTOMATION_VERSION</string>
           <string>2.0.10.2</string>
           <string>NOTIFICATION_ADDRESS</string>
@@ -241,6 +241,8 @@
           <string>http://pypi.pub.build.mozilla.org/pub</string>
           <string>PIP_NO_INDEX</string>
           <string>1</string>
+          <string>PIP_TRUSTED_HOST</string>
+          <string>pypi.pub.build.mozilla.org</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
