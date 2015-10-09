@@ -1,21 +1,22 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index daeba8b..179dc8e 100644
+index b0caf1f..35e9113 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -17,40 +17,180 @@
+@@ -17,16 +17,180 @@
    <clouds/>
    <slaves>
      <slave>
--      <name>dummy-linux</name>
--      <description>Dummy slave node for testing purposes</description>
+-      <name>dummy</name>
+-      <description>Dummy slave node</description>
+-      <remoteFS></remoteFS>
 +      <name>mm-osx-106</name>
 +      <description>OS X 10.6</description>
-       <remoteFS>jenkins</remoteFS>
++      <remoteFS>jenkins</remoteFS>
        <numExecutors>1</numExecutors>
        <mode>NORMAL</mode>
        <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
        <launcher class="hudson.slaves.JNLPLauncher"/>
--      <label>linux ubuntu 14.04 14.10 32bit 64bit endurance</label>
+-      <label></label>
 -      <nodeProperties/>
 -      <userId>anonymous</userId>
 +      <label>mac 10.6 64bit endurance</label>
@@ -25,31 +26,8 @@ index daeba8b..179dc8e 100644
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
 +      </nodeProperties>
-     </slave>
-     <slave>
--      <name>dummy-mac</name>
--      <description>Dummy slave node for testing purposes</description>
-+      <name>mm-osx-108</name>
-+      <description>OS X 10.8</description>
-       <remoteFS>jenkins</remoteFS>
-       <numExecutors>1</numExecutors>
-       <mode>NORMAL</mode>
-       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-       <launcher class="hudson.slaves.JNLPLauncher"/>
--      <label>mac 10.6 10.7 10.8 10.9 10.10 64bit endurance</label>
--      <nodeProperties/>
--      <userId>anonymous</userId>
-+      <label>mac 10.8 64bit endurance</label>
-+      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
-+          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
-+          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
-+        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
-+      </nodeProperties>
-     </slave>
-     <slave>
--      <name>dummy-windows</name>
--      <description>Dummy slave node for testing purposes</description>
++    </slave>
++    <slave>
 +      <name>mm-osx-109</name>
 +      <description>OS X 10.9</description>
 +      <remoteFS>jenkins</remoteFS>
@@ -74,6 +52,22 @@ index daeba8b..179dc8e 100644
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.10 64bit endurance</label>
++      <nodeProperties>
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
++          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
++        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
++      </nodeProperties>
++    </slave>
++    <slave>
++      <name>mm-osx-1011</name>
++      <description>OS X 10.11</description>
++      <remoteFS>jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
++      <label>mac 10.11 64bit endurance</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
@@ -180,14 +174,11 @@ index daeba8b..179dc8e 100644
 +    <slave>
 +      <name>mm-win-81-64</name>
 +      <description>Windows 8.1 64bit</description>
-       <remoteFS>c:\jenkins</remoteFS>
-       <numExecutors>1</numExecutors>
-       <mode>NORMAL</mode>
-       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-       <launcher class="hudson.slaves.JNLPLauncher"/>
--      <label>windows xp 7 8.1 32bit 64bit endurance</label>
--      <nodeProperties/>
--      <userId>anonymous</userId>
++      <remoteFS>c:\jenkins</remoteFS>
++      <numExecutors>1</numExecutors>
++      <mode>NORMAL</mode>
++      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
++      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit endurance</label>
 +      <nodeProperties>
 +        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
@@ -198,7 +189,7 @@ index daeba8b..179dc8e 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -247,7 +387,12 @@
+@@ -223,7 +387,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -225,7 +216,7 @@ index 2cec9ac..a8c78ed 100644
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
 diff --git a/jenkins-master/jobs/mozilla-aurora_functional/config.xml b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-index 1c453ca..cd0c8ae 100644
+index b042d3d..390bf1d 100644
 --- a/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -238,7 +229,7 @@ index 1c453ca..cd0c8ae 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index 75bcda5..265a545 100644
+index f2d4d8a..5488e3b 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 @@ -4,7 +4,7 @@
@@ -251,7 +242,7 @@ index 75bcda5..265a545 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_functional/config.xml b/jenkins-master/jobs/mozilla-central_functional/config.xml
-index b96084a..2dfecd7 100644
+index 023697c..c64c034 100644
 --- a/jenkins-master/jobs/mozilla-central_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -264,7 +255,7 @@ index b96084a..2dfecd7 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index e4766ed..dd47f69 100644
+index 73696a4..7af4f81 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -4,7 +4,7 @@
@@ -303,7 +294,7 @@ index 4be7c41..9a130a1 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
-index 33eaf63..0da8f93 100644
+index c60766f..8daab05 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -316,7 +307,7 @@ index 33eaf63..0da8f93 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml
-index 7f9c487..24b8782 100644
+index ec207fc..b734589 100644
 --- a/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -329,7 +320,7 @@ index 7f9c487..24b8782 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_functional/config.xml b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
-index 11cde96..6565856 100644
+index 045f083..7e3125e 100644
 --- a/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 @@ -4,7 +4,7 @@
