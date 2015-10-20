@@ -101,8 +101,8 @@ class Runner(object):
             try:
                 th = TreeherderSubmission(project=repository, revision=changeset,
                                           url=os.environ['TREEHERDER_URL'],
-                                          key=os.environ['TREEHERDER_KEY_%s' % repository],
-                                          secret=os.environ['TREEHERDER_SECRET_%s' % repository])
+                                          client_id=os.environ['TREEHERDER_CLIENT_ID'],
+                                          secret=os.environ['TREEHERDER_SECRET'])
                 th.submit_results(job)
             except Exception as e:
                 print('Cannot post job information to treeherder: %s' % e.message)

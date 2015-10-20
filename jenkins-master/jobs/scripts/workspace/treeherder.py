@@ -11,7 +11,6 @@ import uuid
 import mozinfo
 import requests
 from thclient import TreeherderClient, TreeherderJob, TreeherderJobCollection
-from thclient.auth import TreeherderAuth
 
 
 LOOKUP_FRAGMENT = 'api/project/%s/resultset/?revision=%s'
@@ -140,11 +139,11 @@ class JobResultParser(object):
 
 class TreeherderSubmission(object):
 
-    def __init__(self, project, revision, url, key, secret):
+    def __init__(self, project, revision, url, client_id, secret):
         self.project = project
         self.revision = revision
         self.url = url
-        self.key = key
+        self.client_id = client_id
         self.secret = secret
 
     def retrieve_revision_hash(self):
@@ -172,11 +171,9 @@ class TreeherderSubmission(object):
         # self.logger.info
         print('Sending results to Treeherder: %s' % job_collection.to_json())
 
-        auth = TreeherderAuth(self.key, self.secret, self.project)
-
         url = urlparse(self.url)
         client = TreeherderClient(protocol=url.scheme, host=url.hostname,
-                                  auth=auth)
+                                  client_id=self.client_id, secret=self.secret)
         client.post_collection(self.project, job_collection)
 
         # self.logger.info
