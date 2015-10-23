@@ -1,6 +1,6 @@
 kombu==3.0.26
 mercurial==2.6.2
-mozdownload==1.18.1
+mozdownload==1.19
 python-jenkins==0.4.8
 requests==2.7.0
 taskcluster==0.0.24
