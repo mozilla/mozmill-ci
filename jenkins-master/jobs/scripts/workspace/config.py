@@ -11,9 +11,9 @@ config = {
     'test_types': {
         'functional': {
             'treeherder': {
-                'group_name': 'Firefox UI Tests - Functional',
+                'group_name': 'Firefox UI Tests - functional',
                 'group_symbol': 'Ff',
-                'job_name': '{locale}',
+                'job_name': 'Firefox UI Tests - functional ({locale})',
                 'job_symbol': '{locale}',
                 'tier': 3,
             },
@@ -24,9 +24,9 @@ config = {
         },
         'update': {
             'treeherder': {
-                'group_name': 'Firefox UI Tests - Update',
+                'group_name': 'Firefox UI Tests - update',
                 'group_symbol': 'Fu',
-                'job_name': '{locale}-{update_number}',
+                'job_name': 'Firefox UI Tests - update ({locale}-{update_number})',
                 'job_symbol': '{locale}-{update_number}',
                 'tier': 3,
             },
