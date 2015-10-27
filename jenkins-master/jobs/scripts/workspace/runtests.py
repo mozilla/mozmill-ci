@@ -71,7 +71,7 @@ class Runner(object):
             if args.update_target_version:
                 command.extend(['--update-target-version', args.update_target_version])
             if args.update_target_build_id:
-                command.extend(['--update-target-buildids', args.update_target_build_id])
+                command.extend(['--update-target-buildid', args.update_target_build_id])
 
         elif args.type == 'functional':
             command.extend(['--gecko-log', settings['logs']['gecko.log']])
