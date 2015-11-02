@@ -17,6 +17,7 @@ JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKIN
 JENKINS_ENV = os.path.join(HERE, 'jenkins-env', 'bin', 'activate_this.py')
 JENKINS_WAR = os.path.join(HERE, 'jenkins-%s.war' % JENKINS_VERSION)
 
+
 def download_jenkins():
     """Downloads Jenkins.war file"""
 
@@ -40,18 +41,16 @@ def download_jenkins():
                 raise
         os.rename(tmp_file, JENKINS_WAR)
 
+
 if __name__ == "__main__":
     download_jenkins()
 
     try:
-        # for more info see:
-        # http://www.virtualenv.org/en/latest/#using-virtualenv-without-bin-python
         execfile(JENKINS_ENV, dict(__file__=JENKINS_ENV))
         print "Virtual environment activated successfully."
-    except IOError:
-        print "Could not activate virtual environment."
-        print "Exiting."
-        sys.exit(IOError)
+    except Exception as ex:
+        print 'Could not activate virtual environment at "%s": %s.' % (JENKINS_ENV, str(ex))
+        sys.exit(1)
 
     # TODO: Start Jenkins as daemon
     print "Starting Jenkins"
