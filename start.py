@@ -7,7 +7,6 @@
 import os
 from subprocess import check_call, CalledProcessError
 import sys
-import urllib2
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -18,39 +17,18 @@ JENKINS_ENV = os.path.join(HERE, 'jenkins-env', 'bin', 'activate_this.py')
 JENKINS_WAR = os.path.join(HERE, 'jenkins-%s.war' % JENKINS_VERSION)
 
 
-def download_jenkins():
-    """Downloads Jenkins.war file"""
-
-    if os.path.isfile(JENKINS_WAR):
-        print "Jenkins already downloaded"
-    else:
-        print "Downloading Jenkins %s from %s" % (JENKINS_VERSION, JENKINS_URL)
-        # Download starts
-        tmp_file = JENKINS_WAR + ".part"
-
-        while True:
-            try:
-                r = urllib2.urlopen(JENKINS_URL)
-                CHUNK = 16 * 1024
-                with open(tmp_file, 'wb') as f:
-                    for chunk in iter(lambda: r.read(CHUNK), ''):
-                        f.write(chunk)
-                break
-            except (urllib2.HTTPError, urllib2.URLError):
-                print "Download failed."
-                raise
-        os.rename(tmp_file, JENKINS_WAR)
-
-
-if __name__ == "__main__":
-    download_jenkins()
-
+def main():
     try:
         execfile(JENKINS_ENV, dict(__file__=JENKINS_ENV))
         print "Virtual environment activated successfully."
     except Exception as ex:
         print 'Could not activate virtual environment at "%s": %s.' % (JENKINS_ENV, str(ex))
         sys.exit(1)
+
+    # Download the Jenkins WAR file
+    from mozdownload import DirectScraper
+    scraper = DirectScraper(url=JENKINS_URL, destination=JENKINS_WAR)
+    scraper.download()
 
     # TODO: Start Jenkins as daemon
     print "Starting Jenkins"
@@ -61,3 +39,7 @@ if __name__ == "__main__":
         check_call(args)
     except CalledProcessError as e:
         sys.exit(e.returncode)
+
+
+if __name__ == "__main__":
+    main()
