@@ -157,11 +157,7 @@ class FunsizeTaskCompletedQueue(PulseQueue):
                               '(?P<platform>.*?)\..*\.balrog')
 
     def __init__(self, exchange_name='exchange/taskcluster-queue/v1/task-completed',
-                 # TODO: Uncomment once bug 1220252 has been fixed
-                 # routing_key='#.funsize-balrog.#',
-                 routing_key='#.signing-provisioner-v1.signing-worker-v1.#',
-                 **kwargs):
-
+                 routing_key='#.funsize-balrog.#', **kwargs):
         PulseQueue.__init__(self, exchange_name=exchange_name,
                             routing_key=routing_key, **kwargs)
 
