@@ -1,6 +1,16 @@
+sudo: false
+
 language: python
+
 python: 2.7
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $TRAVIS_BUILD_DIR/war
+
 script: ./run_tests.sh
+
 notifications:
   email:
     - dev-automation@lists.mozilla.org

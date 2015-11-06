@@ -6,5 +6,5 @@
 jenkins-env/
 jenkins.out
 *.log
-*.war
+war/
 log/

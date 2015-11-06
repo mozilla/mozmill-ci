@@ -14,7 +14,7 @@ JENKINS_VERSION = '1.580.1'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
 
 JENKINS_ENV = os.path.join(HERE, 'jenkins-env', 'bin', 'activate_this.py')
-JENKINS_WAR = os.path.join(HERE, 'jenkins-%s.war' % JENKINS_VERSION)
+JENKINS_WAR = os.path.join(HERE, 'war', 'jenkins-%s.war' % JENKINS_VERSION)
 
 
 def main():
