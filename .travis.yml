@@ -9,7 +9,9 @@ cache:
     - $HOME/.cache/pip
     - $TRAVIS_BUILD_DIR/war
 
-script: ./run_tests.sh
+script:
+  - ./setup.sh
+  - ./run_tests.py
 
 notifications:
   email:
