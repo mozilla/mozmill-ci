@@ -86,10 +86,11 @@ def run_tests():
     os.environ['JENKINS_HOME'] = 'jenkins-master'
     jenkins = Jenkins()
     try:
-        jenkins.wait_for_started()
         venv = VirtualEnv()
         venv.activate()
         venv.run('pip', 'install', 'selenium')
+
+        jenkins.wait_for_started()
         venv.run('python', 'test/configuration/save_config.py')
     finally:
         print 'Killing Jenkins'
