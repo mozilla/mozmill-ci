@@ -234,7 +234,7 @@
           </default>
           <int>6</int>
           <string>MOZHARNESS_REVISION</string>
-          <string>9a8f2342fb31</string>
+          <string>49b1fe014eea</string>
           <string>MOZMILL_AUTOMATION_VERSION</string>
           <string>2.0.10.2</string>
           <string>NOTIFICATION_ADDRESS</string>

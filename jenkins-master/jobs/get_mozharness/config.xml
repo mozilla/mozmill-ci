@@ -26,12 +26,12 @@
   <builders>
     <hudson.tasks.Shell>
       <command>wget -Oarchiver_client.py --no-check-certificate --tries=10 --waitretry=3 https://hg.mozilla.org/build/tools/raw-file/default/buildfarm/utils/archiver_client.py
-python archiver_client.py mozharness --repo mozilla-central --rev $MOZHARNESS_REVISION --debug --destination .</command>
+python archiver_client.py mozharness --repo mozilla-central --rev $MOZHARNESS_REVISION --debug</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.plugins.cloneworkspace.CloneWorkspacePublisher plugin="clone-workspace-scm@0.5">
-      <workspaceGlob></workspaceGlob>
+      <workspaceGlob>mozharness/**</workspaceGlob>
       <criteria>Successful</criteria>
       <archiveMethod>TAR</archiveMethod>
       <overrideDefaultExcludes>true</overrideDefaultExcludes>
