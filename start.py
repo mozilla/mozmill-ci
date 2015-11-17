@@ -45,4 +45,8 @@ def start_jenkins():
 
 if __name__ == "__main__":
     proc = start_jenkins()
-    sys.exit(proc.wait())
+
+    try:
+        sys.exit(proc.wait())
+    except KeyboardInterrupt:
+        proc.kill()
