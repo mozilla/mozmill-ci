@@ -6,12 +6,12 @@
 
 import argparse
 import os
-import re
 import socket
 import time
 from urlparse import urljoin, urlparse
 import uuid
 
+from buildbot import BuildExitCode
 from config import config
 from jenkins import JenkinsDefaultValueAction
 
@@ -24,60 +24,21 @@ JOB_FRAGMENT = '/#/jobs?repo={repository}&revision={revision}'
 BUILD_STATES = ['running', 'completed']
 
 
-class FirefoxUIResultParser(object):
-
-    BUSTED = 'busted'
-    SUCCESS = 'success'
-    TESTFAILED = 'testfailed'
-    UNKNOWN = 'unknown'
-
-    def __init__(self, retval, log_file):
-        self.retval = retval
-        self.log_file = log_file
-        self.failure_re = re.compile(r'(^TEST-UNEXPECTED-FAIL|TEST-UNEXPECTED-ERROR)|'
-                                     r'(.*CRASH: )|'
-                                     r'(Crash reason: )')
-        self.failures = []
-        self.parse()
-
-    def parse(self):
-        try:
-            with open(self.log_file, 'r') as f:
-                for line in f.readlines():
-                    if self.failure_re.match(line):
-                        self.failures.append(line)
-        except IOError:
-            print('Cannot parse failures due to missing log file: {}'.format(self.log_file))
-
-    @property
-    def status(self):
-        status = self.UNKNOWN
-
-        # retval.txt was not written - so most likely an abort
-        if self.retval is None or (self.retval and not self.failures):
-            status = self.BUSTED
-
-        elif not self.failures:
-            status = self.SUCCESS
-
-        elif self.failures:
-            status = self.TESTFAILED
-
-        return status
-
-    def failures_as_json(self):
-        failures = {'all_errors': [], 'errors_truncated': True}
-
-        for failure in self.failures:
-            failures['all_errors'].append({'line': failure, 'linenumber': 1})
-
-        return failures
-
-
 class Submission(object):
+    """Class for submitting reports to Treeherder."""
 
     def __init__(self, repository, revision, settings,
                  treeherder_url=None, treeherder_client_id=None, treeherder_secret=None):
+        """Creates new instance of the submission class.
+
+        :param repository: Name of the repository the build has been built from.
+        :param revision: Changeset of the repository the build has been built from.
+        :param settings: Settings for the Treeherder job as retrieved from the config file.
+        :param treeherder_url: URL of the Treeherder instance.
+        :param treeherder_client_id: The client ID necessary for the Hawk authentication.
+        :param treeherder_secret: The secret key necessary for the Hawk authentication.
+
+        """
         self.repository = repository
         self.revision = revision
         self.settings = settings
@@ -92,6 +53,7 @@ class Submission(object):
             raise ValueError('The client_id and secret for Treeherder must be set.')
 
     def _get_treeherder_platform(self):
+        """Returns the Treeherder equivalent platform identifier of the current platform."""
         platform = None
 
         info = mozinfo.info
@@ -112,6 +74,13 @@ class Submission(object):
         return platform
 
     def create_job(self, guid, **kwargs):
+        """Creates a new instance of a Treeherder job for submission.
+
+        :param guid: Unique identifier of the job.
+        :param kwargs: Dictionary of necessary values to build the job details. The
+            properties correlate to the placeholders in config.py.
+
+        """
         job = TreeherderJob()
 
         job.add_job_guid(guid)
@@ -147,6 +116,7 @@ class Submission(object):
         return job
 
     def retrieve_revision_hash(self):
+        """Retrieves the unique hash for the current revision."""
         if not self.url:
             raise ValueError('URL for Treeherder is missing.')
 
@@ -166,9 +136,12 @@ class Submission(object):
 
         return response.json()['results'][0]['revision_hash']
 
-    def submit(self, job, logs=None):
-        logs = logs or []
+    def submit(self, job):
+        """Submit the job to treeherder.
 
+        :param job: Treeherder job instance to use for submission.
+
+        """
         job.add_submit_timestamp(int(time.time()))
 
         # We can only submit job info once, so it has to be done in completed
@@ -189,30 +162,34 @@ class Submission(object):
                     JOB_FRAGMENT.format(repository=self.repository, revision=self.revision))))
 
     def submit_running_job(self, job):
-        job.add_state('running')
+        """Submit job as state running.
 
+        :param job: Treeherder job instance to use for submission.
+
+        """
+        job.add_state('running')
         self.submit(job)
 
     def submit_completed_job(self, job, retval, uploaded_logs):
-        """Update the status of a job to completed.
+        """Submit job as state completed.
+
+        :param job: Treeherder job instance to use for submission.
+        :param retval: Return value of the build process to determine build state.
+        :param uploaded_logs: List of uploaded logs to reference in the job.
+
         """
-        # Parse TBPL log for failures
-        tbpl_log = uploaded_logs.get('tbpl.log', {})
+        job.add_state('completed')
+        job.add_result(BuildExitCode[retval])
+        job.add_end_timestamp(int(time.time()))
 
-        parser = FirefoxUIResultParser(retval, self.settings['logs']['tbpl.log'])
-        job.add_result(parser.status)
-
-        if os.path.isfile(self.settings['logs']['tbpl.log']):
-            job.add_log_reference(self.settings['logs']['tbpl.log'],
-                                  tbpl_log.get('url'),
-                                  parse_status='parsed')
-            job.add_artifact(name='text_log_summary', artifact_type='json',
-                             blob={'step_data': parser.failures_as_json(),
-                                   'logurl': tbpl_log.get('url')})
+        # Add reference to the log which will be parsed by Treeherder
+        log_reference = uploaded_logs.get(self.settings['treeherder']['log_reference'])
+        if log_reference:
+            job.add_log_reference(name='buildbot_text', url=log_reference.get('url'))
 
         # If the Jenkins BUILD_URL environment variable is present add it as artifact
         # TODO: Figure out how to send it already for running state. If I do so right
-        # now the logs won't be uploaded.
+        # now the report will not be submitted.
         if os.environ.get('BUILD_URL'):
             self._job_details.append({
                 'title': 'Inspect Jenkins Build (VPN required)',
@@ -230,16 +207,21 @@ class Submission(object):
                 'url': uploaded_logs[log]['url'],
             })
 
-        job.add_state('completed')
-        job.add_end_timestamp(int(time.time()))
-
         self.submit(job)
 
 
 def upload_log_files(guid, logs,
                      bucket_name=None, access_key_id=None, access_secret_key=None):
-    # If AWS credentials are given we want to upload the log files and attach
-    # as artifacts to the treeherder job results
+    """Upload all specified logs to Amazon S3.
+
+    :param guid: Unique ID which is used as subfolder name for all log files.
+    :param logs: List of log files to upload.
+    :param bucket_name: Name of the S3 bucket.
+    :param access_key_id: Client ID used for authentication.
+    :param access_secret_key: Secret key for authentication.
+
+    """
+    # If no AWS credentials are given we don't upload anything.
     if not bucket_name:
         print('No AWS Bucket name specified - skipping upload of artifacts.')
         return {}
@@ -346,10 +328,11 @@ if __name__ == '__main__':
     # State 'running'
     if kwargs['build_state'] == BUILD_STATES[0]:
         job_guid = str(uuid.uuid4())
-        job = th.create_job(job_guid, **kwargs)
-        th.submit_running_job(job)
         with file('job_guid.txt', 'w') as f:
             f.write(job_guid)
+
+        job = th.create_job(job_guid, **kwargs)
+        th.submit_running_job(job)
 
     # State 'completed'
     elif kwargs['build_state'] == BUILD_STATES[1]:
@@ -364,11 +347,12 @@ if __name__ == '__main__':
         try:
             with file('retval.txt', 'r') as f:
                 retval = int(f.read())
-        except IOError:
-            retval = None
+        except:
+            # Default reval to `busted` state
+            retval = BuildExitCode.busted
 
         job = th.create_job(job_guid, **kwargs)
-        uploaded_logs = upload_log_files(job_guid, settings['logs'],
+        uploaded_logs = upload_log_files(job_guid, settings['treeherder']['artifacts'],
                                          bucket_name=kwargs.get('aws_bucket'),
                                          access_key_id=kwargs.get('aws_key'),
                                          access_secret_key=kwargs.get('aws_secret'),)

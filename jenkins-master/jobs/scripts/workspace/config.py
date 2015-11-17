@@ -10,32 +10,38 @@ here = os.path.dirname(os.path.abspath(__file__))
 config = {
     'test_types': {
         'functional': {
+            'harness_config': os.path.join('firefox_ui_tests', 'qa_jenkins.py'),
+            'harness_script': os.path.join('firefox_ui_tests', 'functional.py'),
             'treeherder': {
                 'group_name': 'Firefox UI Tests - functional',
                 'group_symbol': 'Ff',
                 'job_name': 'Firefox UI Tests - functional ({locale})',
                 'job_symbol': '{locale}',
                 'tier': 3,
+                'artifacts': {
+                    'log_info.log': os.path.join(here, 'build', 'upload', 'logs', 'log_info.log'),
+                    'report.html': os.path.join(here, 'build', 'upload', 'reports', 'report.html'),
+                },
+                'log_reference': 'log_info.log',
             },
-            'logs': {
-                'gecko.log': os.path.join(here, 'upload', 'logs', 'gecko.log'),
-                'tbpl.log': os.path.join(here, 'upload', 'logs', 'tbpl.log'),
-            }
         },
         'update': {
+            'harness_config': os.path.join('firefox_ui_tests', 'qa_jenkins.py'),
+            'harness_script': os.path.join('firefox_ui_tests', 'update.py'),
             'treeherder': {
                 'group_name': 'Firefox UI Tests - update',
                 'group_symbol': 'Fu',
                 'job_name': 'Firefox UI Tests - update ({locale}-{update_number})',
                 'job_symbol': '{locale}-{update_number}',
                 'tier': 3,
+                'artifacts': {
+                    'log_info.log': os.path.join(here, 'build', 'upload', 'logs', 'log_info.log'),
+                    'report.html': os.path.join(here, 'build', 'upload', 'reports', 'report.html'),
+                    # TODO: Bug 1210753: Move generation of log as option to mozharness
+                    'http.log': os.path.join(here, 'build', 'http.log'),
+                },
+                'log_reference': 'log_info.log',
             },
-            'logs': {
-                # Currently we don't have a gecko.log because we log to the console (bug 1174766)
-                # 'gecko': os.path.join(here, 'build', 'upload', 'logs', 'gecko.log'),
-                'http.log': os.path.join(here, 'upload', 'logs', 'http.log'),
-                'tbpl.log': os.path.join(here, 'upload', 'logs', 'tbpl.log'),
-            }
         },
     },
 }
