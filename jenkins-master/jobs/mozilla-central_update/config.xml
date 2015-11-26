@@ -89,7 +89,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u runtests.py --test-type=update --repository=mozilla-central --installer-url=$INSTALLER_URL --update-channel=$CHANNEL --update-target-build-id=$TARGET_BUILD_ID</commandLine>
+      <commandLine>python -u runtests.py --test-type=update --repository=mozilla-central --installer-url=$INSTALLER_URL --update-channel=$CHANNEL --update-target-buildid=$TARGET_BUILD_ID</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

@@ -94,7 +94,7 @@ class UpdateRunner(BaseRunner):
 
         :param update_channel: The channel which is checked for available updates.
         :param update_target_version: The expected target version of the application.
-        :param update_target_build_id: The expected target build id of the application.
+        :param update_target_buildid: The expected target build id of the application.
 
         """
         BaseRunner.__init__(self, *args, **kwargs)
@@ -104,7 +104,7 @@ class UpdateRunner(BaseRunner):
 
         self.channel = kwargs['update_channel']
         self.target_version = kwargs['update_target_version']
-        self.target_build_id = kwargs['update_target_build_id']
+        self.target_buildid = kwargs['update_target_buildid']
 
     def query_args(self):
         """Returns all required and optional command line arguments."""
@@ -116,8 +116,8 @@ class UpdateRunner(BaseRunner):
             args.extend(['--update-channel', self.channel])
         if self.target_version:
             args.extend(['--update-target-version', self.target_version])
-        if self.target_build_id:
-            args.extend(['--update-target-build-id', self.target_build_id])
+        if self.target_buildid:
+            args.extend(['--update-target-buildid', self.target_buildid])
 
         return args
 
@@ -138,7 +138,7 @@ def parse_args():
     update_group.add_argument('--update-channel',
                               action=JenkinsDefaultValueAction,
                               help='The update channel to use for the update test')
-    update_group.add_argument('--update-target-build-id',
+    update_group.add_argument('--update-target-buildid',
                               action=JenkinsDefaultValueAction,
                               help='The expected BUILDID of the updated build')
     update_group.add_argument('--update-target-version',
