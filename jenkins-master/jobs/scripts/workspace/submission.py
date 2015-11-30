@@ -5,6 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import argparse
+import json
 import os
 import socket
 import time
@@ -73,45 +74,49 @@ class Submission(object):
 
         return platform
 
-    def create_job(self, guid, **kwargs):
+    def create_job(self, data=None, **kwargs):
         """Creates a new instance of a Treeherder job for submission.
 
-        :param guid: Unique identifier of the job.
+        :param data: Job data to use for initilization, e.g. from a previous submission, optional
         :param kwargs: Dictionary of necessary values to build the job details. The
             properties correlate to the placeholders in config.py.
 
         """
-        job = TreeherderJob()
+        data = data or {}
 
-        job.add_job_guid(guid)
-        job.add_tier(self.settings['treeherder']['tier'])
+        job = TreeherderJob(data=data)
 
-        job.add_product_name('firefox')
+        # If no data is available we have to set all properties
+        if not data:
+            job.add_job_guid(str(uuid.uuid4()))
+            job.add_tier(self.settings['treeherder']['tier'])
 
-        job.add_project(self.repository)
-        job.add_revision_hash(self.retrieve_revision_hash())
+            job.add_product_name('firefox')
 
-        # Add platform and build information
-        job.add_machine(socket.getfqdn())
-        platform = self._get_treeherder_platform()
-        job.add_machine_info(*platform)
-        job.add_build_info(*platform)
+            job.add_project(self.repository)
+            job.add_revision_hash(self.retrieve_revision_hash())
 
-        # TODO debug or others?
-        job.add_option_collection({'opt': True})
+            # Add platform and build information
+            job.add_machine(socket.getfqdn())
+            platform = self._get_treeherder_platform()
+            job.add_machine_info(*platform)
+            job.add_build_info(*platform)
 
-        # TODO: Add e10s group once we run those tests
-        job.add_group_name(self.settings['treeherder']['group_name'].format(**kwargs))
-        job.add_group_symbol(self.settings['treeherder']['group_symbol'].format(**kwargs))
+            # TODO debug or others?
+            job.add_option_collection({'opt': True})
 
-        # Bug 1174973 - for now we need unique job names even in different groups
-        job.add_job_name(self.settings['treeherder']['job_name'].format(**kwargs))
-        job.add_job_symbol(self.settings['treeherder']['job_symbol'].format(**kwargs))
+            # TODO: Add e10s group once we run those tests
+            job.add_group_name(self.settings['treeherder']['group_name'].format(**kwargs))
+            job.add_group_symbol(self.settings['treeherder']['group_symbol'].format(**kwargs))
 
-        job.add_start_timestamp(int(time.time()))
+            # Bug 1174973 - for now we need unique job names even in different groups
+            job.add_job_name(self.settings['treeherder']['job_name'].format(**kwargs))
+            job.add_job_symbol(self.settings['treeherder']['job_symbol'].format(**kwargs))
 
-        # Bug 1175559 - Workaround for HTTP Error
-        job.add_end_timestamp(0)
+            job.add_start_timestamp(int(time.time()))
+
+            # Bug 1175559 - Workaround for HTTP Error
+            job.add_end_timestamp(0)
 
         return job
 
@@ -327,22 +332,13 @@ if __name__ == '__main__':
 
     # State 'running'
     if kwargs['build_state'] == BUILD_STATES[0]:
-        job_guid = str(uuid.uuid4())
-        with file('job_guid.txt', 'w') as f:
-            f.write(job_guid)
-
-        job = th.create_job(job_guid, **kwargs)
+        job = th.create_job(**kwargs)
+        with file('job.txt', 'w') as f:
+            f.write(json.dumps(job.data))
         th.submit_running_job(job)
 
     # State 'completed'
     elif kwargs['build_state'] == BUILD_STATES[1]:
-        # Read in job guid to update the report
-        try:
-            with file('job_guid.txt', 'r') as f:
-                job_guid = f.read()
-        except:
-            job_guid = str(uuid.uuid4())
-
         # Read return value of the test script
         try:
             with file('retval.txt', 'r') as f:
@@ -351,8 +347,16 @@ if __name__ == '__main__':
             # Default reval to `busted` state
             retval = BuildExitCode.busted
 
-        job = th.create_job(job_guid, **kwargs)
-        uploaded_logs = upload_log_files(job_guid, settings['treeherder']['artifacts'],
+        # Read in job guid to update the report
+        try:
+            with file('job.txt', 'r') as f:
+                job_data = json.loads(f.read())
+        except:
+            job_data = {}
+
+        job = th.create_job(job_data, **kwargs)
+        uploaded_logs = upload_log_files(job.data['job']['job_guid'],
+                                         settings['treeherder']['artifacts'],
                                          bucket_name=kwargs.get('aws_bucket'),
                                          access_key_id=kwargs.get('aws_key'),
                                          access_secret_key=kwargs.get('aws_secret'),)
