@@ -14,7 +14,7 @@ config = {
             'harness_script': os.path.join('firefox_ui_tests', 'functional.py'),
             'treeherder': {
                 'group_name': 'Firefox UI Functional Tests',
-                'group_symbol': 'Ff',
+                'group_symbol': 'Fxfn',
                 'job_name': 'Firefox UI Functional Tests ({locale})',
                 'job_symbol': '{locale}',
                 'tier': 3,
@@ -30,7 +30,7 @@ config = {
             'harness_script': os.path.join('firefox_ui_tests', 'update.py'),
             'treeherder': {
                 'group_name': 'Firefox UI Update Tests - {update_channel}',
-                'group_symbol': 'Fu-{update_channel}',
+                'group_symbol': 'Fxup-{update_channel}',
                 'job_name': 'Firefox UI Update Tests - {update_channel} {locale}-{update_number}',
                 'job_symbol': '{locale}-{update_number}',
                 'tier': 3,
