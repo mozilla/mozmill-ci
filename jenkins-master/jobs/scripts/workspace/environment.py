@@ -5,11 +5,14 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import argparse
+import logging
 import os
 import subprocess
 import sys
 
 here = os.path.dirname(os.path.abspath(__file__))
+
+logger = logging.getLogger('mozmill-ci')
 
 
 def activate(venv_path):
@@ -17,6 +20,7 @@ def activate(venv_path):
     script_dir = 'Scripts' if sys.platform == 'win32' else 'bin'
     env_activate_file = os.path.join(venv_path, script_dir, 'activate_this.py')
 
+    logger.info('Activate environment: {}'.format(env_activate_file))
     execfile(env_activate_file, dict(__file__=env_activate_file))
 
 
@@ -27,14 +31,14 @@ def create(venv_path, requirements=None):
 
     """
     command = ['virtualenv', venv_path]
-    print('Create virtual environment: {}'.format(command))
+    logger.info('Create virtual environment: {}'.format(command))
     subprocess.check_call(command)
 
     if requirements:
         activate(venv_path)
 
         command = ['pip', 'install', '-r', requirements]
-        print('Install additional requirements: {}'.format(command))
+        logger.info('Install additional requirements: {}'.format(command))
         subprocess.check_call(command)
 
 
@@ -58,6 +62,6 @@ if __name__ == '__main__':
         create(args.venv_path, requirements=args.requirements)
     else:
         if os.path.isdir(args.venv_path):
-            print('Environment has been found at: %s' % args.venv_path)
+            logger.info('Environment has been found at: %s' % args.venv_path)
         else:
-            print('Environment has not been found. Run with --create to create it.')
+            logger.info('Environment has not been found. Run with --create to create it.')

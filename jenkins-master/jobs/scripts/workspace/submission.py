@@ -6,8 +6,10 @@
 
 import argparse
 import json
+import logging
 import os
 import socket
+import sys
 import time
 from urlparse import urljoin, urlparse
 import uuid
@@ -23,6 +25,10 @@ RESULTSET_FRAGMENT = 'api/project/{repository}/resultset/?revision={revision}'
 JOB_FRAGMENT = '/#/jobs?repo={repository}&revision={revision}'
 
 BUILD_STATES = ['running', 'completed']
+
+logging.basicConfig(format='%(asctime)s %(levelname)s | %(message)s', datefmt='%H:%M:%S')
+logger = logging.getLogger('mozmill-ci')
+logger.setLevel(logging.INFO)
 
 
 class Submission(object):
@@ -130,7 +136,7 @@ class Submission(object):
                                                        revision=self.revision))
 
         # self.logger.debug('Getting revision hash from: %s' % lookup_url)
-        print('Getting revision hash from: {}'.format(lookup_url))
+        logger.info('Getting revision hash from: {}'.format(lookup_url))
         response = requests.get(lookup_url)
         response.raise_for_status()
 
@@ -156,15 +162,16 @@ class Submission(object):
         job_collection = TreeherderJobCollection()
         job_collection.add(job)
 
-        print('Sending results to Treeherder: {}'.format(job_collection.to_json()))
+        logger.info('Sending results to Treeherder: {}'.format(job_collection.to_json()))
         url = urlparse(self.url)
         client = TreeherderClient(protocol=url.scheme, host=url.hostname,
                                   client_id=self.client_id, secret=self.secret)
         client.post_collection(self.repository, job_collection)
 
-        print('Results are available to view at: {}'.format(
-            urljoin(self.url,
-                    JOB_FRAGMENT.format(repository=self.repository, revision=self.revision))))
+        logger.info('Results are available to view at: {}'.format(
+                    urljoin(self.url,
+                            JOB_FRAGMENT.format(repository=self.repository,
+                                                revision=self.revision))))
 
     def submit_running_job(self, job):
         """Submit job as state running.
@@ -228,7 +235,7 @@ def upload_log_files(guid, logs,
     """
     # If no AWS credentials are given we don't upload anything.
     if not bucket_name:
-        print('No AWS Bucket name specified - skipping upload of artifacts.')
+        logger.info('No AWS Bucket name specified - skipping upload of artifacts.')
         return {}
 
     s3_bucket = S3Bucket(bucket_name, access_key_id=access_key_id,
@@ -244,11 +251,10 @@ def upload_log_files(guid, logs,
                 url = s3_bucket.upload(logs[log], remote_path)
 
                 uploaded_logs.update({log: {'path': logs[log], 'url': url}})
-                print('Uploaded {path} to {url}'.format(path=logs[log], url=url))
+                logger.info('Uploaded {path} to {url}'.format(path=logs[log], url=url))
 
-        except Exception as e:
-            print('Failure uploading "{path}" to S3: {ex}'.format(path=logs[log],
-                                                                  ex=str(e)))
+        except Exception:
+            logger.exception('Failure uploading "{path}" to S3'.format(path=logs[log]))
 
     return uploaded_logs
 
@@ -307,6 +313,7 @@ def parse_args():
 
 
 if __name__ == '__main__':
+    logger.info('Run as: {}'.format(sys.argv))
     kwargs = parse_args()
 
     # Activate the environment, and create if necessary
@@ -344,8 +351,10 @@ if __name__ == '__main__':
             with file('retval.txt', 'r') as f:
                 retval = int(f.read())
         except:
-            # Default reval to `busted` state
-            retval = BuildExitCode.busted
+            # Any invalid data should have been caused by an abort of the job.
+            retval = BuildExitCode.usercancel
+        logger.info('Read build exit code: {code} ({desc})'.format(code=retval,
+                                                                   desc=BuildExitCode[retval]))
 
         # Read in job guid to update the report
         try:
@@ -353,6 +362,7 @@ if __name__ == '__main__':
                 job_data = json.loads(f.read())
         except:
             job_data = {}
+        logger.info('Read job data: {}'.format(job_data))
 
         job = th.create_job(job_data, **kwargs)
         uploaded_logs = upload_log_files(job.data['job']['job_guid'],

@@ -16,7 +16,7 @@ import boto.s3.connection
 
 # Set the logger globally in the file, but this must be reset when
 # used in a child process.
-logger = logging.getLogger()
+logger = logging.getLogger('mozmill-ci')
 
 
 class S3Error(Exception):

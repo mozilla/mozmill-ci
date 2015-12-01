@@ -6,6 +6,7 @@
 
 import argparse
 import copy
+import logging
 import os
 import subprocess
 import sys
@@ -22,6 +23,10 @@ ENV_VARS_TO_PURGE = [
     'AWS_BUCKET', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY',
     'TREEHERDER_URL', 'TREEHERDER_CLIENT_ID', 'TREEHERDER_SECRET',
 ]
+
+logging.basicConfig(format='%(asctime)s %(levelname)s | %(message)s', datefmt='%H:%M:%S')
+logger = logging.getLogger('mozmill-ci')
+logger.setLevel(logging.INFO)
 
 
 class BaseRunner(object):
@@ -60,12 +65,16 @@ class BaseRunner(object):
         # Set environment variable to let mozcrash save a copy of the minidump files
         env.update({'MINIDUMP_SAVE_PATH': os.path.join(here, 'minidumps')})
 
-        command = [sys.executable,
+        command = [sys.executable, '-u',
                    os.path.join('mozharness', 'scripts', self.settings['harness_script'])]
         command.extend(self.query_args())
 
-        print('Calling command to execute tests: {}'.format(command))
-        return subprocess.call(command, env=env)
+        logger.info('Calling command to execute tests: {}'.format(command))
+        try:
+            return subprocess.check_call(command, env=env)
+        except subprocess.CalledProcessError as e:
+            logger.exception('Failed to run external process')
+            return e.returncode
 
 
 class FunctionalRunner(BaseRunner):
@@ -148,6 +157,8 @@ def parse_args():
 
 
 def main():
+    logger.info('Run as: {}'.format(sys.argv))
+
     # Default exit code to `busted` state
     retval = BuildExitCode.busted
 
@@ -168,8 +179,8 @@ def main():
         try:
             with file('retval.txt', 'w') as f:
                 f.write(str(retval))
-        except OSError as e:
-            print('Failed to save return value: {}'.format(e))
+        except OSError:
+            logger.exception('Failed to save process return value')
 
 if __name__ == '__main__':
     main()
