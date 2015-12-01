@@ -13,9 +13,9 @@ config = {
             'harness_config': os.path.join('firefox_ui_tests', 'qa_jenkins.py'),
             'harness_script': os.path.join('firefox_ui_tests', 'functional.py'),
             'treeherder': {
-                'group_name': 'Firefox UI Tests - functional',
+                'group_name': 'Firefox UI Functional Tests',
                 'group_symbol': 'Ff',
-                'job_name': 'Firefox UI Tests - functional ({locale})',
+                'job_name': 'Firefox UI Functional Tests ({locale})',
                 'job_symbol': '{locale}',
                 'tier': 3,
                 'artifacts': {
@@ -29,9 +29,9 @@ config = {
             'harness_config': os.path.join('firefox_ui_tests', 'qa_jenkins.py'),
             'harness_script': os.path.join('firefox_ui_tests', 'update.py'),
             'treeherder': {
-                'group_name': 'Firefox UI Tests - update',
-                'group_symbol': 'Fu',
-                'job_name': 'Firefox UI Tests - update ({locale}-{update_number})',
+                'group_name': 'Firefox UI Update Tests - {update_channel}',
+                'group_symbol': 'Fu-{update_channel}',
+                'job_name': 'Firefox UI Update Tests - {update_channel} {locale}-{update_number}',
                 'job_symbol': '{locale}-{update_number}',
                 'tier': 3,
                 'artifacts': {

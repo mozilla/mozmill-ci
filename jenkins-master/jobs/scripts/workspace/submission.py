@@ -305,6 +305,9 @@ def parse_args():
                                   help='Secret for submission to Treeherder.')
 
     update_group = parser.add_argument_group('update', 'Arguments for update tests')
+    update_group.add_argument('--update-channel',
+                              action=JenkinsDefaultValueAction,
+                              help='The update channel to use for the update test')
     update_group.add_argument('--update-number',
                               action=JenkinsDefaultValueAction,
                               help='The number of the partial update: today - N days')
