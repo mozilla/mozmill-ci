@@ -74,7 +74,13 @@ class BaseRunner(object):
             return subprocess.check_call(command, env=env)
         except subprocess.CalledProcessError as e:
             logger.exception('Failed to run external process')
-            return e.returncode
+
+            # Test for a valid index, and default to busted
+            try:
+                BuildExitCode[e.returncode]
+                return e.returncode
+            except IndexError:
+                return BuildExitCode.busted
 
 
 class FunctionalRunner(BaseRunner):
