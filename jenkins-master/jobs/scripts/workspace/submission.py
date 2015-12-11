@@ -200,8 +200,8 @@ class Submission(object):
             job.add_log_reference(name='buildbot_text', url=log_reference.get('url'))
 
         # If the Jenkins BUILD_URL environment variable is present add it as artifact
-        # TODO: Figure out how to send it already for running state. If I do so right
-        # now the report will not be submitted.
+        # Bug 1218537: Submitting multipe Job Info objects fail right now. So we have to
+        # submit the Build URL via the completed job.
         if os.environ.get('BUILD_URL'):
             self._job_details.append({
                 'title': 'Inspect Jenkins Build (VPN required)',
