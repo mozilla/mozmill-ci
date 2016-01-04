@@ -343,7 +343,7 @@ if __name__ == '__main__':
     # State 'running'
     if kwargs['build_state'] == BUILD_STATES[0]:
         job = th.create_job(**kwargs)
-        with file('job.txt', 'w') as f:
+        with file('job.json', 'w') as f:
             f.write(json.dumps(job.data))
         th.submit_running_job(job)
 
@@ -351,7 +351,7 @@ if __name__ == '__main__':
     elif kwargs['build_state'] == BUILD_STATES[1]:
         # Read return value of the test script
         try:
-            with file('retval.txt', 'r') as f:
+            with file('retval.json', 'r') as f:
                 retval = int(f.read())
         except:
             # Any invalid data should have been caused by an abort of the job.
@@ -361,7 +361,7 @@ if __name__ == '__main__':
 
         # Read in job guid to update the report
         try:
-            with file('job.txt', 'r') as f:
+            with file('job.json', 'r') as f:
                 job_data = json.loads(f.read())
         except:
             job_data = {}

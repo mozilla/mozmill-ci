@@ -183,7 +183,7 @@ def main():
     finally:
         # Save exit code into file for further processing in report submission
         try:
-            with file('retval.txt', 'w') as f:
+            with file('retval.json', 'w') as f:
                 f.write(str(retval))
         except OSError:
             logger.exception('Failed to save process return value')
