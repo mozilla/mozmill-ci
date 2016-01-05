@@ -46,6 +46,11 @@
           <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
+          <name>TEST_PACKAGES_URL</name>
+          <description>The URL of the test_packages.json file for the given build.</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>UPDATE_NUMBER</name>
           <description>The number of the partial update: today - N days</description>
           <defaultValue>None</defaultValue>
@@ -89,7 +94,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u runtests.py --test-type=update --repository=mozilla-aurora --installer-url=$INSTALLER_URL --update-channel=$CHANNEL --update-target-buildid=$TARGET_BUILD_ID</commandLine>
+      <commandLine>python -u runtests.py --test-type=update --repository=mozilla-aurora --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL --update-channel=$CHANNEL --update-target-buildid=$TARGET_BUILD_ID</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

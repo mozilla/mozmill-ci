@@ -38,17 +38,24 @@ class BaseRunner(object):
         :param settings: Settings for the Runner as retrieved from the config file.
         :param installer_url: URL of the build to download.
         :param repository: Name of the repository the build has been built from.
+        :param test_packages_url: The URL of the test_packages.json file for the given build.
         """
         self.installer_url = kwargs['installer_url']
         self.repository = kwargs['repository']
+        self.test_packages_url = kwargs['test_packages_url']
         self.settings = settings
 
     def query_args(self):
         """Returns all required and optional command line arguments."""
-        return [
+        args = [
             '--cfg', self.settings['harness_config'],
             '--installer-url', self.installer_url,
         ]
+
+        if self.test_packages_url:
+            args.extend(['--test-packages-url', self.test_packages_url])
+
+        return args
 
     def run(self):
         """Executes the tests.
@@ -148,6 +155,9 @@ def parse_args():
                         help='The URL of the build installer.')
     parser.add_argument('--repository',
                         help='The repository name the build was created from.')
+    parser.add_argument('--test-packages-url',
+                        action=JenkinsDefaultValueAction,
+                        help='The URL of the test_packages.json file for the given build.')
 
     update_group = parser.add_argument_group('Update Tests', 'Update test specific options')
     update_group.add_argument('--update-channel',

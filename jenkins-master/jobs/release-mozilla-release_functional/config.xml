@@ -35,6 +35,11 @@
           <description>The revision of Firefox which is used for the report to Treeherder.</description>
           <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TEST_PACKAGES_URL</name>
+          <description>The URL of the test_packages.json file for the given build.</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
     <EnvInjectJobProperty plugin="envinject@1.88">
@@ -72,7 +77,7 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u runtests.py --test-type=functional --repository=mozilla-release --installer-url=$INSTALLER_URL</commandLine>
+      <commandLine>python -u runtests.py --test-type=functional --repository=mozilla-release --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

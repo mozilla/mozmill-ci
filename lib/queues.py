@@ -139,6 +139,7 @@ class NormalizedBuildQueue(PulseQueue):
             'revision': data['revision'],
             'status': data['status'],
             'tags': data['tags'],
+            'test_packages_url': data['test_packages_url'],
             'tree': data['tree'],
             'version': data['version'],
             'raw_json': data,

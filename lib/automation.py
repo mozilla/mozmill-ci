@@ -176,6 +176,7 @@ class FirefoxAutomation:
         :param buildid: ID of the build.
         :param revision: Revision (changeset) of the build.
         :param tags: Build classification tags (e.g. nightly, l10n).
+        :param test_packages_url: URL to the test_packages.json file.
         :param version: Version of the build.
         :param status: Build status from Buildbot (build notifications only).
         :param target_buildid: ID of the build after the upgrade (update notification only).
