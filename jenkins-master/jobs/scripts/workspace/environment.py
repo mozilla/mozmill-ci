@@ -37,7 +37,8 @@ def create(venv_path, requirements=None):
     if requirements:
         activate(venv_path)
 
-        command = ['pip', 'install', '-r', requirements]
+        # Using --no-deps to help make unpinned sub-dependencies more obvious.
+        command = ['pip', 'install', '--no-deps', '-r', requirements]
         logger.info('Install additional requirements: {}'.format(command))
         subprocess.check_call(command)
 
