@@ -88,7 +88,7 @@ def run_tests():
     try:
         venv = VirtualEnv()
         venv.activate()
-        venv.run('pip', 'install', 'selenium')
+        venv.run('pip', 'install', 'selenium==2.48.0')
 
         jenkins.wait_for_started()
         venv.run('python', 'test/configuration/save_config.py')
