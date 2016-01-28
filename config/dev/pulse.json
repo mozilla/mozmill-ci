@@ -6,12 +6,9 @@
             "mozilla-central": {
                 "blacklist": {
                     "locales": [
-                        "fr"
                     ]
                 },
                 "locales": [
-                    "en-US",
-                    "de"
                 ],
                 "platforms": [
                     "linux",
@@ -39,7 +36,7 @@
                             "key": "revision"
                         },
                         "TEST_PACKAGES_URL": {
-                            "key": "test_packages_url"
+                            "transform": "get_test_packages_url"
                         }
                     },
                     "update": {
@@ -55,12 +52,9 @@
             "mozilla-aurora": {
                 "blacklist": {
                     "locales": [
-                        "fr"
                     ]
                 },
                 "locales": [
-                    "de",
-                    "en-US"
                 ],
                 "platforms": [
                     "linux",
@@ -88,7 +82,7 @@
                             "key": "revision"
                         },
                         "TEST_PACKAGES_URL": {
-                            "key": "test_packages_url"
+                            "transform": "get_test_packages_url"
                         }
                     },
                     "update": {
@@ -104,12 +98,9 @@
             "release-mozilla-beta": {
                 "blacklist": {
                     "locales": [
-                        "fr"
                     ]
                 },
                 "locales": [
-                    "en-US",
-                    "it"
                 ],
                 "platforms": [
                     "linux",
@@ -134,6 +125,9 @@
                         },
                         "REVISION": {
                             "key": "revision"
+                        },
+                        "TEST_PACKAGES_URL": {
+                            "transform": "get_test_packages_url"
                         }
                     }
                 }
@@ -141,12 +135,9 @@
             "release-mozilla-release": {
                 "blacklist": {
                     "locales": [
-                        "fr"
                     ]
                 },
                 "locales": [
-                    "ar",
-                    "en-US"
                 ],
                 "platforms": [
                     "linux",
@@ -178,11 +169,9 @@
             "release-mozilla-esr38": {
                 "blacklist": {
                     "locales": [
-                        "fr"
                     ]
                 },
                 "locales": [
-                    "en-US"
                 ],
                 "platforms": [
                     "linux",

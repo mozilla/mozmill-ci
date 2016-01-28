@@ -10,7 +10,9 @@ import socket
 import time
 
 import jenkins
+import requests
 from mozdownload import FactoryScraper
+from mozdownload import errors as download_errors
 
 import lib
 from lib.jsonfile import JSONFile
@@ -123,18 +125,19 @@ class FirefoxAutomation:
 
         return parameters
 
-    def get_installer_url(self, properties):
-        """Gets the installer URL if not given by the Pulse build notification.
+    def query_file_url(self, properties, property_overrides=None):
+        """Query for the specified build by using mozdownload.
 
-        If the URL is not present it will be generated with mozdownload.
+        This method uses the properties as received via Mozilla Pulse to query
+        the build via mozdownload. Use the property overrides to customize the
+        query, e.g. different build or test package files.
         """
-        if properties.get('build_url'):
-            return properties['build_url']
+        property_overrides = property_overrides or {}
 
-        # Update tests for beta/release builds would actually need a build_type
-        # of 'release' instead of 'candidate' but we do not run the tests for
-        # those builds.
-        build_type = 'candidate' if 'release-' in properties['tree'] else 'daily'
+        if property_overrides.get('build_type'):
+            build_type = property_overrides['build_type']
+        else:
+            build_type = 'candidate' if 'release-' in properties['tree'] else 'daily'
 
         kwargs = {
             # General arguments for all types of builds
@@ -152,18 +155,99 @@ class FirefoxAutomation:
             'version': properties.get('version'),
         }
 
-        self.logger.debug('Retrieve url for {} build: {}'.format(build_type, kwargs))
+        # Update arguments with given overrides
+        kwargs.update(property_overrides)
+
+        self.logger.debug('Retrieve url for a {} file: {}'.format(build_type, kwargs))
         scraper = FactoryScraper(build_type, **kwargs)
 
         return scraper.url
 
+    def get_installer_url(self, properties):
+        """Get the installer URL if not given by the Pulse build notification.
+
+        If the URL is not present it will be generated with mozdownload.
+        """
+        if properties.get('build_url'):
+            build_url = properties['build_url']
+        else:
+            self.logger.info('Querying installer URL...')
+            build_url = self.query_file_url(properties)
+
+        self.logger.info('Found installer at: {}'.format(build_url))
+
+        return build_url
+
     def get_platform_identifier(self, platform):
-        # Map to translate platform ids from RelEng
+        """Map to translate platform IDs from RelEng."""
         platform_map = {'macosx': 'mac',
                         'macosx64': 'mac',
                         }
 
         return platform_map.get(platform, platform)
+
+    def get_test_packages_url(self, properties):
+        """Return the URL of the test packages JSON file.
+
+        In case of localized daily builds we can query the en-US build to get
+        the URL, but for candidate builds we need the tinderbox build
+        of the first parent changeset which was not checked-in by the release
+        automation process (necessary until bug 1242035 is not fixed).
+        """
+        if properties.get('test_packages_url'):
+            url = properties['test_packages_url']
+        else:
+            overrides = {
+                'locale': 'en-US',
+                'extension': 'test_packages.json',
+                'retry_attempts': 0,
+            }
+
+            # Use hg.mo to query for the next revision which has Tinderbox builds
+            # available. We can use that to retrieve the test-packages URL.
+            if properties['tree'].startswith('release-'):
+                self.logger.info('Querying tinderbox revision for {} build...'.format(
+                                 properties['tree']))
+                revision = properties['revision']
+                while True:
+                    hg_url = 'https://hg.mozilla.org/releases/{branch}/json-rev/{revision}'.format(
+                        branch=properties['branch'],
+                        revision=revision)
+                    r = requests.get(hg_url)
+                    json_data = r.json()
+
+                    # Stop once we weren't able to retrieve the revision data or
+                    # have a revision not pushed by automation.
+                    if r.status_code != 200 or json_data['user'] != 'ffxbld':
+                        break
+
+                    # Pick the parent and check again.
+                    revision = json_data['parents'][0]
+
+                self.logger.info('Found revision for tinderbox build: {}'.format(revision))
+
+                overrides['build_type'] = 'tinderbox'
+                overrides['revision'] = revision
+
+            # For update tests we need the test package of the target build. That allows
+            # us to add fallback code in case major parts of the ui are changing in Firefox.
+            if properties.get('target_buildid'):
+                overrides['build_id'] = properties['target_buildid']
+
+            # The test package json file has a prefix with bug 1239808 fixed. Older builds need
+            # a fallback to a prefix-less filename.
+            try:
+                self.logger.info('Querying test packages URL...')
+                url = self.query_file_url(properties, property_overrides=overrides)
+            except download_errors.NotFoundError:
+                self.logger.info('URL not found. Querying not-prefixed test packages URL...')
+                overrides.pop('extension')
+                build_url = self.query_file_url(properties, property_overrides=overrides)
+                url = '{}/test_packages.json'.format(build_url[:build_url.rfind('/')])
+
+            self.logger.info('Found test package URL at: {}'.format(url))
+
+        return url
 
     def process_build(self, **pulse_properties):
         """Check properties and trigger a Jenkins build.

@@ -52,6 +52,15 @@ def main():
                         datefmt='%Y-%m-%dT%H:%M:%SZ')
     logger = logging.getLogger('mozmill-ci')
 
+    # Configure logging levels for sub modules. Set to ERROR by default.
+    sub_log_level = logging.ERROR
+    if options.log_level == logging.getLevelName(logging.DEBUG):
+        sub_log_level = logging.DEBUG
+    logging.getLogger('mozdownload').setLevel(sub_log_level)
+    logging.getLogger('redo').setLevel(sub_log_level)
+    logging.getLogger('requests').setLevel(sub_log_level)
+    logging.getLogger('thclient').setLevel(sub_log_level)
+
     # Auto import the virtual environment so the script can directly
     # be called without having to source into first.
     try:
