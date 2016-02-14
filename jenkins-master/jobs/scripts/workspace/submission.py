@@ -134,10 +134,14 @@ class Submission(object):
         lookup_url = urljoin(self.url,
                              RESULTSET_FRAGMENT.format(repository=self.repository,
                                                        revision=self.revision))
+        headers = {
+            'Accept': 'application/json',
+            'User-Agent': 'mozmill-ci',
+        }
 
         # self.logger.debug('Getting revision hash from: %s' % lookup_url)
         logger.info('Getting revision hash from: {}'.format(lookup_url))
-        response = requests.get(lookup_url)
+        response = requests.get(lookup_url, headers=headers)
         response.raise_for_status()
 
         if not response.json():
