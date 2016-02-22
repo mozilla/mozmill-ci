@@ -359,7 +359,7 @@ if __name__ == '__main__':
                 retval = int(f.read())
         except:
             # Any invalid data should have been caused by an abort of the job.
-            retval = BuildExitCode.usercancel
+            retval = BuildExitCode.busted
         logger.info('Read build exit code: {code} ({desc})'.format(code=retval,
                                                                    desc=BuildExitCode[retval]))
 
