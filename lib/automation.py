@@ -224,6 +224,7 @@ class FirefoxAutomation:
                     if len(jobs):
                         revision = resultset['revision']
                         break
+
                 self.logger.info('Found revision for tinderbox build: {}'.format(revision))
 
                 overrides['build_type'] = 'tinderbox'
@@ -312,8 +313,9 @@ class FirefoxAutomation:
         tree_config = self.config['jenkins']['jobs'][pulse_properties['tree']]
         platform_id = self.get_platform_identifier(pulse_properties['platform'])
 
-        # Get the build URL now so it hasn't to be done for each individual build.
+        # Get some properties now so it hasn't to be done for each individual platform version
         pulse_properties['build_url'] = self.get_installer_url(pulse_properties)
+        pulse_properties['test_packages_url'] = self.get_test_packages_url(pulse_properties)
 
         # Generate job data and queue up in Jenkins
         for testrun in tree_config['testruns']:

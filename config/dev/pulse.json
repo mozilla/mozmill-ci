@@ -36,7 +36,7 @@
                             "key": "revision"
                         },
                         "TEST_PACKAGES_URL": {
-                            "transform": "get_test_packages_url"
+                            "key": "test_packages_url"
                         }
                     },
                     "update": {
@@ -82,7 +82,7 @@
                             "key": "revision"
                         },
                         "TEST_PACKAGES_URL": {
-                            "transform": "get_test_packages_url"
+                            "key": "test_packages_url"
                         }
                     },
                     "update": {
@@ -127,7 +127,7 @@
                             "key": "revision"
                         },
                         "TEST_PACKAGES_URL": {
-                            "transform": "get_test_packages_url"
+                            "key": "test_packages_url"
                         }
                     }
                 }
