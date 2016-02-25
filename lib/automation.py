@@ -10,9 +10,10 @@ import socket
 import time
 
 import jenkins
-import requests
+
 from mozdownload import FactoryScraper
 from mozdownload import errors as download_errors
+from thclient import TreeherderClient
 
 import lib
 from lib.jsonfile import JSONFile
@@ -203,27 +204,26 @@ class FirefoxAutomation:
                 'retry_attempts': 0,
             }
 
-            # Use hg.mo to query for the next revision which has Tinderbox builds
-            # available. We can use that to retrieve the test-packages URL.
+            # Use Treeherder to query for the next revision which has Tinderbox builds
+            # available. We can use this revision to retrieve the test-packages URL.
             if properties['tree'].startswith('release-'):
                 self.logger.info('Querying tinderbox revision for {} build...'.format(
                                  properties['tree']))
-                revision = properties['revision']
-                while True:
-                    hg_url = 'https://hg.mozilla.org/releases/{branch}/json-rev/{revision}'.format(
-                        branch=properties['branch'],
-                        revision=revision)
-                    r = requests.get(hg_url)
-                    json_data = r.json()
+                revision = properties['revision'][:12]
 
-                    # Stop once we weren't able to retrieve the revision data or
-                    # have a revision not pushed by automation.
-                    if r.status_code != 200 or json_data['user'] != 'ffxbld':
+                client = TreeherderClient(host='treeherder.mozilla.org', protocol='https')
+                resultsets = client.get_resultsets(properties['branch'],
+                                                   tochange=revision,
+                                                   count=50)
+                for resultset in resultsets:
+                    jobs = client.get_jobs(properties['branch'],
+                                           result_set_id=resultset['id'],
+                                           job_type_name='Build',
+                                           exclusion_profile=False,
+                                           )
+                    if len(jobs):
+                        revision = resultset['revision']
                         break
-
-                    # Pick the parent and check again.
-                    revision = json_data['parents'][0]
-
                 self.logger.info('Found revision for tinderbox build: {}'.format(revision))
 
                 overrides['build_type'] = 'tinderbox'
