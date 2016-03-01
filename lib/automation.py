@@ -207,6 +207,15 @@ class FirefoxAutomation:
             # Use Treeherder to query for the next revision which has Tinderbox builds
             # available. We can use this revision to retrieve the test-packages URL.
             if properties['tree'].startswith('release-'):
+                platform_map = {
+                    'linux': {'build_platform': 'linux32'},
+                    'linux64': {'build_platform': 'linux64'},
+                    'macosx': {'build_os': 'mac', 'build_architecture': 'x86_64'},
+                    'macosx64': {'build_os': 'mac', 'build_architecture': 'x86_64'},
+                    'win32': {'build_os': 'win', 'build_architecture': 'x86'},
+                    'win64': {'build_os': 'win', 'build_architecture': 'x86_64'},
+                }
+
                 self.logger.info('Querying tinderbox revision for {} build...'.format(
                                  properties['tree']))
                 revision = properties['revision'][:12]
@@ -215,12 +224,17 @@ class FirefoxAutomation:
                 resultsets = client.get_resultsets(properties['branch'],
                                                    tochange=revision,
                                                    count=50)
+
+                # Set filters to speed-up querying jobs
+                kwargs = {
+                    'job_type_name': 'Build',
+                    'exclusion_profile': False,
+                }
+                kwargs.update(platform_map[properties['platform']])
+
                 for resultset in resultsets:
-                    jobs = client.get_jobs(properties['branch'],
-                                           result_set_id=resultset['id'],
-                                           job_type_name='Build',
-                                           exclusion_profile=False,
-                                           )
+                    kwargs.update({'result_set_id': resultset['id']})
+                    jobs = client.get_jobs(properties['branch'], **kwargs)
                     if len(jobs):
                         revision = resultset['revision']
                         break
