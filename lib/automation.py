@@ -225,10 +225,22 @@ class FirefoxAutomation:
                                                    tochange=revision,
                                                    count=50)
 
+                # Retrieve the option hashes to filter for opt builds
+                option_hash = None
+                for key, values in client.get_option_collection_hash().iteritems():
+                    for value in values:
+                        if value['name'] == 'opt':
+                            option_hash = key
+                            break
+                    if option_hash:
+                        break
+
                 # Set filters to speed-up querying jobs
                 kwargs = {
                     'job_type_name': 'Build',
                     'exclusion_profile': False,
+                    'option_collection_hash': option_hash,
+                    'result': 'success',
                 }
                 kwargs.update(platform_map[properties['platform']])
 
