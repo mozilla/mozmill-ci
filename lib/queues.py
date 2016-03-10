@@ -5,10 +5,11 @@
 import json
 import logging
 import re
+from datetime import datetime
 
-from kombu import Exchange, Queue
 import requests
 import taskcluster
+from kombu import Exchange, Queue
 
 
 class PulseQueue(Queue):
@@ -260,6 +261,109 @@ class FunsizeTaskCompletedQueue(PulseQueue):
 
             manifest = response.json()
             self.logger.debug('Received update manifest: {}'.format(manifest))
+        finally:
+            response.close()
+
+        return manifest
+
+
+class ReleaseTaskCompletedQueue(PulseQueue):
+    # Routing keys we are interested in for pre-processing the funsize notification
+    # are of form:
+    #   route.index.releases.v1.mozilla-beta.latest.firefox.latest.beetmover.en_US.win64 (en-US)
+    #   route.index.releases.v1.mozilla-beta.latest.firefox.latest.beetmover.1.win64 (l10n repack)
+    cc_key_regex = re.compile(r'.*releases\.v1\.(?P<tree>.*)\.latest\.firefox\.latest\.beetmover.*')
+
+    def __init__(self, exchange_name='exchange/taskcluster-queue/v1/task-completed',
+                 routing_key='route.index.releases.v1.#', **kwargs):
+        PulseQueue.__init__(self, exchange_name=exchange_name,
+                            routing_key=routing_key, **kwargs)
+
+    def _on_message(self, data):
+        # Check if its a valid tree
+        tree = data['tree']
+        if not self.is_valid_tree(tree):
+            raise ValueError('Cancel build request due to invalid tree: {}'.
+                             format(tree))
+
+        # Check if it's a valid product
+        if not self.is_valid_product(tree, data['product'].lower()):
+            raise ValueError('Cancel build request due to invalid product: {}'.
+                             format(data['product'].lower()))
+
+        # Check if it's a valid platform
+        if not self.is_valid_platform(tree, data['platform']):
+            raise ValueError('Cancel build request due to invalid platform: {}'.
+                             format(data['platform']))
+
+        def _handle_locale(locale):
+            try:
+                # Check if it's a valid locale
+                if not self.is_valid_locale(tree, locale):
+                    raise ValueError('Cancel build request due to invalid locale: {}'.
+                                     format(locale))
+
+                build_properties = {
+                    'allowed_testruns': ['functional'],
+                    'branch': data['branch'],
+                    'buildid': data['buildid'],
+                    'locale': locale,
+                    'platform': data['platform'],
+                    'product': data['product'],
+                    'revision': data['revision'],
+                    'tree': tree,
+                    'version': data['version'],
+                    'raw_json': data,
+                }
+                self.callback(**build_properties)
+
+            except ValueError as e:
+                self.logger.info(e.message)
+            except Exception:
+                self.logger.exception('Failed to process beetmover message.')
+
+        if 'locale' in data:
+            # In case of --push-update-message we have a single locale
+            _handle_locale(data['locale'])
+        else:
+            # Replace list of locales with a single locale per message
+            for locale in data.pop('locales', []):
+                data['locale'] = locale
+                _handle_locale(locale)
+
+    def _preprocess_message(self, body, message=None):
+        """Download the update manifest by processing the received funsize message."""
+        # Filter out messages which do not apply to our expected routing key regex
+        if message:
+            self.logger.debug('CC routing keys: %s' % message.headers['CC'])
+            if not any([self.cc_key_regex.search(key) for key in message.headers['CC']]):
+                raise ValueError('Routing keys do not match. Skipping message.')
+
+        # In case of --push-update-message we already have the wanted manifest
+        if 'workerId' not in body:
+            return body
+
+        manifest = None
+        queue = taskcluster.client.Queue()
+        url = queue.buildUrl('task', body['status']['taskId'])
+
+        response = requests.get(url)
+        try:
+            response.raise_for_status()
+
+            manifest = response.json().get('extra', {}).get('build_props')
+
+            # Fake specific properties so we are backward compatible
+            manifest['tree'] = 'release-%s' % manifest['branch']
+            manifest['product'] = 'firefox'
+
+            try:
+                d = datetime.strptime(body['status']['runs'][-1]['scheduled'],
+                                      '%Y-%m-%dT%H:%M:%S.%fZ')
+                manifest['buildid'] = d.strftime('%Y%m%d%H%M')
+            except:
+                pass
+
         finally:
             response.close()
 

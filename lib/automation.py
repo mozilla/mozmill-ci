@@ -19,6 +19,7 @@ import lib
 from lib.jsonfile import JSONFile
 from lib.queues import (NormalizedBuildQueue,
                         FunsizeTaskCompletedQueue,
+                        ReleaseTaskCompletedQueue,
                         )
 
 
@@ -45,14 +46,24 @@ class FirefoxAutomation:
                                                          type=self.config['pulse']['applabel'])
 
         # Queue for build notifications
-        queue_builds = NormalizedBuildQueue(name='{}_build'.format(queue_name),
-                                            callback=self.process_build,
-                                            pulse_config=self.config['pulse'])
+        queue_builds = NormalizedBuildQueue(
+            name='{}_build'.format(queue_name),
+            callback=self.process_build,
+            pulse_config=self.config['pulse']
+        )
+
+        # Queue for release build notifications
+        queue_release_builds = ReleaseTaskCompletedQueue(
+            name='{}_build_release'.format(queue_name),
+            callback=self.process_build,
+            pulse_config=self.config['pulse'])
 
         # Queue for update notifications
-        queue_updates = FunsizeTaskCompletedQueue(name='{}_update'.format(queue_name),
-                                                  callback=self.process_build,
-                                                  pulse_config=self.config['pulse'])
+        queue_updates = FunsizeTaskCompletedQueue(
+            name='{}_update'.format(queue_name),
+            callback=self.process_build,
+            pulse_config=self.config['pulse']
+        )
 
         # When a local message is used, process it and return immediately
         if self.message:
@@ -61,8 +72,11 @@ class FirefoxAutomation:
             # Check type of message and let it process by the correct queue
             if data.get('ACCEPTED_MAR_CHANNEL_IDS'):
                 queue_updates.process_message(data, None)
-            else:
+            elif data.get('tags'):
                 queue_builds.process_message(data, None)
+            else:
+                queue_release_builds.process_message(data, None)
+
             return
 
         with lib.PulseConnection(userid=self.pulse_auth['user'],
@@ -71,6 +85,7 @@ class FirefoxAutomation:
 
             try:
                 consumer.add_queue(queue_builds)
+                consumer.add_queue(queue_release_builds)
                 consumer.add_queue(queue_updates)
 
                 consumer.run()
