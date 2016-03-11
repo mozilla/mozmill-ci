@@ -827,13 +827,13 @@ index 9bd7b40..fee0edf 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/ondemand_functional/config.xml b/jenkins-master/jobs/ondemand_functional/config.xml
-index 80262ca..570f9a3 100644
---- a/jenkins-master/jobs/ondemand_functional/config.xml
-+++ b/jenkins-master/jobs/ondemand_functional/config.xml
+diff --git a/jenkins-master/jobs/ondemand_update-mozmill/config.xml b/jenkins-master/jobs/ondemand_update-mozmill/config.xml
+index 4be7c41..d0ed597 100644
+--- a/jenkins-master/jobs/ondemand_update-mozmill/config.xml
++++ b/jenkins-master/jobs/ondemand_update-mozmill/config.xml
 @@ -3,8 +3,8 @@
    <actions/>
-   <description>Execute functional tests for release and candidate builds.</description>
+   <description>Execute update tests for release and candidate builds.</description>
    <logRotator class="hudson.tasks.LogRotator">
 -    <daysToKeep>-1</daysToKeep>
 -    <numToKeep>10</numToKeep>
@@ -843,7 +843,7 @@ index 80262ca..570f9a3 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_update/config.xml b/jenkins-master/jobs/ondemand_update/config.xml
-index 4be7c41..d0ed597 100644
+index 8112a3a..2d9baa3 100644
 --- a/jenkins-master/jobs/ondemand_update/config.xml
 +++ b/jenkins-master/jobs/ondemand_update/config.xml
 @@ -3,8 +3,8 @@
