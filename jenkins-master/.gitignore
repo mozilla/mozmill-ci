@@ -21,7 +21,9 @@ hudson.triggers.SCMTrigger.xml
 identity.key.enc
 jenkins.mvn.GlobalMavenConfig.xml
 jobs/*/workspace/
-!jobs/tools/workspace
+!jobs/scripts/workspace
+!jobs/trigger-ondemand/workspace
+!jobs/trigger-ondemand-mozmill/workspace
 logs
 monitoring/
 nodeMonitors.xml

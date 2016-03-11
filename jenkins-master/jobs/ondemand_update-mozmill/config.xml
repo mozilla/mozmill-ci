@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Execute functional tests for release and candidate builds.</description>
+  <description>Execute update tests for release and candidate builds.</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>10</numToKeep>
@@ -11,7 +11,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@1.3">
-      <priority>1050</priority>
+      <priority>1060</priority>
     </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -35,6 +35,11 @@
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CHANNEL</name>
+          <description>Update channel.</description>
+          <defaultValue>release</defaultValue>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>ENV_PLATFORM</name>
           <description>Platform of the Mozmill environment.</description>
@@ -57,6 +62,21 @@
           <defaultValue></defaultValue>
         </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
+          <name>ALLOW_MAR_CHANNEL</name>
+          <description>MAR channel to be allowed for an update</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>None</string>
+              <string>firefox-mozilla-beta</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>OVERRIDE_UPDATE_URL</name>
+          <description>The URL used by Firefox when checking for updates.</description>
+          <defaultValue>None</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
           <name>PLATFORM</name>
           <description>The platform to run the test on.</description>
           <choices class="java.util.Arrays$ArrayList">
@@ -73,6 +93,11 @@
         <hudson.model.StringParameterDefinition>
           <name>REPORT_URL</name>
           <description>URL of the Mozmill Dashboard to send reports to.</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TARGET_BUILD_ID</name>
+          <description>The expected build id of Firefox after the update.</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
@@ -101,17 +126,17 @@
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --platform=$PLATFORM --locale=$LOCALE --build-number=$BUILD_NUMBER --version=$VERSION --retry-attempts=10 --retry-delay=30 --destination=builds/</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --platform=$PLATFORM --version=$VERSION --locale=$LOCALE --build-number=$BUILD_NUMBER --retry-attempts=10 --retry-delay=30 --destination=builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_functional --app=$APPLICATION --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
+      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_update --app=$APPLICATION --target-buildid=$TARGET_BUILD_ID --allow-mar-channel=$ALLOW_MAR_CHANNEL --override-update-url=$OVERRIDE_UPDATE_URL --channel=$CHANNEL --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>data/screenshots/</artifacts>
+      <artifacts>data/screenshots/,http.log</artifacts>
       <allowEmptyArchive>true</allowEmptyArchive>
       <onlyIfSuccessful>false</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
@@ -183,7 +208,7 @@ View the build in Jenkins:
 ${BUILD_URL}
 
 View the results in the Mozmill Dashboard:
-${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/functional/report/$2&quot;}</defaultContent>
+${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/update/report/$2&quot;}</defaultContent>
       <attachmentsPattern></attachmentsPattern>
       <presendScript></presendScript>
       <attachBuildLog>true</attachBuildLog>
@@ -209,5 +234,12 @@ ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apo
     <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.0">
       <colorMapName>xterm</colorMapName>
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+    <EnvInjectBuildWrapper plugin="envinject@1.88">
+      <info>
+        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:3,nsHostResolver:5,append
+NSPR_LOG_FILE=http.log</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
   </buildWrappers>
 </project>

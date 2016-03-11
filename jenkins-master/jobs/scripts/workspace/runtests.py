@@ -114,6 +114,7 @@ class UpdateRunner(BaseRunner):
     def __init__(self, *args, **kwargs):
         """Creates new instance of the update runner class.
 
+        :param allow_mar_channel: The allowed mar channels for the update.
         :param update_channel: The channel which is checked for available updates.
         :param update_target_version: The expected target version of the application.
         :param update_target_buildid: The expected target build id of the application.
@@ -124,6 +125,7 @@ class UpdateRunner(BaseRunner):
         if not kwargs['repository']:
             raise TypeError('Repository information have not been specified.')
 
+        self.allow_mar_channel = kwargs['update_allow_mar_channel']
         self.channel = kwargs['update_channel']
         self.target_version = kwargs['update_target_version']
         self.target_buildid = kwargs['update_target_buildid']
@@ -134,6 +136,8 @@ class UpdateRunner(BaseRunner):
 
         args.extend(['--firefox-ui-branch', self.repository])
 
+        if self.allow_mar_channel:
+            args.extend(['--update-allow-mar-channel', self.allow_mar_channel])
         if self.channel:
             args.extend(['--update-channel', self.channel])
         if self.target_version:
@@ -160,6 +164,9 @@ def parse_args():
                         help='The URL of the test_packages.json file for the given build.')
 
     update_group = parser.add_argument_group('Update Tests', 'Update test specific options')
+    update_group.add_argument('--update-allow-mar-channel',
+                              action=JenkinsDefaultValueAction,
+                              help='The allowed mar channels for the update test')
     update_group.add_argument('--update-channel',
                               action=JenkinsDefaultValueAction,
                               help='The update channel to use for the update test')

@@ -15,52 +15,6 @@
     </hudson.queueSorter.PrioritySorterJobProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>APPLICATION</name>
-          <description>The application type.</description>
-          <defaultValue>firefox</defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>BUILD_NUMBER</name>
-          <description>The build number of Firefox.</description>
-          <defaultValue>1</defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>BUILD_TYPE</name>
-          <description>The build type of Firefox.</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>release</string>
-              <string>candidate</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>CHANNEL</name>
-          <description>Update channel.</description>
-          <defaultValue>release</defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>ENV_PLATFORM</name>
-          <description>Platform of the Mozmill environment.</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>linux</string>
-              <string>mac</string>
-              <string>windows</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>LOCALE</name>
-          <description>The locale of Firefox.</description>
-          <defaultValue>en-US</defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.4">
-          <name>NODES</name>
-          <description>Labels of the nodes to execute the test on.</description>
-          <defaultValue></defaultValue>
-        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>ALLOW_MAR_CHANNEL</name>
           <description>MAR channel to be allowed for an update</description>
@@ -72,44 +26,62 @@
           </choices>
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
-          <name>OVERRIDE_UPDATE_URL</name>
-          <description>The URL used by Firefox when checking for updates.</description>
-          <defaultValue>None</defaultValue>
+          <name>BRANCH</name>
+          <description>The branch of the repository the build is based off.</description>
+          <defaultValue>mozilla-release</defaultValue>
         </hudson.model.StringParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>PLATFORM</name>
-          <description>The platform to run the test on.</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>linux</string>
-              <string>linux64</string>
-              <string>mac</string>
-              <string>mac64</string>
-              <string>win32</string>
-              <string>win64</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
-          <name>REPORT_URL</name>
-          <description>URL of the Mozmill Dashboard to send reports to.</description>
+          <name>CHANNEL</name>
+          <description>Update channel.</description>
+          <defaultValue>release</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>INSTALLER_URL</name>
+          <description>The URL of the build installer.</description>
           <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LOCALE</name>
+          <description>The locale of Firefox.</description>
+          <defaultValue>en-US</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.4">
+          <name>NODES</name>
+          <description>Labels of the nodes to execute the test on.</description>
+          <defaultValue></defaultValue>
+        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>REVISION</name>
+          <description>The expected revision of Firefox after the upgrade, which is also used for the report to Treeherder.</description>
+          <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>TARGET_BUILD_ID</name>
           <description>The expected build id of Firefox after the update.</description>
-          <defaultValue></defaultValue>
+          <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
-          <name>VERSION</name>
-          <description>The version of Firefox.</description>
-          <defaultValue></defaultValue>
+          <name>TEST_PACKAGES_URL</name>
+          <description>The URL of the test_packages.json file for the given build.</description>
+          <defaultValue>None</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <EnvInjectJobProperty plugin="envinject@1.88">
+      <info>
+        <propertiesFilePath>$JENKINS_HOME/../.jenkins.properties</propertiesFilePath>
+        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:3,nsHostResolver:5,append
+NSPR_LOG_FILE=http.log</propertiesContent>
+        <loadFilesFromMaster>true</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <contributors/>
+    </EnvInjectJobProperty>
   </properties>
   <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.5">
-    <parentJobName>get_mozmill-tests</parentJobName>
+    <parentJobName>get_mozharness</parentJobName>
     <criteria>Successful</criteria>
   </scm>
   <canRoam>true</canRoam>
@@ -120,57 +92,49 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
-      <project>get_mozmill-environments</project>
-      <filter>mozmill-env-$ENV_PLATFORM/**</filter>
+      <project>scripts</project>
+      <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+        <stable>true</stable>
+      </selector>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run mozdownload --type=$BUILD_TYPE --platform=$PLATFORM --version=$VERSION --locale=$LOCALE --build-number=$BUILD_NUMBER --retry-attempts=10 --retry-delay=30 --destination=builds/</commandLine>
+      <commandLine>python -u submission.py --test-type=update --build-state=running --repository=$BRANCH --revision=$REVISION --locale=$LOCALE --update-channel=$CHANNEL --update-number=1 treeherder_venv</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>mozmill-env-$ENV_PLATFORM/run testrun_update --app=$APPLICATION --target-buildid=$TARGET_BUILD_ID --allow-mar-channel=$ALLOW_MAR_CHANNEL --override-update-url=$OVERRIDE_UPDATE_URL --channel=$CHANNEL --repository=mozmill-tests --junit=report.xml --workspace=data --report=$REPORT_URL builds/</commandLine>
+      <commandLine>python -u runtests.py --test-type=update --repository=$BRANCH --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL --update-channel=$CHANNEL --update-allow-mar-channel=$ALLOW_MAR_CHANNEL --update-target-buildid=$TARGET_BUILD_ID</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>data/screenshots/,http.log</artifacts>
+      <artifacts>build/http.log,build/upload/**,minidumps/**</artifacts>
       <allowEmptyArchive>true</allowEmptyArchive>
       <onlyIfSuccessful>false</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
       <defaultExcludes>true</defaultExcludes>
     </hudson.tasks.ArtifactArchiver>
-    <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1.0">
-      <testResults>report_*.xml</testResults>
-      <keepLongStdio>false</keepLongStdio>
-      <testDataPublishers/>
-      <healthScaleFactor>1.0</healthScaleFactor>
-    </hudson.tasks.junit.JUnitResultArchiver>
+    <org.jenkinsci.plugins.postbuildscript.PostBuildScript plugin="postbuildscript@0.17">
+      <buildSteps>
+        <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
+          <commandLine>python -u submission.py --test-type=update --build-state=completed --repository=$BRANCH --revision=$REVISION --locale=$LOCALE --update-channel=$CHANNEL --update-number=1 treeherder_venv</commandLine>
+          <executeFromWorkingDir>false</executeFromWorkingDir>
+        </hudson.plugins.xshell.XShellBuilder>
+      </buildSteps>
+      <scriptOnlyIfSuccess>false</scriptOnlyIfSuccess>
+      <scriptOnlyIfFailure>false</scriptOnlyIfFailure>
+      <markBuildUnstable>true</markBuildUnstable>
+    </org.jenkinsci.plugins.postbuildscript.PostBuildScript>
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.38.2">
       <recipientList>$DEFAULT_RECIPIENTS</recipientList>
       <configuredTriggers>
-        <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
-          <email>
-            <recipientList></recipientList>
-            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
-            <body>$PROJECT_DEFAULT_CONTENT</body>
-            <recipientProviders>
-              <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
-            </recipientProviders>
-            <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>true</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
-            <replyTo></replyTo>
-            <contentType>project</contentType>
-          </email>
-        </hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
         <hudson.plugins.emailext.plugins.trigger.AbortedTrigger>
           <email>
             <recipientList></recipientList>
             <subject>$PROJECT_DEFAULT_SUBJECT</subject>
-            <body>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%application%&quot;} ${ENV,var=&quot;LOCALE&quot;} on ${NODE_NAME} (${ENV,var=&quot;BUILD_ID&quot;}) was aborted.
+            <body>Marionette ${PROJECT_NAME} testrun for ${INSTALLER_URL} on ${NODE_NAME} was aborted.
 
 View the build in Jenkins:
 ${BUILD_URL}</body>
@@ -201,25 +165,54 @@ ${BUILD_URL}</body>
         </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
       </configuredTriggers>
       <contentType>default</contentType>
-      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME}: ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%application%&quot;} ${ENV,var=&quot;LOCALE&quot;} on ${NODE_NAME} (${ENV,var=&quot;BUILD_ID&quot;})</defaultSubject>
-      <defaultContent>Mozmill ${PROJECT_NAME} testrun for ${BUILD_LOG_REGEX, regex=&quot;^\\*{3} Application: (.*) \\(.*\\)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%application%&quot;} ${ENV,var=&quot;LOCALE&quot;} on ${NODE_NAME} (${ENV,var=&quot;BUILD_ID&quot;}) completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
+      <defaultSubject>[${BUILD_STATUS}] ${PROJECT_NAME} on ${NODE_NAME}</defaultSubject>
+      <defaultContent>Marionette ${PROJECT_NAME} testrun for ${INSTALLER_URL} on ${NODE_NAME} completed with ${TEST_COUNTS, var=&quot;fail&quot;} failures.
 
 View the build in Jenkins:
 ${BUILD_URL}
 
-View the results in the Mozmill Dashboard:
-${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/update/report/$2&quot;}</defaultContent>
+View the HTML report:
+${BUILD_URL}artifact/report.html
+
+Test Failures:
+==============
+
+${FAILED_TESTS}
+</defaultContent>
       <attachmentsPattern></attachmentsPattern>
       <presendScript></presendScript>
       <attachBuildLog>true</attachBuildLog>
-      <compressBuildLog>false</compressBuildLog>
+      <compressBuildLog>true</compressBuildLog>
       <replyTo></replyTo>
       <saveOutput>false</saveOutput>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.16">
+      <patterns>
+        <hudson.plugins.ws__cleanup.Pattern>
+          <pattern>*.json</pattern>
+          <type>INCLUDE</type>
+        </hudson.plugins.ws__cleanup.Pattern>
+      </patterns>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>true</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+    </hudson.plugins.ws__cleanup.WsCleanup>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.16">
-      <deleteDirs>false</deleteDirs>
+      <patterns>
+        <hudson.plugins.ws__cleanup.Pattern>
+          <pattern></pattern>
+          <type>INCLUDE</type>
+        </hudson.plugins.ws__cleanup.Pattern>
+      </patterns>
+      <deleteDirs>true</deleteDirs>
       <cleanupParameter></cleanupParameter>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.11">
@@ -230,16 +223,8 @@ ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apo
       <timeoutType>absolute</timeoutType>
       <timeoutMinutesElasticDefault>3</timeoutMinutesElasticDefault>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.14"/>
     <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.0">
       <colorMapName>xterm</colorMapName>
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
-    <EnvInjectBuildWrapper plugin="envinject@1.88">
-      <info>
-        <propertiesContent>NSPR_LOG_MODULES=timestamp,nsHttp:3,nsHostResolver:5,append
-NSPR_LOG_FILE=http.log</propertiesContent>
-        <loadFilesFromMaster>false</loadFilesFromMaster>
-      </info>
-    </EnvInjectBuildWrapper>
   </buildWrappers>
 </project>
