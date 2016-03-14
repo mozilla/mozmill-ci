@@ -53,10 +53,7 @@
       <contributors/>
     </EnvInjectJobProperty>
   </properties>
-  <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.5">
-    <parentJobName>get_mozharness</parentJobName>
-    <criteria>Successful</criteria>
-  </scm>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -77,7 +74,7 @@
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u runtests.py --test-type=functional --repository=mozilla-beta --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL</commandLine>
+      <commandLine>python -u runtests.py --test-type=functional --repository=mozilla-beta --revision=$REVISION --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

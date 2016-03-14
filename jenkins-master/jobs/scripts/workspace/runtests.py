@@ -38,12 +38,22 @@ class BaseRunner(object):
         :param settings: Settings for the Runner as retrieved from the config file.
         :param installer_url: URL of the build to download.
         :param repository: Name of the repository the build has been built from.
+        :param revision: The revision the build was created from.
         :param test_packages_url: The URL of the test_packages.json file for the given build.
         """
         self.installer_url = kwargs['installer_url']
         self.repository = kwargs['repository']
+        self.revision = kwargs['revision']
         self.test_packages_url = kwargs['test_packages_url']
         self.settings = settings
+
+        # Purge unwanted environment variables (Treeherder and AWS credentials)
+        self.env = copy.copy(os.environ)
+        for var in ENV_VARS_TO_PURGE:
+            self.env.pop(var, None)
+
+        # Set environment variable to let mozcrash save a copy of the minidump files
+        self.env.update({'MINIDUMP_SAVE_PATH': os.path.join(here, 'minidumps')})
 
     def query_args(self):
         """Returns all required and optional command line arguments."""
@@ -57,6 +67,36 @@ class BaseRunner(object):
 
         return args
 
+    def fetch_mozharness(self):
+        """Fetch a specific version of mozharness by using the archiver client."""
+        # The archiver client fetches mozharness by a relative path from hg.mo. So we have
+        # to add the `releases/` prefix for each repository except mozilla-central.
+        revision = self.revision
+
+        if self.repository == 'mozilla-central':
+            repository = self.repository
+        elif self.repository == 'mozilla-esr38':
+            # On mozilla-esr38 we do not have a mozharness script for our fx ui tests.
+            # Fake it by getting the latest mozharness scripts from 45.0ESR instead.
+            repository = 'releases/mozilla-esr45'
+            revision = 'default'
+        else:
+            repository = 'releases/{}'.format(self.repository)
+
+        command = [
+            'python', 'archiver_client.py',
+            'mozharness',
+            '--repo', repository,
+            '--rev', revision,
+            '--debug'
+        ]
+
+        logger.info('Calling command to fetch mozharness: {}'.format(command))
+        try:
+            return subprocess.check_call(command, env=self.env)
+        except subprocess.CalledProcessError:
+            logger.exception('Failed to run external process')
+
     def run(self):
         """Executes the tests.
 
@@ -64,21 +104,13 @@ class BaseRunner(object):
         is used by the submission script to check the build status.
 
         """
-        # Purge unwanted environment variables (Treeherder and AWS credentials)
-        env = copy.copy(os.environ)
-        for var in ENV_VARS_TO_PURGE:
-            env.pop(var, None)
-
-        # Set environment variable to let mozcrash save a copy of the minidump files
-        env.update({'MINIDUMP_SAVE_PATH': os.path.join(here, 'minidumps')})
-
         command = [sys.executable, '-u',
                    os.path.join('mozharness', 'scripts', self.settings['harness_script'])]
         command.extend(self.query_args())
 
         logger.info('Calling command to execute tests: {}'.format(command))
         try:
-            return subprocess.check_call(command, env=env)
+            return subprocess.check_call(command, env=self.env)
         except subprocess.CalledProcessError as e:
             logger.exception('Failed to run external process')
 
@@ -158,7 +190,11 @@ def parse_args():
                         required=True,
                         help='The URL of the build installer.')
     parser.add_argument('--repository',
+                        required=True,
                         help='The repository name the build was created from.')
+    parser.add_argument('--revision',
+                        required=True,
+                        help='The revision the build was created from.')
     parser.add_argument('--test-packages-url',
                         action=JenkinsDefaultValueAction,
                         help='The URL of the test_packages.json file for the given build.')
@@ -195,6 +231,7 @@ def main():
         kwargs = vars(parse_args())
         settings = config['test_types'].get(kwargs['test_type'])
         runner = runner_map[kwargs['test_type']](settings, **kwargs)
+        runner.fetch_mozharness()
         retval = runner.run()
 
     finally:

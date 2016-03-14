@@ -80,10 +80,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       <contributors/>
     </EnvInjectJobProperty>
   </properties>
-  <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM" plugin="clone-workspace-scm@0.5">
-    <parentJobName>get_mozharness</parentJobName>
-    <criteria>Successful</criteria>
-  </scm>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -104,7 +101,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u runtests.py --test-type=update --repository=$BRANCH --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL --update-channel=$CHANNEL --update-allow-mar-channel=$ALLOW_MAR_CHANNEL --update-target-buildid=$TARGET_BUILD_ID</commandLine>
+      <commandLine>python -u runtests.py --test-type=update --repository=$BRANCH --revision=$REVISION  --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL --update-channel=$CHANNEL --update-allow-mar-channel=$ALLOW_MAR_CHANNEL --update-target-buildid=$TARGET_BUILD_ID</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>

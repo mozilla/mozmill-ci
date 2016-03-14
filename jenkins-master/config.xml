@@ -122,9 +122,7 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>6</int>
-          <string>MOZHARNESS_REVISION</string>
-          <string>815d689a6e1e</string>
+          <int>5</int>
           <string>MOZMILL_AUTOMATION_VERSION</string>
           <string>2.0.10.2</string>
           <string>NOTIFICATION_ADDRESS</string>
