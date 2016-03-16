@@ -77,9 +77,9 @@ class BaseRunner(object):
             repository = self.repository
         elif self.repository == 'mozilla-esr38':
             # On mozilla-esr38 we do not have a mozharness script for our fx ui tests.
-            # Fake it by getting the latest mozharness scripts from 45.0ESR instead.
+            # Fake it by getting a known version of mozharness from 45.0ESR instead.
             repository = 'releases/mozilla-esr45'
-            revision = 'default'
+            revision = '226acde614dc'
         else:
             repository = 'releases/{}'.format(self.repository)
 
