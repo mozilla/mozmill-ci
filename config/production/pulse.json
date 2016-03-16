@@ -419,6 +419,10 @@
                         "windows && 7 && 64bit",
                         "windows && 8.1 && 32bit",
                         "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
