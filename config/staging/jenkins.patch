@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 7bf7049..f359bef 100644
+index 77c0d6e..957eb17 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,16 +17,180 @@
@@ -203,15 +203,14 @@ index 7bf7049..f359bef 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-@@ -128,7 +297,7 @@
+@@ -126,6 +295,7 @@
            <string>MOZMILL_AUTOMATION_VERSION</string>
            <string>2.0.10.2</string>
            <string>NOTIFICATION_ADDRESS</string>
--          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
-           <string>PIP_FIND_LINKS</string>
-           <string>http://pypi.pub.build.mozilla.org/pub</string>
-           <string>PIP_NO_INDEX</string>
+           <string></string>
+           <string>PIP_DISABLE_PIP_VERSION_CHECK</string>
+           <string>1</string>
 diff --git a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml b/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
 index 2cec9ac..a8c78ed 100644
 --- a/jenkins-master/jenkins.model.JenkinsLocationConfiguration.xml
@@ -225,7 +224,7 @@ index 2cec9ac..a8c78ed 100644
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
 diff --git a/jenkins-master/jobs/mozilla-aurora_functional/config.xml b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-index 7c1c4cb..bdd6544 100644
+index 1b20237..aadb5bd 100644
 --- a/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -238,7 +237,7 @@ index 7c1c4cb..bdd6544 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index a6042bd..e8605d2 100644
+index 6f4e8db..24e1d76 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 @@ -4,7 +4,7 @@
@@ -251,7 +250,7 @@ index a6042bd..e8605d2 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_functional/config.xml b/jenkins-master/jobs/mozilla-central_functional/config.xml
-index d50c137..7555822 100644
+index 1fc375d..1457358 100644
 --- a/jenkins-master/jobs/mozilla-central_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -264,7 +263,7 @@ index d50c137..7555822 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index 9bd7b40..5d68cfd 100644
+index 62741c5..fa4cb78 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -4,7 +4,7 @@
@@ -290,7 +289,7 @@ index 4be7c41..9a130a1 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_update/config.xml b/jenkins-master/jobs/ondemand_update/config.xml
-index 8112a3a..be66564 100644
+index d3172dd..a1ec1bd 100644
 --- a/jenkins-master/jobs/ondemand_update/config.xml
 +++ b/jenkins-master/jobs/ondemand_update/config.xml
 @@ -4,7 +4,7 @@
@@ -303,7 +302,7 @@ index 8112a3a..be66564 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
-index aaab725..ac734e6 100644
+index 7a725a0..a030e05 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -316,7 +315,7 @@ index aaab725..ac734e6 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml
-index 00bd4e3..25d35c6 100644
+index f28957e..cd7ea08 100644
 --- a/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr38_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -329,7 +328,7 @@ index 00bd4e3..25d35c6 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
-index 9cee11f..357ac47 100644
+index 6b05abb..80c4350 100644
 --- a/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
 @@ -4,7 +4,7 @@
@@ -342,7 +341,7 @@ index 9cee11f..357ac47 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_functional/config.xml b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
-index ab60bbb..1528086 100644
+index be76f89..ce624db 100644
 --- a/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 @@ -4,7 +4,7 @@

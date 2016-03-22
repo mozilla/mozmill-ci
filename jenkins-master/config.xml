@@ -122,11 +122,13 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>5</int>
+          <int>6</int>
           <string>MOZMILL_AUTOMATION_VERSION</string>
           <string>2.0.10.2</string>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>
+          <string>PIP_DISABLE_PIP_VERSION_CHECK</string>
+          <string>1</string>
           <string>PIP_FIND_LINKS</string>
           <string>http://pypi.pub.build.mozilla.org/pub</string>
           <string>PIP_NO_INDEX</string>
