@@ -18,8 +18,14 @@ from jenkins import JenkinsDefaultValueAction
 
 here = os.path.dirname(os.path.abspath(__file__))
 
+# Extra environment variables we want to set
+EXTRA_ENV_VARS = {
+    'MINIDUMP_SAVE_PATH': os.path.join(here, 'minidumps'),  # save off minidump files
+    'PIP_DISABLE_PIP_VERSION_CHECK': '1',  # No version checks
+}
+
 # Purge unwanted environment variables like credentials
-ENV_VARS_TO_PURGE = [
+PURGE_ENV_VARS = [
     'AWS_BUCKET', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY',
     'TREEHERDER_URL', 'TREEHERDER_CLIENT_ID', 'TREEHERDER_SECRET',
 ]
@@ -49,11 +55,10 @@ class BaseRunner(object):
 
         # Purge unwanted environment variables (Treeherder and AWS credentials)
         self.env = copy.copy(os.environ)
-        for var in ENV_VARS_TO_PURGE:
+        for var in PURGE_ENV_VARS:
             self.env.pop(var, None)
 
-        # Set environment variable to let mozcrash save a copy of the minidump files
-        self.env.update({'MINIDUMP_SAVE_PATH': os.path.join(here, 'minidumps')})
+        self.env.update(EXTRA_ENV_VARS)
 
     def query_args(self):
         """Returns all required and optional command line arguments."""
