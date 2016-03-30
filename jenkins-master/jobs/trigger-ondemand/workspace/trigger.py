@@ -127,7 +127,7 @@ def get_test_packages_url(properties):
 
 
 def get_build_details(version_string):
-    """Extracts the type, version, and build_number of a version as given in the config file."""
+    """Extract the type, version, and build_number of a version as given in the config file."""
     # Expression to parse versions like: '5.0', '5.0#3', '5.0b1',
     # '5.0b2#1', '10.0esr#1', '10.0.4esr#1'
     pattern = re.compile(r'(?P<version>\d+[^#\s]+)(#(?P<build>\d+))?')
@@ -149,24 +149,26 @@ def get_build_details(version_string):
 
 
 def get_target_build_details(properties, platform):
-    platform_map = {'mac': 'macosx64'}
-
+    """Retrieve build details for the target version."""
     props = copy.deepcopy(properties)
     props.update({'platform': platform})
 
     # Retrieve platform specific info.txt
-    url = 'https://archive.mozilla.org/pub/firefox/candidates/{}-candidates/build{}/{}_info.txt'
-    url = url.format(props['version'], props['build_number'], platform_map.get(platform, platform))
-
-    print('Retrieving target build details for Firefox {} on {}...'.format(props['version'],
-                                                                           props['platform']))
-
+    overrides = {
+        'locale': 'en-US',
+        'extension': 'json',
+    }
+    url = query_file_url(properties, property_overrides=overrides)
+    print('Retrieving target build details for Firefox {} build {} on {}...'.format(
+          props['version'], props['build_number'], props['platform']))
     r = requests.get(url)
-    buildid = r.text.strip().split('=')[1]
+
+    # Update revision to retrieve the test package URL
+    props.update({'revision': r.json()['moz_source_stamp'][:12]})
 
     details = {
-        'build_id': buildid,
-        'revision': properties['revision'],
+        'build_id': r.json()['buildid'],
+        'revision': props['revision'],
         'test_packages_url': get_test_packages_url(props)
     }
 
@@ -194,7 +196,6 @@ def main():
 
     # Retrieve version details of the target build
     testrun.update(get_build_details(testrun.pop('target-version')))
-    testrun.update({'revision': testrun.pop('target-revision')})
     if testrun['build_type'] != 'candidate':
         raise Exception('Target build has to be a candidate build.')
 
@@ -240,6 +241,7 @@ def main():
                     parameters['CHANNEL'] = testrun['channel']
                     parameters['ALLOW_MAR_CHANNEL'] = \
                         testrun.get('allow-mar-channel', None)
+                    parameters['UPDATE_NUMBER'] = build_details['version']
 
                 print 'Triggering job: ondemand_%s with %s' % (testrun['script'], parameters)
                 j.build_job('ondemand_%s' % testrun['script'], parameters)
