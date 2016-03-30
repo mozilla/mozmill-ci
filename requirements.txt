@@ -1,5 +1,5 @@
 kombu==3.0.26
-mercurial==3.5.2
+mercurial
 mozdownload==1.20.2
 mozprocess==0.22
 python-jenkins==0.4.8
