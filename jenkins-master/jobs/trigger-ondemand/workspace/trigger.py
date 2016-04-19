@@ -228,7 +228,7 @@ def main():
                 build_details.update({'locale': locale})
 
                 parameters = {
-                    'BRANCH': build_details['branch'],
+                    'BRANCH': testrun['branch'],
                     'INSTALLER_URL': get_installer_url(build_details),
                     'LOCALE': locale,
                     'NODES': ' && '.join(node_labels),
