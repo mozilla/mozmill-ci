@@ -71,7 +71,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
     </EnvInjectJobProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
-  <quietPeriod>60</quietPeriod>
+  <quietPeriod>300</quietPeriod>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
