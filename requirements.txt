@@ -1,4 +1,4 @@
-kombu==3.0.26
+kombu==3.0.30
 mercurial
 mozdownload==1.20.2
 mozprocess==0.22

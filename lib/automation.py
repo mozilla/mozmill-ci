@@ -10,6 +10,7 @@ import socket
 import time
 
 import jenkins
+import requests
 
 from mozdownload import FactoryScraper
 from mozdownload import errors as download_errors
@@ -216,7 +217,6 @@ class FirefoxAutomation:
             overrides = {
                 'locale': 'en-US',
                 'extension': 'test_packages.json',
-                'retry_attempts': 0,
             }
 
             # Use Treeherder to query for the next revision which has Tinderbox builds
@@ -283,9 +283,12 @@ class FirefoxAutomation:
                 url = self.query_file_url(properties, property_overrides=overrides)
             except download_errors.NotFoundError:
                 self.logger.info('URL not found. Querying not-prefixed test packages URL...')
-                overrides.pop('extension')
+                extension = overrides.pop('extension')
                 build_url = self.query_file_url(properties, property_overrides=overrides)
-                url = '{}/test_packages.json'.format(build_url[:build_url.rfind('/')])
+                url = '{}/{}'.format(build_url[:build_url.rfind('/')], extension)
+                r = requests.head(url)
+                if r.status_code != 200:
+                    url = None
 
             self.logger.info('Found test package URL at: {}'.format(url))
 

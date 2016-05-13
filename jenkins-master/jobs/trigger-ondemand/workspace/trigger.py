@@ -63,7 +63,6 @@ def get_test_packages_url(properties):
         'locale': 'en-US',
         'extension': 'test_packages.json',
         'build_type': 'tinderbox',
-        'retry_attempts': 0,
     }
 
     platform_map = {
@@ -119,9 +118,12 @@ def get_test_packages_url(properties):
     try:
         url = query_file_url(properties, property_overrides=overrides)
     except download_errors.NotFoundError:
-        overrides.pop('extension')
+        extension = overrides.pop('extension')
         build_url = query_file_url(properties, property_overrides=overrides)
-        url = '{}/test_packages.json'.format(build_url[:build_url.rfind('/')])
+        url = '{}/{}'.format(build_url[:build_url.rfind('/')], extension)
+        r = requests.head(url)
+        if r.status_code != 200:
+            url = None
 
     return url
 
