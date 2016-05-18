@@ -184,6 +184,15 @@ class Submission(object):
 
         """
         job.add_state('running')
+
+        if os.environ.get('BUILD_URL'):
+            self._job_details.append({
+                'title': 'Inspect Jenkins Build (VPN required)',
+                'value': os.environ['BUILD_URL'],
+                'content_type': 'link',
+                'url': os.environ['BUILD_URL']
+            })
+
         self.submit(job)
 
     def submit_completed_job(self, job, retval, uploaded_logs):
@@ -202,17 +211,6 @@ class Submission(object):
         log_reference = uploaded_logs.get(self.settings['treeherder']['log_reference'])
         if log_reference:
             job.add_log_reference(name='buildbot_text', url=log_reference.get('url'))
-
-        # If the Jenkins BUILD_URL environment variable is present add it as artifact
-        # Bug 1218537: Submitting multipe Job Info objects fail right now. So we have to
-        # submit the Build URL via the completed job.
-        if os.environ.get('BUILD_URL'):
-            self._job_details.append({
-                'title': 'Inspect Jenkins Build (VPN required)',
-                'value': os.environ['BUILD_URL'],
-                'content_type': 'link',
-                'url': os.environ['BUILD_URL']
-            })
 
         # Add all uploaded logs as artifacts
         for log in uploaded_logs:
