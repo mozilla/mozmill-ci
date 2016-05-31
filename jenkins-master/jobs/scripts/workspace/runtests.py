@@ -80,11 +80,6 @@ class BaseRunner(object):
 
         if self.repository == 'mozilla-central':
             repository = self.repository
-        elif self.repository == 'mozilla-esr38':
-            # On mozilla-esr38 we do not have a mozharness script for our fx ui tests.
-            # Fake it by getting a known version of mozharness from 45.0ESR instead.
-            repository = 'releases/mozilla-esr45'
-            revision = '226acde614dc'
         else:
             repository = 'releases/{}'.format(self.repository)
 
@@ -137,13 +132,6 @@ class FunctionalRunner(BaseRunner):
         if not kwargs['repository']:
             raise TypeError('Repository information have not been specified.')
 
-    def query_args(self):
-        """Returns additional required and optional command line arguments."""
-        args = BaseRunner.query_args(self)
-        args.extend(['--firefox-ui-branch', self.repository])
-
-        return args
-
 
 class UpdateRunner(BaseRunner):
     """Runner class for update tests."""
@@ -170,8 +158,6 @@ class UpdateRunner(BaseRunner):
     def query_args(self):
         """Returns all required and optional command line arguments."""
         args = BaseRunner.query_args(self)
-
-        args.extend(['--firefox-ui-branch', self.repository])
 
         if self.allow_mar_channel:
             args.extend(['--update-allow-mar-channel', self.allow_mar_channel])
