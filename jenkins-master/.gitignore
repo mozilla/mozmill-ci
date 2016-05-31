@@ -24,7 +24,6 @@ jobs/*/workspace/
 !jobs/scripts/workspace
 jobs/scripts/workspace/archiver_client.py
 !jobs/trigger-ondemand/workspace
-!jobs/trigger-ondemand-mozmill/workspace
 logs
 monitoring/
 nodeMonitors.xml

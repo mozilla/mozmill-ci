@@ -48,8 +48,6 @@
       <properties class="hudson.model.View$PropertyList"/>
       <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
-        <string>get_mozmill-environments</string>
-        <string>get_mozmill-tests</string>
         <string>scripts</string>
       </jobNames>
       <jobFilters/>
@@ -122,9 +120,7 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>5</int>
-          <string>MOZMILL_AUTOMATION_VERSION</string>
-          <string>2.0.10.2</string>
+          <int>4</int>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>
           <string>PIP_FIND_LINKS</string>

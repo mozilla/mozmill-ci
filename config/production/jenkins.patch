@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 0e3a860..5101495 100644
+index 80c7c40..be92a49 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,16 +17,708 @@
@@ -717,7 +717,7 @@ index 0e3a860..5101495 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -113,7 +805,12 @@
+@@ -111,7 +803,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
@@ -731,9 +731,9 @@ index 0e3a860..5101495 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-@@ -126,7 +823,7 @@
-           <string>MOZMILL_AUTOMATION_VERSION</string>
-           <string>2.0.10.2</string>
+@@ -122,7 +819,7 @@
+           </default>
+           <int>4</int>
            <string>NOTIFICATION_ADDRESS</string>
 -          <string></string>
 +          <string>mozmill-ci@mozilla.org</string>
@@ -752,21 +752,6 @@ index 2cec9ac..bfe0e1f 100644
 +  <jenkinsUrl>http://mm-ci-production.qa.scl3.mozilla.com:8080/</jenkinsUrl>
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
-diff --git a/jenkins-master/jobs/get_mozmill-tests/config.xml b/jenkins-master/jobs/get_mozmill-tests/config.xml
-index c7fbc98..715edbf 100644
---- a/jenkins-master/jobs/get_mozmill-tests/config.xml
-+++ b/jenkins-master/jobs/get_mozmill-tests/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Clone the Mozmill tests repository.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_functional/config.xml b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 index 1b20237..c8b7536 100644
 --- a/jenkins-master/jobs/mozilla-aurora_functional/config.xml
@@ -824,21 +809,6 @@ index ef509ad..f43d3d2 100644
 -    <numToKeep>10</numToKeep>
 +    <daysToKeep>3</daysToKeep>
 +    <numToKeep>400</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/ondemand_update-mozmill/config.xml b/jenkins-master/jobs/ondemand_update-mozmill/config.xml
-index 4be7c41..d0ed597 100644
---- a/jenkins-master/jobs/ondemand_update-mozmill/config.xml
-+++ b/jenkins-master/jobs/ondemand_update-mozmill/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute update tests for release and candidate builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>2000</numToKeep>
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
