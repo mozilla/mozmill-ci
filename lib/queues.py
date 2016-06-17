@@ -133,7 +133,8 @@ class NormalizedBuildQueue(PulseQueue):
             'branch': data['branch'],
             'buildid': data['buildid'],
             'build_number': data.get('build_number'),
-            'build_url': data.get('buildurl'),  # not present in l10n builds
+            # buildurl for l10n repacks point to en-US which we don't want
+            'build_url': data['buildurl'] if data['locale'] == 'en-US' else None,
             'locale': data['locale'],
             'platform': data['platform'],
             'product': data['product'].lower(),
