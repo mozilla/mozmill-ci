@@ -48,6 +48,13 @@
                             "key": "update_number"
                         }
                     }
+                },
+                "taskcluster_parameter_map": {
+                    "update": {
+                        "update_channel": {
+                            "value": "nightly"
+                        }
+                    }
                 }
             },
             "mozilla-aurora": {
@@ -249,7 +256,7 @@
                         "linux && ubuntu && 14.04 && 32bit"
                     ],
                     "linux64": [
-                        "linux && ubuntu && 14.04 && 64bit"
+                        "taskcluster"
                     ],
                     "mac": [
                         "mac && 10.9 && 64bit",

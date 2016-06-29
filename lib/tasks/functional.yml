@@ -1,0 +1,93 @@
+---
+metadata:
+  name: '[TC] {{ platform|title }} firefox-ui-tests functional'
+  description: 'firefox-ui-tests functional run'
+  owner: 'mozauto@mozilla.com'
+  source: 'https://github.com/mozilla/mozmill-ci'
+
+created: '{{ now }}'
+deadline: '{{ fromNow("24 hours") }}'
+
+tags:
+  createdForUser: mozauto@mozilla.com
+
+provisionerId: 'aws-provisioner-v1'
+workerType: 'qa-3-linux-fx-tests'
+
+scopes:
+  - 'docker-worker:cache:level-3-{{ branch }}-test-workspace'
+
+routes:
+  - 'tc-treeherder{%if treeherder_instance is equalto "staging" %}-stage{% endif %}.{{ branch }}.{{ revision }}'
+
+payload:
+  image:
+    type: task-image
+    path: 'public/image.tar'
+    taskId: '{{ docker_task_id }}'
+
+  maxRunTime: 5400
+
+  command:
+    - 'bash'
+    - '/home/worker/bin/test.sh'
+    - '--download-symbols=ondemand'
+    - '--installer-url={{ build_url}}'
+    - '--test-packages-url={{ test_packages_url }}'
+
+  env:
+      NEED_WINDOW_MANAGER: true
+      NEED_PULSEAUDIO: true
+      GECKO_HEAD_REPOSITORY: '{{ repository }}'
+      GECKO_HEAD_REV: '{{ revision }}'
+
+      MOZHARNESS_URL: ' {{ mozharness_url }}'
+      MOZHARNESS_SCRIPT: 'mozharness/scripts/firefox_ui_tests/functional.py'
+      MOZHARNESS_CONFIG: >
+        mozharness/configs/firefox_ui_tests/taskcluster.py
+        mozharness/configs/remove_executables.py
+
+      MOZ_NODE_PATH: '/usr/local/bin/node'
+
+  cache:
+    # put the workspace and /tmp on a cache, less for inter-task caching than
+    # to get this directory on fast, non-aufs storage
+    level-3-{{ branch }}-test-workspace: '/home/worker/workspace'
+
+  artifacts:
+    'public/test':
+      type: directory
+      path: '/home/worker/artifacts/'
+      expires: '{{ fromNow("365 days")}}'
+    'public/logs':
+      type: directory
+      path: '/home/worker/workspace/build/upload/logs/'
+      expires: '{{ fromNow("365 days")}}'
+    'public/test_info':
+      type: directory
+      path: '/home/worker/workspace/build/blobber_upload_dir/'
+      expires: '{{ fromNow("365 days")}}'
+
+extra:
+  chunks:
+    current: 1
+    total: 1
+  suite:
+    flavor: 'functional'
+    name: 'firefox-ui'
+  treeherder:
+    jobKind: test
+    groupName: Desktop firefox-ui functional tests
+    groupSymbol: tc-Fxfn
+    symbol: {{ locale }}
+    tier: 3
+    revision: {{ revision }}
+    revision_hash: {{ revision_hash }}
+    build:
+      platform: {{platform}}
+    collection:
+      opt: true
+    machine:
+      platform: {{platform}}
+  treeherderEnv:
+    - {{ treeherder_instance }}

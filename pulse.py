@@ -11,8 +11,9 @@ import sys
 import time
 
 
-ACTIVATE_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               'jenkins-env', 'bin', 'activate_this.py')
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+ACTIVATE_SCRIPT = os.path.join(ROOT_PATH, 'jenkins-env', 'bin', 'activate_this.py')
+TREEHERDER_CONFIG_FILE = os.path.join(ROOT_PATH, '.jenkins.properties')
 
 
 def main():
@@ -72,8 +73,11 @@ def main():
 
     from lib.automation import FirefoxAutomation
 
+
+
     FirefoxAutomation(configfile=args[0],
                       pulse_authfile=options.pulse_authfile,
+                      treeherder_configfile=TREEHERDER_CONFIG_FILE,
                       debug=options.debug,
                       log_folder=options.log_folder,
                       logger=logger,

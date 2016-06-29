@@ -8,6 +8,7 @@ from datetime import datetime
 import os
 import socket
 import time
+import urlparse
 
 import jenkins
 import requests
@@ -22,12 +23,14 @@ from lib.queues import (NormalizedBuildQueue,
                         FunsizeTaskCompletedQueue,
                         ReleaseTaskCompletedQueue,
                         )
+import lib.tc as tc
+import lib.treeherder as treeherder
 
 
 class FirefoxAutomation:
 
-    def __init__(self, configfile, pulse_authfile, debug, log_folder, logger,
-                 message=None, display_only=False):
+    def __init__(self, configfile, pulse_authfile, treeherder_configfile, debug,
+                 log_folder, logger, message=None, display_only=False):
 
         self.config = JSONFile(configfile).read()
         self.debug = debug
@@ -35,6 +38,7 @@ class FirefoxAutomation:
         self.logger = logger
         self.display_only = display_only
         self.message = message
+        self.treeherder_config = {}
 
         self.jenkins = jenkins.Jenkins(self.config['jenkins']['url'],
                                        self.config['jenkins']['auth']['username'],
@@ -45,6 +49,13 @@ class FirefoxAutomation:
         queue_name = 'queue/{user}/{host}/{type}'.format(user=self.pulse_auth['user'],
                                                          host=socket.getfqdn(),
                                                          type=self.config['pulse']['applabel'])
+
+        # Load settings from the Treeherder config file
+        with open(treeherder_configfile, 'r') as f:
+            for line in f.readlines():
+                if line.strip() and not line.startswith('#'):
+                    key, value = line.strip().split('=')
+                    self.treeherder_config.update({key: value})
 
         # Queue for build notifications
         queue_builds = NormalizedBuildQueue(
@@ -108,9 +119,13 @@ class FirefoxAutomation:
         self.pulse_auth = auth
 
     def generate_job_parameters(self, testrun, node, **pulse_properties):
-        # Create parameter map from Pulse to Jenkins properties
-        map = self.config['pulse']['trees'][pulse_properties['tree']]['jenkins_parameter_map']
-        parameter_map = copy.deepcopy(map['default'])
+        ci_system = node if node == 'taskcluster' else 'jenkins'
+
+        # Create parameter map from Pulse to properties needed by the CI system
+        pulse_props = self.config['pulse']['trees'][pulse_properties['tree']]
+        map = pulse_props.get('{}_parameter_map'.format(ci_system), [])
+        parameter_map = copy.deepcopy(map.get('default', {})) if map else []
+
         if testrun in map:
             for key in map[testrun]:
                 parameter_map[key] = map[testrun][key]
@@ -194,6 +209,17 @@ class FirefoxAutomation:
         self.logger.info('Found installer at: {}'.format(build_url))
 
         return build_url
+
+    def get_mozharness_url(self, test_packages_url):
+        """Get the mozharness URL which lays in the same folder as the test packages."""
+        url = '{}/{}'.format(test_packages_url[:test_packages_url.rfind('/')], 'mozharness.zip')
+        r = requests.head(url)
+        if r.status_code != 200:
+            url = None
+
+        self.logger.info('Found mozharness URL at: {}'.format(url))
+
+        return url
 
     def get_platform_identifier(self, platform):
         """Map to translate platform IDs from RelEng."""
@@ -360,6 +386,8 @@ class FirefoxAutomation:
         # Get some properties now so it hasn't to be done for each individual platform version
         pulse_properties['build_url'] = self.get_installer_url(pulse_properties)
         pulse_properties['test_packages_url'] = self.get_test_packages_url(pulse_properties)
+        pulse_properties['mozharness_url'] = self.get_mozharness_url(
+            pulse_properties['test_packages_url'])
 
         # Generate job data and queue up in Jenkins
         for testrun in tree_config['testruns']:
@@ -368,24 +396,70 @@ class FirefoxAutomation:
 
             # Fire off a build for each supported platform version
             for node in tree_config['nodes'][platform_id]:
-                try:
-                    job = '{}_{}'.format(pulse_properties['tree'], testrun)
-                    parameters = self.generate_job_parameters(testrun,
-                                                              node,
-                                                              **pulse_properties)
+                job = '{}_{}'.format(pulse_properties['tree'], testrun)
+                self.logger.info('Triggering job "{}" on "{}"'.format(job, node))
 
-                    self.logger.info('Triggering job "{}" on "{}"'.format(job, node))
-                    if self.display_only:
-                        self.logger.info('Parameters: {}'.format(parameters))
-                        continue
+                if node == 'taskcluster':
+                    try:
+                        th_url = self.treeherder_config['TREEHERDER_URL']
 
-                    self.logger.debug('Parameters: {}'.format(parameters))
-                    self.jenkins.build_job(job, parameters)
-                except Exception:
-                    # For now simply discard and continue.
-                    # Later we might want to implement a queuing mechanism.
-                    self.logger.exception('Cannot create job at "{}"'.
-                                          format(self.config['jenkins']['url']))
+                        pulse_properties.update({
+                            'revision_hash': treeherder.get_revision_hash(
+                                urlparse.urlparse(th_url).netloc,
+                                pulse_properties['branch'],
+                                pulse_properties['revision']
+                            ),
+                            'treeherder_instance': self.treeherder_config['TREEHERDER_INSTANCE'],
+                        })
+
+                        # This includes a hard-coded channel name for now. Finally it has to be set
+                        # via a web interface once we run tc tasks for mozilla-aurora, due to the
+                        # 'auroratest' channel usage after branch merges.
+                        extra_params = self.generate_job_parameters(testrun, node,
+                                                                    **pulse_properties)
+                        pulse_properties.update(extra_params)
+
+                        fxui_worker = tc.FirefoxUIWorker(
+                            client_id=self.treeherder_config['TASKCLUSTER_CLIENT_ID'],
+                            authentication=self.treeherder_config['TASKCLUSTER_SECRET'],
+                        )
+
+                        payload = fxui_worker.generate_task_payload(testrun, pulse_properties)
+
+                        if self.display_only:
+                            self.logger.info('Payload: {}'.format(payload))
+                            continue
+
+                        task = fxui_worker.createTestTask(testrun, payload)
+                        self.logger.info('Task has been created: {uri}{id}'.format(
+                            uri=tc.URI_TASK_INSPECTOR,
+                            id=task['status']['taskId'],
+                        ))
+
+                    except Exception:
+                        # For now simply discard and continue.
+                        # Later we might want to implement a queuing mechanism.
+                        self.logger.exception('Cannot create task on Taskcluster')
+
+                else:
+                    try:
+                        parameters = self.generate_job_parameters(testrun,
+                                                                  node,
+                                                                  **pulse_properties)
+
+                        if self.display_only:
+                            self.logger.info('Parameters: {}'.format(parameters))
+                            continue
+
+                        self.logger.debug('Parameters: {}'.format(parameters))
+
+                        self.jenkins.build_job(job, parameters)
+
+                    except Exception:
+                        # For now simply discard and continue.
+                        # Later we might want to implement a queuing mechanism.
+                        self.logger.exception('Cannot create job at "{}"'.
+                                              format(self.config['jenkins']['url']))
 
             # Give Jenkins a bit of breath to process other threads
             time.sleep(2.5)

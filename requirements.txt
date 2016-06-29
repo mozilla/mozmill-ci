@@ -1,11 +1,13 @@
 kombu==3.0.30
+Jinja2==2.8
 mozdownload==1.20.2
 mozprocess==0.22
 python-jenkins==0.4.8
 redo==1.5
 requests==2.9.1
-taskcluster==0.0.24
-treeherder-client==2.0.1
+taskcluster==0.3.4
+treeherder-client==2.1.0
+PyYAML==3.11
 
 # https://github.com/mozilla/mozmill-ci/issues/628
 # As long as Python 2.7.10 cannot be used on our master machines
@@ -13,7 +15,9 @@ ndg-httpsclient
 pyasn1
 pyopenssl
 
-# Required by treeherder-client
-mohawk==0.3.0
+# Required by thclient and taskcluster
+mohawk==0.3.2.1
+
+# Required by thclient
 requests-hawk==1.0.0
 six==1.10.0

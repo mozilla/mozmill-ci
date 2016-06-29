@@ -11,3 +11,7 @@ class NotFoundException(Exception):
     def __init__(self, message, location):
         self.location = location
         Exception.__init__(self, ': '.join([message, location]))
+
+
+class NotSupportedException(Exception):
+    """Exception for a not implemented error."""

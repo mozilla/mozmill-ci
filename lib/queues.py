@@ -12,6 +12,20 @@ import taskcluster
 from kombu import Exchange, Queue
 
 
+def get_long_revision(repo, revision):
+    """Convert short revision to long using JSON API
+
+    >>> long_revision("releases/mozilla-beta", "59f372c35b24")
+    u'59f372c35b2416ac84d6572d64c49227481a8a6c'
+    """
+    repo = 'releases/%s' % repo if repo != 'mozilla-central' else repo
+    url = "https://hg.mozilla.org/{}/json-rev/{}".format(repo, revision)
+
+    req = requests.get(url, timeout=60)
+    req.raise_for_status()
+    return req.json()["node"]
+
+
 class PulseQueue(Queue):
 
     def __init__(self, name=None, exchange_name=None, exchange=None,
@@ -128,6 +142,11 @@ class NormalizedBuildQueue(PulseQueue):
         # portion to get the real branch which we need for our firefox-ui-tests branch checkout.
         data['branch'] = tree.replace('release-', '')
 
+        data['repo'] = 'http://hg.mozilla.org/{}{}'.format(
+            'releases/' if not tree.endswith('-central') else '',
+            data['branch'],
+        )
+
         build_properties = {
             'allowed_testruns': ['functional'],
             'branch': data['branch'],
@@ -138,7 +157,8 @@ class NormalizedBuildQueue(PulseQueue):
             'locale': data['locale'],
             'platform': data['platform'],
             'product': data['product'].lower(),
-            'revision': data['revision'],
+            'repository': data['repo'],
+            'revision': get_long_revision(tree, data['revision']),
             'status': data['status'],
             'tags': data['tags'],
             'test_packages_url': data['test_packages_url'],
@@ -199,6 +219,7 @@ class FunsizeTaskCompletedQueue(PulseQueue):
                     'locale': update['locale'],
                     'platform': update['platform'],
                     'product': update['appName'].lower(),
+                    'repository': update['repo'],
                     'revision': update['revision'],
                     'target_buildid': update['to_buildid'],
                     'target_version': update['version'],
