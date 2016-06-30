@@ -273,18 +273,10 @@ class FunsizeTaskCompletedQueue(PulseQueue):
             return body
 
         # Download the manifest from S3 for full processing
-        manifest = None
         queue = taskcluster.client.Queue()
-        url = queue.buildUrl('getLatestArtifact', body['status']['taskId'],
-                             'public/env/manifest.json')
-        response = requests.get(url)
-        try:
-            response.raise_for_status()
-
-            manifest = response.json()
-            self.logger.debug('Received update manifest: {}'.format(manifest))
-        finally:
-            response.close()
+        manifest = queue.getLatestArtifact(body['status']['taskId'],
+                                           'public/env/manifest.json')
+        self.logger.debug('Received update manifest: {}'.format(manifest))
 
         return manifest
 
@@ -365,28 +357,21 @@ class ReleaseTaskCompletedQueue(PulseQueue):
         if 'workerId' not in body:
             return body
 
-        manifest = None
+        # Retrieve build properties to be used as the manifest
         queue = taskcluster.client.Queue()
-        url = queue.buildUrl('task', body['status']['taskId'])
+        task_definition = queue.task(body['status']['taskId'])
 
-        response = requests.get(url)
+        manifest = task_definition.get('extra', {}).get('build_props')
+
+        # Fake specific properties so we are backward compatible
+        manifest['tree'] = 'release-%s' % manifest['branch']
+        manifest['product'] = 'firefox'
+
         try:
-            response.raise_for_status()
-
-            manifest = response.json().get('extra', {}).get('build_props')
-
-            # Fake specific properties so we are backward compatible
-            manifest['tree'] = 'release-%s' % manifest['branch']
-            manifest['product'] = 'firefox'
-
-            try:
-                d = datetime.strptime(body['status']['runs'][-1]['scheduled'],
-                                      '%Y-%m-%dT%H:%M:%S.%fZ')
-                manifest['buildid'] = d.strftime('%Y%m%d%H%M')
-            except:
-                pass
-
-        finally:
-            response.close()
+            d = datetime.strptime(body['status']['runs'][-1]['scheduled'],
+                                  '%Y-%m-%dT%H:%M:%S.%fZ')
+            manifest['buildid'] = d.strftime('%Y%m%d%H%M')
+        except:
+            pass
 
         return manifest
