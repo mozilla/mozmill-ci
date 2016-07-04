@@ -74,12 +74,12 @@ class FirefoxUIWorker(object):
         'desktop-test' worker type. Within its payload the task id of the docker task
         can be extracted.
 
-        Bug 1276352 - Not all Taskcluster builds are Tier-1 yet. So the index also
-        contains BuildBot entries. To ensure we get a TC build force to Linux64 dbg.
+        Bug 1284236 - Not all Taskcluster builds report correctly to the Index.
+        To ensure we get a TC build force to Linux64 debug for now.
 
         :param properties: Properties of the build and necessary resources.
         """
-        build_index = 'gecko.v2.{branch}.revision.{rev}.firefox.{platform}-dbg'.format(
+        build_index = 'gecko.v2.{branch}.revision.{rev}.firefox.{platform}-debug'.format(
             branch=properties['branch'],
             rev=properties['revision'],
             platform=properties['platform'],
