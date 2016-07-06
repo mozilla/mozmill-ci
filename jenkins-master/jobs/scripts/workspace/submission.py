@@ -5,6 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import argparse
+import copy
 import json
 import logging
 import os
@@ -13,6 +14,8 @@ import sys
 import time
 from urlparse import urljoin, urlparse
 import uuid
+
+from redo import retriable
 
 from buildbot import BuildExitCode
 from config import config
@@ -28,6 +31,7 @@ BUILD_STATES = ['running', 'completed']
 logging.basicConfig(format='%(asctime)s %(levelname)s | %(message)s', datefmt='%H:%M:%S')
 logger = logging.getLogger('mozmill-ci')
 logger.setLevel(logging.INFO)
+logging.getLogger('redo').setLevel(logging.INFO)
 
 
 class Submission(object):
@@ -123,6 +127,7 @@ class Submission(object):
 
         return job
 
+    @retriable(sleeptime=30, jitter=0)
     def retrieve_revision_hash(self):
         """Retrieves the unique hash for the current revision."""
         resultsets = self.client.get_resultsets(project=self.repository,
@@ -130,6 +135,7 @@ class Submission(object):
 
         return resultsets[0]['revision_hash']
 
+    @retriable(sleeptime=30, jitter=0)
     def submit(self, job):
         """Submit the job to treeherder.
 
@@ -138,9 +144,10 @@ class Submission(object):
         """
         job.add_submit_timestamp(int(time.time()))
 
-        # We can only submit job info once, so it has to be done in completed
         if self._job_details:
-            job.add_artifact('Job Info', 'json', {'job_details': self._job_details})
+            job.add_artifact('Job Info', 'json',
+                             {'job_details': copy.deepcopy(self._job_details)})
+            self._job_details = []
 
         job_collection = TreeherderJobCollection()
         job_collection.add(job)
