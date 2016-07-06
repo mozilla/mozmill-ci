@@ -21,7 +21,6 @@ from jenkins import JenkinsDefaultValueAction
 
 here = os.path.dirname(os.path.abspath(__file__))
 
-RESULTSET_FRAGMENT = 'api/project/{repository}/resultset/?revision={revision}'
 JOB_FRAGMENT = '/#/jobs?repo={repository}&revision={revision}'
 
 BUILD_STATES = ['running', 'completed']
@@ -35,7 +34,7 @@ class Submission(object):
     """Class for submitting reports to Treeherder."""
 
     def __init__(self, repository, revision, settings,
-                 treeherder_url=None, treeherder_client_id=None, treeherder_secret=None):
+                 treeherder_url, treeherder_client_id, treeherder_secret):
         """Creates new instance of the submission class.
 
         :param repository: Name of the repository the build has been built from.
@@ -52,12 +51,10 @@ class Submission(object):
 
         self._job_details = []
 
-        self.url = treeherder_url
-        self.client_id = treeherder_client_id
-        self.secret = treeherder_secret
-
-        if not self.client_id or not self.secret:
-            raise ValueError('The client_id and secret for Treeherder must be set.')
+        url = urlparse(treeherder_url)
+        self.client = TreeherderClient(protocol=url.scheme, host=url.hostname,
+                                       client_id=treeherder_client_id,
+                                       secret=treeherder_secret)
 
     def _get_treeherder_platform(self):
         """Returns the Treeherder equivalent platform identifier of the current platform."""
@@ -128,28 +125,10 @@ class Submission(object):
 
     def retrieve_revision_hash(self):
         """Retrieves the unique hash for the current revision."""
-        if not self.url:
-            raise ValueError('URL for Treeherder is missing.')
+        resultsets = self.client.get_resultsets(project=self.repository,
+                                                revision=self.revision)
 
-        lookup_url = urljoin(self.url,
-                             RESULTSET_FRAGMENT.format(repository=self.repository,
-                                                       revision=self.revision))
-        headers = {
-            'Accept': 'application/json',
-            'User-Agent': 'mozmill-ci',
-        }
-
-        # self.logger.debug('Getting revision hash from: %s' % lookup_url)
-        logger.info('Getting revision hash from: {}'.format(lookup_url))
-        response = requests.get(lookup_url, headers=headers)
-        response.raise_for_status()
-
-        if not response.json():
-            raise ValueError('Unable to determine revision hash for {}. '
-                             'Perhaps it has not been ingested by '
-                             'Treeherder?'.format(self.revision))
-
-        return response.json()['results'][0]['revision_hash']
+        return resultsets[0]['revision_hash']
 
     def submit(self, job):
         """Submit the job to treeherder.
@@ -167,13 +146,10 @@ class Submission(object):
         job_collection.add(job)
 
         logger.info('Sending results to Treeherder: {}'.format(job_collection.to_json()))
-        url = urlparse(self.url)
-        client = TreeherderClient(protocol=url.scheme, host=url.hostname,
-                                  client_id=self.client_id, secret=self.secret)
-        client.post_collection(self.repository, job_collection)
+        self.client.post_collection(self.repository, job_collection)
 
         logger.info('Results are available to view at: {}'.format(
-                    urljoin(self.url,
+                    urljoin('{0}://{1}'.format(self.client.protocol, self.client.host),
                             JOB_FRAGMENT.format(repository=self.repository,
                                                 revision=self.revision))))
 
@@ -330,7 +306,6 @@ if __name__ == '__main__':
 
     # Can only be imported after the environment has been activated
     import mozinfo
-    import requests
 
     from s3 import S3Bucket
     from thclient import TreeherderClient, TreeherderJob, TreeherderJobCollection
