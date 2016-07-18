@@ -88,7 +88,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
       </selector>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u submission.py --test-type=update --build-state=running --repository=mozilla-aurora --revision=$REVISION --locale=$LOCALE --update-channel=$CHANNEL --update-number=$UPDATE_NUMBER treeherder_venv</commandLine>
+      <commandLine>python -u submission.py --test-type=update --build-state=running --repository=mozilla-aurora --revision=$REVISION --locale=$LOCALE --update-channel=$CHANNEL --update-number=$UPDATE_NUMBER</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
@@ -107,7 +107,7 @@ NSPR_LOG_FILE=http.log</propertiesContent>
     <org.jenkinsci.plugins.postbuildscript.PostBuildScript plugin="postbuildscript@0.17">
       <buildSteps>
         <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-          <commandLine>python -u submission.py --test-type=update --build-state=completed --repository=mozilla-aurora --revision=$REVISION --locale=$LOCALE --update-channel=$CHANNEL --update-number=$UPDATE_NUMBER treeherder_venv</commandLine>
+          <commandLine>python -u submission.py --test-type=update --build-state=completed --repository=mozilla-aurora --revision=$REVISION --locale=$LOCALE --update-channel=$CHANNEL --update-number=$UPDATE_NUMBER</commandLine>
           <executeFromWorkingDir>false</executeFromWorkingDir>
         </hudson.plugins.xshell.XShellBuilder>
       </buildSteps>

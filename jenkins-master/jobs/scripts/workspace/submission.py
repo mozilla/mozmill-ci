@@ -5,14 +5,18 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import argparse
+import copy
 import json
 import logging
 import os
 import socket
 import sys
 import time
-from urlparse import urljoin, urlparse
 import uuid
+
+from urlparse import urljoin, urlparse
+
+import environment
 
 from buildbot import BuildExitCode
 from config import config
@@ -21,6 +25,21 @@ from jenkins import JenkinsDefaultValueAction
 
 here = os.path.dirname(os.path.abspath(__file__))
 
+# Activate the environment, and create if necessary
+venv_path = 'treeherder_venv'
+if environment.exists(venv_path):
+    environment.activate(venv_path)
+else:
+    environment.create(venv_path, os.path.join(here, 'requirements.txt'))
+
+# Can only be imported after the environment has been activated
+import mozinfo
+
+from redo import retriable
+from s3 import S3Bucket
+from thclient import TreeherderClient, TreeherderJob, TreeherderJobCollection
+
+
 JOB_FRAGMENT = '/#/jobs?repo={repository}&revision={revision}'
 
 BUILD_STATES = ['running', 'completed']
@@ -28,6 +47,7 @@ BUILD_STATES = ['running', 'completed']
 logging.basicConfig(format='%(asctime)s %(levelname)s | %(message)s', datefmt='%H:%M:%S')
 logger = logging.getLogger('mozmill-ci')
 logger.setLevel(logging.INFO)
+logging.getLogger('redo').setLevel(logging.INFO)
 
 
 class Submission(object):
@@ -123,6 +143,7 @@ class Submission(object):
 
         return job
 
+    @retriable(sleeptime=30, jitter=0)
     def retrieve_revision_hash(self):
         """Retrieves the unique hash for the current revision."""
         resultsets = self.client.get_resultsets(project=self.repository,
@@ -130,6 +151,7 @@ class Submission(object):
 
         return resultsets[0]['revision_hash']
 
+    @retriable(sleeptime=30, jitter=0)
     def submit(self, job):
         """Submit the job to treeherder.
 
@@ -138,9 +160,10 @@ class Submission(object):
         """
         job.add_submit_timestamp(int(time.time()))
 
-        # We can only submit job info once, so it has to be done in completed
         if self._job_details:
-            job.add_artifact('Job Info', 'json', {'job_details': self._job_details})
+            job.add_artifact('Job Info', 'json',
+                             {'job_details': copy.deepcopy(self._job_details)})
+            self._job_details = []
 
         job_collection = TreeherderJobCollection()
         job_collection.add(job)
@@ -257,8 +280,6 @@ def parse_args():
                         choices=BUILD_STATES,
                         required=True,
                         help='The state of the build')
-    parser.add_argument('venv_path',
-                        help='Path to the virtual environment to use.')
 
     aws_group = parser.add_argument_group('AWS', 'Arguments for Amazon S3')
     aws_group.add_argument('--aws-bucket',
@@ -296,19 +317,6 @@ def parse_args():
 if __name__ == '__main__':
     logger.info('Run as: {}'.format(sys.argv))
     kwargs = parse_args()
-
-    # Activate the environment, and create if necessary
-    import environment
-    if environment.exists(kwargs['venv_path']):
-        environment.activate(kwargs['venv_path'])
-    else:
-        environment.create(kwargs['venv_path'], os.path.join(here, 'requirements.txt'))
-
-    # Can only be imported after the environment has been activated
-    import mozinfo
-
-    from s3 import S3Bucket
-    from thclient import TreeherderClient, TreeherderJob, TreeherderJobCollection
 
     settings = config['test_types'][kwargs['test_type']]
     th = Submission(kwargs['repository'], kwargs['revision'][:12],

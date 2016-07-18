@@ -70,7 +70,7 @@
       </selector>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u submission.py --test-type=functional --build-state=running --repository=mozilla-beta --revision=$REVISION --locale=$LOCALE treeherder_venv</commandLine>
+      <commandLine>python -u submission.py --test-type=functional --build-state=running --repository=mozilla-beta --revision=$REVISION --locale=$LOCALE</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
@@ -89,7 +89,7 @@
     <org.jenkinsci.plugins.postbuildscript.PostBuildScript plugin="postbuildscript@0.17">
       <buildSteps>
         <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-          <commandLine>python -u submission.py --test-type=functional --build-state=completed --repository=mozilla-beta --revision=$REVISION --locale=$LOCALE treeherder_venv</commandLine>
+          <commandLine>python -u submission.py --test-type=functional --build-state=completed --repository=mozilla-beta --revision=$REVISION --locale=$LOCALE</commandLine>
           <executeFromWorkingDir>false</executeFromWorkingDir>
         </hudson.plugins.xshell.XShellBuilder>
       </buildSteps>
