@@ -31,6 +31,11 @@
           <defaultValue></defaultValue>
         </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
         <hudson.model.StringParameterDefinition>
+          <name>REPOSITORY</name>
+          <description>The repository of Firefox.</description>
+          <defaultValue>mozilla-central</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
           <name>REVISION</name>
           <description>The revision of Firefox which is used for the report to Treeherder.</description>
           <defaultValue>None</defaultValue>
@@ -70,11 +75,11 @@
       </selector>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u submission.py --test-type=functional --build-state=running --repository=mozilla-central --revision=$REVISION --locale=$LOCALE</commandLine>
+      <commandLine>python -u submission.py --test-type=functional --build-state=running --repository=$REPOSITORY --revision=$REVISION --locale=$LOCALE</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
     <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-      <commandLine>python -u runtests.py --test-type=functional --repository=mozilla-central --revision=$REVISION --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL</commandLine>
+      <commandLine>python -u runtests.py --test-type=functional --repository=$REPOSITORY --revision=$REVISION --installer-url=$INSTALLER_URL --test-packages-url=$TEST_PACKAGES_URL</commandLine>
       <executeFromWorkingDir>false</executeFromWorkingDir>
     </hudson.plugins.xshell.XShellBuilder>
   </builders>
@@ -89,7 +94,7 @@
     <org.jenkinsci.plugins.postbuildscript.PostBuildScript plugin="postbuildscript@0.17">
       <buildSteps>
         <hudson.plugins.xshell.XShellBuilder plugin="xshell@0.9-SNAPSHOT">
-          <commandLine>python -u submission.py --test-type=functional --build-state=completed --repository=mozilla-central --revision=$REVISION --locale=$LOCALE</commandLine>
+          <commandLine>python -u submission.py --test-type=functional --build-state=completed --repository=$REPOSITORY --revision=$REVISION --locale=$LOCALE</commandLine>
           <executeFromWorkingDir>false</executeFromWorkingDir>
         </hudson.plugins.xshell.XShellBuilder>
       </buildSteps>
