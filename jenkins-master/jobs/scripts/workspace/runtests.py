@@ -78,10 +78,12 @@ class BaseRunner(object):
         # to add the `releases/` prefix for each repository except mozilla-central.
         revision = self.revision
 
-        if self.repository == 'mozilla-central':
+        if self.repository in ('mozilla-central', 'mozilla-unified', 'try'):
             repository = self.repository
-        else:
+        elif self.repository.startswith('mozilla-'):
             repository = 'releases/{}'.format(self.repository)
+        else:
+            repository = 'integration/{}'.format(self.repository)
 
         command = [
             'python', 'archiver_client.py',
