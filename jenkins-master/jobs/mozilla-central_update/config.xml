@@ -38,7 +38,7 @@
         <hudson.model.StringParameterDefinition>
           <name>REPOSITORY</name>
           <description>The repository of Firefox.</description>
-          <defaultValue>$REPOSITORY</defaultValue>
+          <defaultValue>mozilla-central</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>REVISION</name>
