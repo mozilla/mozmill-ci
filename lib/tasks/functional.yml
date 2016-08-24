@@ -12,7 +12,7 @@ tags:
   createdForUser: mozauto@mozilla.com
 
 provisionerId: 'aws-provisioner-v1'
-workerType: 'qa-3-linux-fx-tests'
+workerType: 'desktop-test-large'
 
 scopes:
   - 'docker-worker:cache:level-3-{{ branch }}-test-workspace'
