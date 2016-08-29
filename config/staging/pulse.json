@@ -336,7 +336,6 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
-                        "mac && 10.6 && 64bit",
                         "mac && 10.9 && 64bit",
                         "mac && 10.10 && 64bit",
                         "mac && 10.11 && 64bit"
