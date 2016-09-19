@@ -232,7 +232,7 @@
                         "linux && ubuntu && 14.04 && 32bit"
                     ],
                     "linux64": [
-                        "taskcluster"
+                        "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
                         "mac && 10.9 && 64bit",
