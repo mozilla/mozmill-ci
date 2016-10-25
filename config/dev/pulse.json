@@ -216,11 +216,6 @@
         }
     },
     "jenkins": {
-        "url": "http://localhost:8080",
-        "auth": {
-            "username": "mozilla",
-            "password": "test1234"
-        },
         "jobs": {
             "mozilla-central": {
                 "testruns": [

@@ -30,10 +30,10 @@ def main():
                       dest='log_level',
                       default='INFO',
                       help='Logging level, default: %default')
-    parser.add_option('--pulse-authfile',
-                      dest='pulse_authfile',
-                      default='.pulse_config.ini',
-                      help='Path to the authentiation file for Pulse Guardian')
+    parser.add_option('--authfile',
+                      dest='authfile',
+                      default='.authentication.ini',
+                      help='Path to the authentiation file for Pulse Guardian and Jenkins')
     parser.add_option('--push-message',
                       dest='message',
                       help='Log file of a Pulse message to process for Jenkins')
@@ -73,10 +73,8 @@ def main():
 
     from lib.automation import FirefoxAutomation
 
-
-
     FirefoxAutomation(configfile=args[0],
-                      pulse_authfile=options.pulse_authfile,
+                      authfile=options.authfile,
                       treeherder_configfile=TREEHERDER_CONFIG_FILE,
                       debug=options.debug,
                       log_folder=options.log_folder,

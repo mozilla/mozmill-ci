@@ -29,7 +29,7 @@ import lib.treeherder as treeherder
 
 class FirefoxAutomation:
 
-    def __init__(self, configfile, pulse_authfile, treeherder_configfile, debug,
+    def __init__(self, configfile, authfile, treeherder_configfile, debug,
                  log_folder, logger, message=None, display_only=False):
 
         self.config = JSONFile(configfile).read()
@@ -40,13 +40,14 @@ class FirefoxAutomation:
         self.message = message
         self.treeherder_config = {}
 
-        self.jenkins = jenkins.Jenkins(self.config['jenkins']['url'],
-                                       self.config['jenkins']['auth']['username'],
-                                       self.config['jenkins']['auth']['password'])
+        self.load_authentication_config(authfile)
+
+        self.jenkins = jenkins.Jenkins(self.authentication['jenkins']['url'],
+                                       self.authentication['jenkins']['user'],
+                                       self.authentication['jenkins']['password'])
 
         # Setup Pulse listeners
-        self.load_pulse_config(pulse_authfile)
-        queue_name = 'queue/{user}/{host}/{type}'.format(user=self.pulse_auth['user'],
+        queue_name = 'queue/{user}/{host}/{type}'.format(user=self.authentication['pulse']['user'],
                                                          host=socket.getfqdn(),
                                                          type=self.config['pulse']['applabel'])
 
@@ -91,8 +92,8 @@ class FirefoxAutomation:
 
             return
 
-        with lib.PulseConnection(userid=self.pulse_auth['user'],
-                                 password=self.pulse_auth['password']) as connection:
+        with lib.PulseConnection(userid=self.authentication['pulse']['user'],
+                                 password=self.authentication['pulse']['password']) as connection:
             consumer = lib.PulseConsumer(connection)
 
             try:
@@ -104,19 +105,21 @@ class FirefoxAutomation:
             except KeyboardInterrupt:
                 self.logger.info('Shutting down Pulse listener')
 
-    def load_pulse_config(self, pulse_authfile):
-        if not os.path.exists(pulse_authfile):
-            raise IOError('Config file for Mozilla Pulse not found: {}'.
-                          format(os.path.abspath(pulse_authfile)))
+    def load_authentication_config(self, authfile):
+        if not os.path.exists(authfile):
+            raise IOError('Config file for authentications not found: {}'.
+                          format(os.path.abspath(authfile)))
 
-        pulse_cfgfile = ConfigParser.ConfigParser()
-        pulse_cfgfile.read(pulse_authfile)
+        config = ConfigParser.ConfigParser()
+        config.read(authfile)
 
         auth = {}
-        for key, value in pulse_cfgfile.items('pulse'):
-            auth.update({key: value})
+        for section in config.sections():
+            auth.setdefault(section, {})
+            for key, value in config.items(section):
+                auth[section].update({key: value})
 
-        self.pulse_auth = auth
+        self.authentication = auth
 
     def generate_job_parameters(self, testrun, node, **pulse_properties):
         ci_system = node if node == 'taskcluster' else 'jenkins'
@@ -455,11 +458,10 @@ class FirefoxAutomation:
 
                         self.jenkins.build_job(job, parameters)
 
-                    except Exception:
+                    except Exception as exc:
                         # For now simply discard and continue.
                         # Later we might want to implement a queuing mechanism.
-                        self.logger.exception('Cannot create job at "{}"'.
-                                              format(self.config['jenkins']['url']))
+                        self.logger.exception('Cannot create job: "{}"'.format(exc.message))
 
             # Give Jenkins a bit of breath to process other threads
             time.sleep(2.5)

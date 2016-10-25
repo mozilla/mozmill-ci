@@ -1,8 +1,60 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 80c7c40..be92a49 100644
+index 80c7c40..f74488d 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -17,16 +17,708 @@
+@@ -5,28 +5,758 @@
+   <numExecutors>1</numExecutors>
+   <mode>NORMAL</mode>
+   <useSecurity>true</useSecurity>
+-  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+-  <securityRealm class="hudson.security.SecurityRealm$None"/>
++  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
++    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:mozauto</permission>
++    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:mozauto</permission>
++    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:mozauto</permission>
++    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:mozauto</permission>
++    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:mozauto</permission>
++    <permission>hudson.model.Computer.Build:mozauto</permission>
++    <permission>hudson.model.Computer.Configure:mozauto</permission>
++    <permission>hudson.model.Computer.Connect:mozauto</permission>
++    <permission>hudson.model.Computer.Create:mozauto</permission>
++    <permission>hudson.model.Computer.Delete:mozauto</permission>
++    <permission>hudson.model.Computer.Disconnect:mozauto</permission>
++    <permission>hudson.model.Hudson.Administer:mozauto</permission>
++    <permission>hudson.model.Hudson.ConfigureUpdateCenter:mozauto</permission>
++    <permission>hudson.model.Hudson.Read:anonymous</permission>
++    <permission>hudson.model.Hudson.Read:mozauto</permission>
++    <permission>hudson.model.Hudson.RunScripts:mozauto</permission>
++    <permission>hudson.model.Hudson.UploadPlugins:mozauto</permission>
++    <permission>hudson.model.Item.Build:mozauto</permission>
++    <permission>hudson.model.Item.Cancel:mozauto</permission>
++    <permission>hudson.model.Item.Configure:mozauto</permission>
++    <permission>hudson.model.Item.Create:mozauto</permission>
++    <permission>hudson.model.Item.Delete:mozauto</permission>
++    <permission>hudson.model.Item.Discover:mozauto</permission>
++    <permission>hudson.model.Item.Read:anonymous</permission>
++    <permission>hudson.model.Item.Read:mozauto</permission>
++    <permission>hudson.model.Item.Workspace:mozauto</permission>
++    <permission>hudson.model.Run.Delete:mozauto</permission>
++    <permission>hudson.model.Run.Update:mozauto</permission>
++    <permission>hudson.model.View.Configure:mozauto</permission>
++    <permission>hudson.model.View.Create:mozauto</permission>
++    <permission>hudson.model.View.Delete:mozauto</permission>
++    <permission>hudson.model.View.Read:anonymous</permission>
++    <permission>hudson.model.View.Read:mozauto</permission>
++    <permission>hudson.scm.SCM.Tag:mozauto</permission>
++  </authorizationStrategy>  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
++    <disableSignup>false</disableSignup>
++    <enableCaptcha>false</enableCaptcha>
++  </securityRealm>
+   <disableRememberMe>false</disableRememberMe>
+   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
++  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+   <jdks/>
+   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
    <clouds/>
    <slaves>
      <slave>
@@ -21,7 +73,7 @@ index 80c7c40..be92a49 100644
 -      <userId>anonymous</userId>
 +      <label>mac 10.6 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -37,7 +89,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.6 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -53,7 +105,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.6 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -69,7 +121,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.6 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -85,7 +137,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.10 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -101,7 +153,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.10 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -117,7 +169,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.10 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -133,7 +185,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.10 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -149,7 +201,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.11 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -165,7 +217,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.11 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -181,7 +233,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.11 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -197,7 +249,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.11 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -213,7 +265,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -229,7 +281,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -245,7 +297,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -261,7 +313,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>mac 10.9 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -277,7 +329,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -293,7 +345,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -309,7 +361,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -325,7 +377,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -341,7 +393,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -357,7 +409,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -373,7 +425,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -389,7 +441,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 14.04 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -405,7 +457,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -421,7 +473,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -437,7 +489,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -453,7 +505,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows xp 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -469,7 +521,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -485,7 +537,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -501,7 +553,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -517,7 +569,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -533,7 +585,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -549,7 +601,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -565,7 +617,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -581,7 +633,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 7 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -597,7 +649,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -613,7 +665,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -629,7 +681,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -645,7 +697,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 32bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -661,7 +713,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -677,7 +729,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit endurance</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -693,7 +745,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -709,7 +761,7 @@ index 80c7c40..be92a49 100644
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>windows 8.1 64bit</label>
 +      <nodeProperties>
-+        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++        <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +          <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +          <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +        </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -717,13 +769,13 @@ index 80c7c40..be92a49 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -111,7 +803,12 @@
+@@ -111,7 +841,12 @@
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
    <label>master</label>
 -  <nodeProperties/>
 +  <nodeProperties>
-+    <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.5">
++    <org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty plugin="mail-watcher-plugin@1.8">
 +      <onlineAddresses>mozmill-ci@mozilla.org</onlineAddresses>
 +      <offlineAddresses>mozmill-ci@mozilla.org</offlineAddresses>
 +    </org.jenkinsci.plugins.mailwatcher.WatcherNodeProperty>
@@ -731,7 +783,7 @@ index 80c7c40..be92a49 100644
    <globalNodeProperties>
      <hudson.slaves.EnvironmentVariablesNodeProperty>
        <envVars serialization="custom">
-@@ -122,7 +819,7 @@
+@@ -122,7 +857,7 @@
            </default>
            <int>4</int>
            <string>NOTIFICATION_ADDRESS</string>
@@ -753,7 +805,7 @@ index 2cec9ac..bfe0e1f 100644
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
 diff --git a/jenkins-master/jobs/mozilla-aurora_functional/config.xml b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-index 1b20237..c8b7536 100644
+index 4e526d3..4937c04 100644
 --- a/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -768,7 +820,7 @@ index 1b20237..c8b7536 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index d637608..1bb3ecd 100644
+index f4d0e43..a0cfcdc 100644
 --- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
 @@ -3,8 +3,8 @@
@@ -783,7 +835,7 @@ index d637608..1bb3ecd 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_functional/config.xml b/jenkins-master/jobs/mozilla-central_functional/config.xml
-index 1fc375d..0d0f2d5 100644
+index 1e9de62..1795088 100644
 --- a/jenkins-master/jobs/mozilla-central_functional/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -798,7 +850,7 @@ index 1fc375d..0d0f2d5 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_update/config.xml b/jenkins-master/jobs/mozilla-central_update/config.xml
-index ef509ad..f43d3d2 100644
+index a9e5b77..21045f3 100644
 --- a/jenkins-master/jobs/mozilla-central_update/config.xml
 +++ b/jenkins-master/jobs/mozilla-central_update/config.xml
 @@ -3,8 +3,8 @@
@@ -813,7 +865,7 @@ index ef509ad..f43d3d2 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/ondemand_update/config.xml b/jenkins-master/jobs/ondemand_update/config.xml
-index 468e430..18f414e 100644
+index 286386a..71d60b2 100644
 --- a/jenkins-master/jobs/ondemand_update/config.xml
 +++ b/jenkins-master/jobs/ondemand_update/config.xml
 @@ -3,8 +3,8 @@
@@ -828,7 +880,7 @@ index 468e430..18f414e 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
-index 7a725a0..e154b20 100644
+index 07ad130..5da6788 100644
 --- a/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-beta_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -843,7 +895,7 @@ index 7a725a0..e154b20 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
-index 6b05abb..368d4c2 100644
+index f1f46d9..160b8ce 100644
 --- a/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
 @@ -3,8 +3,8 @@
@@ -858,7 +910,7 @@ index 6b05abb..368d4c2 100644
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-release_functional/config.xml b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
-index be76f89..33ffc56 100644
+index a1a9a35..e743028 100644
 --- a/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 +++ b/jenkins-master/jobs/release-mozilla-release_functional/config.xml
 @@ -3,8 +3,8 @@

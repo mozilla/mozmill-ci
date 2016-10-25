@@ -48,8 +48,8 @@ echo -e "To submit test results to treeherder please add all necessary"
 echo -e "credentials to .jenkins.properties and restart Jenkins\n"
 echo -e "##################################################################\n"
 
-if [ ! -f ".pulse_config.ini" ]; then
-  cp config/pulse_config.ini ./.pulse_config.ini
+if [ ! -f ".authentication.ini" ]; then
+  cp config/authentication.ini ./.authentication.ini
 fi
 
 if [ ! -f ".jenkins.properties" ]; then
