@@ -2,6 +2,8 @@
 
 import ConfigParser
 import copy
+import logging
+import os
 import re
 import sys
 import time
@@ -12,6 +14,10 @@ import requests
 from mozdownload import FactoryScraper
 from mozdownload import errors as download_errors
 from thclient import TreeherderClient
+
+
+logging.basicConfig(format='%(levelname)s | %(message)s', level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def query_file_url(properties, property_overrides=None):
@@ -38,11 +44,14 @@ def query_file_url(properties, property_overrides=None):
         # Arguments for candidate builds
         'build_number': properties.get('build_number'),
         'version': properties.get('version'),
+
+        'logger': logger,
     }
 
     # Update arguments with given overrides
     kwargs.update(property_overrides)
 
+    logger.debug('Query file details for: %s' % kwargs)
     return FactoryScraper(kwargs['build_type'], **kwargs).url
 
 
@@ -160,9 +169,9 @@ def get_target_build_details(properties, platform):
         'locale': 'en-US',
         'extension': 'json',
     }
+    logger.info('Retrieving target build details for Firefox {} build {} on {}...'.format(
+        props['version'], props['build_number'], props['platform']))
     url = query_file_url(properties, property_overrides=overrides)
-    print('Retrieving target build details for Firefox {} build {} on {}...'.format(
-          props['version'], props['build_number'], props['platform']))
     r = requests.get(url)
 
     # Update revision to retrieve the test package URL
@@ -174,17 +183,44 @@ def get_target_build_details(properties, platform):
         'test_packages_url': get_test_packages_url(props)
     }
 
-    print('Target build details: {}'.format(details))
+    logger.info('Target build details: {}'.format(details))
 
     return details
 
 
+def load_authentication_config():
+    root_dir = os.path.abspath(__file__)
+    for p in range(0, 5):
+        root_dir = os.path.dirname(root_dir)
+    authfile = os.path.join(root_dir, '.authentication.ini')
+
+    if not os.path.exists(authfile):
+        raise IOError('Config file for authentications not found: {}'.
+                      format(os.path.abspath(authfile)))
+
+    config = ConfigParser.ConfigParser()
+    config.read(authfile)
+
+    auth = {}
+    for section in config.sections():
+        auth.setdefault(section, {})
+        for key, value in config.items(section):
+            auth[section].update({key: value})
+
+    return auth
+
+
 def main():
-    j = jenkins.Jenkins('http://localhost:8080')
+    auth = load_authentication_config()
+    logger.info('Connecting to Jenkins at "%s"...' % auth['jenkins']['url'])
+    j = jenkins.Jenkins(auth['jenkins']['url'],
+                        username=auth['jenkins']['user'],
+                        password=auth['jenkins']['password'])
+    logger.info('Connected to Jenkins.')
 
     if not len(sys.argv) == 2:
-        print 'Configuration file not specified.'
-        print 'Usage: %s config' % sys.argv[0]
+        logger.error('Configuration file not specified.')
+        logger.error('Usage: %s config' % sys.argv[0])
         sys.exit(1)
 
     # Read-in configuration options
@@ -245,14 +281,15 @@ def main():
                         testrun.get('allow-mar-channel', None)
                     parameters['UPDATE_NUMBER'] = build_details['version']
 
-                print 'Triggering job: ondemand_%s with %s' % (testrun['script'], parameters)
+                logger.info('Triggering job: ondemand_%s with %s' % (testrun['script'],
+                                                                     parameters))
                 j.build_job('ondemand_%s' % testrun['script'], parameters)
                 job_count += 1
 
             # Give Jenkins a bit of breath to process other threads
             time.sleep(2.5)
 
-    print "%d jobs have been triggered." % job_count
+    logger.info('%d jobs have been triggered.' % job_count)
 
 if __name__ == "__main__":
     main()
