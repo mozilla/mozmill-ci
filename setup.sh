@@ -29,7 +29,7 @@ if [ ! -n "${VIRTUAL_ENV:+1}" ]; then
 fi
 
 echo "Installing required dependencies"
-pip install -r ${DIR_BASE}/requirements.txt
+pip install --no-deps -r ${DIR_BASE}/requirements.txt
 
 echo -e "Deactivating the environment\n"
 deactivate
