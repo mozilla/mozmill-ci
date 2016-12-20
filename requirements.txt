@@ -9,16 +9,10 @@ taskcluster==0.3.4
 treeherder-client==2.1.0
 PyYAML==3.11
 
-# https://github.com/mozilla/mozmill-ci/issues/628 (and 831)
+# https://github.com/mozilla/mozmill-ci/issues/628
 # As long as Python 2.7.10 cannot be used on our master machines
-cffi==1.9.1
-cryptography==1.5.2
-enum34==1.1.6
-idna==2.1
-ipaddress==1.0.17
 ndg-httpsclient==0.4.2
 pyasn1==0.1.9
-pycparser==2.17
 pyopenssl==16.2.0
 
 # Required by thclient and taskcluster
