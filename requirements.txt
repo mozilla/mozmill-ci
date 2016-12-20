@@ -4,16 +4,16 @@ mozdownload==1.20.2
 mozprocess==0.22
 python-jenkins==0.4.8
 redo==1.5
-requests[security]==2.9.1
+requests==2.9.1
 taskcluster==0.3.4
 treeherder-client==2.1.0
 PyYAML==3.11
 
 # https://github.com/mozilla/mozmill-ci/issues/628
 # As long as Python 2.7.10 cannot be used on our master machines
-ndg-httpsclient==0.4.2
-pyasn1==0.1.9
-pyopenssl==16.2.0
+ndg-httpsclient
+pyasn1
+pyopenssl
 
 # Required by thclient and taskcluster
 mohawk==0.3.2.1

@@ -6,14 +6,8 @@ treeherder-client==2.0.1
 # Required by mozinfo
 mozfile==1.2
 
-# https://github.com/mozilla/mozmill-ci/issues/628 (and 831)
-# As long as Python 2.7.10 cannot be used on our master machines
-ndg-httpsclient==0.4.2
-pyasn1==0.1.9
-pyopenssl==16.2.0
-
 # Required by treeherder-client
 mohawk==0.3.0
-requests[security]==2.9.1
+requests==2.9.1
 requests-hawk==1.0.0
 six==1.10.0
