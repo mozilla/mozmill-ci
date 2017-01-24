@@ -288,7 +288,6 @@
                         "mac && 10.11 && 64bit"
                     ],
                     "win32": [
-                        "windows && xp && 32bit",
                         "windows && 7 && 32bit",
                         "windows && 7 && 64bit",
                         "windows && 8.1 && 32bit",
