@@ -176,6 +176,43 @@
                     }
                 }
             },
+            "release-mozilla-esr52": {
+                "blacklist": {
+                    "locales": [
+                    ]
+                },
+                "locales": [
+                ],
+                "platforms": [
+                    "linux",
+                    "linux64",
+                    "macosx",
+                    "macosx64",
+                    "win32",
+                    "win64"
+                ],
+                "products": [
+                    "firefox"
+                ],
+                "tags": [
+                ],
+                "jenkins_parameter_map": {
+                    "default": {
+                        "INSTALLER_URL": {
+                            "key": "build_url"
+                        },
+                        "LOCALE": {
+                            "key": "locale"
+                        },
+                        "REVISION": {
+                            "key": "revision"
+                        },
+                        "TEST_PACKAGES_URL": {
+                            "key": "test_packages_url"
+                        }
+                    }
+                }
+            },
             "release-mozilla-esr45": {
                 "blacklist": {
                     "locales": [
@@ -316,6 +353,36 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
+                        "mac && 10.9 && 64bit",
+                        "mac && 10.10 && 64bit",
+                        "mac && 10.11 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && xp && 32bit",
+                        "windows && 7 && 32bit",
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 32bit",
+                        "windows && 8.1 && 64bit"
+                    ],
+                    "win64": [
+                        "windows && 7 && 64bit",
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "release-mozilla-esr52": {
+                "testruns": [
+                    "functional"
+                ],
+                "nodes": {
+                    "linux": [
+                        "linux && ubuntu && 14.04 && 32bit"
+                    ],
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.6 && 64bit",
                         "mac && 10.9 && 64bit",
                         "mac && 10.10 && 64bit",
                         "mac && 10.11 && 64bit"
