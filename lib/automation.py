@@ -264,7 +264,7 @@ class FirefoxAutomation:
                                  properties['tree']))
                 revision = properties['revision'][:12]
 
-                client = TreeherderClient(host='treeherder.mozilla.org', protocol='https')
+                client = TreeherderClient(server_url='https://treeherder.mozilla.org')
                 resultsets = client.get_resultsets(properties['branch'],
                                                    tochange=revision,
                                                    count=50)

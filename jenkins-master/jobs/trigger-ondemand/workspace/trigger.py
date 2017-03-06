@@ -84,7 +84,7 @@ def get_test_packages_url(properties):
 
     revision = properties['revision'][:12]
 
-    client = TreeherderClient(host='treeherder.mozilla.org', protocol='https')
+    client = TreeherderClient()
     resultsets = client.get_resultsets(properties['branch'],
                                        tochange=revision,
                                        count=50)

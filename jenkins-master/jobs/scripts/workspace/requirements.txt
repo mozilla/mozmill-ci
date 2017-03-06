@@ -1,7 +1,7 @@
 boto==2.38.0
 mozinfo==0.8
 redo==1.5
-treeherder-client==2.0.1
+treeherder-client==3.0.0
 
 # Required by mozinfo
 mozfile==1.2

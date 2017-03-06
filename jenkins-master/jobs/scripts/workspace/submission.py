@@ -14,7 +14,7 @@ import sys
 import time
 import uuid
 
-from urlparse import urljoin, urlparse
+from urlparse import urljoin
 
 import environment
 
@@ -71,8 +71,7 @@ class Submission(object):
 
         self._job_details = []
 
-        url = urlparse(treeherder_url)
-        self.client = TreeherderClient(protocol=url.scheme, host=url.hostname,
+        self.client = TreeherderClient(server_url=treeherder_url,
                                        client_id=treeherder_client_id,
                                        secret=treeherder_secret)
 

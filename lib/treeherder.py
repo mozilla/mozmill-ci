@@ -6,14 +6,14 @@
 from thclient import TreeherderClient
 
 
-def get_revision_hash(host, project, revision):
+def get_revision_hash(server_url, project, revision):
     """Retrieve the Treeherder's revision hash for a given revision.
 
-    :param host: URL of the Treeherder instance.
+    :param server_url: URL of the Treeherder instance.
     :param project: The project (branch) to use.
     :param revision: The revision to get the hash for.
     """
-    client = TreeherderClient(host=host, protocol='https')
+    client = TreeherderClient(server_url=server_url)
     resultsets = client.get_resultsets(project, revision=revision)
 
     return resultsets[0]['revision_hash']
