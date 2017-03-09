@@ -116,7 +116,7 @@ class Submission(object):
             job.add_product_name('firefox')
 
             job.add_project(self.repository)
-            job.add_revision_hash(self.retrieve_revision_hash())
+            job.add_revision(self.revision)
 
             # Add platform and build information
             job.add_machine(socket.getfqdn())
@@ -141,14 +141,6 @@ class Submission(object):
             job.add_end_timestamp(0)
 
         return job
-
-    @retriable(sleeptime=30, jitter=0)
-    def retrieve_revision_hash(self):
-        """Retrieves the unique hash for the current revision."""
-        resultsets = self.client.get_resultsets(project=self.repository,
-                                                revision=self.revision)
-
-        return resultsets[0]['revision_hash']
 
     @retriable(sleeptime=30, jitter=0)
     def submit(self, job):
