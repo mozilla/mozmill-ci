@@ -82,7 +82,7 @@ def get_test_packages_url(properties):
         'win64': {'build_os': 'win', 'build_architecture': 'x86_64'},
     }
 
-    revision = properties['revision'][:12]
+    revision = properties['revision']
 
     client = TreeherderClient()
     resultsets = client.get_resultsets(properties['branch'],
@@ -175,7 +175,7 @@ def get_target_build_details(properties, platform):
     r = requests.get(url)
 
     # Update revision to retrieve the test package URL
-    props.update({'revision': r.json()['moz_source_stamp'][:12]})
+    props.update({'revision': r.json()['moz_source_stamp']})
 
     details = {
         'build_id': r.json()['buildid'],

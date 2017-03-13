@@ -310,7 +310,7 @@ if __name__ == '__main__':
     kwargs = parse_args()
 
     settings = config['test_types'][kwargs['test_type']]
-    th = Submission(kwargs['repository'], kwargs['revision'][:12],
+    th = Submission(kwargs['repository'], kwargs['revision'],
                     treeherder_url=kwargs['treeherder_url'],
                     treeherder_client_id=kwargs['treeherder_client_id'],
                     treeherder_secret=kwargs['treeherder_secret'],

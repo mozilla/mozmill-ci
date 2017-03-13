@@ -262,7 +262,7 @@ class FirefoxAutomation:
 
                 self.logger.info('Querying tinderbox revision for {} build...'.format(
                                  properties['tree']))
-                revision = properties['revision'][:12]
+                revision = properties['revision']
 
                 client = TreeherderClient(server_url='https://treeherder.mozilla.org')
                 resultsets = client.get_resultsets(properties['branch'],
