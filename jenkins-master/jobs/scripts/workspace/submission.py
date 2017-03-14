@@ -163,7 +163,7 @@ class Submission(object):
         self.client.post_collection(self.repository, job_collection)
 
         logger.info('Results are available to view at: {}'.format(
-                    urljoin('{0}://{1}'.format(self.client.protocol, self.client.host),
+                    urljoin(self.client.server_url,
                             JOB_FRAGMENT.format(repository=self.repository,
                                                 revision=self.revision))))
 
