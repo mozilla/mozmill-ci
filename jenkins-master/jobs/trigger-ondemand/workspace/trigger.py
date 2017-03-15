@@ -171,7 +171,7 @@ def get_target_build_details(properties, platform):
     }
     logger.info('Retrieving target build details for Firefox {} build {} on {}...'.format(
         props['version'], props['build_number'], props['platform']))
-    url = query_file_url(properties, property_overrides=overrides)
+    url = query_file_url(props, property_overrides=overrides)
     r = requests.get(url)
 
     # Update revision to retrieve the test package URL
