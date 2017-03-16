@@ -273,7 +273,7 @@ class FunsizeTaskCompletedQueue(PulseQueue):
             return body
 
         # Download the manifest from S3 for full processing
-        queue = taskcluster.client.Queue()
+        queue = taskcluster.Queue()
         manifest = queue.getLatestArtifact(body['status']['taskId'],
                                            'public/env/manifest.json')
         self.logger.debug('Received update manifest: {}'.format(manifest))
@@ -358,7 +358,7 @@ class ReleaseTaskCompletedQueue(PulseQueue):
             return body
 
         # Retrieve build properties to be used as the manifest
-        queue = taskcluster.client.Queue()
+        queue = taskcluster.Queue()
         task_definition = queue.task(body['status']['taskId'])
 
         manifest = task_definition.get('extra', {}).get('build_props')
