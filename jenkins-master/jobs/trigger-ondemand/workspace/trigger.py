@@ -10,6 +10,7 @@ import time
 
 import jenkins
 import requests
+import taskcluster
 
 from mozdownload import FactoryScraper
 from mozdownload import errors as download_errors
@@ -18,6 +19,13 @@ from thclient import TreeherderClient
 
 logging.basicConfig(format='%(levelname)s | %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+# Limit logging of dependent packages to warnings only
+logging.getLogger("hawk").setLevel(logging.WARN)
+logging.getLogger('redo').setLevel(logging.WARN)
+logging.getLogger('requests').setLevel(logging.WARN)
+logging.getLogger("taskcluster").setLevel(logging.WARN)
+logging.getLogger('thclient').setLevel(logging.WARN)
 
 
 def query_file_url(properties, property_overrides=None):
@@ -60,7 +68,23 @@ def get_installer_url(properties):
     return query_file_url(properties)
 
 
-def get_test_packages_url(properties):
+def query_taskcluster_for_test_packages_url(properties):
+    """Return the URL of the test packages JSON file."""
+    queue = taskcluster.Queue()
+
+    route = "gecko.v2.{branch}.nightly.revision.{revision}.firefox.{platform}-opt"
+    task_id = taskcluster.Index().findTask(route.format(**properties))['taskId']
+    artifacts = queue.listLatestArtifacts(task_id)["artifacts"]
+
+    for artifact in artifacts:
+        if artifact['name'].endswith("test_packages.json"):
+            return queue.buildUrl('getLatestArtifact', task_id, artifact["name"])
+            break
+
+    return None
+
+
+def query_treeherder_for_test_packages_url(properties):
     """Return the URL of the test packages JSON file.
 
     In case of localized daily builds we can query the en-US build to get
@@ -180,8 +204,18 @@ def get_target_build_details(properties, platform):
     details = {
         'build_id': r.json()['buildid'],
         'revision': props['revision'],
-        'test_packages_url': get_test_packages_url(props)
     }
+
+    # First try to retrieve the build details from Taskcluster. If it cannot be found
+    # fallback to querying Treeherder.
+    try:
+        details.update({'test_packages_url': query_taskcluster_for_test_packages_url(props)})
+
+    except taskcluster.exceptions.TaskclusterFailure as exc:
+        msg = "Could not find builds's 'test_packages.json' via TaskCluster: {}"
+        logger.warning(msg.format(exc.message))
+
+        details.update({'test_packages_url': query_treeherder_for_test_packages_url(props)})
 
     logger.info('Target build details: {}'.format(details))
 
