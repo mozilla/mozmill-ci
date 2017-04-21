@@ -12,6 +12,7 @@ import urlparse
 
 import jenkins
 import requests
+import taskcluster
 
 from mozdownload import FactoryScraper
 from mozdownload import errors as download_errors
@@ -232,7 +233,22 @@ class FirefoxAutomation:
 
         return platform_map.get(platform, platform)
 
-    def get_test_packages_url(self, properties):
+    def query_taskcluster_for_test_packages_url(self, properties):
+        """Return the URL of the test packages JSON file."""
+        queue = taskcluster.Queue()
+
+        route = "gecko.v2.{branch}.nightly.revision.{revision}.firefox.{platform}-opt"
+        task_id = taskcluster.Index().findTask(route.format(**properties))['taskId']
+        artifacts = queue.listLatestArtifacts(task_id)["artifacts"]
+
+        for artifact in artifacts:
+            if artifact['name'].endswith("test_packages.json"):
+                return queue.buildUrl('getLatestArtifact', task_id, artifact["name"])
+                break
+
+        return None
+
+    def query_treeherder_for_test_packages_url(self, properties):
         """Return the URL of the test packages JSON file.
 
         In case of localized daily builds we can query the en-US build to get
@@ -388,7 +404,20 @@ class FirefoxAutomation:
 
         # Get some properties now so it hasn't to be done for each individual platform version
         pulse_properties['build_url'] = self.get_installer_url(pulse_properties)
-        pulse_properties['test_packages_url'] = self.get_test_packages_url(pulse_properties)
+
+        # First try to retrieve the build details from Taskcluster. If it cannot be found
+        # fallback to querying Treeherder.
+        try:
+            pulse_properties['test_packages_url'] = self.query_taskcluster_for_test_packages_url(
+                pulse_properties)
+
+        except taskcluster.exceptions.TaskclusterFailure as exc:
+            msg = "Could not find builds's 'test_packages.json' via TaskCluster: {}"
+            self.logger.warning(msg.format(exc.message))
+
+            pulse_properties['test_packages_url'] = self.query_treeherder_for_test_packages_url(
+                pulse_properties)
+
         pulse_properties['mozharness_url'] = self.get_mozharness_url(
             pulse_properties['test_packages_url'])
 
