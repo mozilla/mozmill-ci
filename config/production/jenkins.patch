@@ -894,21 +894,6 @@ index 07ad130..5da6788 100644
      <artifactDaysToKeep>-1</artifactDaysToKeep>
      <artifactNumToKeep>-1</artifactNumToKeep>
    </logRotator>
-diff --git a/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
-index 1d6c2e1..0edbcf9 100644
---- a/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
-+++ b/jenkins-master/jobs/release-mozilla-esr45_functional/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute functional tests for Firefox 45.0ESR release builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>2000</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/release-mozilla-esr52_functional/config.xml b/jenkins-master/jobs/release-mozilla-esr52_functional/config.xml
 index 54570db..93fc537 100644
 --- a/jenkins-master/jobs/release-mozilla-esr52_functional/config.xml
