@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index b0caf1f..7f483ef 100644
+index 80c7c40..0ce8ea2 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,14 +17,38 @@
@@ -29,7 +29,7 @@ index b0caf1f..7f483ef 100644
 +      <mode>NORMAL</mode>
 +      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
-+      <label>mac 10.6 10.9 10.10 10.11 64bit</label>
++      <label>mac 10.9 10.10 10.11 64bit</label>
 +      <nodeProperties/>
 +      <userId>anonymous</userId>
 +    </slave>
