@@ -65,6 +65,7 @@ class BaseRunner(object):
         args = [
             '--cfg', self.settings['harness_config'],
             '--installer-url', self.installer_url,
+            '--e10s',
         ]
 
         if self.test_packages_url:
