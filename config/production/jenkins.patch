@@ -740,36 +740,6 @@ index 2cec9ac..bfe0e1f 100644
 +  <jenkinsUrl>http://mm-ci-production.qa.scl3.mozilla.com:8080/</jenkinsUrl>
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
-diff --git a/jenkins-master/jobs/mozilla-aurora_functional/config.xml b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-index 4e526d3..4937c04 100644
---- a/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-+++ b/jenkins-master/jobs/mozilla-aurora_functional/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute functional tests for Firefox Developer Edition builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>200</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
-diff --git a/jenkins-master/jobs/mozilla-aurora_update/config.xml b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-index f4d0e43..a0cfcdc 100644
---- a/jenkins-master/jobs/mozilla-aurora_update/config.xml
-+++ b/jenkins-master/jobs/mozilla-aurora_update/config.xml
-@@ -3,8 +3,8 @@
-   <actions/>
-   <description>Execute update tests for Firefox Developer Edition builds.</description>
-   <logRotator class="hudson.tasks.LogRotator">
--    <daysToKeep>-1</daysToKeep>
--    <numToKeep>10</numToKeep>
-+    <daysToKeep>3</daysToKeep>
-+    <numToKeep>400</numToKeep>
-     <artifactDaysToKeep>-1</artifactDaysToKeep>
-     <artifactNumToKeep>-1</artifactNumToKeep>
-   </logRotator>
 diff --git a/jenkins-master/jobs/mozilla-central_functional/config.xml b/jenkins-master/jobs/mozilla-central_functional/config.xml
 index 1e9de62..1795088 100644
 --- a/jenkins-master/jobs/mozilla-central_functional/config.xml

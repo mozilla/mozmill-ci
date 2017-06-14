@@ -444,9 +444,6 @@ class FirefoxAutomation:
                             'treeherder_instance': self.treeherder_config['TREEHERDER_INSTANCE'],
                         })
 
-                        # This includes a hard-coded channel name for now. Finally it has to be set
-                        # via a web interface once we run tc tasks for mozilla-aurora, due to the
-                        # 'auroratest' channel usage after branch merges.
                         extra_params = self.generate_job_parameters(testrun, node,
                                                                     **pulse_properties)
                         pulse_properties.update(extra_params)
